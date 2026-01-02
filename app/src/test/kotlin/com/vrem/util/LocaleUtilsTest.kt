@@ -69,8 +69,10 @@ class LocaleUtilsTest {
 
     @Test
     fun toLanguageTagWithKnownCode() {
-        assertThat(toLanguageTag(Locale.US)).isEqualTo(Locale.US.language + "_" + Locale.US.country)
-        assertThat(toLanguageTag(Locale.ENGLISH)).isEqualTo(Locale.ENGLISH.language + "_")
+        assertThat(toLanguageTag(Locale.US)).isEqualTo("en-US")
+        assertThat(toLanguageTag(ENGLISH)).isEqualTo("en")
+        assertThat(toLanguageTag(CHINESE_SIMPLIFIED)).isEqualTo("zh-Hans")
+        assertThat(toLanguageTag(CHINESE_TRADITIONAL)).isEqualTo("zh-Hant")
     }
 
     @Test
@@ -83,9 +85,23 @@ class LocaleUtilsTest {
 
     @Test
     fun findByLanguageTagWithKnownTag() {
-        assertThat(findByLanguageTag(toLanguageTag(Locale.SIMPLIFIED_CHINESE))).isEqualTo(Locale.SIMPLIFIED_CHINESE)
-        assertThat(findByLanguageTag(toLanguageTag(Locale.TRADITIONAL_CHINESE))).isEqualTo(Locale.TRADITIONAL_CHINESE)
-        assertThat(findByLanguageTag(toLanguageTag(Locale.ENGLISH))).isEqualTo(Locale.ENGLISH)
+        // BCP-47 format (new)
+        assertThat(findByLanguageTag("en")).isEqualTo(ENGLISH)
+        assertThat(findByLanguageTag("en-US")).isEqualTo(ENGLISH)
+        assertThat(findByLanguageTag("zh")).isEqualTo(CHINESE)
+        assertThat(findByLanguageTag("zh-CN")).isEqualTo(CHINESE_SIMPLIFIED)
+        assertThat(findByLanguageTag("zh-Hans")).isEqualTo(CHINESE_SIMPLIFIED)
+        assertThat(findByLanguageTag("zh-Hant")).isEqualTo(CHINESE_TRADITIONAL)
+        assertThat(findByLanguageTag("zh-TW")).isEqualTo(CHINESE_TRADITIONAL)
+        assertThat(findByLanguageTag("zh-XX")).isEqualTo(CHINESE)
+
+        // Backward compatibility: underscore format (old)
+        assertThat(findByLanguageTag("en_US")).isEqualTo(ENGLISH)
+        assertThat(findByLanguageTag("zh_CN")).isEqualTo(CHINESE_SIMPLIFIED)
+        assertThat(findByLanguageTag("zh_Hans")).isEqualTo(CHINESE_SIMPLIFIED)
+        assertThat(findByLanguageTag("zh_Hant")).isEqualTo(CHINESE_TRADITIONAL)
+        assertThat(findByLanguageTag("zh_TW")).isEqualTo(CHINESE_TRADITIONAL)
+        assertThat(findByLanguageTag("zh_XX")).isEqualTo(CHINESE)
     }
 
     @Test
@@ -94,21 +110,21 @@ class LocaleUtilsTest {
         val expected: Set<Locale> =
             setOf(
                 BULGARIAN,
+                CHINESE_SIMPLIFIED,
+                CHINESE_TRADITIONAL,
                 DUTCH,
+                ENGLISH,
+                FRENCH,
+                GERMAN,
                 GREEK,
                 HUNGARIAN,
-                Locale.SIMPLIFIED_CHINESE,
-                Locale.TRADITIONAL_CHINESE,
-                Locale.ENGLISH,
-                Locale.FRENCH,
-                Locale.GERMAN,
-                Locale.ITALIAN,
-                Locale.JAPANESE,
+                ITALIAN,
+                JAPANESE,
                 POLISH,
                 PORTUGUESE_BRAZIL,
                 PORTUGUESE_PORTUGAL,
-                SPANISH,
                 RUSSIAN,
+                SPANISH,
                 TURKISH,
                 UKRAINIAN,
                 Locale.getDefault(),
@@ -123,12 +139,12 @@ class LocaleUtilsTest {
     }
 
     @Test
-    fun currentDefaultCountryCode() {
-        assertThat(defaultCountryCode()).isEqualTo(Locale.getDefault().country)
+    fun currentCountryCodeReturnsDefault() {
+        assertThat(currentCountryCode()).isEqualTo(Locale.getDefault().country)
     }
 
     @Test
-    fun currentDefaultLanguageTag() {
-        assertThat(defaultLanguageTag()).isEqualTo(toLanguageTag(Locale.getDefault()))
+    fun currentLanguageTagReturnsDefault() {
+        assertThat(currentLanguageTag()).isEqualTo(toLanguageTag(Locale.getDefault()))
     }
 }

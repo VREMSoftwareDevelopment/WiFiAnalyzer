@@ -17,7 +17,6 @@
  */
 package com.vrem.wifianalyzer
 
-import android.content.Context
 import android.content.SharedPreferences
 import android.content.SharedPreferences.OnSharedPreferenceChangeListener
 import android.content.res.Configuration
@@ -26,18 +25,17 @@ import android.view.Menu
 import android.view.MenuItem
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.app.AppCompatDelegate
+import androidx.core.os.LocaleListCompat
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
 import com.google.android.material.navigation.NavigationView
 import com.vrem.annotation.OpenClass
-import com.vrem.util.createContext
 import com.vrem.wifianalyzer.navigation.NavigationMenu
 import com.vrem.wifianalyzer.navigation.NavigationMenuControl
 import com.vrem.wifianalyzer.navigation.NavigationMenuController
 import com.vrem.wifianalyzer.navigation.options.OptionMenu
-import com.vrem.wifianalyzer.settings.Repository
-import com.vrem.wifianalyzer.settings.Settings
 import com.vrem.wifianalyzer.wifi.accesspoint.ConnectionView
 import com.vrem.wifianalyzer.wifi.scanner.ScannerService
 
@@ -52,15 +50,13 @@ class MainActivity :
     internal lateinit var optionMenu: OptionMenu
     internal lateinit var connectionView: ConnectionView
 
-    override fun attachBaseContext(newBase: Context) =
-        super.attachBaseContext(newBase.createContext(Settings(Repository(newBase)).languageLocale()))
-
     override fun onCreate(savedInstanceState: Bundle?) {
         val mainContext = MainContext.INSTANCE
         mainContext.initialize(this, largeScreen)
 
         val settings = mainContext.settings
         settings.initializeDefaultValues()
+        settings.syncLanguage()
         setTheme(settings.themeStyle().themeNoActionBar)
 
         mainReload = MainReload(settings)
@@ -120,6 +116,18 @@ class MainActivity :
         sharedPreferences: SharedPreferences,
         key: String?,
     ) {
+        val languageKey = getString(R.string.language_key)
+        if (key == languageKey) {
+            val languageTag = sharedPreferences.getString(languageKey, "")
+            val locales =
+                languageTag
+                    ?.takeIf { it.isNotEmpty() }
+                    ?.let(LocaleListCompat::forLanguageTags)
+                    ?: LocaleListCompat.getEmptyLocaleList()
+
+            AppCompatDelegate.setApplicationLocales(locales)
+        }
+
         val mainContext = MainContext.INSTANCE
         if (mainReload.shouldReload(mainContext.settings)) {
             MainContext.INSTANCE.scannerService.stop()

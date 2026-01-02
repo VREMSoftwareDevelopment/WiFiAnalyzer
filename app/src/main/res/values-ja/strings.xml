@@ -103,4 +103,5 @@
     <string name="wifi_off_on_exit_title">"閉じる時 Wi-Fi をオフにする"</string>
     <string name="wifi_throttling_off">"Wi-Fi スキャンのスロットリングが無効になっています"</string>
     <string name="wifi_throttling_on">"Wi-Fi スキャンのスロットルが有効になっています"</string>
+    <string name="system_default">システムのデフォルト</string>
 </resources>

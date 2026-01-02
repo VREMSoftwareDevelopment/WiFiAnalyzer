@@ -102,5 +102,6 @@
     <string name="wifi_off_on_exit_title">"Wi‑Fi kikapcsolása kilépéskor"</string>
     <string name="wifi_throttling_off">"A Wi‑Fi szkennelés korlátozása tiltva"</string>
     <string name="wifi_throttling_on">"A Wi‑Fi szkennelés korlátozása engedélyezve"</string>
+    <string name="system_default">Rendszerbeállítás</string>
 </resources>
 

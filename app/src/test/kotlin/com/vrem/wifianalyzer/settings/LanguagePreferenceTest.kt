@@ -19,9 +19,8 @@ package com.vrem.wifianalyzer.settings
 
 import android.os.Build
 import androidx.test.ext.junit.runners.AndroidJUnit4
-import com.vrem.util.supportedLanguages
-import com.vrem.util.toCapitalize
-import com.vrem.util.toLanguageTag
+import com.vrem.util.supportedLanguageTags
+import com.vrem.util.titlecaseFirst
 import com.vrem.wifianalyzer.R
 import com.vrem.wifianalyzer.RobolectricUtil
 import org.assertj.core.api.Assertions.assertThat
@@ -35,7 +34,7 @@ import java.util.Locale
 @Config(sdk = [Build.VERSION_CODES.BAKLAVA])
 class LanguagePreferenceTest {
     private val mainActivity = RobolectricUtil.INSTANCE.activity
-    private val languages = supportedLanguages()
+    private val languageTags = supportedLanguageTags()
     private val attributeSet = Robolectric.getAttributeSetFromXml(R.xml.test_attrs)
     private val fixture = LanguagePreference(mainActivity, attributeSet)
 
@@ -44,9 +43,16 @@ class LanguagePreferenceTest {
         // execute
         val actual: Array<CharSequence> = fixture.entries
         // validate
-        assertThat(actual).hasSize(languages.size)
-        languages.forEach {
-            assertThat(actual).contains(it.getDisplayName(it).toCapitalize(Locale.getDefault()))
+        assertThat(actual).hasSize(languageTags.size)
+
+        // Check system default entry
+        assertThat(actual[0]).isEqualTo(mainActivity.getString(R.string.system_default))
+
+        // Check language entries
+        languageTags.drop(1).forEachIndexed { index, tag ->
+            val locale = Locale.forLanguageTag(tag)
+            val displayName = locale.getDisplayName(locale).titlecaseFirst(locale)
+            assertThat(actual[index + 1]).isEqualTo(displayName)
         }
     }
 
@@ -55,9 +61,7 @@ class LanguagePreferenceTest {
         // execute
         val actual: Array<CharSequence> = fixture.entryValues
         // validate
-        assertThat(actual).hasSize(languages.size)
-        languages.forEach {
-            assertThat(actual).contains(toLanguageTag(it))
-        }
+        assertThat(actual).hasSize(languageTags.size)
+        assertThat(actual).containsExactlyElementsOf(languageTags)
     }
 }

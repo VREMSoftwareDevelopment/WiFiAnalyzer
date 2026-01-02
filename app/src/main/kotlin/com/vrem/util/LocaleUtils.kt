@@ -20,80 +20,100 @@ package com.vrem.util
 import java.util.Locale
 import java.util.SortedMap
 
-private object SyncAvoid {
-    val defaultLocale: Locale = Locale.getDefault()
-    val countryCodes: Set<String> = Locale.getISOCountries().toSet()
-    val availableLocales: List<Locale> = Locale.getAvailableLocales().filter { countryCodes.contains(it.country) }
-
-    val countriesLocales: SortedMap<String, Locale> =
-        availableLocales
-            .associateBy { it.country.toCapitalize(Locale.getDefault()) }
-            .toSortedMap()
-    val supportedLocales: List<Locale> =
-        setOf(
-            BULGARIAN,
-            DUTCH,
-            GREEK,
-            HUNGARIAN,
-            Locale.SIMPLIFIED_CHINESE,
-            Locale.TRADITIONAL_CHINESE,
-            Locale.ENGLISH,
-            Locale.FRENCH,
-            Locale.GERMAN,
-            Locale.ITALIAN,
-            Locale.JAPANESE,
-            POLISH,
-            PORTUGUESE_BRAZIL,
-            PORTUGUESE_PORTUGAL,
-            SPANISH,
-            RUSSIAN,
-            TURKISH,
-            UKRAINIAN,
-            defaultLocale,
-        ).toList()
-}
+private val currentLocale: Locale get() = Locale.getDefault()
+private val countryCodes: Set<String> = Locale.getISOCountries().toSet()
+private val availableLocales: List<Locale> = Locale.getAvailableLocales().filter { countryCodes.contains(it.country) }
+private val countriesLocales: SortedMap<String, Locale> =
+    availableLocales
+        .associateBy { it.country.toCapitalize(currentLocale) }
+        .toSortedMap()
 
 val BULGARIAN: Locale = Locale.forLanguageTag("bg")
+val CHINESE: Locale = Locale.forLanguageTag("zh")
+val CHINESE_SIMPLIFIED: Locale = Locale.forLanguageTag("zh-Hans")
+val CHINESE_TRADITIONAL: Locale = Locale.forLanguageTag("zh-Hant")
 val DUTCH: Locale = Locale.forLanguageTag("nl")
+val ENGLISH: Locale = Locale.forLanguageTag("en")
+val FRENCH: Locale = Locale.forLanguageTag("fr")
+val GERMAN: Locale = Locale.forLanguageTag("de")
 val GREEK: Locale = Locale.forLanguageTag("el")
 val HUNGARIAN: Locale = Locale.forLanguageTag("hu")
+val ITALIAN: Locale = Locale.forLanguageTag("it")
+val JAPANESE: Locale = Locale.forLanguageTag("ja")
 val POLISH: Locale = Locale.forLanguageTag("pl")
-val PORTUGUESE_PORTUGAL: Locale = Locale.forLanguageTag("pt-PT")
 val PORTUGUESE_BRAZIL: Locale = Locale.forLanguageTag("pt-BR")
-val SPANISH: Locale = Locale.forLanguageTag("es")
+val PORTUGUESE_PORTUGAL: Locale = Locale.forLanguageTag("pt-PT")
 val RUSSIAN: Locale = Locale.forLanguageTag("ru")
+val SPANISH: Locale = Locale.forLanguageTag("es")
 val TURKISH: Locale = Locale.forLanguageTag("tr")
 val UKRAINIAN: Locale = Locale.forLanguageTag("uk")
 
-private const val SEPARATOR: String = "_"
+val baseSupportedLocales: List<Locale> =
+    listOf(
+        BULGARIAN,
+        CHINESE_SIMPLIFIED,
+        CHINESE_TRADITIONAL,
+        DUTCH,
+        ENGLISH,
+        FRENCH,
+        GERMAN,
+        GREEK,
+        HUNGARIAN,
+        ITALIAN,
+        JAPANESE,
+        POLISH,
+        PORTUGUESE_BRAZIL,
+        PORTUGUESE_PORTUGAL,
+        RUSSIAN,
+        SPANISH,
+        TURKISH,
+        UKRAINIAN,
+    )
 
 fun findByCountryCode(countryCode: String): Locale =
-    SyncAvoid.availableLocales.firstOrNull { countryCode.toCapitalize(Locale.getDefault()) == it.country }
-        ?: SyncAvoid.defaultLocale
+    availableLocales.firstOrNull { countryCode.uppercase(Locale.ROOT) == it.country }
+        ?: currentLocale
 
-fun allCountries(): List<Locale> = SyncAvoid.countriesLocales.values.toList()
+fun allCountries(): List<Locale> = countriesLocales.values.toList()
+
+fun supportedLanguages(): List<Locale> = (baseSupportedLocales + currentLocale).distinct()
+
+fun supportedLanguageTags(): List<String> = listOf("") + baseSupportedLocales.map { it.toLanguageTag() }
+
+private fun normalizeLanguageTag(languageTag: String): String = languageTag.replace('_', '-').trim()
+
+private val chineseCountryToLocale: Map<String, Locale> =
+    mapOf(
+        "CN" to CHINESE_SIMPLIFIED,
+        "SG" to CHINESE_SIMPLIFIED,
+        "TW" to CHINESE_TRADITIONAL,
+        "HK" to CHINESE_TRADITIONAL,
+        "MO" to CHINESE_TRADITIONAL,
+    )
 
 fun findByLanguageTag(languageTag: String): Locale {
-    val languageTagPredicate: (Locale) -> Boolean = {
-        val locale: Locale = fromLanguageTag(languageTag)
-        it.language == locale.language && it.country == locale.country
+    val normalizedLanguageTag = normalizeLanguageTag(languageTag)
+    if (normalizedLanguageTag.isEmpty()) return currentLocale
+
+    val target = Locale.forLanguageTag(normalizedLanguageTag)
+    if (target.language.isEmpty()) return currentLocale
+
+    if (target.language == "zh" && target.script.isEmpty()) {
+        if (target.country.isEmpty()) return CHINESE
+        return chineseCountryToLocale[target.country] ?: CHINESE
     }
-    return SyncAvoid.supportedLocales.firstOrNull(languageTagPredicate) ?: SyncAvoid.defaultLocale
+
+    return baseSupportedLocales.find { it == target }
+        ?: baseSupportedLocales.find { it.language == target.language && it.script == target.script }
+        ?: baseSupportedLocales.find { it.language == target.language && it.country == target.country }
+        ?: baseSupportedLocales.find { it.language == target.language }
+        ?: currentLocale
 }
 
-fun supportedLanguages(): List<Locale> = SyncAvoid.supportedLocales
+fun currentCountryCode(): String = currentLocale.country
 
-fun defaultCountryCode(): String = SyncAvoid.defaultLocale.country
+fun currentLanguageTag(): String = currentLocale.toLanguageTag()
 
-fun defaultLanguageTag(): String = toLanguageTag(SyncAvoid.defaultLocale)
+fun toLanguageTag(locale: Locale): String = locale.toLanguageTag()
 
-fun toLanguageTag(locale: Locale): String = locale.language + SEPARATOR + locale.country
-
-private fun fromLanguageTag(languageTag: String): Locale {
-    val codes: Array<String> = languageTag.split(SEPARATOR).toTypedArray()
-    return when (codes.size) {
-        1 -> Locale.forLanguageTag(codes[0])
-        2 -> Locale.forLanguageTag("${codes[0]}-${codes[1].toCapitalize(Locale.getDefault())}")
-        else -> SyncAvoid.defaultLocale
-    }
-}
+fun Locale.toSupportedLocaleTag(): String = findByLanguageTag(this.toLanguageTag()).toLanguageTag()

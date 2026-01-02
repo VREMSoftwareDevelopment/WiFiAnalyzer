@@ -20,7 +20,6 @@ package com.vrem.wifianalyzer
 import com.vrem.wifianalyzer.settings.Settings
 import com.vrem.wifianalyzer.settings.ThemeStyle
 import com.vrem.wifianalyzer.wifi.accesspoint.ConnectionViewType
-import java.util.Locale
 
 class MainReload(
     settings: Settings,
@@ -29,11 +28,8 @@ class MainReload(
         private set
     var connectionViewType: ConnectionViewType
         private set
-    var languageLocale: Locale
-        private set
 
-    fun shouldReload(settings: Settings): Boolean =
-        themeChanged(settings) || connectionViewTypeChanged(settings) || languageChanged(settings)
+    fun shouldReload(settings: Settings): Boolean = themeChanged(settings) || connectionViewTypeChanged(settings)
 
     private fun connectionViewTypeChanged(settings: Settings): Boolean {
         val currentConnectionViewType = settings.connectionViewType()
@@ -53,18 +49,8 @@ class MainReload(
         return themeChanged
     }
 
-    private fun languageChanged(settings: Settings): Boolean {
-        val settingLanguageLocale = settings.languageLocale()
-        val languageLocaleChanged = languageLocale != settingLanguageLocale
-        if (languageLocaleChanged) {
-            languageLocale = settingLanguageLocale
-        }
-        return languageLocaleChanged
-    }
-
     init {
         themeStyle = settings.themeStyle()
         connectionViewType = settings.connectionViewType()
-        languageLocale = settings.languageLocale()
     }
 }

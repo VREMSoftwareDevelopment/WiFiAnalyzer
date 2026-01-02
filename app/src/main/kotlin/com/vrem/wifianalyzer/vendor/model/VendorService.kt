@@ -34,10 +34,10 @@ class VendorService(
     fun findVendorName(address: String = String.EMPTY): String = vendorData.macs[address.clean()].orEmpty()
 
     fun findMacAddresses(vendorName: String = String.EMPTY): List<String> =
-        vendorData.vendors[vendorName.uppercase(Locale.getDefault())].orEmpty()
+        vendorData.vendors[vendorName.uppercase(Locale.ROOT)].orEmpty()
 
     fun findVendors(vendorName: String = String.EMPTY): List<String> {
-        val name = vendorName.uppercase(Locale.getDefault())
+        val name = vendorName.uppercase(Locale.ROOT)
         return vendorData.vendors
             .filterKeys { filter(it, name) }
             .keys
