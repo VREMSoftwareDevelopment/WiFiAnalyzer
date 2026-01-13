@@ -189,7 +189,7 @@ class SettingsTest {
         // setup
         doReturn(ThemeStyle.entries.size)
             .whenever(repository)
-            .stringAsInteger(R.string.theme_key, ThemeStyle.SYSTEM.ordinal)
+            .stringAsInteger(R.string.theme_key, ThemeStyle.DARK.ordinal)
         // execute
         val actual = fixture.themeStyle()
         // validate
