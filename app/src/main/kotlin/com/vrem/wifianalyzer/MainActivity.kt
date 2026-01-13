@@ -62,9 +62,11 @@ class MainActivity :
 
         val settings = mainContext.settings
         settings.initializeDefaultValues()
-        val themeStyle = settings.themeStyle()
-        AppCompatDelegate.setDefaultNightMode(themeStyle.nightMode)
-        setTheme(themeStyle.themeNoActionBar)
+
+        settings.themeStyle().apply {
+            AppCompatDelegate.setDefaultNightMode(nightMode)
+            setTheme(themeNoActionBar)
+        }
 
         mainReload = MainReload(settings)
 
