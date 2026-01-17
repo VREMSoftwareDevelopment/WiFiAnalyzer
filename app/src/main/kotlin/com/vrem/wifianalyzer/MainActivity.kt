@@ -26,6 +26,7 @@ import android.view.Menu
 import android.view.MenuItem
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.app.AppCompatDelegate
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
@@ -61,7 +62,11 @@ class MainActivity :
 
         val settings = mainContext.settings
         settings.initializeDefaultValues()
-        setTheme(settings.themeStyle().themeNoActionBar)
+
+        settings.themeStyle().apply {
+            AppCompatDelegate.setDefaultNightMode(nightMode)
+            setTheme(themeNoActionBar)
+        }
 
         mainReload = MainReload(settings)
 

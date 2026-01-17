@@ -20,15 +20,17 @@ package com.vrem.wifianalyzer.settings
 import android.graphics.Color
 import androidx.annotation.ColorInt
 import androidx.annotation.StyleRes
+import androidx.appcompat.app.AppCompatDelegate
 import com.vrem.wifianalyzer.R
 
 enum class ThemeStyle(
     @param:StyleRes val theme: Int,
     @param:StyleRes val themeNoActionBar: Int,
     @param:ColorInt val colorGraphText: Int,
+    val nightMode: Int,
 ) {
-    DARK(R.style.ThemeDark, R.style.ThemeDarkNoActionBar, Color.WHITE),
-    LIGHT(R.style.ThemeLight, R.style.ThemeLightNoActionBar, Color.BLACK),
-    SYSTEM(R.style.ThemeSystem, R.style.ThemeSystemNoActionBar, Color.GRAY),
-    BLACK(R.style.ThemeBlack, R.style.ThemeBlackNoActionBar, Color.WHITE),
+    DARK(R.style.ThemeSystem, R.style.ThemeSystemNoActionBar, Color.WHITE, AppCompatDelegate.MODE_NIGHT_YES),
+    LIGHT(R.style.ThemeSystem, R.style.ThemeSystemNoActionBar, Color.BLACK, AppCompatDelegate.MODE_NIGHT_NO),
+    SYSTEM(R.style.ThemeSystem, R.style.ThemeSystemNoActionBar, Color.GRAY, AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM),
+    BLACK(R.style.ThemeBlack, R.style.ThemeBlackNoActionBar, Color.WHITE, AppCompatDelegate.MODE_NIGHT_YES),
 }

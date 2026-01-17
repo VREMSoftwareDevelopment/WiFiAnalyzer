@@ -18,6 +18,7 @@
 package com.vrem.wifianalyzer.settings
 
 import android.graphics.Color
+import androidx.appcompat.app.AppCompatDelegate
 import com.vrem.wifianalyzer.R
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.Test
@@ -32,16 +33,16 @@ class ThemeStyleTest {
 
     @Test
     fun theme() {
-        assertThat(ThemeStyle.LIGHT.theme).isEqualTo(R.style.ThemeLight)
-        assertThat(ThemeStyle.DARK.theme).isEqualTo(R.style.ThemeDark)
+        assertThat(ThemeStyle.LIGHT.theme).isEqualTo(R.style.ThemeSystem)
+        assertThat(ThemeStyle.DARK.theme).isEqualTo(R.style.ThemeSystem)
         assertThat(ThemeStyle.SYSTEM.theme).isEqualTo(R.style.ThemeSystem)
         assertThat(ThemeStyle.BLACK.theme).isEqualTo(R.style.ThemeBlack)
     }
 
     @Test
     fun themeNoActionBar() {
-        assertThat(ThemeStyle.DARK.themeNoActionBar).isEqualTo(R.style.ThemeDarkNoActionBar)
-        assertThat(ThemeStyle.LIGHT.themeNoActionBar).isEqualTo(R.style.ThemeLightNoActionBar)
+        assertThat(ThemeStyle.DARK.themeNoActionBar).isEqualTo(R.style.ThemeSystemNoActionBar)
+        assertThat(ThemeStyle.LIGHT.themeNoActionBar).isEqualTo(R.style.ThemeSystemNoActionBar)
         assertThat(ThemeStyle.SYSTEM.themeNoActionBar).isEqualTo(R.style.ThemeSystemNoActionBar)
         assertThat(ThemeStyle.BLACK.themeNoActionBar).isEqualTo(R.style.ThemeBlackNoActionBar)
     }
@@ -52,6 +53,14 @@ class ThemeStyleTest {
         assertThat(ThemeStyle.LIGHT.colorGraphText).isEqualTo(Color.BLACK)
         assertThat(ThemeStyle.SYSTEM.colorGraphText).isEqualTo(Color.GRAY)
         assertThat(ThemeStyle.BLACK.colorGraphText).isEqualTo(Color.WHITE)
+    }
+
+    @Test
+    fun nightMode() {
+        assertThat(ThemeStyle.DARK.nightMode).isEqualTo(AppCompatDelegate.MODE_NIGHT_YES)
+        assertThat(ThemeStyle.LIGHT.nightMode).isEqualTo(AppCompatDelegate.MODE_NIGHT_NO)
+        assertThat(ThemeStyle.SYSTEM.nightMode).isEqualTo(AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM)
+        assertThat(ThemeStyle.BLACK.nightMode).isEqualTo(AppCompatDelegate.MODE_NIGHT_YES)
     }
 
     @Test
