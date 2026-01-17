@@ -44,7 +44,7 @@ class DrawerNavigationTest {
     @Before
     fun setUp() {
         doReturn(actionBarDrawerToggle).whenever(fixture).createDrawerToggle(drawerLayout)
-        whenever<Any>(mainActivity.findViewById(R.id.drawer_layout)).thenReturn(drawerLayout)
+        doReturn(drawerLayout).whenever(mainActivity).findViewById<View>(R.id.drawer_layout)
         fixture.create()
     }
 

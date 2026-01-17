@@ -4,8 +4,6 @@ on:
     workflows: ["Android CI"]
     types:
       - completed
-    branches:
-      - main
   workflow_dispatch: {}
 
 jobs:
