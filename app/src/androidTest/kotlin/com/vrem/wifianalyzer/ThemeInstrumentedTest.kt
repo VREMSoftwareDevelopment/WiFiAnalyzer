@@ -19,7 +19,6 @@ package com.vrem.wifianalyzer
 
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.test.espresso.Espresso.onView
-import androidx.test.espresso.Espresso.pressBack
 import androidx.test.espresso.action.ViewActions.click
 import androidx.test.espresso.assertion.ViewAssertions.matches
 import androidx.test.espresso.matcher.ViewMatchers.isDisplayed
