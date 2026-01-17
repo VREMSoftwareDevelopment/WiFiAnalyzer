@@ -61,7 +61,7 @@ class MainActivity :
 
         val settings = mainContext.settings
         settings.initializeDefaultValues()
-        setTheme(settings.themeStyle().themeNoActionBar)
+        settings.themeStyle().setTheme(this)
 
         mainReload = MainReload(settings)
 
