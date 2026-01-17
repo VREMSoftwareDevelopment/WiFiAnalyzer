@@ -30,10 +30,9 @@ jobs:
 
           echo "Files variable content: [${FILES}]"
 
-          # If no xml files changed, close the PR with a comment and exit cleanly.
+          # If no xml files changed, do nothing and exit cleanly.
           if [ -z "$FILES" ]; then
-            echo "No XML files changed. Closing PR."
-            gh pr close ${{ github.event.pull_request.number }} --comment "Closed: No meaningful translation content in XML files." || true
+            echo "No XML files changed. Skipping translation check."
             exit 0
           fi
 

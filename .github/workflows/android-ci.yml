@@ -92,7 +92,7 @@ jobs:
 
   emulator-test:
     runs-on: ubuntu-latest
-    needs: [ktlint, lint, test, coverage]
+    needs: [build-apk]
     strategy:
       fail-fast: false
       matrix:
