@@ -31,17 +31,18 @@ import org.mockito.kotlin.verify
 class ThemeStyleParameterizedTest(
     private val themeStyle: ThemeStyle,
     private val expectedTheme: Int,
-    private val expectedNightMode: Int
+    private val expectedNightMode: Int,
 ) {
     companion object {
         @JvmStatic
         @Parameterized.Parameters(name = "{0}")
-        fun data(): Collection<Array<Any>> = listOf(
-            arrayOf(ThemeStyle.DARK, R.style.ThemeSystemNoActionBar, AppCompatDelegate.MODE_NIGHT_YES),
-            arrayOf(ThemeStyle.LIGHT, R.style.ThemeSystemNoActionBar, AppCompatDelegate.MODE_NIGHT_NO),
-            arrayOf(ThemeStyle.SYSTEM, R.style.ThemeSystemNoActionBar, AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM),
-            arrayOf(ThemeStyle.BLACK, R.style.ThemeBlackNoActionBar, AppCompatDelegate.MODE_NIGHT_YES)
-        )
+        fun data(): Collection<Array<Any>> =
+            listOf(
+                arrayOf(ThemeStyle.DARK, R.style.ThemeSystemNoActionBar, AppCompatDelegate.MODE_NIGHT_YES),
+                arrayOf(ThemeStyle.LIGHT, R.style.ThemeSystemNoActionBar, AppCompatDelegate.MODE_NIGHT_NO),
+                arrayOf(ThemeStyle.SYSTEM, R.style.ThemeSystemNoActionBar, AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM),
+                arrayOf(ThemeStyle.BLACK, R.style.ThemeBlackNoActionBar, AppCompatDelegate.MODE_NIGHT_YES),
+            )
     }
 
     @Test

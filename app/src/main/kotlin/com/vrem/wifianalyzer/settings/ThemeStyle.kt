@@ -32,11 +32,11 @@ enum class ThemeStyle(
     DARK(Color.WHITE, R.style.ThemeSystemNoActionBar, AppCompatDelegate.MODE_NIGHT_YES),
     LIGHT(Color.BLACK, R.style.ThemeSystemNoActionBar, AppCompatDelegate.MODE_NIGHT_NO),
     SYSTEM(Color.GRAY, R.style.ThemeSystemNoActionBar, AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM),
-    BLACK(Color.WHITE, R.style.ThemeBlackNoActionBar, AppCompatDelegate.MODE_NIGHT_YES);
+    BLACK(Color.WHITE, R.style.ThemeBlackNoActionBar, AppCompatDelegate.MODE_NIGHT_YES),
+    ;
 
     fun setTheme(activity: AppCompatActivity) {
         activity.setTheme(theme)
         AppCompatDelegate.setDefaultNightMode(nightMode)
     }
-
 }
