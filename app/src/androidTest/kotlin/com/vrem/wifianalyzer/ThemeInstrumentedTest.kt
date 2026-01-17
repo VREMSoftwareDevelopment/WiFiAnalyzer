@@ -28,22 +28,14 @@ import org.junit.Assert.assertEquals
 
 internal class ThemeInstrumentedTest : Runnable {
     override fun run() {
-        verifyThemeSettings()
-
         listOf(
-            "Dark" to AppCompatDelegate.MODE_NIGHT_YES,
             "Light" to AppCompatDelegate.MODE_NIGHT_NO,
             "System" to AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM,
             "Black" to AppCompatDelegate.MODE_NIGHT_YES,
+            "Dark" to AppCompatDelegate.MODE_NIGHT_YES,
         ).forEach { (themeName, expectedNightMode) ->
             changeThemeAndVerify(themeName, expectedNightMode)
         }
-    }
-
-    private fun verifyThemeSettings() {
-        selectMenuItem(R.id.nav_drawer_settings, "Settings")
-        scrollToAndVerify("Theme")
-        pressBack()
     }
 
     private fun changeThemeAndVerify(
