@@ -4,6 +4,7 @@
 
 - [Basic Navigation](#basic-navigation)
 - [Basic Operations](#basic-operations)
+- [Filtering](#filtering)
 - [Settings and Customization](#settings-and-customization)
   - [Advanced Settings](#advanced-settings)
 - [Interpreting Wi-Fi Data](#interpreting-wi-fi-data)
