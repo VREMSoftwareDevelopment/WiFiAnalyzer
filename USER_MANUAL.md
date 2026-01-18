@@ -35,8 +35,24 @@
 *   **Channel Graph:** Switch to the channel graph to see how access points are distributed across different Wi-Fi channels.
 *   **Time Graph:** Select an access point and switch to the time graph to monitor its signal strength over time.
 *   **Pause/Resume Scanning:** Use the pause and resume buttons to control the live scanning of Wi-Fi networks.
-*   **Filtering:** Use the filter options to narrow down the list of networks based on criteria like Wi-Fi band, signal strength, or security type.
 *   **Export Access Point Details:** You can export the details of the scanned access points for offline analysis. This option is usually found in the application's menu.
+
+## Filtering
+
+The filter dialog lets you focus on Wi-Fi networks that matter most to you by combining multiple filters.
+
+**Available filter options:**
+
+- **SSID:** Filter networks by their name (SSID). Enter all or part of a network name to show only matching networks.
+- **WiFi Band:** Select which Wi-Fi bands to display (2.4 GHz, 5 GHz, 6 GHz). This option is available in the Access Points view.
+- **Signal Strength:** Show only networks within a specific signal strength range.
+- **Security Type:** Filter networks by their security protocol (e.g. WPA2, WPA3, etc).
+
+**Filter dialog actions:**
+
+- **Apply:** Apply the selected filters to update the network list.
+- **Reset:** Clear all filters and return to the default view.
+- **Close:** Close the filter dialog without making changes.
 
 ## Settings and Customization
 
@@ -44,6 +60,7 @@ WiFiAnalyzer offers several options to customize your experience. These are typi
 
 *   **Themes:** Choose between Dark, Light, and System themes to match your preference.
 *   **Access Point View:** You can switch between a complete view with all details for each access point, or a compact view that shows only the most essential information.
+*   **Connection View:** Select the layout for displaying connection details (detailed or compact view).
 
 ### Advanced Settings
 
@@ -83,9 +100,11 @@ The channel graph visualizes the Wi-Fi channels and the access points on them.
 
 *   **X-axis:** Wi-Fi channels.
 *   **Y-axis:** Signal strength (dBm).
-*   **Each shape:** Represents an access point's signal. The width of the shape shows the channel width (e.g., 20, 40, or 80 MHz) it's using.
+*   **Each shape:** Represents an access point's signal. The width of the shape shows the channel width (20, 40, 80, 160 or 320 MHz) it's using.
 
 An ideal Wi-Fi setup has your access point on a channel with little to no overlap from other networks. Look for channels that are less crowded to improve your Wi-Fi performance.
+
+**Note:** On 5/6 GHz bands, pinch to zoom (in/out) and swipe (left/right) to scroll the channel graph’s X-axis.
 
 ### Time Graph
 
