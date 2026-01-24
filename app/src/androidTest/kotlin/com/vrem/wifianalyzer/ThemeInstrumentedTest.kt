@@ -20,10 +20,15 @@ package com.vrem.wifianalyzer
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.test.espresso.Espresso.onView
 import androidx.test.espresso.action.ViewActions.click
+import androidx.test.espresso.assertion.ViewAssertions.doesNotExist
 import androidx.test.espresso.assertion.ViewAssertions.matches
 import androidx.test.espresso.matcher.ViewMatchers.isDisplayed
 import androidx.test.espresso.matcher.ViewMatchers.withText
-import org.junit.Assert.assertEquals
+import org.assertj.core.api.Assertions.assertThat
+
+private const val SETTINGS = "Settings"
+
+private const val THEME = "Theme"
 
 internal class ThemeInstrumentedTest : Runnable {
     override fun run() {
@@ -41,17 +46,41 @@ internal class ThemeInstrumentedTest : Runnable {
         themeName: String,
         expectedNightMode: Int,
     ) {
-        selectMenuItem(R.id.nav_drawer_settings, "Settings")
-        scrollToAndVerify("Theme")
-        onView(withText("Theme")).perform(click())
+        navigateToTheme()
+        verifyThemeNotSelected(themeName)
+        selectTheme(themeName)
         pauseShort()
+        navigateToTheme()
+        verifyThemeSelected(themeName)
+        verifyNightMode(themeName, expectedNightMode)
+    }
+
+    private fun verifyThemeNotSelected(themeName: String) {
+        onView(withText(themeName)).check(doesNotExist())
+    }
+
+    private fun selectTheme(themeName: String) {
+        onView(withText(THEME)).perform(click())
         onView(withText(themeName)).check(matches(isDisplayed()))
         onView(withText(themeName)).perform(click())
-        pauseShort()
-        assertEquals(
-            "Theme $themeName should set night mode to $expectedNightMode",
-            expectedNightMode,
-            AppCompatDelegate.getDefaultNightMode(),
-        )
+    }
+
+    private fun verifyThemeSelected(themeName: String) {
+        onView(withText(themeName)).check(matches(isDisplayed()))
+    }
+
+    private fun verifyNightMode(
+        themeName: String,
+        expectedNightMode: Int,
+    ) {
+        assertThat(AppCompatDelegate.getDefaultNightMode())
+            .withFailMessage("Theme %s should set night mode to %s", themeName, expectedNightMode)
+            .isEqualTo(expectedNightMode)
+    }
+
+    private fun navigateToTheme() {
+        selectMenuItem(R.id.nav_drawer_settings, SETTINGS)
+        scrollToAndVerify(THEME)
+        onView(withText(THEME)).check(matches(isDisplayed()))
     }
 }
