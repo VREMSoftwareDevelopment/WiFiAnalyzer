@@ -54,7 +54,7 @@
     <string name="app_copyright">"Авторські права \u00A9 2015 \u002D "</string>
     <string name="channel_graph_legend_title">"Показати легенду графіка каналу"</string>
     <string name="channel_rating_best">"Кращі канали:"</string>
-    <string name="channel_rating_best_alternative">"%s, спробуйте альтернативний діапазон Wi-Fi %s"</string>
+    <string name="channel_rating_best_alternative">"%1$s, спробуйте альтернативний діапазон Wi-Fi %2$s"</string>
     <string name="channel_rating_best_none">"Немає"</string>
     <string name="channel_rating_heading_count">"Число точок доступу"</string>
     <string name="channel_rating_heading_number">"Номер каналу"</string>

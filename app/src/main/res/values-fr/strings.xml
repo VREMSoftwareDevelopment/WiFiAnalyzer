@@ -42,7 +42,7 @@
     <string name="app_copyright">"Tous droits réservés \u00A9 2015 \u002D "</string>
     <string name="channel_graph_legend_title">"Légende pour le graphique des canaux"</string>
     <string name="channel_rating_best">"Meilleurs canaux:"</string>
-    <string name="channel_rating_best_alternative">"%s, essayez une autre fréquence %s"</string>
+    <string name="channel_rating_best_alternative">"%1$s, essayez une autre fréquence %2$s"</string>
     <string name="channel_rating_best_none">"Aucun"</string>
     <string name="channel_rating_heading_count">"Nombre de points d'accès"</string>
     <string name="channel_rating_heading_number">"Numéro de canal"</string>
