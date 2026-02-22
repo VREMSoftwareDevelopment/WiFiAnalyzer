@@ -17,7 +17,6 @@
  */
 package com.vrem.wifianalyzer
 
-
 const val SIZE_MIN = 1024
 const val SIZE_MAX = 4096
 
