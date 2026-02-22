@@ -21,10 +21,8 @@ import android.app.Activity
 import android.location.LocationManager
 import android.os.Build
 import androidx.annotation.RequiresApi
-import com.vrem.annotation.OpenClass
 import com.vrem.util.buildMinVersionP
 
-@OpenClass
 class LocationPermission(
     private val activity: Activity,
 ) {

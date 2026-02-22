@@ -17,13 +17,11 @@
  */
 package com.vrem.wifianalyzer.wifi.scanner
 
-import com.vrem.annotation.OpenClass
 import com.vrem.wifianalyzer.permission.PermissionService
 import com.vrem.wifianalyzer.settings.Settings
 import com.vrem.wifianalyzer.wifi.manager.WiFiManagerWrapper
 import com.vrem.wifianalyzer.wifi.model.WiFiData
 
-@OpenClass
 internal class Scanner(
     val wiFiManagerWrapper: WiFiManagerWrapper,
     val settings: Settings,

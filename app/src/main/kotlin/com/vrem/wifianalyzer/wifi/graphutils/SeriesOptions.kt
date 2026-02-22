@@ -20,7 +20,6 @@ package com.vrem.wifianalyzer.wifi.graphutils
 import com.jjoe64.graphview.series.BaseSeries
 import com.jjoe64.graphview.series.LineGraphSeries
 import com.jjoe64.graphview.series.TitleLineGraphSeries
-import com.vrem.annotation.OpenClass
 
 private fun BaseSeries<GraphDataPoint>.removeSeriesColor(graphColors: GraphColors) =
     graphColors.addColor(this.color.toLong())
@@ -55,7 +54,6 @@ private fun BaseSeries<GraphDataPoint>.drawBackground(drawBackground: Boolean) {
     }
 }
 
-@OpenClass
 class SeriesOptions(
     private val graphColors: GraphColors = GraphColors(),
 ) {

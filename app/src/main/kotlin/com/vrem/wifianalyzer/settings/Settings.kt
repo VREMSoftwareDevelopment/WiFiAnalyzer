@@ -18,7 +18,6 @@
 package com.vrem.wifianalyzer.settings
 
 import android.content.SharedPreferences.OnSharedPreferenceChangeListener
-import com.vrem.annotation.OpenClass
 import com.vrem.util.buildMinVersionQ
 import com.vrem.util.defaultCountryCode
 import com.vrem.util.defaultLanguageTag
@@ -40,7 +39,6 @@ import com.vrem.wifianalyzer.wifi.model.Strength
 import java.util.Locale
 import kotlin.enums.EnumEntries
 
-@OpenClass
 class Settings(
     private val repository: Repository,
 ) {

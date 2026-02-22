@@ -20,9 +20,7 @@ package com.vrem.wifianalyzer.permission
 import android.Manifest
 import android.app.Activity
 import android.content.pm.PackageManager
-import com.vrem.annotation.OpenClass
 
-@OpenClass
 class ApplicationPermission(
     private val activity: Activity,
     private val permissionDialog: PermissionDialog = PermissionDialog(activity),

@@ -18,7 +18,6 @@
 package com.vrem.wifianalyzer.wifi.scanner
 
 import android.net.wifi.WifiInfo
-import com.vrem.annotation.OpenClass
 import com.vrem.util.nullToEmpty
 import com.vrem.util.ssid
 import com.vrem.wifianalyzer.wifi.model.FastRoaming
@@ -37,7 +36,6 @@ import com.vrem.wifianalyzer.wifi.model.convertSSID
 
 fun WifiInfo.ipV4Address(): Int = ipAddress
 
-@OpenClass
 internal class Transformer(
     private val cache: Cache,
 ) {

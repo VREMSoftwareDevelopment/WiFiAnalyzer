@@ -19,7 +19,6 @@
 plugins {
     id "com.android.application"
     id "kotlin-android"
-    id "kotlin-allopen"
     id "jacoco"
     id "org.jlleitschuh.gradle.ktlint" version "14.0.1"
 }
@@ -129,10 +128,6 @@ android {
     lint {
         lintConfig = file("lint.xml")
     }
-}
-
-allOpen {
-    annotation("com.vrem.annotation.OpenClass")
 }
 
 // keystore -------------------------------------------------

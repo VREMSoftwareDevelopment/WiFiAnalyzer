@@ -42,7 +42,7 @@ abstract class EnumFilterAdapter<T : Enum<T>>(
         selections(defaults.toSet())
     }
 
-    fun color(selection: T): Int = if (selections.contains(selection)) R.color.selected else R.color.regular
+    open fun color(selection: T): Int = if (selections.contains(selection)) R.color.selected else R.color.regular
 
     fun contains(selection: T): Boolean = selections.contains(selection)
 }

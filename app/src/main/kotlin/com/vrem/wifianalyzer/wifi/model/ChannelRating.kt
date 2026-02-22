@@ -17,11 +17,9 @@
  */
 package com.vrem.wifianalyzer.wifi.model
 
-import com.vrem.annotation.OpenClass
 import com.vrem.wifianalyzer.wifi.band.WiFiBand
 import com.vrem.wifianalyzer.wifi.band.WiFiChannel
 
-@OpenClass
 class ChannelRating(
     val wiFiDetails: MutableList<WiFiDetail> = mutableListOf(),
 ) {

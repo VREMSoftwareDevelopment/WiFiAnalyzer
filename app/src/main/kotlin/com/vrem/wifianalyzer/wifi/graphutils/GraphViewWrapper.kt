@@ -22,7 +22,6 @@ import com.jjoe64.graphview.LegendRenderer
 import com.jjoe64.graphview.series.BaseSeries
 import com.jjoe64.graphview.series.DataPointInterface
 import com.jjoe64.graphview.series.Series
-import com.vrem.annotation.OpenClass
 import com.vrem.wifianalyzer.MainContext
 import com.vrem.wifianalyzer.SIZE_MAX
 import com.vrem.wifianalyzer.SIZE_MIN
@@ -32,7 +31,6 @@ import com.vrem.wifianalyzer.wifi.accesspoint.AccessPointPopup
 import com.vrem.wifianalyzer.wifi.model.WiFiDetail
 import java.security.MessageDigest
 
-@OpenClass
 class GraphViewWrapper(
     val graphView: GraphView,
     var graphLegend: GraphLegend,

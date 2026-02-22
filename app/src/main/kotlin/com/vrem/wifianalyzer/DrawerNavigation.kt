@@ -21,9 +21,7 @@ import android.content.res.Configuration
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.widget.Toolbar
 import androidx.drawerlayout.widget.DrawerLayout
-import com.vrem.annotation.OpenClass
 
-@OpenClass
 class DrawerNavigation(
     private val mainActivity: MainActivity,
     private val toolbar: Toolbar,

@@ -17,10 +17,8 @@
  */
 package com.vrem.wifianalyzer.wifi.scanner
 
-import com.vrem.annotation.OpenClass
 import com.vrem.wifianalyzer.wifi.manager.WiFiManagerWrapper
 
-@OpenClass
 internal class ScannerCallback(
     private val wiFiManagerWrapper: WiFiManagerWrapper,
     private val cache: Cache,

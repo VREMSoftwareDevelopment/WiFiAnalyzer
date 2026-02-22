@@ -22,13 +22,11 @@ import android.view.ViewGroup
 import android.widget.BaseExpandableListAdapter
 import android.widget.ExpandableListView
 import android.widget.ImageView
-import com.vrem.annotation.OpenClass
 import com.vrem.wifianalyzer.R
 import com.vrem.wifianalyzer.wifi.model.WiFiData
 import com.vrem.wifianalyzer.wifi.model.WiFiDetail
 import com.vrem.wifianalyzer.wifi.scanner.UpdateNotifier
 
-@OpenClass
 class AccessPointsAdapter(
     private val accessPointsAdapterData: AccessPointsAdapterData = AccessPointsAdapterData(),
     private val accessPointDetail: AccessPointDetail = AccessPointDetail(),

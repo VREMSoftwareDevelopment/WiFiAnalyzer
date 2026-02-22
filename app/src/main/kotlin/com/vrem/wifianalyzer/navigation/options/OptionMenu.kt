@@ -22,10 +22,8 @@ import android.app.Activity
 import android.view.Menu
 import android.view.MenuItem
 import androidx.appcompat.view.menu.MenuBuilder
-import com.vrem.annotation.OpenClass
 import com.vrem.wifianalyzer.R
 
-@OpenClass
 class OptionMenu {
     var menu: Menu? = null
 

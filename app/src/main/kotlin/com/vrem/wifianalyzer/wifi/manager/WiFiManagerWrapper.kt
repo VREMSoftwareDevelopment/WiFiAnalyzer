@@ -23,10 +23,8 @@ import android.net.wifi.WifiInfo
 import android.net.wifi.WifiManager
 import android.os.Build
 import androidx.annotation.RequiresApi
-import com.vrem.annotation.OpenClass
 import com.vrem.util.buildMinVersionR
 
-@OpenClass
 class WiFiManagerWrapper(
     private val wifiManager: WifiManager,
     private val wiFiSwitch: WiFiSwitch = WiFiSwitch(wifiManager),

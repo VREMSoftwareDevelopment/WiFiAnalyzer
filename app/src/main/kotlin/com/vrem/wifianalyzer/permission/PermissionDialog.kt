@@ -21,11 +21,9 @@ import android.app.Activity
 import android.app.AlertDialog
 import android.content.DialogInterface
 import android.view.View
-import com.vrem.annotation.OpenClass
 import com.vrem.util.buildMinVersionP
 import com.vrem.wifianalyzer.R
 
-@OpenClass
 class PermissionDialog(
     private val activity: Activity,
 ) {

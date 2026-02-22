@@ -20,7 +20,6 @@ package com.vrem.wifianalyzer.wifi.channelgraph
 import android.view.View
 import com.jjoe64.graphview.GraphView
 import com.jjoe64.graphview.series.TitleLineGraphSeries
-import com.vrem.annotation.OpenClass
 import com.vrem.wifianalyzer.MainContext
 import com.vrem.wifianalyzer.R
 import com.vrem.wifianalyzer.settings.Settings
@@ -83,7 +82,6 @@ internal fun makeGraphViewWrapper(wiFiBand: WiFiBand): GraphViewWrapper {
     return graphViewWrapper
 }
 
-@OpenClass
 internal class ChannelGraphView(
     private val wiFiBand: WiFiBand,
     private var dataManager: DataManager = DataManager(),

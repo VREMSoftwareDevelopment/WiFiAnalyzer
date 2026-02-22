@@ -17,7 +17,6 @@
  */
 package com.vrem.wifianalyzer.wifi.graphutils
 
-import com.vrem.annotation.OpenClass
 import com.vrem.wifianalyzer.MainContext
 import com.vrem.wifianalyzer.R
 
@@ -30,7 +29,6 @@ data class GraphColor(
 
 internal val transparent = GraphColor(0x009E9E9E, 0x009E9E9E)
 
-@OpenClass
 class GraphColors {
     private val availableGraphColors: MutableList<GraphColor> = mutableListOf()
     private val currentGraphColors: ArrayDeque<GraphColor> = ArrayDeque()

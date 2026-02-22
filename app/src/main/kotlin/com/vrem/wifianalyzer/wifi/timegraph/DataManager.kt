@@ -18,7 +18,6 @@
 package com.vrem.wifianalyzer.wifi.timegraph
 
 import com.jjoe64.graphview.series.LineGraphSeries
-import com.vrem.annotation.OpenClass
 import com.vrem.wifianalyzer.wifi.graphutils.GraphDataPoint
 import com.vrem.wifianalyzer.wifi.graphutils.GraphViewWrapper
 import com.vrem.wifianalyzer.wifi.graphutils.MAX_SCAN_COUNT
@@ -26,7 +25,6 @@ import com.vrem.wifianalyzer.wifi.graphutils.MIN_Y
 import com.vrem.wifianalyzer.wifi.graphutils.MIN_Y_OFFSET
 import com.vrem.wifianalyzer.wifi.model.WiFiDetail
 
-@OpenClass
 internal class DataManager(
     private val timeGraphCache: TimeGraphCache = TimeGraphCache(),
 ) {

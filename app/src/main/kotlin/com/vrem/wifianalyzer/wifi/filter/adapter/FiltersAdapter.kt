@@ -17,13 +17,11 @@
  */
 package com.vrem.wifianalyzer.wifi.filter.adapter
 
-import com.vrem.annotation.OpenClass
 import com.vrem.wifianalyzer.MainContext
 import com.vrem.wifianalyzer.navigation.NavigationMenu
 import com.vrem.wifianalyzer.settings.Settings
 import java.io.Serializable
 
-@OpenClass
 class FiltersAdapter(
     private val settings: Settings,
 ) {

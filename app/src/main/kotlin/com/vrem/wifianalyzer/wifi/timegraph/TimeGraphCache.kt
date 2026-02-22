@@ -17,11 +17,9 @@
  */
 package com.vrem.wifianalyzer.wifi.timegraph
 
-import com.vrem.annotation.OpenClass
 import com.vrem.wifianalyzer.wifi.graphutils.MAX_NOT_SEEN_COUNT
 import com.vrem.wifianalyzer.wifi.model.WiFiDetail
 
-@OpenClass
 internal class TimeGraphCache {
     private val notSeen: MutableMap<WiFiDetail, Int> = mutableMapOf()
 

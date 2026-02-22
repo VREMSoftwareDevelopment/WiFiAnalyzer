@@ -18,14 +18,12 @@
 package com.vrem.wifianalyzer.vendor.model
 
 import android.content.res.Resources
-import com.vrem.annotation.OpenClass
 import com.vrem.util.EMPTY
 import com.vrem.util.readFile
 import com.vrem.wifianalyzer.R
 import java.util.Locale
 import java.util.TreeMap
 
-@OpenClass
 class VendorService(
     private val resources: Resources,
 ) {

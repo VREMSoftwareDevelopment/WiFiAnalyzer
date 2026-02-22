@@ -19,7 +19,6 @@ package com.vrem.wifianalyzer.wifi.timegraph
 
 import android.view.View
 import com.jjoe64.graphview.GraphView
-import com.vrem.annotation.OpenClass
 import com.vrem.wifianalyzer.MainContext
 import com.vrem.wifianalyzer.R
 import com.vrem.wifianalyzer.settings.Settings
@@ -56,7 +55,6 @@ internal fun makeGraphViewWrapper(): GraphViewWrapper {
     return graphViewWrapper
 }
 
-@OpenClass
 internal class TimeGraphView(
     private val wiFiBand: WiFiBand,
     private val dataManager: DataManager = DataManager(),

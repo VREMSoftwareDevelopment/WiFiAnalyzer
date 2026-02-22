@@ -18,12 +18,10 @@
 package com.vrem.wifianalyzer.wifi.accesspoint
 
 import android.widget.ExpandableListView
-import com.vrem.annotation.OpenClass
 import com.vrem.wifianalyzer.MainContext
 import com.vrem.wifianalyzer.wifi.model.GroupBy
 import com.vrem.wifianalyzer.wifi.model.WiFiDetail
 
-@OpenClass
 class AccessPointsAdapterGroup(
     val expanded: MutableSet<String> = mutableSetOf(),
     var groupBy: GroupBy = GroupBy.NONE,

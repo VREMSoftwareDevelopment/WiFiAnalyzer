@@ -19,10 +19,8 @@ package com.vrem.wifianalyzer.wifi.accesspoint
 
 import android.app.AlertDialog
 import android.view.View
-import com.vrem.annotation.OpenClass
 import com.vrem.wifianalyzer.wifi.model.WiFiDetail
 
-@OpenClass
 class AccessPointPopup {
     fun show(view: View): AlertDialog {
         val alertDialog: AlertDialog =

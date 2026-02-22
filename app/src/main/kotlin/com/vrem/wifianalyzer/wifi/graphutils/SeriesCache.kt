@@ -19,10 +19,8 @@ package com.vrem.wifianalyzer.wifi.graphutils
 
 import com.jjoe64.graphview.series.BaseSeries
 import com.jjoe64.graphview.series.Series
-import com.vrem.annotation.OpenClass
 import com.vrem.wifianalyzer.wifi.model.WiFiDetail
 
-@OpenClass
 class SeriesCache {
     private val cache: MutableMap<WiFiDetail, BaseSeries<GraphDataPoint>> = mutableMapOf()
 

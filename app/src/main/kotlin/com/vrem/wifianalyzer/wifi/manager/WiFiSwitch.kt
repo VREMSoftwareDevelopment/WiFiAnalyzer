@@ -20,12 +20,10 @@ package com.vrem.wifianalyzer.wifi.manager
 import android.net.wifi.WifiManager
 import android.os.Build
 import androidx.annotation.RequiresApi
-import com.vrem.annotation.OpenClass
 import com.vrem.util.buildMinVersionQ
 import com.vrem.wifianalyzer.MainContext
 import com.vrem.wifianalyzer.startWiFiSettings
 
-@OpenClass
 class WiFiSwitch(
     private val wifiManager: WifiManager,
 ) {

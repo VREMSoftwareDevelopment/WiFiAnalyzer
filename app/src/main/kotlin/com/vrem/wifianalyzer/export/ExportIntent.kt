@@ -19,9 +19,7 @@
 package com.vrem.wifianalyzer.export
 
 import android.content.Intent
-import com.vrem.annotation.OpenClass
 
-@OpenClass
 class ExportIntent {
     internal fun intent(
         title: String,

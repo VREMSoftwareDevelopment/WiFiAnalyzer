@@ -17,12 +17,10 @@
  */
 package com.vrem.wifianalyzer
 
-import com.vrem.annotation.OpenClass
 
 const val SIZE_MIN = 1024
 const val SIZE_MAX = 4096
 
-@OpenClass
 class Configuration(
     val largeScreen: Boolean,
 ) {

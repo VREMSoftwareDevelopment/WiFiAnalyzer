@@ -23,10 +23,8 @@ import androidx.core.view.forEach
 import androidx.core.view.get
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.navigation.NavigationView
-import com.vrem.annotation.OpenClass
 import com.vrem.wifianalyzer.R
 
-@OpenClass
 class NavigationMenuController(
     navigationMenuControl: NavigationMenuControl,
     val drawerNavigationView: NavigationView = navigationMenuControl.findViewById(R.id.nav_drawer),

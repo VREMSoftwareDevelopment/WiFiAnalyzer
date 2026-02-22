@@ -22,13 +22,11 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
 import android.widget.TextView
-import com.vrem.annotation.OpenClass
 import com.vrem.wifianalyzer.MainContext
 import com.vrem.wifianalyzer.R
 import com.vrem.wifianalyzer.databinding.VendorDetailsBinding
 import com.vrem.wifianalyzer.vendor.model.VendorService
 
-@OpenClass
 internal class VendorAdapter(
     context: Context,
     private val vendorService: VendorService,

@@ -18,10 +18,8 @@
 package com.vrem.wifianalyzer.wifi.scanner
 
 import android.os.Handler
-import com.vrem.annotation.OpenClass
 import com.vrem.wifianalyzer.settings.Settings
 
-@OpenClass
 internal class PeriodicScan(
     private val scanner: ScannerService,
     private val handler: Handler,
