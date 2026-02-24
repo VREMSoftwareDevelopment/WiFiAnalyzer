@@ -23,10 +23,11 @@ import java.util.SortedMap
 private val currentLocale: Locale get() = Locale.getDefault()
 private val countryCodes: Set<String> = Locale.getISOCountries().toSet()
 private val availableLocales: List<Locale> = Locale.getAvailableLocales().filter { countryCodes.contains(it.country) }
-private val countriesLocales: SortedMap<String, Locale> =
-    availableLocales
-        .associateBy { it.country.toCapitalize(currentLocale) }
-        .toSortedMap()
+private val countriesLocales: SortedMap<String, Locale>
+    get() =
+        availableLocales
+            .associateBy { it.country.toCapitalize(currentLocale) }
+            .toSortedMap()
 
 val BULGARIAN: Locale = Locale.forLanguageTag("bg")
 val CHINESE: Locale = Locale.forLanguageTag("zh")
