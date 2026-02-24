@@ -25,8 +25,8 @@ WiFiAnalyzer is an Android application for analyzing WiFi networks. It helps use
 ## Project Structure
 
 ```
-app/src/main/kotlin/    # Main source code
-app/src/test/kotlin/    # Unit tests
+app/src/main/kotlin/         # Main application source code
+app/src/test/kotlin/         # Unit tests
 app/src/androidTest/kotlin/  # Android instrumentation tests
 ```
 
@@ -75,28 +75,42 @@ All new features and bug fixes MUST include unit tests.
 
 ### Test File Naming
 
-Test files follow the pattern `[ClassName]Test.kt`
+Test files use several patterns, including but not limited to:
+- `[ClassName]Test.kt`
+- `[ClassName]InstrumentedTest.kt`
+- `[ClassName]IntegrationTest.kt`
+- `[ClassName]ParameterizedTest.kt`
+- `[ClassName]TestUtil.kt`
+
+Use the pattern that best describes the test's purpose. Document any deviations from these patterns in your code or pull request to maintain clarity.
 
 ### Test Structure (AAA Pattern)
 
 ```kotlin
 @Test
-fun testMethodName() {
+fun shouldReturnCorrectVersionNumber() {
     // Arrange: Set up test data and mocks
-
     // Act: Execute the code being tested
-
     // Assert: Verify the results
 }
 ```
 
 ### Testing Patterns Used
 
-**Mockito with Kotlin extensions:**
+// Example imports for test files:
 ```kotlin
 import org.mockito.kotlin.mock
 import org.mockito.kotlin.verify
 import org.mockito.kotlin.whenever
+```
+
+// Example imports for assertions:
+```kotlin
+import org.assertj.core.api.Assertions.assertThat
+
+assertThat(actual).isEqualTo(expected)
+assertThat(actual).isTrue
+assertThat(actual).isNotNull()
 ```
 
 **Test teardown pattern:**
@@ -107,13 +121,34 @@ fun tearDown() {
 }
 ```
 
-**Robolectric for Android components:**
+**Robolectric for Android components (use RobolectricUtil helper):**
 ```kotlin
-val activity = Robolectric
-    .buildActivity(MainActivity::class.java)
-    .create()
-    .resume()
-    .get()
+import com.vrem.wifianalyzer.RobolectricUtil
+
+private val mainActivity = RobolectricUtil.INSTANCE.activity
+
+// For fragments:
+RobolectricUtil.INSTANCE.startFragment(fragment)
+```
+
+## Android Instrumentation Test Conventions
+
+- Instrumentation test files are located in `app/src/androidTest/kotlin/`.
+- File names typically follow the pattern `[ClassName]InstrumentedTest.kt`.
+- Use the `@RunWith(AndroidJUnit4::class)` annotation for instrumentation tests.
+- Access UI components using Espresso or Robolectric as appropriate.
+- Example instrumentation test structure:
+
+```kotlin
+@RunWith(AndroidJUnit4::class)
+class MainActivityInstrumentedTest {
+    @Test
+    fun shouldDisplayMainScreen() {
+        // Arrange: Launch activity
+        // Act: Interact with UI
+        // Assert: Verify UI state
+    }
+}
 ```
 
 ## Build Commands

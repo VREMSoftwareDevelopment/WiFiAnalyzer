@@ -27,6 +27,7 @@ import org.assertj.core.api.Assertions.assertThat
 import org.junit.After
 import org.junit.Test
 import org.mockito.kotlin.any
+import org.mockito.kotlin.doReturn
 import org.mockito.kotlin.mock
 import org.mockito.kotlin.verify
 import org.mockito.kotlin.verifyNoMoreInteractions
@@ -54,8 +55,8 @@ class ActivityUtilsTest {
     @Test
     fun setupToolbar() {
         // setup
-        whenever<Any>(mainActivity.findViewById(R.id.toolbar)).thenReturn(toolbar)
-        whenever(mainActivity.supportActionBar).thenReturn(actionBar)
+        doReturn(toolbar).whenever(mainActivity).findViewById<View>(R.id.toolbar)
+        doReturn(actionBar).whenever(mainActivity).supportActionBar
         // execute
         val actual = mainActivity.setupToolbar()
         // validate
@@ -70,8 +71,8 @@ class ActivityUtilsTest {
     @Test
     fun keepScreenOnSwitchOn() {
         // setup
-        whenever(settings.keepScreenOn()).thenReturn(true)
-        whenever(mainActivity.window).thenReturn(window)
+        doReturn(true).whenever(settings).keepScreenOn()
+        doReturn(window).whenever(mainActivity).window
         // execute
         mainActivity.keepScreenOn()
         // validate
@@ -83,8 +84,8 @@ class ActivityUtilsTest {
     @Test
     fun keepScreenOnSwitchOff() {
         // setup
-        whenever(settings.keepScreenOn()).thenReturn(false)
-        whenever(mainActivity.window).thenReturn(window)
+        doReturn(false).whenever(settings).keepScreenOn()
+        doReturn(window).whenever(mainActivity).window
         // execute
         mainActivity.keepScreenOn()
         // validate

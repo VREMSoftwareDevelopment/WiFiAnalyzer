@@ -115,4 +115,9 @@ class MainInstrumentedTest {
     fun settings() {
         SettingsInstrumentedTest().run()
     }
+
+    @Test
+    fun theme() {
+        ThemeInstrumentedTest().run()
+    }
 }

@@ -22,6 +22,7 @@ import com.vrem.wifianalyzer.MainActivity
 import com.vrem.wifianalyzer.R
 import org.junit.After
 import org.junit.Test
+import org.mockito.kotlin.doReturn
 import org.mockito.kotlin.mock
 import org.mockito.kotlin.verify
 import org.mockito.kotlin.verifyNoMoreInteractions
@@ -40,7 +41,7 @@ class BottomNavTest {
     @Test
     fun navigationOptionBottomNavOff() {
         // setup
-        whenever<View>(mainActivity.findViewById(R.id.nav_bottom)).thenReturn(view)
+        doReturn(view).whenever(mainActivity).findViewById<View>(R.id.nav_bottom)
         // execute
         navigationOptionBottomNavOff(mainActivity)
         // validate
@@ -51,7 +52,7 @@ class BottomNavTest {
     @Test
     fun navigationOptionBottomNavOn() {
         // setup
-        whenever<View>(mainActivity.findViewById(R.id.nav_bottom)).thenReturn(view)
+        doReturn(view).whenever(mainActivity).findViewById<View>(R.id.nav_bottom)
         // execute
         navigationOptionBottomNavOn(mainActivity)
         // validate

@@ -50,14 +50,15 @@ internal class FilterInstrumentedTest : Runnable {
         onView(allOf(withId(R.id.action_filter), isDisplayed())).perform(click())
         onView(withText("Filter")).check(matches(isDisplayed()))
         onView(withText("5 GHz")).perform(click())
-        onView(allOf(withId(android.R.id.button3), isDisplayed())).perform(click())
+        onView(allOf(withId(android.R.id.button3), isDisplayed())).perform(scrollTo(), click())
         onView(withText("Filter")).check(doesNotExist())
     }
 
     private fun verifySsidFilter() {
         onView(allOf(withId(R.id.action_filter), isDisplayed())).perform(click())
         onView(withHint("ssid SSID")).perform(typeText("test"), closeSoftKeyboard())
-        onView(allOf(withId(android.R.id.button3), isDisplayed())).perform(click())
+        pauseShort()
+        onView(allOf(withId(android.R.id.button3), isDisplayed())).perform(scrollTo(), click())
         onView(withText("Filter")).check(doesNotExist())
         onView(allOf(withId(R.id.action_filter), isDisplayed())).perform(click())
         onView(allOf(withId(android.R.id.button2), isDisplayed())).perform(scrollTo(), click())

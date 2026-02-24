@@ -18,7 +18,6 @@
 package com.vrem.wifianalyzer.settings
 
 import android.graphics.Color
-import com.vrem.wifianalyzer.R
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.Test
 
@@ -28,22 +27,6 @@ class ThemeStyleTest {
         assertThat(ThemeStyle.entries)
             .hasSize(4)
             .containsExactly(ThemeStyle.DARK, ThemeStyle.LIGHT, ThemeStyle.SYSTEM, ThemeStyle.BLACK)
-    }
-
-    @Test
-    fun theme() {
-        assertThat(ThemeStyle.LIGHT.theme).isEqualTo(R.style.ThemeLight)
-        assertThat(ThemeStyle.DARK.theme).isEqualTo(R.style.ThemeDark)
-        assertThat(ThemeStyle.SYSTEM.theme).isEqualTo(R.style.ThemeSystem)
-        assertThat(ThemeStyle.BLACK.theme).isEqualTo(R.style.ThemeBlack)
-    }
-
-    @Test
-    fun themeNoActionBar() {
-        assertThat(ThemeStyle.DARK.themeNoActionBar).isEqualTo(R.style.ThemeDarkNoActionBar)
-        assertThat(ThemeStyle.LIGHT.themeNoActionBar).isEqualTo(R.style.ThemeLightNoActionBar)
-        assertThat(ThemeStyle.SYSTEM.themeNoActionBar).isEqualTo(R.style.ThemeSystemNoActionBar)
-        assertThat(ThemeStyle.BLACK.themeNoActionBar).isEqualTo(R.style.ThemeBlackNoActionBar)
     }
 
     @Test
