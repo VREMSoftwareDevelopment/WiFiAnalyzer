@@ -95,8 +95,10 @@ private val chineseCountryToLocale: Map<String, Locale> =
 fun findByLanguageTag(languageTag: String): Locale {
     val normalizedLanguageTag = normalizeLanguageTag(languageTag)
     if (normalizedLanguageTag.isEmpty()) return currentLocale
+    return findSupportedLocale(Locale.forLanguageTag(normalizedLanguageTag))
+}
 
-    val target = Locale.forLanguageTag(normalizedLanguageTag)
+fun findSupportedLocale(target: Locale): Locale {
     if (target.language.isEmpty()) return currentLocale
 
     if (target.language == "zh" && target.script.isEmpty()) {
@@ -117,4 +119,4 @@ fun currentLanguageTag(): String = currentLocale.toLanguageTag()
 
 fun toLanguageTag(locale: Locale): String = locale.toLanguageTag()
 
-fun Locale.toSupportedLocaleTag(): String = findByLanguageTag(this.toLanguageTag()).toLanguageTag()
+fun Locale.toSupportedLocaleTag(): String = findSupportedLocale(this).toLanguageTag()
