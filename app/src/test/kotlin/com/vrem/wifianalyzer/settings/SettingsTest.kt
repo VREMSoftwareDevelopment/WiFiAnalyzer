@@ -19,6 +19,8 @@ package com.vrem.wifianalyzer.settings
 
 import android.content.SharedPreferences.OnSharedPreferenceChangeListener
 import android.os.Build
+import androidx.appcompat.app.AppCompatDelegate
+import androidx.core.os.LocaleListCompat
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.vrem.util.currentCountryCode
 import com.vrem.util.ordinals
@@ -36,9 +38,13 @@ import org.assertj.core.api.Assertions.assertThat
 import org.junit.After
 import org.junit.Test
 import org.junit.runner.RunWith
+import org.mockito.kotlin.any
 import org.mockito.kotlin.doNothing
 import org.mockito.kotlin.doReturn
+import org.mockito.kotlin.eq
 import org.mockito.kotlin.mock
+import org.mockito.kotlin.mockStatic
+import org.mockito.kotlin.never
 import org.mockito.kotlin.times
 import org.mockito.kotlin.verify
 import org.mockito.kotlin.verifyNoMoreInteractions
@@ -362,13 +368,81 @@ class SettingsTest {
 
     @Test
     fun appLocale() {
-        // Note: appLocale() uses AppCompatDelegate.getApplicationLocales() which is system API
-        // and returns the current application locale (device default in test environment)
-        // execute
-        val actual = fixture.appLocale()
-        // validate: should return a valid Locale (default in test)
-        assertThat(actual).isNotNull
-        assertThat(actual.language).isNotEmpty()
+        // setup
+        val localeTag = "de-DE"
+        mockStatic<AppCompatDelegate>().use { mockedDelegate ->
+            mockedDelegate
+                .`when`<LocaleListCompat> {
+                    AppCompatDelegate.getApplicationLocales()
+                }.thenReturn(LocaleListCompat.forLanguageTags(localeTag))
+            // execute
+            val actual = fixture.appLocale()
+            // validate
+            assertThat(actual.language).isEqualTo("de")
+        }
+    }
+
+    @Test
+    fun syncLanguageWhenLocaleChanges() {
+        // setup
+        val newLocaleTag = "zh"
+        val currentStoredTag = "en"
+
+        mockStatic<AppCompatDelegate>().use { mockedDelegate ->
+            mockedDelegate
+                .`when`<LocaleListCompat> {
+                    AppCompatDelegate.getApplicationLocales()
+                }.thenReturn(LocaleListCompat.forLanguageTags(newLocaleTag))
+
+            whenever(repository.string(R.string.language_key, "")).thenReturn(currentStoredTag)
+            // execute
+            fixture.syncLanguage()
+            // validate
+            verify(repository).string(R.string.language_key, "")
+            verify(repository).save(R.string.language_key, newLocaleTag)
+        }
+    }
+
+    @Test
+    fun syncLanguageWhenLocaleIsSame() {
+        // setup
+        val sameTag = "en"
+
+        mockStatic<AppCompatDelegate>().use { mockedDelegate ->
+            mockedDelegate
+                .`when`<LocaleListCompat> {
+                    AppCompatDelegate.getApplicationLocales()
+                }.thenReturn(LocaleListCompat.forLanguageTags(sameTag))
+
+            whenever(repository.string(R.string.language_key, "")).thenReturn(sameTag)
+            // execute
+            fixture.syncLanguage()
+            // validate
+            verify(repository).string(R.string.language_key, "")
+            verify(repository, never()).save(eq(R.string.language_key), any<String>())
+        }
+    }
+
+    @Test
+    fun syncLanguageWithNormalization() {
+        // setup
+        val systemLocaleTag = "zh-CN"
+        val expectedNormalizedTag = "zh-Hans"
+        val currentStoredTag = "en"
+
+        mockStatic<AppCompatDelegate>().use { mockedDelegate ->
+            mockedDelegate
+                .`when`<LocaleListCompat> {
+                    AppCompatDelegate.getApplicationLocales()
+                }.thenReturn(LocaleListCompat.forLanguageTags(systemLocaleTag))
+
+            whenever(repository.string(R.string.language_key, "")).thenReturn(currentStoredTag)
+            // execute
+            fixture.syncLanguage()
+            // validate
+            verify(repository).string(R.string.language_key, "")
+            verify(repository).save(R.string.language_key, expectedNormalizedTag)
+        }
     }
 
     @Test
