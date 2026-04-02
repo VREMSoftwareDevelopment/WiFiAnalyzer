@@ -23,6 +23,11 @@ import com.vrem.annotation.OpenClass
 import com.vrem.util.ssid
 import com.vrem.wifianalyzer.MainContext
 
+/**
+ * Holds a [ScanResult] alongside the computed signal level average
+ * for that access point across cached scans.
+ */
+
 internal class CacheResult(
     val scanResult: ScanResult,
     val average: Int,
@@ -38,6 +43,11 @@ internal class Cache {
     private val scanResults: ArrayDeque<List<ScanResult>> = ArrayDeque(MAXIMUM)
     private var count: Int = COUNT_MIN
     var wifiInfo: WifiInfo? = null
+    
+    /**
+    * Returns one [CacheResult] per unique access point (keyed by BSSID + SSID),
+    * with the signal level averaged across all scans currently in the cache.
+    */    
 
     fun scanResults(): List<CacheResult> =
         combineCache()
@@ -46,6 +56,13 @@ internal class Cache {
                 CacheResult(element, calculate(first, element, accumulator))
             }.values
             .toList()
+
+    /**
+    * Adds a new scan batch to the front of the cache (most recent first).
+    * Evicts the oldest batch when the cache exceeds [size].
+    * Also advances the internal [count] cycle used by [calculate] when
+    * screen size is unavailable.
+    */
 
     fun add(scanResults: List<ScanResult>) {
         count = if (count >= MAXIMUM * FACTOR) COUNT_MIN else count + 1
@@ -59,6 +76,16 @@ internal class Cache {
     fun first(): List<ScanResult> = scanResults.first()
 
     fun last(): List<ScanResult> = scanResults.last()
+
+    /**
+    * Returns the number of scan batches to retain in the cache.
+    * When screen size is available, the cache depth is determined by scan speed:
+    * - scanSpeed < 2  → [MAXIMUM] (4 batches)
+    * - scanSpeed < 5  → [MAXIMUM] - 1 (3 batches)
+    * - scanSpeed < 10 → [MAXIMUM] - 2 (2 batches)
+    * - else           → [MINIMUM] (1 batch, effectively no caching)
+    * When cache is disabled or screen size is unavailable, returns [MINIMUM].
+    */
 
     fun size(): Int =
         if (sizeAvailable) {
@@ -78,6 +105,16 @@ internal class Cache {
         } else {
             MINIMUM
         }
+
+    /**
+    * Computes the signal level average for an access point across cached scans
+    * using an exponential moving average: `(previous + current) / 2`.
+    * This weights recent scans more heavily than older ones.
+    *
+    * When screen size is unavailable (e.g. small screen or restricted mode),
+    * applies an additional penalty based on the internal scan [count] cycle
+    * to further reduce perceived signal strength, clamped to [-100, 0] dBm.
+    */
 
     private fun calculate(
         first: Boolean,
