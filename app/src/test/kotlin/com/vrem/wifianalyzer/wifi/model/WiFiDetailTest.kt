@@ -110,15 +110,15 @@ class WiFiDetailTest {
     }
 
     @Test
-    fun noChildrenReturnsFalseWhenChildrenIsEmpty() {
+    fun hasChildrenReturnsFalseWhenChildrenIsEmpty() {
         val detail = WiFiDetail(wiFiIdentifier, wiFiSecurity, wiFiSignal, wiFiAdditional, listOf())
-        assertThat(detail.noChildren).isFalse()
+        assertThat(detail.hasChildren).isFalse()
     }
 
     @Test
-    fun noChildrenReturnsTrueWhenChildrenIsNotEmpty() {
+    fun hasChildrenReturnsTrueWhenChildrenIsNotEmpty() {
         val child = WiFiDetail(WiFiIdentifier("childSSID", "childBSSID"), wiFiSecurity, wiFiSignal, wiFiAdditional)
         val detail = WiFiDetail(wiFiIdentifier, wiFiSecurity, wiFiSignal, wiFiAdditional, listOf(child))
-        assertThat(detail.noChildren).isTrue()
+        assertThat(detail.hasChildren).isTrue()
     }
 }
