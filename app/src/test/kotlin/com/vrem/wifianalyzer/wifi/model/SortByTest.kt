@@ -24,8 +24,8 @@ class SortByTest {
     @Test
     fun sortBy() {
         assertThat(SortBy.entries)
-            .hasSize(3)
-            .containsExactly(SortBy.STRENGTH, SortBy.SSID, SortBy.CHANNEL)
+            .hasSize(4)
+            .containsExactly(SortBy.STRENGTH, SortBy.SSID, SortBy.CHANNEL, SortBy.STANDARD)
     }
 
     @Test
@@ -33,6 +33,7 @@ class SortByTest {
         assertThat(SortBy.STRENGTH.ordinal).isEqualTo(0)
         assertThat(SortBy.SSID.ordinal).isEqualTo(1)
         assertThat(SortBy.CHANNEL.ordinal).isEqualTo(2)
+        assertThat(SortBy.STANDARD.ordinal).isEqualTo(3)
     }
 
     @Test
@@ -48,6 +49,10 @@ class SortByTest {
         assertThat(
             SortBy.CHANNEL.sort.javaClass
                 .isInstance(sortByChannel()),
+        ).isTrue
+        assertThat(
+            SortBy.STANDARD.sort.javaClass
+                .isInstance(sortByStandard()),
         ).isTrue
     }
 }
