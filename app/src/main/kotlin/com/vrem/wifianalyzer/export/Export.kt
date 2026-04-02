@@ -46,7 +46,8 @@ class Export(
             "802.11mc|" +
             "Security|" +
             "Standard|" +
-            "FastRoaming" +
+            "FastRoaming|" +
+            "SecurityTypes" +
             "\n"
 
     fun export(
@@ -103,7 +104,8 @@ class Export(
                     "${wiFiSignal.extra.is80211mc}|" +
                     wiFiSecurity.capabilities + "|" +
                     wiFiSignal.extra.wiFiStandardDisplay(context) + "|" +
-                    wiFiSignal.extra.fastRoamingDisplay(context) +
+                    wiFiSignal.extra.fastRoamingDisplay(context)  + "|" +
+                    wiFiSecurity.wiFiSecurityTypesDisplay(context) +
                     "\n"
             }
         }
