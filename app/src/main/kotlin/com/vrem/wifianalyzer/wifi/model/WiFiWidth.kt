@@ -35,7 +35,7 @@ internal val calculateCenterUsingCenter0: CalculateCenter = { _, center0, _ -> c
 internal val calculateCenterUsingCenter1: CalculateCenter = { _, _, center1 -> center1 }
 
 enum class WiFiWidth(
-    @StringRes val textResource: Int,
+    @param:StringRes val textResource: Int,
     val channelWidth: Int,
     val frequencyWidth: Int,
     val guardBand: Int,

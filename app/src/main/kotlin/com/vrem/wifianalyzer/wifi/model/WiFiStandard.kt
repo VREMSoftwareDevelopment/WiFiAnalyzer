@@ -28,8 +28,8 @@ typealias WiFiStandardId = Int
 
 enum class WiFiStandard(
     val wiFiStandardId: WiFiStandardId,
-    @StringRes val fullResource: Int,
-    @StringRes val valueResource: Int,
+    @param:StringRes val fullResource: Int,
+    @param:StringRes val valueResource: Int,
 ) {
     UNKNOWN(0, R.string.wifi_standard_unknown, R.string.wifi_standard_unknown),
     LEGACY(1, R.string.wifi_standard_legacy, R.string.wifi_standard_unknown),
