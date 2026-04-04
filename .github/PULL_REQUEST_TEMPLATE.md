@@ -34,6 +34,10 @@ Example test commands:
 - [ ] CI checks pass (unit tests, coverage, lint)
 - [ ] No sensitive data, keys, or secrets are included
 
+## AI Assistance
+- [ ] AI tools were used (Copilot, ChatGPT, Claude, etc.) — please add the **“AI assistance used”** label.
+- [ ] No AI tools were used
+
 ## Additional context
 - Screenshots, logs, or other context that helps reviewers understand the change.
 - Migration notes or compatibility considerations (if applicable).
