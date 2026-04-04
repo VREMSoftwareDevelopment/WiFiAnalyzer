@@ -95,9 +95,8 @@ WiFiAnalyzer is licensed under the GNU General Public License v3.0 (GPLv3).
 
 ## WiFiAnalyzer Build
 
-[![Workflow Status](https://github.com/VREMSoftwareDevelopment/WiFiAnalyzer/workflows/Android%20CI/badge.svg)](https://github.com/VREMSoftwareDevelopment/WiFiAnalyzer/actions?query=workflow%3A%22Android+CI%22)
-[![Workflow Status](https://github.com/VREMSoftwareDevelopment/WiFiAnalyzer/workflows/Android%20Emulator%20Tests/badge.svg)](https://github.com/VREMSoftwareDevelopment/WiFiAnalyzer/actions?query=workflow%3A%22Android+Emulator+Tests%22)
-[![Workflow Status](https://github.com/VREMSoftwareDevelopment/WiFiAnalyzer/workflows/CodeQL%20Analyze/badge.svg)](https://github.com/VREMSoftwareDevelopment/WiFiAnalyzer/actions?query=workflow%3A%22CodeQL+Analyze%22)
+[![Android CI](https://github.com/VREMSoftwareDevelopment/WiFiAnalyzer/actions/workflows/android-ci.yml/badge.svg?branch=main)](https://github.com/VREMSoftwareDevelopment/WiFiAnalyzer/actions/workflows/android-ci.yml)
+[![CodeQL Analyze](https://github.com/VREMSoftwareDevelopment/WiFiAnalyzer/actions/workflows/codeql-analysis.yml/badge.svg?branch=main)](https://github.com/VREMSoftwareDevelopment/WiFiAnalyzer/actions/workflows/codeql-analysis.yml)
 
 [![Codacy Badge](https://app.codacy.com/project/badge/Grade/203eaa0583694bcca6554190513179ba)](https://app.codacy.com/gh/VREMSoftwareDevelopment/WiFiAnalyzer/dashboard?utm_source=gh&utm_medium=referral&utm_content=&utm_campaign=Badge_grade)
 [![codecov](https://codecov.io/gh/VREMSoftwareDevelopment/WiFiAnalyzer/branch/main/graph/badge.svg)](https://codecov.io/gh/VREMSoftwareDevelopment/WiFiAnalyzer)
