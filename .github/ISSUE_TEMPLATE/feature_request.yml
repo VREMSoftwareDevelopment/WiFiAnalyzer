@@ -89,3 +89,13 @@ body:
     attributes:
       label: Screenshots / Mockups / Attachments (optional)
       description: Attach screenshots or mockups to illustrate the feature.
+  - type: dropdown
+    id: ai_assistance
+    attributes:
+      label: AI Assistance
+      description: Did you use any AI tools (e.g., GitHub Copilot, ChatGPT) to help write this feature request?
+      options:
+        - AI tools were used to help write this request
+        - No AI tools were used
+    validations:
+      required: true
