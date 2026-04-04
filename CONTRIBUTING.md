@@ -1,3 +1,10 @@
+# AI Use Disclosure
+
+- AI tools (e.g., Copilot, ChatGPT, Claude) may be used for bug reports, feature requests, and pull requests.
+- Any AI involvement must be disclosed in the submission.
+- Apply the **“AI assistance used”** label when applicable.
+- Submitters are responsible for reviewing and validating all AI-generated content.
+
 # How to report a bug
 
 - Please search issues (open and closed) to see the issues has already been reported. - If an issue has already been reported, feel free to add more information to it. Oherwise, create a new issue.
