@@ -6,12 +6,14 @@ on:
       - '.github/workflows/close-empty-xml.yml'
       - '.github/workflows/stale.yml'
       - '.github/workflows/compare-src.yml'
+      - '.github/ISSUE_TEMPLATE/**'
   pull_request:
     paths-ignore:
       - '**/*.md'
       - '.github/workflows/close-empty-xml.yml'
       - '.github/workflows/stale.yml'
       - '.github/workflows/compare-src.yml'
+      - '.github/ISSUE_TEMPLATE/**'
 
 jobs:
   analyze:

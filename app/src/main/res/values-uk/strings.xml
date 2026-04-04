@@ -17,18 +17,6 @@
   -->
 
 <resources>
-    <!-- about end -->
-    <!-- about start -->
-    <!-- action end -->
-    <!-- action start -->
-    <!-- filter end -->
-    <!-- filter start -->
-    <!-- security end -->
-    <!-- security start -->
-    <!-- settings end -->
-    <!-- settings start -->
-    <!-- wifi throttling end -->
-    <!-- wifi throttling start -->
     <string name="about_contributor_title">"Автори"</string>
     <string name="about_description_text">"Оптимізація мережі Wi-Fi шляхом перевірки стану Wi-Fi, рівня сигналу і визначення переповнених каналів використовуючи WiFiAnalyzer для Android"</string>
     <string name="about_description_title">"Опис:"</string>
