@@ -73,3 +73,13 @@ body:
     attributes:
       label: Additional context
       description: Any other information (network setup, nearby APs, whether it occurs on other devices)
+  - type: dropdown
+    id: ai_assistance
+    attributes:
+      label: AI Assistance
+      description: Did you use any AI tools (e.g., GitHub Copilot, ChatGPT) to help write this bug report?
+      options:
+        - AI tools were used to help write this request
+        - No AI tools were used
+    validations:
+      required: true
