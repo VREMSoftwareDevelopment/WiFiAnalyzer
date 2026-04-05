@@ -40,8 +40,8 @@ jobs:
         uses: github/codeql-action/init@v4
         with:
           languages: ${{ matrix.language }}
-      - name: Custom build
-        run: bash ./gradlew assembleDebug
+      - name: Auto build
+        uses: github/codeql-action/autobuild@v4
       - name: Perform CodeQL Analysis
         uses: github/codeql-action/analyze@v4
         with:
