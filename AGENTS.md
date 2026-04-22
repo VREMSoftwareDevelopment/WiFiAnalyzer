@@ -22,6 +22,17 @@ WiFiAnalyzer is an Android application for analyzing WiFi networks. It helps use
 | Code Style | ktlint |
 | License | GNU General Public License v3.0 (GPLv3) |
 
+clearAdditional repository-specific versions and toolchain (source-of-truth files shown):
+
+- Kotlin: 2.3.20 (top-level `build.gradle` ext.kotlin_version)
+- Android Gradle Plugin (AGP): 9.1.1 (top-level `build.gradle` classpath `com.android.tools.build:gradle:9.1.1`)
+ - Note: the top-level `build.gradle` also adds `gradlePluginPortal()` to repositories and includes additional classpath entries used by the build:
+   - `org.jetbrains.kotlin:kotlin-allopen:$kotlin_version`
+   - `com.github.ben-manes:gradle-versions-plugin:0.53.0`
+- Gradle wrapper: 9.4.1 (`gradle/wrapper/gradle-wrapper.properties` distributionUrl)
+- JDK: 21 is used in CI and repository setup (`.github/actions/common-setup/action.yml` and `.github/workflows/*` use setup-java with `java-version: 21`). Note: project `compileOptions` and `kotlinOptions.jvmTarget` are set to Java 17 in `app/build.gradle`.
+- Android compile/target SDK: compileSdk = 36, minSdk = 24 (see `app/build.gradle`).
+
 ## Project Structure
 
 ```
@@ -66,6 +77,10 @@ All source files must include the GPLv3 license header:
 Use ktlint for code formatting:
 - Check: `./gradlew ktlintCheck`
 - Format: `./gradlew ktlintFormat`
+ 
+Repository-specific ktlint notes:
+- Plugin configured in `app/build.gradle` as `org.jlleitschuh.gradle.ktlint` (version `14.2.0`).
+- Baseline and rules: see `app/config/ktlint/baseline.xml` and project `.editorconfig` for formatting rules.
 
 ## Testing Requirements
 
@@ -161,6 +176,22 @@ class MainActivityInstrumentedTest {
 | Run unit tests | `./gradlew testDebugUnitTest` |
 | Run tests with coverage | `./gradlew jacocoTestCoverageVerification` |
 | Run instrumented tests | `./gradlew connectedDebugAndroidTest` |
+
+### CI / GitHub Actions (what the repo runs)
+
+- Workflows:
+  - `.github/workflows/android-ci.yml` — main Android CI pipeline (jobs: ktlint, lint, test, coverage, build-apk, emulator-test). Runners use `ubuntu-24.04` / `ubuntu-latest` and a composite action `.github/actions/common-setup` to install JDK 21 and Gradle.
+  - `.github/workflows/codeql-analysis.yml` — CodeQL analysis (language: `java-kotlin`, uses JDK 21).
+
+- Important CI details and artifact/report locations (useful for reproducing or debugging locally):
+  - ktlint report: `app/build/reports/ktlint` (CI uploads as `ktlint-report`).
+  - lint report: `app/build/reports/lint-results*.*` (CI uploads as `lint-report`).
+  - unit test reports: `app/build/reports/tests` (CI uploads as `test-results`). The unit test task invoked is `:app:testDebugUnitTest` / `./gradlew testDebugUnitTest`.
+  - JaCoCo report (CI expects the XML): `app/build/reports/jacoco/jacocoTestReport/jacocoTestReport.xml` (uploaded to Codecov using `secrets.CODECOV_TOKEN`).
+  - APK artifact: `app/build/outputs/apk/debug` (uploaded as `artifact-apk`).
+  - Instrumentation / emulator test outputs: `app/build/reports/androidTests` and `app/build/outputs/androidTest-results/connected/**/*.xml` for JUnit XMLs.
+
+- Emulator job notes: the GitHub Action enables KVM, caches AVD (`~/.android/avd/*`) and runs `./gradlew connectedDebugAndroidTest`. Emulator caching and KVM are required for the `emulator-test` job in `android-ci.yml`.
 
 ## Privacy and Security Guidelines
 

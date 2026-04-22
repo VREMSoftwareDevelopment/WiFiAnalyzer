@@ -21,73 +21,83 @@ on:
 
 jobs:
   ktlint:
-    runs-on: ubuntu-22.04
+    runs-on: ubuntu-24.04
     steps:
-      - uses: actions/checkout@v4
-      - uses: ./.github/actions/common-setup
+      - name: Checkout
+        uses: actions/checkout@v6
+      - name: Common setup
+        uses: ./.github/actions/common-setup
       - name: ktlint check
         run: bash ./gradlew ktlintCheck --stacktrace
       - name: Upload ktlint report
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
           name: ktlint-report
           path: app/build/reports/ktlint
 
   lint:
-    runs-on: ubuntu-22.04
+    runs-on: ubuntu-24.04
     steps:
-      - uses: actions/checkout@v4
-      - uses: ./.github/actions/common-setup
+      - name: Checkout
+        uses: actions/checkout@v6
+      - name: Common setup
+        uses: ./.github/actions/common-setup
       - name: lint
         run: bash ./gradlew lintDebug --stacktrace
       - name: Upload lint report
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
           name: lint-report
           path: app/build/reports/lint-results*.*
 
   test:
-    runs-on: ubuntu-22.04
+    runs-on: ubuntu-24.04
     steps:
-      - uses: actions/checkout@v4
-      - uses: ./.github/actions/common-setup
+      - name: Checkout
+        uses: actions/checkout@v6
+      - name: Common setup
+        uses: ./.github/actions/common-setup
       - name: unit tests
         run: bash ./gradlew testDebugUnitTest --stacktrace
       - name: Upload test results
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
           name: test-results
           path: app/build/reports/tests
 
   coverage:
-    runs-on: ubuntu-22.04
+    runs-on: ubuntu-24.04
     needs: test
     steps:
-      - uses: actions/checkout@v4
-      - uses: ./.github/actions/common-setup
+      - name: Checkout
+        uses: actions/checkout@v6
+      - name: Common setup
+        uses: ./.github/actions/common-setup
       - name: coverage
         run: bash ./gradlew jacocoTestCoverageVerification --stacktrace
       - name: Upload JaCoCo report
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
           name: jacoco-report
           path: app/build/reports/jacoco
       - name: upload coverage to Codecov
-        uses: codecov/codecov-action@v4
+        uses: codecov/codecov-action@v6
         with:
           token: ${{ secrets.CODECOV_TOKEN }}
           file: ./app/build/reports/jacoco/jacocoTestReport/jacocoTestReport.xml
 
   build-apk:
-    runs-on: ubuntu-22.04
+    runs-on: ubuntu-24.04
     needs: [ktlint, lint, test, coverage]
     steps:
-      - uses: actions/checkout@v4
-      - uses: ./.github/actions/common-setup
+      - name: Checkout
+        uses: actions/checkout@v6
+      - name: Common setup
+        uses: ./.github/actions/common-setup
       - name: build apk
         run: bash ./gradlew assembleDebug --stacktrace
       - name: artifact apk
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
           name: artifact-apk
           path: app/build/outputs/apk/debug
@@ -100,7 +110,7 @@ jobs:
       matrix:
         api-level: [35]
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v6
       - uses: ./.github/actions/common-setup
       - name: Enable KVM
         run: |
@@ -110,7 +120,7 @@ jobs:
       - name: Gradle cache
         uses: gradle/actions/setup-gradle@v4
       - name: AVD cache
-        uses: actions/cache@v4
+        uses: actions/cache@v5
         id: avd-cache
         with:
           path: |
@@ -131,13 +141,13 @@ jobs:
           api-level: ${{ matrix.api-level }}
           script: ./gradlew connectedDebugAndroidTest -x assembleDebug -x assembleDebugAndroidTest
       - name: Upload test results
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         if: always()
         with:
           name: emulator-test-results-${{ matrix.api-level }}
           path: app/build/reports/androidTests
       - name: Publish test results
-        uses: mikepenz/action-junit-report@v5
+        uses: mikepenz/action-junit-report@v6
         if: always()
         with:
           report_paths: 'app/build/outputs/androidTest-results/connected/**/*.xml'
