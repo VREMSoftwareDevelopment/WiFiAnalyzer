@@ -28,10 +28,9 @@ buildscript {
         gradlePluginPortal() // Added for plugin resolution
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:9.1.1'
+        classpath 'com.android.tools.build:gradle:9.2.0'
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
         classpath "org.jetbrains.kotlin:kotlin-allopen:$kotlin_version"
-        classpath "com.github.ben-manes:gradle-versions-plugin:0.53.0"
     }
 }
 
@@ -53,5 +52,3 @@ allprojects {
 tasks.register('clean', Delete) {
     delete rootProject.layout.buildDirectory
 }
-
-apply from: "dependencyUpdates.gradle"
