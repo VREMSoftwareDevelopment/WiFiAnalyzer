@@ -22,8 +22,8 @@ import androidx.annotation.DrawableRes
 import com.vrem.wifianalyzer.R
 
 enum class Strength(
-    @DrawableRes val imageResource: Int,
-    @ColorRes val colorResource: Int,
+    @param:DrawableRes val imageResource: Int,
+    @param:ColorRes val colorResource: Int,
 ) {
     ZERO(R.drawable.ic_signal_wifi_0_bar, R.color.error),
     ONE(R.drawable.ic_signal_wifi_1_bar, R.color.warning),

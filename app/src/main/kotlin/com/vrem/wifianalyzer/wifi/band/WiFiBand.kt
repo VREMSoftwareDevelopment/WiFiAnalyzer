@@ -28,7 +28,7 @@ internal val availableGHZ5: Available = { MainContext.INSTANCE.wiFiManagerWrappe
 internal val availableGHZ6: Available = { MainContext.INSTANCE.wiFiManagerWrapper.is6GHzBandSupported() }
 
 enum class WiFiBand(
-    @StringRes val textResource: Int,
+    @param:StringRes val textResource: Int,
     val wiFiChannels: WiFiChannels,
     val available: Available,
 ) {
