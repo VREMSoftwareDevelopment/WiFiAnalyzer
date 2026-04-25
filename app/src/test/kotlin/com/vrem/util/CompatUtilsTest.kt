@@ -80,25 +80,6 @@ class CompatUtilsTest {
     }
 
     @Test
-    fun createContext() {
-        // setup
-        whenever(context.resources).thenReturn(resources)
-        whenever(resources.configuration).thenReturn(configuration)
-        whenever(context.createConfigurationContext(configuration)).thenReturn(contextWrapper)
-        whenever(contextWrapper.baseContext).thenReturn(context)
-        // execute
-        val actual: Context = context.createContext(newLocale)
-        // validate
-        assertThat(actual).isEqualTo(contextWrapper)
-        assertThat((actual as ContextWrapper).baseContext).isEqualTo(context)
-        verify(configuration).setLocale(newLocale)
-        verify(context).createConfigurationContext(configuration)
-        verify(context).resources
-        verify(contextWrapper).baseContext
-        verify(resources).configuration
-    }
-
-    @Test
     fun contextPackageInfo() {
         // setup
         val packageName = "Package Name"

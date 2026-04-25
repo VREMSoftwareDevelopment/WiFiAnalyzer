@@ -103,4 +103,5 @@
     <string name="wifi_off_on_exit_title">"Wi-Fi выключен при выходе"</string>
     <string name="wifi_throttling_off">"Регулирование сканирования Wi-Fi отключено"</string>
     <string name="wifi_throttling_on">"Регулирование сканирования Wi-Fi включено"</string>
+    <string name="system_default">Язык системы</string>
 </resources>

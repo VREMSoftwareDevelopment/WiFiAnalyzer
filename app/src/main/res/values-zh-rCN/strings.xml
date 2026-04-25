@@ -103,4 +103,5 @@
     <string name="wifi_off_on_exit_title">"退出时关闭 Wi-Fi"</string>
     <string name="wifi_throttling_off">"WLAN 扫描调节已禁用"</string>
     <string name="wifi_throttling_on">"WLAN 扫描调节已启用"</string>
+    <string name="system_default">系统默认设置</string>
 </resources>

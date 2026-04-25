@@ -103,4 +103,5 @@
     <string name="wifi_off_on_exit_title">"Çıkışta Wi-Fi'yi kapat"</string>
     <string name="wifi_throttling_off">"Wi-Fi tarama kısıtlaması devre dışı"</string>
     <string name="wifi_throttling_on">"Wi-Fi tarama kısıtlaması etkin"</string>
+    <string name="system_default">Sistem varsayılanı</string>
 </resources>

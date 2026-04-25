@@ -27,7 +27,6 @@ import org.mockito.kotlin.atLeastOnce
 import org.mockito.kotlin.verify
 import org.mockito.kotlin.verifyNoMoreInteractions
 import org.mockito.kotlin.whenever
-import java.util.Locale
 
 class MainReloadTest {
     private val settings = MainContextHelper.INSTANCE.settings
@@ -37,7 +36,6 @@ class MainReloadTest {
     fun setUp() {
         whenever(settings.themeStyle()).thenReturn(ThemeStyle.DARK)
         whenever(settings.connectionViewType()).thenReturn(ConnectionViewType.COMPLETE)
-        whenever(settings.languageLocale()).thenReturn(Locale.UK)
         fixture = MainReload(settings)
     }
 
@@ -45,7 +43,6 @@ class MainReloadTest {
     fun tearDown() {
         verify(settings, atLeastOnce()).themeStyle()
         verify(settings, atLeastOnce()).connectionViewType()
-        verify(settings, atLeastOnce()).languageLocale()
         verifyNoMoreInteractions(settings)
         MainContextHelper.INSTANCE.restore()
     }
@@ -90,26 +87,5 @@ class MainReloadTest {
         // validate
         assertThat(actual).isTrue
         assertThat(fixture.connectionViewType).isEqualTo(expected)
-    }
-
-    @Test
-    fun shouldNotReloadWithNoLanguageLocaleChanges() {
-        // execute
-        val actual = fixture.shouldReload(settings)
-        // validate
-        assertThat(actual).isFalse
-        assertThat(fixture.languageLocale).isEqualTo(Locale.UK)
-    }
-
-    @Test
-    fun shouldReloadWithLanguageLocaleChange() {
-        // setup
-        val expected = Locale.US
-        whenever(settings.languageLocale()).thenReturn(expected)
-        // execute
-        val actual = fixture.shouldReload(settings)
-        // validate
-        assertThat(actual).isTrue
-        assertThat(fixture.languageLocale).isEqualTo(expected)
     }
 }

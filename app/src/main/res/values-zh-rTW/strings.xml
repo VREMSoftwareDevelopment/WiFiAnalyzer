@@ -103,4 +103,5 @@
     <string name="wifi_off_on_exit_title">"退出時關閉 Wi-Fi"</string>
     <string name="wifi_throttling_off">"Wi-Fi 掃描限制已停用"</string>
     <string name="wifi_throttling_on">"Wi-Fi 掃描限制已啟用"</string>
+    <string name="system_default">系統預設</string>
 </resources>

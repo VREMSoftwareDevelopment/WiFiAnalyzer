@@ -103,4 +103,5 @@
     <string name="wifi_off_on_exit_title">"Desativar o Wi-Fi ao sair"</string>
     <string name="wifi_throttling_off">"A limitação da busca por Wi-Fi está desativada"</string>
     <string name="wifi_throttling_on">"A limitação da busca por Wi-Fi está ativada"</string>
+    <string name="system_default">Padrão do sistema</string>
 </resources>
