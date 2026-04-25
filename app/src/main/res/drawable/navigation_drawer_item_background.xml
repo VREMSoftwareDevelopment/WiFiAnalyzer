@@ -16,8 +16,18 @@
   ~ You should have received a copy of the GNU General Public License
   ~ along with this program.  If not, see <http://www.gnu.org/licenses/>
   -->
-
 <selector xmlns:android="http://schemas.android.com/apk/res/android">
-    <item android:color="?attr/colorPrimary" android:state_checked="true" />
-    <item android:color="?attr/colorOnSurfaceVariant" android:state_checked="false" />
+    <item android:state_checked="true">
+        <inset
+            android:insetLeft="12dp"
+            android:insetTop="4dp"
+            android:insetRight="12dp"
+            android:insetBottom="4dp">
+            <shape android:shape="rectangle">
+                <corners android:radius="16dp" />
+                <solid android:color="@color/brand_primary_container" />
+            </shape>
+        </inset>
+    </item>
+    <item android:drawable="@android:color/transparent" />
 </selector>
