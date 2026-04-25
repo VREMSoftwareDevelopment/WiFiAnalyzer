@@ -52,7 +52,7 @@ class AccessPointsAdapterGroup(
     ) {
         if (!groupBy.none) {
             wiFiDetails.getOrNull(groupPosition)?.let {
-                if (it.noChildren) {
+                if (it.hasChildren) {
                     expanded.remove(groupBy.group(it))
                 }
             }
@@ -65,7 +65,7 @@ class AccessPointsAdapterGroup(
     ) {
         if (!groupBy.none) {
             wiFiDetails.getOrNull(groupPosition)?.let {
-                if (it.noChildren) {
+                if (it.hasChildren) {
                     expanded.add(groupBy.group(it))
                 }
             }

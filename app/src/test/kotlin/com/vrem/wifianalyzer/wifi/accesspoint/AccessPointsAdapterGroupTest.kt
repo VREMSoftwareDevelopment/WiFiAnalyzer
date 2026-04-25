@@ -247,14 +247,14 @@ class AccessPointsAdapterGroupTest {
         // setup
         doReturn(GroupBy.SSID).whenever(settings).groupBy()
         fixture.updateGroupBy()
-        doReturn(false).whenever(wiFiDetailWithChildren).noChildren
+        doReturn(false).whenever(wiFiDetailWithChildren).hasChildren
         val wiFiDetails = listOf(wiFiDetailWithChildren)
         fixture.expanded.add("test")
         // execute
         fixture.onGroupCollapsed(wiFiDetails, 0)
         // validate
         assertThat(fixture.expanded).contains("test")
-        verify(wiFiDetailWithChildren).noChildren
+        verify(wiFiDetailWithChildren).hasChildren
     }
 
     @Test
@@ -262,13 +262,13 @@ class AccessPointsAdapterGroupTest {
         // setup
         doReturn(GroupBy.SSID).whenever(settings).groupBy()
         fixture.updateGroupBy()
-        doReturn(false).whenever(wiFiDetailWithChildren).noChildren
+        doReturn(false).whenever(wiFiDetailWithChildren).hasChildren
         val wiFiDetails = listOf(wiFiDetailWithChildren)
         // execute
         fixture.onGroupExpanded(wiFiDetails, 0)
         // validate
         assertThat(fixture.expanded).isEmpty()
-        verify(wiFiDetailWithChildren).noChildren
+        verify(wiFiDetailWithChildren).hasChildren
     }
 
     private fun withWiFiDetail(): WiFiDetail =
