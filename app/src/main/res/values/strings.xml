@@ -171,6 +171,7 @@
     <string name="security_wps" translatable="false">"WPS"</string>
     <string name="selected_menu_key" translatable="false">"selected_menu"</string>
     <string name="sort_by_channel">"Channel"</string>
+    <string name="sort_by_standard" translatable="false">"Standard"</string>
     <string name="sort_by_default" translatable="false">"0"</string>
     <string name="sort_by_key" translatable="false">"sort_by"</string>
     <string name="sort_by_signal_strength">"Signal Strength"</string>

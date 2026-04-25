@@ -36,10 +36,17 @@ fun sortByChannel(): Comparator<WiFiDetail> =
 fun sortByDefault(): Comparator<WiFiDetail> =
     compareBy<WiFiDetail> { it.wiFiIdentifier.ssid }.thenBy { it.wiFiIdentifier.bssid }
 
+fun sortByStandard(): Comparator<WiFiDetail> =
+    compareByDescending<WiFiDetail> { it.wiFiSignal.extra.wiFiStandard.wiFiStandardId }
+        .thenByDescending { it.wiFiSignal.level }
+        .thenBy { it.wiFiIdentifier.ssid }
+        .thenBy { it.wiFiIdentifier.bssid }
+
 enum class SortBy(
     val sort: Comparator<WiFiDetail>,
 ) {
     STRENGTH(sortByStrength()),
     SSID(sortBySSID()),
     CHANNEL(sortByChannel()),
+    STANDARD(sortByStandard()),
 }
