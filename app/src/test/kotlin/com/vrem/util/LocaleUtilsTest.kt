@@ -105,6 +105,62 @@ class LocaleUtilsTest {
     }
 
     @Test
+    fun findSupportedLocaleTest() {
+        val defaultLocale = Locale.getDefault()
+
+        // Empty language
+        assertThat(findSupportedLocale(Locale.forLanguageTag(""))).isEqualTo(defaultLocale)
+
+        // Chinese logic
+        assertThat(findSupportedLocale(Locale.forLanguageTag("zh"))).isEqualTo(CHINESE)
+        assertThat(findSupportedLocale(Locale.forLanguageTag("zh-CN"))).isEqualTo(CHINESE_SIMPLIFIED)
+        assertThat(findSupportedLocale(Locale.forLanguageTag("zh-SG"))).isEqualTo(CHINESE_SIMPLIFIED)
+        assertThat(findSupportedLocale(Locale.forLanguageTag("zh-TW"))).isEqualTo(CHINESE_TRADITIONAL)
+        assertThat(findSupportedLocale(Locale.forLanguageTag("zh-HK"))).isEqualTo(CHINESE_TRADITIONAL)
+        assertThat(findSupportedLocale(Locale.forLanguageTag("zh-MO"))).isEqualTo(CHINESE_TRADITIONAL)
+        assertThat(findSupportedLocale(Locale.forLanguageTag("zh-XX"))).isEqualTo(CHINESE)
+
+        // Exact match
+        assertThat(findSupportedLocale(JAPANESE)).isEqualTo(JAPANESE)
+        assertThat(findSupportedLocale(PORTUGUESE_BRAZIL)).isEqualTo(PORTUGUESE_BRAZIL)
+        assertThat(findSupportedLocale(PORTUGUESE_PORTUGAL)).isEqualTo(PORTUGUESE_PORTUGAL)
+
+        // Language + Script match
+        assertThat(findSupportedLocale(Locale.forLanguageTag("zh-Hans-US"))).isEqualTo(CHINESE_SIMPLIFIED)
+        assertThat(findSupportedLocale(Locale.forLanguageTag("zh-Hant-US"))).isEqualTo(CHINESE_TRADITIONAL)
+
+        // Language + Country match (fails script match but matches country)
+        assertThat(findSupportedLocale(Locale.forLanguageTag("pt-Latn-BR"))).isEqualTo(PORTUGUESE_BRAZIL)
+        assertThat(findSupportedLocale(Locale.forLanguageTag("pt-Latn-PT"))).isEqualTo(PORTUGUESE_PORTUGAL)
+
+        // Language only match
+        assertThat(findSupportedLocale(Locale.forLanguageTag("en-US"))).isEqualTo(ENGLISH)
+        assertThat(findSupportedLocale(Locale.forLanguageTag("en-GB"))).isEqualTo(ENGLISH)
+        assertThat(findSupportedLocale(Locale.forLanguageTag("fr-CA"))).isEqualTo(FRENCH)
+        // pt-Latn-AO (Angola) matches PORTUGUESE_BRAZIL because it is the first 'pt' in the list
+        assertThat(findSupportedLocale(Locale.forLanguageTag("pt-Latn-AO"))).isEqualTo(PORTUGUESE_BRAZIL)
+
+        // No match fallback to default
+        assertThat(findSupportedLocale(Locale.forLanguageTag("xx"))).isEqualTo(defaultLocale)
+    }
+
+    @Test
+    fun supportedLanguageTagsTest() {
+        val actual = supportedLanguageTags()
+        assertThat(actual).contains("")
+        assertThat(actual).contains("en")
+        assertThat(actual).contains("zh-Hans")
+        assertThat(actual).contains("zh-Hant")
+        assertThat(actual).hasSize(baseSupportedLocales.size + 1)
+    }
+
+    @Test
+    fun toSupportedLocaleTagTest() {
+        assertThat(Locale.forLanguageTag("en-US").toSupportedLocaleTag()).isEqualTo("en")
+        assertThat(Locale.forLanguageTag("zh-CN").toSupportedLocaleTag()).isEqualTo("zh-Hans")
+    }
+
+    @Test
     fun allSupportedLanguages() {
         // setup
         val expected: Set<Locale> =
