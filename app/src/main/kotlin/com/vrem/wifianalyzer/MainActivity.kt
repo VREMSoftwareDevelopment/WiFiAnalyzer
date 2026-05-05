@@ -65,7 +65,6 @@ class MainActivity :
         installSplashScreen()
         setContentView(R.layout.main_activity)
 
-        settings.registerOnSharedPreferenceChangeListener(this)
         optionMenu = OptionMenu()
 
         keepScreenOn()
@@ -80,7 +79,14 @@ class MainActivity :
 
         connectionView = ConnectionView(this)
 
+        settings.registerOnSharedPreferenceChangeListener(this)
+
         onBackPressedDispatcher.addCallback(this, MainActivityBackPressed(this))
+    }
+
+    override fun onDestroy() {
+        MainContext.INSTANCE.settings.unregisterOnSharedPreferenceChangeListener(this)
+        super.onDestroy()
     }
 
     public override fun onPostCreate(savedInstanceState: Bundle?) {

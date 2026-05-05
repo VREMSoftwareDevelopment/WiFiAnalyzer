@@ -51,6 +51,10 @@ class Settings(
         onSharedPreferenceChangeListener: OnSharedPreferenceChangeListener,
     ): Unit = repository.registerOnSharedPreferenceChangeListener(onSharedPreferenceChangeListener)
 
+    fun unregisterOnSharedPreferenceChangeListener(
+        onSharedPreferenceChangeListener: OnSharedPreferenceChangeListener,
+    ): Unit = repository.unregisterOnSharedPreferenceChangeListener(onSharedPreferenceChangeListener)
+
     fun scanSpeed(): Int =
         repository.stringAsInteger(
             R.string.scan_speed_key,
