@@ -20,7 +20,7 @@
 
 buildscript {
     ext {
-        kotlin_version = '2.3.20'
+        kotlin_version = '2.3.21'
     }
     repositories {
         google()
@@ -28,7 +28,7 @@ buildscript {
         gradlePluginPortal() // Added for plugin resolution
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:9.2.0'
+        classpath 'com.android.tools.build:gradle:9.2.1'
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
         classpath "org.jetbrains.kotlin:kotlin-allopen:$kotlin_version"
     }
