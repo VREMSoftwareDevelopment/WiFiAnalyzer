@@ -40,28 +40,42 @@ class LanguagePreferenceTest {
 
     @Test
     fun entries() {
+        // setup
+        val expected =
+            languageTags
+                .filter { it.isNotEmpty() }
+                .map { tag ->
+                    val locale = Locale.forLanguageTag(tag)
+                    locale.getDisplayName(locale).titlecaseFirst(locale)
+                }.sorted()
+
         // execute
         val actual: Array<CharSequence> = fixture.entries
+
         // validate
         assertThat(actual).hasSize(languageTags.size)
-
-        // Check system default entry
         assertThat(actual[0]).isEqualTo(mainActivity.getString(R.string.system_default))
-
-        // Check language entries
-        languageTags.drop(1).forEachIndexed { index, tag ->
-            val locale = Locale.forLanguageTag(tag)
-            val displayName = locale.getDisplayName(locale).titlecaseFirst(locale)
-            assertThat(actual[index + 1]).isEqualTo(displayName)
-        }
+        assertThat(actual.drop(1)).containsExactlyElementsOf(expected)
     }
 
     @Test
     fun entryValues() {
+        // setup
+        val expected =
+            languageTags
+                .filter { it.isNotEmpty() }
+                .map { tag ->
+                    val locale = Locale.forLanguageTag(tag)
+                    Data(tag, locale.getDisplayName(locale).titlecaseFirst(locale))
+                }.sorted()
+                .map { it.code }
+
         // execute
         val actual: Array<CharSequence> = fixture.entryValues
+
         // validate
         assertThat(actual).hasSize(languageTags.size)
-        assertThat(actual).containsExactlyElementsOf(languageTags)
+        assertThat(actual[0]).isEqualTo("")
+        assertThat(actual.drop(1)).containsExactlyElementsOf(expected)
     }
 }
