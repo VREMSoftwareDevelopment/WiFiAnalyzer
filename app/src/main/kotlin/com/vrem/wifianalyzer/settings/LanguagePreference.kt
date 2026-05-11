@@ -24,15 +24,18 @@ import com.vrem.util.titlecaseFirst
 import com.vrem.wifianalyzer.R
 import java.util.Locale
 
-private fun data(context: Context): List<Data> =
-    supportedLanguageTags().map { tag ->
-        if (tag.isEmpty()) {
-            Data("", context.getString(R.string.system_default))
-        } else {
-            val locale = Locale.forLanguageTag(tag)
-            Data(tag, locale.getDisplayName(locale).titlecaseFirst(locale))
-        }
-    }
+private fun data(context: Context): List<Data> {
+    val systemDefault = Data("", context.getString(R.string.system_default))
+    val languages =
+        supportedLanguageTags()
+            .filter { it.isNotEmpty() }
+            .map { tag ->
+                val locale = Locale.forLanguageTag(tag)
+                Data(tag, locale.getDisplayName(locale).titlecaseFirst(locale))
+            }.sortedBy { it.name }
+
+    return listOf(systemDefault) + languages
+}
 
 class LanguagePreference(
     context: Context,
