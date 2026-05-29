@@ -33,6 +33,8 @@ import com.vrem.wifianalyzer.wifi.model.WiFiIdentifier
 import com.vrem.wifianalyzer.wifi.model.WiFiSecurity
 import com.vrem.wifianalyzer.wifi.model.WiFiSignal
 import com.vrem.wifianalyzer.wifi.model.WiFiWidth
+import com.vrem.wifianalyzer.wifi.predicate.falsePredicate
+import com.vrem.wifianalyzer.wifi.predicate.truePredicate
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -59,7 +61,7 @@ class DataManagerTest {
         // setup
         assertThat(fixture.xValue).isEqualTo(0)
         // execute
-        fixture.addSeriesData(graphViewWrapper, listOf(), MAX_Y)
+        fixture.addSeriesData(graphViewWrapper, listOf(), MAX_Y, truePredicate)
         // validate
         assertThat(fixture.xValue).isEqualTo(1)
     }
@@ -69,7 +71,7 @@ class DataManagerTest {
         // setup
         assertThat(fixture.scanCount).isEqualTo(0)
         // execute
-        fixture.addSeriesData(graphViewWrapper, listOf(), MAX_Y)
+        fixture.addSeriesData(graphViewWrapper, listOf(), MAX_Y, truePredicate)
         // validate
         assertThat(fixture.scanCount).isEqualTo(1)
     }
@@ -80,7 +82,7 @@ class DataManagerTest {
         val wiFiDetails = makeWiFiDetails()
         val wiFiDetailsSet = wiFiDetails.toSet()
         // execute
-        fixture.addSeriesData(graphViewWrapper, wiFiDetails, MAX_Y)
+        fixture.addSeriesData(graphViewWrapper, wiFiDetails, MAX_Y, truePredicate)
         // validate
         wiFiDetailsSet.forEach {
             verify(graphViewWrapper).newSeries(it)
@@ -93,7 +95,7 @@ class DataManagerTest {
         // setup
         fixture.scanCount = MAX_SCAN_COUNT
         // execute
-        fixture.addSeriesData(graphViewWrapper, listOf(), MAX_Y)
+        fixture.addSeriesData(graphViewWrapper, listOf(), MAX_Y, truePredicate)
         // validate
         assertThat(fixture.scanCount).isEqualTo(MAX_SCAN_COUNT)
     }
@@ -103,7 +105,7 @@ class DataManagerTest {
         // setup
         fixture.scanCount = 1
         // execute
-        fixture.addSeriesData(graphViewWrapper, listOf(), MAX_Y)
+        fixture.addSeriesData(graphViewWrapper, listOf(), MAX_Y, truePredicate)
         // validate
         assertThat(fixture.scanCount).isEqualTo(2)
         verify(graphViewWrapper).setHorizontalLabelsVisible(true)
@@ -112,7 +114,7 @@ class DataManagerTest {
     @Test
     fun addSeriesDoesNotSetHorizontalLabelsVisible() {
         // execute
-        fixture.addSeriesData(graphViewWrapper, listOf(), MAX_Y)
+        fixture.addSeriesData(graphViewWrapper, listOf(), MAX_Y, truePredicate)
         // validate
         verify(graphViewWrapper, never()).setHorizontalLabelsVisible(true)
     }
@@ -127,7 +129,7 @@ class DataManagerTest {
         val dataPoint = GraphDataPoint(xValue, MIN_Y + MIN_Y_OFFSET)
         whenever(graphViewWrapper.differenceSeries(wiFiDetails)).thenReturn(difference)
         // execute
-        fixture.adjustData(graphViewWrapper, wiFiDetails)
+        fixture.adjustData(graphViewWrapper, wiFiDetails, truePredicate)
         // validate
         difference.forEach {
             verify(graphViewWrapper).appendToSeries(
@@ -148,7 +150,7 @@ class DataManagerTest {
         val moreWiFiDetails: Set<WiFiDetail> = makeMoreWiFiDetails().toSet()
         whenever(timeGraphCache.active()).thenReturn(moreWiFiDetails)
         // execute
-        val actual = fixture.newSeries(wiFiDetails)
+        val actual = fixture.newSeries(wiFiDetails, truePredicate)
         // validate
         assertThat(actual).containsAll(wiFiDetails)
         assertThat(actual).containsAll(moreWiFiDetails)
@@ -165,8 +167,7 @@ class DataManagerTest {
         val staleEntries: Set<WiFiDetail> = makeMoreWiFiDetails().toSet()
         whenever(timeGraphCache.active()).thenReturn(staleEntries)
         // execute
-        val actual = fixture.newSeries(currentDetails)
-        // validate: current entries must be present, stale entries must NOT leak in
+        val actual = fixture.newSeries(currentDetails, falsePredicate)
         assertThat(actual).containsAll(currentDetails)
         assertThat(actual).doesNotContainAnyElementsOf(staleEntries)
         verify(timeGraphCache).active()
@@ -183,8 +184,7 @@ class DataManagerTest {
         whenever(graphViewWrapper.differenceSeries(currentDetails))
             .thenReturn(listOf(staleEntry))
         // execute
-        fixture.adjustData(graphViewWrapper, currentDetails)
-        // validate: stale entries must NOT receive floor data points
+        fixture.adjustData(graphViewWrapper, currentDetails, falsePredicate)
         verify(graphViewWrapper, never()).appendToSeries(
             eq(staleEntry),
             any(),
