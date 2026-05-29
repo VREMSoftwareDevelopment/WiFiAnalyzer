@@ -156,6 +156,47 @@ class DataManagerTest {
     }
 
     @Test
+    fun newSeriesShouldNotIncludeActiveCacheEntriesNotInCurrentWiFiDetails() {
+        // Expected: newSeries includes currentDetails and only those active cache
+        // entries that satisfy the given predicate. Entries from timeGraphCache.active()
+        // that do not match the predicate (e.g. filtered-out SSIDs) must be excluded.
+        // setup
+        val currentDetails: Set<WiFiDetail> = makeWiFiDetails().toSet()
+        val staleEntries: Set<WiFiDetail> = makeMoreWiFiDetails().toSet()
+        whenever(timeGraphCache.active()).thenReturn(staleEntries)
+        // execute
+        val actual = fixture.newSeries(currentDetails)
+        // validate: current entries must be present, stale entries must NOT leak in
+        assertThat(actual).containsAll(currentDetails)
+        assertThat(actual).doesNotContainAnyElementsOf(staleEntries)
+        verify(timeGraphCache).active()
+    }
+
+    @Test
+    fun adjustDataShouldNotAppendToStaleCacheEntriesNotInCurrentDetails() {
+        // Expected: adjustData only appends floor data points and increments the
+        // TimeGraphCache counter for differenceSeries entries that satisfy the
+        // given predicate. Entries that do not match must be left untouched.
+        // setup
+        val currentDetails: Set<WiFiDetail> = makeWiFiDetails().toSet()
+        val staleEntry: WiFiDetail = makeWiFiDetail("SSID4")
+        whenever(graphViewWrapper.differenceSeries(currentDetails))
+            .thenReturn(listOf(staleEntry))
+        // execute
+        fixture.adjustData(graphViewWrapper, currentDetails)
+        // validate: stale entries must NOT receive floor data points
+        verify(graphViewWrapper, never()).appendToSeries(
+            eq(staleEntry),
+            any(),
+            any(),
+            any(),
+        )
+        // validate: stale entries must NOT be added to the time graph cache
+        verify(timeGraphCache, never()).add(staleEntry)
+        verify(timeGraphCache).clear()
+    }
+
+    @Test
     fun addDataToExistingSeries() {
         // setup
         val scanCount = fixture.scanCount
