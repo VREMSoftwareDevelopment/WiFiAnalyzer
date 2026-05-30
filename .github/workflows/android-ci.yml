@@ -132,6 +132,14 @@ jobs:
         uses: ./.github/actions/emulator-step
         with:
           api-level: ${{ matrix.api-level }}
+          emulator-options: >
+            -no-window
+            -no-boot-anim
+            -gpu swiftshader_indirect
+            -noaudio
+            -camera-back none
+            -camera-front none
+          disable-animations: true
           script: echo "Generated AVD snapshot for caching."
       - name: Build app and test APKs
         run: ./gradlew assembleDebug assembleDebugAndroidTest
@@ -139,7 +147,22 @@ jobs:
         uses: ./.github/actions/emulator-step
         with:
           api-level: ${{ matrix.api-level }}
-          script: ./gradlew connectedDebugAndroidTest -x assembleDebug -x assembleDebugAndroidTest
+          emulator-options: >
+            -no-window
+            -no-boot-anim
+            -gpu swiftshader_indirect
+            -noaudio
+            -camera-back none
+            -camera-front none
+          disable-animations: true
+          script: |
+            adb wait-for-device
+            # Wait until Android system UI is fully ready
+            until adb shell getprop sys.boot_completed | grep -m 1 "1"; do sleep 2; done
+            adb shell settings put global window_animation_scale 0
+            adb shell settings put global transition_animation_scale 0
+            adb shell settings put global animator_duration_scale 0
+            ./gradlew connectedDebugAndroidTest -x assembleDebug -x assembleDebugAndroidTest
       - name: Upload test results
         uses: actions/upload-artifact@v7
         if: always()
@@ -151,4 +174,3 @@ jobs:
         if: always()
         with:
           report_paths: 'app/build/outputs/androidTest-results/connected/**/*.xml'
-
