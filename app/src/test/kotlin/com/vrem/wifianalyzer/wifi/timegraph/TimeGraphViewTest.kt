@@ -70,7 +70,7 @@ class TimeGraphViewTest {
         val wiFiData = WiFiData(wiFiDetails, WiFiConnection.EMPTY)
         val predicate: Predicate = truePredicate
         doReturn(predicate).whenever(fixture).predicate(settings)
-        whenever(dataManager.addSeriesData(graphViewWrapper, wiFiDetails, MAX_Y)).thenReturn(newSeries)
+        whenever(dataManager.addSeriesData(graphViewWrapper, wiFiDetails, MAX_Y, predicate)).thenReturn(newSeries)
         whenever(settings.sortBy()).thenReturn(SortBy.SSID)
         whenever(settings.timeGraphLegend()).thenReturn(GraphLegend.LEFT)
         whenever(settings.wiFiBand()).thenReturn(WiFiBand.GHZ2)
@@ -80,7 +80,7 @@ class TimeGraphViewTest {
         fixture.update(wiFiData)
         // validate
         verify(fixture).predicate(settings)
-        verify(dataManager).addSeriesData(graphViewWrapper, wiFiDetails, MAX_Y)
+        verify(dataManager).addSeriesData(graphViewWrapper, wiFiDetails, MAX_Y, predicate)
         verify(graphViewWrapper).removeSeries(newSeries)
         verify(graphViewWrapper).updateLegend(GraphLegend.LEFT)
         verify(graphViewWrapper).visibility(View.VISIBLE)
