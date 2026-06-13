@@ -103,4 +103,5 @@
     <string name="wifi_off_on_exit_title">"Apagar Wi-Fi al salir"</string>
     <string name="wifi_throttling_off">"La aceleración del escaneo de Wi-Fi está deshabilitada"</string>
     <string name="wifi_throttling_on">"La aceleración del escaneo de Wi-Fi está habilitada"</string>
+    <string name="system_default">Predeterminado del sistema</string>
 </resources>

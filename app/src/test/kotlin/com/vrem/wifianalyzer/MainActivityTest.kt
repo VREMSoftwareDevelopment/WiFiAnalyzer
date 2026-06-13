@@ -21,6 +21,7 @@ import android.content.SharedPreferences
 import android.os.Build
 import android.view.Menu
 import android.view.MenuItem
+import androidx.appcompat.app.AppCompatDelegate
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.google.android.material.navigation.NavigationView
 import com.vrem.util.EMPTY
@@ -237,6 +238,32 @@ class MainActivityTest {
         fixture.onSharedPreferenceChanged(sharedPreferences, String.EMPTY)
         // validate
         verify(scannerService).update()
+    }
+
+    @Test
+    fun onSharedPreferenceChangedWithLanguageKeyShouldSetApplicationLocales() {
+        // setup
+        val sharedPreferences: SharedPreferences = mock()
+        val languageKey = fixture.getString(R.string.language_key)
+        val languageTag = "en"
+        whenever(sharedPreferences.getString(languageKey, "")).thenReturn(languageTag)
+        // execute
+        fixture.onSharedPreferenceChanged(sharedPreferences, languageKey)
+        // validate
+        assertThat(AppCompatDelegate.getApplicationLocales().toLanguageTags()).isEqualTo(languageTag)
+    }
+
+    @Test
+    fun onSharedPreferenceChangedWithLanguageKeyAndEmptyTagShouldSetEmptyLocales() {
+        // setup
+        val sharedPreferences: SharedPreferences = mock()
+        val languageKey = fixture.getString(R.string.language_key)
+        val languageTag = ""
+        whenever(sharedPreferences.getString(languageKey, "")).thenReturn(languageTag)
+        // execute
+        fixture.onSharedPreferenceChanged(sharedPreferences, languageKey)
+        // validate
+        assertThat(AppCompatDelegate.getApplicationLocales().isEmpty).isTrue()
     }
 
     @Test
