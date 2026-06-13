@@ -49,9 +49,9 @@ class ChannelGraphFragment :
             swipeRefreshLayout.isRefreshing = false
             swipeRefreshLayout.isEnabled = false
         }
-        val graphViews = WiFiBand.entries.map { wiFiBand -> ChannelGraphView(wiFiBand) }
-        graphAdapter = GraphAdapter(graphViews)
-        graphAdapter.graphViews().forEach { binding.graphFlipper.addView(it) }
+        val channelGraphs = WiFiBand.entries.map { wiFiBand -> ChannelGraph(wiFiBand) }
+        graphAdapter = GraphAdapter(channelGraphs)
+        graphAdapter.graphs().forEach { binding.graphFlipper.addView(it) }
         return binding.root
     }
 
@@ -70,5 +70,10 @@ class ChannelGraphFragment :
     override fun onPause() {
         MainContext.INSTANCE.scannerService.unregister(graphAdapter)
         super.onPause()
+    }
+
+    override fun onDestroyView() {
+        graphAdapter.destroy()
+        super.onDestroyView()
     }
 }

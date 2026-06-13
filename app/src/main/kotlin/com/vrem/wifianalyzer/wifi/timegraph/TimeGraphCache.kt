@@ -31,19 +31,19 @@ internal class TimeGraphCache {
             .keys
             .toSet()
 
-    fun clear() =
-        notSeen
-            .filterValues { it > MAX_NOT_SEEN_COUNT }
-            .keys
-            .forEach { notSeen.remove(it) }
+    fun clear() {
+        notSeen.entries.removeAll { it.value > MAX_NOT_SEEN_COUNT }
+    }
 
     fun add(wiFiDetail: WiFiDetail) {
         notSeen[wiFiDetail] = (notSeen[wiFiDetail] ?: 0) + 1
     }
 
     fun reset(wiFiDetail: WiFiDetail) {
-        if (notSeen[wiFiDetail] != null) notSeen[wiFiDetail] = 0
+        if (wiFiDetail in notSeen) notSeen[wiFiDetail] = 0
     }
+
+    fun reset() = notSeen.clear()
 
     val wiFiDetails: Set<WiFiDetail> get() = notSeen.keys
 }

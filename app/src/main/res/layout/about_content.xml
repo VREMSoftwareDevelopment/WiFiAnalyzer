@@ -296,11 +296,11 @@
                 android:layout_marginBottom="@dimen/activity_vertical_margin"
                 android:text="@string/about_libraries_title"
                 android:textStyle="italic" />
-            <!-- Graph View -->
+            <!-- Vico -->
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/about_library_graph_view" />
+                android:text="@string/about_library_graph" />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -312,10 +312,10 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:autoLink="web"
-                    android:text="@string/about_library_graph_view_url" />
+                    android:text="@string/about_library_graph_url" />
 
                 <TextView
-                    android:id="@+id/graphViewLicense"
+                    android:id="@+id/graphLicense"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/al" />

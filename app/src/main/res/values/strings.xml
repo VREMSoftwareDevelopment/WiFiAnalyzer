@@ -31,8 +31,8 @@
     <string name="about_how_to">"How-to:"</string>
     <string name="about_how_to_url" translatable="false">"https://vremsoftwaredevelopment.github.io/WiFiAnalyzer/#how-to"</string>
     <string name="about_libraries_title">"Libraries Used:"</string>
-    <string name="about_library_graph_view" translatable="false">"Graph View"</string>
-    <string name="about_library_graph_view_url" translatable="false">"http://www.android-graphview.org"</string>
+    <string name="about_library_graph" translatable="false">"Vico"</string>
+    <string name="about_library_graph_url" translatable="false">"https://github.com/patrykandpatrick/vico"</string>
     <string name="about_library_material" translatable="false">"Material Design Icons"</string>
     <string name="about_library_material_url" translatable="false">"https://design.google.com/icons"</string>
     <string name="about_license_title">"License:"</string>
@@ -64,10 +64,6 @@
     <string name="cache_off_key" translatable="false">"cache_off"</string>
     <string name="cache_off_title" translatable="false">"Cache off"</string>
     <string name="channel_from_to" translatable="false">"->"</string>
-    <string name="channel_graph_legend_default" translatable="false">"2"</string>
-    <string name="channel_graph_legend_key" translatable="false">"channel_graph_legend"</string>
-    <string name="channel_graph_legend_summary" translatable="false">"%s"</string>
-    <string name="channel_graph_legend_title">"Channel Graph Legend Display"</string>
     <string name="channel_rating_best">"Best Channels:"</string>
     <string name="channel_rating_best_alternative">"%1$s, try alternative Wi-Fi Band %2$s"</string>
     <string name="channel_rating_best_none">"None"</string>
@@ -110,9 +106,6 @@
     <string name="gpl_url" translatable="false">"http://www.gnu.org/licenses/gpl-3.0.html"</string>
     <string name="graph_axis_y">"Signal Strength (dBm)"</string>
     <string name="graph_channel_axis_x">"Wi-Fi Channels"</string>
-    <string name="graph_legend_hide">"Hide"</string>
-    <string name="graph_legend_left">"Left"</string>
-    <string name="graph_legend_right">"Right"</string>
     <string name="graph_maximum_y_default" translatable="false">"2"</string>
     <string name="graph_maximum_y_key" translatable="false">"graph_maximum_y"</string>
     <string name="graph_maximum_y_summary" translatable="false">"%s"</string>
@@ -186,10 +179,6 @@
     <string name="theme_system">"System"</string>
     <string name="theme_title">"Theme"</string>
     <string name="throttling_msg">"Android 9 introduced Wi-Fi scan throttling. Android 10 has a new developer option to toggle the throttling off under (Settings - Developer Options - Networking - Wi-Fi scan throttling)."</string>
-    <string name="time_graph_legend_default" translatable="false">"0"</string>
-    <string name="time_graph_legend_key" translatable="false">"time_graph_legend"</string>
-    <string name="time_graph_legend_summary" translatable="false">"%s"</string>
-    <string name="time_graph_legend_title" translatable="false">"Time Graph Legend Display"</string>
     <string name="vendor_search_hint" translatable="false">"00:0C:41 CISCO"</string>
     <string name="wifi_band_2ghz" translatable="false">"2.4 GHz"</string>
     <string name="wifi_band_5ghz" translatable="false">"5 GHz"</string>

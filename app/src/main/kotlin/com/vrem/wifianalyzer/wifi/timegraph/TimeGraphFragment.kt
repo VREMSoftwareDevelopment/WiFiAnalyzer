@@ -30,9 +30,9 @@ import com.vrem.wifianalyzer.databinding.GraphContentBinding
 import com.vrem.wifianalyzer.wifi.band.WiFiBand
 import com.vrem.wifianalyzer.wifi.graphutils.GraphAdapter
 
-private fun timeGraphViews(): List<TimeGraphView> = WiFiBand.entries.map { TimeGraphView(it) }
+private fun timeGraphs(): List<TimeGraph> = WiFiBand.entries.map { TimeGraph(it) }
 
-class TimeGraphAdapter : GraphAdapter(timeGraphViews())
+class TimeGraphAdapter : GraphAdapter(timeGraphs())
 
 class TimeGraphFragment :
     Fragment(),
@@ -54,7 +54,7 @@ class TimeGraphFragment :
             swipeRefreshLayout.isEnabled = false
         }
         timeGraphAdapter = TimeGraphAdapter()
-        timeGraphAdapter.graphViews().forEach { binding.graphFlipper.addView(it) }
+        timeGraphAdapter.graphs().forEach { binding.graphFlipper.addView(it) }
         return binding.root
     }
 
@@ -73,5 +73,10 @@ class TimeGraphFragment :
     override fun onPause() {
         MainContext.INSTANCE.scannerService.unregister(timeGraphAdapter)
         super.onPause()
+    }
+
+    override fun onDestroyView() {
+        timeGraphAdapter.destroy()
+        super.onDestroyView()
     }
 }

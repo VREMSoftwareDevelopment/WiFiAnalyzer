@@ -40,7 +40,6 @@
     <string name="ap_view_complete">"Détaillé"</string>
     <string name="ap_view_title">"Vue du point d'accés"</string>
     <string name="app_copyright">"Tous droits réservés \u00A9 2015 \u002D "</string>
-    <string name="channel_graph_legend_title">"Légende pour le graphique des canaux"</string>
     <string name="channel_rating_best">"Meilleurs canaux:"</string>
     <string name="channel_rating_best_alternative">"%1$s, essayez une autre fréquence %2$s"</string>
     <string name="channel_rating_best_none">"Aucun"</string>
@@ -65,9 +64,6 @@
     <string name="filter_wifi_band_title">"Bande Wi-Fi"</string>
     <string name="graph_axis_y">"Intensité du signal (dBm)"</string>
     <string name="graph_channel_axis_x">"Canaux Wi-Fi"</string>
-    <string name="graph_legend_hide">"Masqué"</string>
-    <string name="graph_legend_left">"Gauche"</string>
-    <string name="graph_legend_right">"Droite"</string>
     <string name="graph_maximum_y_title">"Graphique Puissance maximale du signal"</string>
     <string name="graph_time_axis_x">"Nombre d'analyses"</string>
     <string name="group_by_channel">"Canal"</string>
@@ -98,7 +94,6 @@
     <string name="theme_system">"Système"</string>
     <string name="theme_title">"Thème"</string>
     <string name="throttling_msg">"Android 9 a introduit la limitation de l'analyse Wi-Fi. Android 10 dispose d'une nouvelle option pour les développeurs pour désactiver la limitation sous (Paramètres - Options pour les développeurs - Réseau - Limitation de l'analyse Wi-Fi)."</string>
-    <string name="time_graph_legend_title">"Légende pour le graphique historique"</string>
     <string name="wifi_off_on_exit_title">"Arrêter le Wi-Fi en quittant"</string>
     <string name="wifi_throttling_off">"La limitation de l'analyse Wi-Fi est désactivée"</string>
     <string name="wifi_throttling_on">"La limitation de l'analyse Wi-Fi est activée"</string>

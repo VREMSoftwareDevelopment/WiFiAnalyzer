@@ -20,6 +20,7 @@ package com.vrem.wifianalyzer.wifi.filter
 import android.app.AlertDialog
 import android.os.Build
 import android.text.Editable
+import android.text.TextWatcher
 import android.view.View
 import android.widget.EditText
 import androidx.test.ext.junit.runners.AndroidJUnit4
@@ -27,11 +28,12 @@ import com.vrem.wifianalyzer.R
 import com.vrem.wifianalyzer.RobolectricUtil
 import com.vrem.wifianalyzer.wifi.filter.SSIDFilter.OnChange
 import com.vrem.wifianalyzer.wifi.filter.adapter.SSIDAdapter
+import org.assertj.core.api.Assertions.assertThat
 import org.junit.After
 import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
-import org.mockito.kotlin.any
+import org.mockito.kotlin.argumentCaptor
 import org.mockito.kotlin.mock
 import org.mockito.kotlin.verify
 import org.mockito.kotlin.verifyNoMoreInteractions
@@ -46,6 +48,7 @@ class SSIDFilterTest {
     private val view: View = mock()
     private val ssidAdapter: SSIDAdapter = mock()
     private val editable: Editable = mock()
+    private val textWatcherArgumentCaptor = argumentCaptor<TextWatcher>()
 
     @Before
     fun setUp() {
@@ -77,7 +80,8 @@ class SSIDFilterTest {
         verify(alertDialog).findViewById<EditText>(R.id.filterSSIDtext)
         verify(alertDialog).findViewById<View>(R.id.filterSSID)
         verify(view).visibility = View.VISIBLE
-        verify(editText).addTextChangedListener(any())
+        verify(editText).addTextChangedListener(textWatcherArgumentCaptor.capture())
+        assertThat(textWatcherArgumentCaptor.firstValue).isInstanceOf(OnChange::class.java)
     }
 
     @Test

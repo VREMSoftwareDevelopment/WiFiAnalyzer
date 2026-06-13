@@ -20,12 +20,10 @@ package com.vrem.wifianalyzer.wifi.timegraph
 import android.os.Build
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.vrem.wifianalyzer.RobolectricUtil
-import com.vrem.wifianalyzer.wifi.graphutils.GraphDataPoint
-import com.vrem.wifianalyzer.wifi.graphutils.GraphViewWrapper
+import com.vrem.wifianalyzer.wifi.graphutils.DataPoint
+import com.vrem.wifianalyzer.wifi.graphutils.GraphWrapper
 import com.vrem.wifianalyzer.wifi.graphutils.MAX_SCAN_COUNT
 import com.vrem.wifianalyzer.wifi.graphutils.MAX_Y
-import com.vrem.wifianalyzer.wifi.graphutils.MIN_Y
-import com.vrem.wifianalyzer.wifi.graphutils.MIN_Y_OFFSET
 import com.vrem.wifianalyzer.wifi.model.WiFiAdditional
 import com.vrem.wifianalyzer.wifi.model.WiFiConnection
 import com.vrem.wifianalyzer.wifi.model.WiFiDetail
@@ -38,8 +36,6 @@ import com.vrem.wifianalyzer.wifi.predicate.truePredicate
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.Test
 import org.junit.runner.RunWith
-import org.mockito.kotlin.any
-import org.mockito.kotlin.eq
 import org.mockito.kotlin.mock
 import org.mockito.kotlin.never
 import org.mockito.kotlin.verify
@@ -52,16 +48,30 @@ class DataManagerTest {
     private val mainActivity = RobolectricUtil.INSTANCE.activity
     private val bssid = "BSSID"
     private val level = -40
-    private val graphViewWrapper: GraphViewWrapper = mock()
+    private val graphWrapper: GraphWrapper = mock()
     private val timeGraphCache: TimeGraphCache = mock()
     private val fixture = DataManager(timeGraphCache)
+
+    @Test
+    fun reset() {
+        // setup
+        fixture.scanCount = 5
+        fixture.xValue = 10
+        // execute
+        fixture.reset(graphWrapper)
+        // validate
+        assertThat(fixture.scanCount).isEqualTo(0)
+        assertThat(fixture.xValue).isEqualTo(0)
+        verify(graphWrapper).reset()
+        verify(timeGraphCache).reset()
+    }
 
     @Test
     fun addSeriesDataIncreaseXValue() {
         // setup
         assertThat(fixture.xValue).isEqualTo(0)
         // execute
-        fixture.addSeriesData(graphViewWrapper, listOf(), MAX_Y, truePredicate)
+        fixture.addSeriesData(graphWrapper, listOf(), MAX_Y, truePredicate)
         // validate
         assertThat(fixture.xValue).isEqualTo(1)
     }
@@ -71,7 +81,7 @@ class DataManagerTest {
         // setup
         assertThat(fixture.scanCount).isEqualTo(0)
         // execute
-        fixture.addSeriesData(graphViewWrapper, listOf(), MAX_Y, truePredicate)
+        fixture.addSeriesData(graphWrapper, listOf(), MAX_Y, truePredicate)
         // validate
         assertThat(fixture.scanCount).isEqualTo(1)
     }
@@ -82,12 +92,13 @@ class DataManagerTest {
         val wiFiDetails = makeWiFiDetails()
         val wiFiDetailsSet = wiFiDetails.toSet()
         // execute
-        fixture.addSeriesData(graphViewWrapper, wiFiDetails, MAX_Y, truePredicate)
+        fixture.addSeriesData(graphWrapper, wiFiDetails, MAX_Y, truePredicate)
         // validate
         wiFiDetailsSet.forEach {
-            verify(graphViewWrapper).newSeries(it)
+            verify(graphWrapper).newSeries(it)
         }
-        verify(graphViewWrapper).differenceSeries(wiFiDetailsSet)
+        verify(graphWrapper).differenceSeries(wiFiDetailsSet)
+        verify(graphWrapper).flushData()
     }
 
     @Test
@@ -95,50 +106,37 @@ class DataManagerTest {
         // setup
         fixture.scanCount = MAX_SCAN_COUNT
         // execute
-        fixture.addSeriesData(graphViewWrapper, listOf(), MAX_Y, truePredicate)
+        fixture.addSeriesData(graphWrapper, listOf(), MAX_Y, truePredicate)
         // validate
         assertThat(fixture.scanCount).isEqualTo(MAX_SCAN_COUNT)
     }
 
     @Test
-    fun addSeriesSetHorizontalLabelsVisible() {
-        // setup
-        fixture.scanCount = 1
-        // execute
-        fixture.addSeriesData(graphViewWrapper, listOf(), MAX_Y, truePredicate)
-        // validate
-        assertThat(fixture.scanCount).isEqualTo(2)
-        verify(graphViewWrapper).setHorizontalLabelsVisible(true)
-    }
-
-    @Test
-    fun addSeriesDoesNotSetHorizontalLabelsVisible() {
-        // execute
-        fixture.addSeriesData(graphViewWrapper, listOf(), MAX_Y, truePredicate)
-        // validate
-        verify(graphViewWrapper, never()).setHorizontalLabelsVisible(true)
-    }
-
-    @Test
-    fun adjustDataAppendsData() {
+    fun adjustDataTracksDisappearedNetworks() {
         // setup
         val wiFiDetails: Set<WiFiDetail> = setOf()
         val difference = makeWiFiDetails()
-        val xValue = fixture.xValue
-        val scanCount = fixture.scanCount
-        val dataPoint = GraphDataPoint(xValue, MIN_Y + MIN_Y_OFFSET)
-        whenever(graphViewWrapper.differenceSeries(wiFiDetails)).thenReturn(difference)
+        whenever(graphWrapper.differenceSeries(wiFiDetails)).thenReturn(difference)
         // execute
-        fixture.adjustData(graphViewWrapper, wiFiDetails, truePredicate)
+        fixture.adjustData(graphWrapper, wiFiDetails, truePredicate)
         // validate
         difference.forEach {
-            verify(graphViewWrapper).appendToSeries(
-                it,
-                dataPoint,
-                scanCount,
-                it.wiFiAdditional.wiFiConnection.connected,
-            )
             verify(timeGraphCache).add(it)
+        }
+        verify(timeGraphCache).clear()
+    }
+
+    @Test
+    fun adjustDataDoesNotTrackDisappearedNetworksFilteredOutByPredicate() {
+        // setup
+        val wiFiDetails: Set<WiFiDetail> = setOf()
+        val difference = makeWiFiDetails()
+        whenever(graphWrapper.differenceSeries(wiFiDetails)).thenReturn(difference)
+        // execute
+        fixture.adjustData(graphWrapper, wiFiDetails, falsePredicate)
+        // validate
+        difference.forEach {
+            verify(timeGraphCache, never()).add(it)
         }
         verify(timeGraphCache).clear()
     }
@@ -158,42 +156,17 @@ class DataManagerTest {
     }
 
     @Test
-    fun newSeriesShouldNotIncludeActiveCacheEntriesNotInCurrentWiFiDetails() {
-        // Expected: newSeries includes currentDetails and only those active cache
-        // entries that satisfy the given predicate. Entries from timeGraphCache.active()
-        // that do not match the predicate (e.g. filtered-out SSIDs) must be excluded.
+    fun newSeriesExcludesActiveCacheEntriesFilteredOutByPredicate() {
         // setup
-        val currentDetails: Set<WiFiDetail> = makeWiFiDetails().toSet()
-        val staleEntries: Set<WiFiDetail> = makeMoreWiFiDetails().toSet()
-        whenever(timeGraphCache.active()).thenReturn(staleEntries)
+        val wiFiDetails: Set<WiFiDetail> = makeWiFiDetails().toSet()
+        val moreWiFiDetails: Set<WiFiDetail> = makeMoreWiFiDetails().toSet()
+        whenever(timeGraphCache.active()).thenReturn(moreWiFiDetails)
         // execute
-        val actual = fixture.newSeries(currentDetails, falsePredicate)
-        assertThat(actual).containsAll(currentDetails)
-        assertThat(actual).doesNotContainAnyElementsOf(staleEntries)
+        val actual = fixture.newSeries(wiFiDetails, falsePredicate)
+        // validate
+        assertThat(actual).containsAll(wiFiDetails)
+        assertThat(actual).doesNotContainAnyElementsOf(moreWiFiDetails)
         verify(timeGraphCache).active()
-    }
-
-    @Test
-    fun adjustDataShouldNotAppendToStaleCacheEntriesNotInCurrentDetails() {
-        // Expected: adjustData only appends floor data points and increments the
-        // TimeGraphCache counter for differenceSeries entries that satisfy the
-        // given predicate. Entries that do not match must be left untouched.
-        // setup
-        val currentDetails: Set<WiFiDetail> = makeWiFiDetails().toSet()
-        val staleEntry: WiFiDetail = makeWiFiDetail("SSID4")
-        whenever(graphViewWrapper.differenceSeries(currentDetails))
-            .thenReturn(listOf(staleEntry))
-        // execute
-        fixture.adjustData(graphViewWrapper, currentDetails, falsePredicate)
-        verify(graphViewWrapper, never()).appendToSeries(
-            eq(staleEntry),
-            any(),
-            any(),
-            any(),
-        )
-        // validate: stale entries must NOT be added to the time graph cache
-        verify(timeGraphCache, never()).add(staleEntry)
-        verify(timeGraphCache).clear()
     }
 
     @Test
@@ -202,13 +175,13 @@ class DataManagerTest {
         val scanCount = fixture.scanCount
         val xValue = fixture.xValue
         val wiFiDetail = makeWiFiDetail("SSID")
-        val dataPoint = GraphDataPoint(xValue, level)
-        whenever(graphViewWrapper.newSeries(wiFiDetail)).thenReturn(false)
+        val dataPoint = DataPoint(xValue, level)
+        whenever(graphWrapper.newSeries(wiFiDetail)).thenReturn(false)
         // execute
-        fixture.addData(graphViewWrapper, wiFiDetail, MAX_Y)
+        fixture.addData(graphWrapper, wiFiDetail, MAX_Y)
         // validate
-        verify(graphViewWrapper).newSeries(wiFiDetail)
-        verify(graphViewWrapper).appendToSeries(
+        verify(graphWrapper).newSeries(wiFiDetail)
+        verify(graphWrapper).appendToSeries(
             wiFiDetail,
             dataPoint,
             scanCount,
@@ -224,12 +197,12 @@ class DataManagerTest {
         val scanCount = fixture.scanCount
         val xValue = fixture.xValue
         val wiFiDetail = makeWiFiDetail("SSID")
-        val dataPoint = GraphDataPoint(xValue, expectedLevel)
-        whenever(graphViewWrapper.newSeries(wiFiDetail)).thenReturn(false)
+        val dataPoint = DataPoint(xValue, expectedLevel)
+        whenever(graphWrapper.newSeries(wiFiDetail)).thenReturn(false)
         // execute
-        fixture.addData(graphViewWrapper, wiFiDetail, expectedLevel)
+        fixture.addData(graphWrapper, wiFiDetail, expectedLevel)
         // validate
-        verify(graphViewWrapper).appendToSeries(
+        verify(graphWrapper).appendToSeries(
             wiFiDetail,
             dataPoint,
             scanCount,
@@ -240,17 +213,19 @@ class DataManagerTest {
     @Test
     fun addDataNewSeries() {
         // setup
+        val xValue = fixture.xValue
         val wiFiDetail = makeWiFiDetailConnected("SSID")
-        whenever(graphViewWrapper.newSeries(wiFiDetail)).thenReturn(true)
+        val dataPoint = DataPoint(xValue, level)
+        whenever(graphWrapper.newSeries(wiFiDetail)).thenReturn(true)
         // execute
-        fixture.addData(graphViewWrapper, wiFiDetail, MAX_Y)
+        fixture.addData(graphWrapper, wiFiDetail, MAX_Y)
         // validate
-        verify(graphViewWrapper).newSeries(wiFiDetail)
+        verify(graphWrapper).newSeries(wiFiDetail)
         verify(timeGraphCache).reset(wiFiDetail)
-        verify(graphViewWrapper).addSeries(
-            eq(wiFiDetail),
-            any(),
-            eq(wiFiDetail.wiFiAdditional.wiFiConnection.connected),
+        verify(graphWrapper).addSeries(
+            wiFiDetail,
+            listOf(dataPoint),
+            wiFiDetail.wiFiAdditional.wiFiConnection.connected,
         )
     }
 

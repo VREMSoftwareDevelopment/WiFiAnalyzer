@@ -84,18 +84,6 @@
         <item>-50dBm</item>
     </string-array>
 
-    <string-array name="graph_legend_index_array" translatable="false">
-        <item>0</item>
-        <item>1</item>
-        <item>2</item>
-    </string-array>
-
-    <string-array name="graph_legend_array">
-        <item>@string/graph_legend_left</item>
-        <item>@string/graph_legend_right</item>
-        <item>@string/graph_legend_hide</item>
-    </string-array>
-
     <string-array name="theme_index_array" translatable="false">
         <item>0</item>
         <item>1</item>
@@ -165,9 +153,6 @@
         <!-- green 500 -->
         <item>#FF4CAF50</item>
         <item>#334CAF50</item>
-        <!-- blue 500 -->
-        <item>#FF2196F3</item>
-        <item>#332196F3</item>
     </string-array>
 
     <string-array name="scan_speed_array" translatable="false">

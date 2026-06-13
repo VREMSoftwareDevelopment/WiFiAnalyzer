@@ -18,26 +18,34 @@
 package com.vrem.wifianalyzer
 
 import android.content.Intent
+import android.os.Build
+import android.provider.Settings
 import android.view.View
 import android.view.Window
 import android.view.WindowManager
 import androidx.appcompat.app.ActionBar
 import androidx.appcompat.widget.Toolbar
+import androidx.test.ext.junit.runners.AndroidJUnit4
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.After
 import org.junit.Test
-import org.mockito.kotlin.any
+import org.junit.runner.RunWith
+import org.mockito.kotlin.argumentCaptor
 import org.mockito.kotlin.doReturn
 import org.mockito.kotlin.mock
 import org.mockito.kotlin.verify
 import org.mockito.kotlin.verifyNoMoreInteractions
 import org.mockito.kotlin.whenever
+import org.robolectric.annotation.Config
 
+@RunWith(AndroidJUnit4::class)
+@Config(sdk = [Build.VERSION_CODES.BAKLAVA])
 class ActivityUtilsTest {
     private val window: Window = mock()
     private val actionBar: ActionBar = mock()
     private val toolbar: Toolbar = mock()
     private val intent: Intent = mock()
+    private val intentArgumentCaptor = argumentCaptor<Intent>()
     private val mainActivity = MainContextHelper.INSTANCE.mainActivity
     private val settings = MainContextHelper.INSTANCE.settings
 
@@ -99,7 +107,8 @@ class ActivityUtilsTest {
         // execute
         mainActivity.startWiFiSettings()
         // validate
-        verify(mainActivity).startActivity(any())
+        verify(mainActivity).startActivity(intentArgumentCaptor.capture())
+        assertThat(intentArgumentCaptor.firstValue.action).isEqualTo(Settings.Panel.ACTION_WIFI)
     }
 
     @Test
@@ -107,6 +116,7 @@ class ActivityUtilsTest {
         // execute
         mainActivity.startLocationSettings()
         // validate
-        verify(mainActivity).startActivity(any())
+        verify(mainActivity).startActivity(intentArgumentCaptor.capture())
+        assertThat(intentArgumentCaptor.firstValue.action).isEqualTo(Settings.ACTION_LOCATION_SOURCE_SETTINGS)
     }
 }

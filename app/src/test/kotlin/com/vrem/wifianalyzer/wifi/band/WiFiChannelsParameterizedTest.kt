@@ -116,16 +116,15 @@ class WiFiChannelsParameterizedTest {
 
     @Test
     fun wiFiWidthUsingChannelInRange() {
-        fixture.activeChannels.forEach { (wiFiWidth, channels) ->
-            if (wiFiBand == WiFiBand.GHZ2 && wiFiWidth == WiFiWidth.MHZ_40) {
-                return@forEach
+        fixture.activeChannels
+            .filterNot { (wiFiWidth, _) -> wiFiBand == WiFiBand.GHZ2 && wiFiWidth == WiFiWidth.MHZ_40 }
+            .forEach { (wiFiWidth, channels) ->
+                channels.forEach { channel ->
+                    assertThat(fixture.wiFiWidthByChannel(channel))
+                        .describedAs("$wiFiWidth | Channel: $channel")
+                        .isEqualTo(wiFiWidth)
+                }
             }
-            channels.forEach { channel ->
-                assertThat(fixture.wiFiWidthByChannel(channel))
-                    .describedAs("$wiFiWidth | Channel: $channel")
-                    .isEqualTo(wiFiWidth)
-            }
-        }
     }
 
     @Test

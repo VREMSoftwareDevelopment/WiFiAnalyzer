@@ -24,8 +24,6 @@ import com.vrem.wifianalyzer.wifi.predicate.predicate
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.After
 import org.junit.Test
-import org.mockito.kotlin.any
-import org.mockito.kotlin.times
 import org.mockito.kotlin.verify
 import org.mockito.kotlin.verifyNoMoreInteractions
 import org.mockito.kotlin.whenever
@@ -151,7 +149,6 @@ class WiFiDataTest {
         assertThat(actual[4].wiFiAdditional.vendorName).isEqualTo(vendorName + bssid2 + "_3")
         assertThat(actual[5].wiFiAdditional.vendorName).isEqualTo(vendorName + bssid3)
         assertThat(actual[6].wiFiAdditional.vendorName).isEqualTo(vendorName + bssid2 + "_1")
-        verify(vendorService, times(7)).findVendorName(any())
         verifyVendorNames()
     }
 

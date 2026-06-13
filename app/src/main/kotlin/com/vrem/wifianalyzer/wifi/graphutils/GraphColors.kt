@@ -17,48 +17,47 @@
  */
 package com.vrem.wifianalyzer.wifi.graphutils
 
+import androidx.annotation.ColorInt
+import androidx.core.content.ContextCompat
 import com.vrem.annotation.OpenClass
 import com.vrem.wifianalyzer.MainContext
 import com.vrem.wifianalyzer.R
 
-private fun String.toColor(): Long = this.substring(1).toLong(16)
+private fun String.toColor(): Int = this.substring(1).toLong(16).toInt()
 
 data class GraphColor(
-    val primary: Long,
-    val background: Long,
+    @param:ColorInt val primary: Int,
+    @param:ColorInt val background: Int,
 )
-
-internal val transparent = GraphColor(0x009E9E9E, 0x009E9E9E)
 
 @OpenClass
 class GraphColors {
-    private val availableGraphColors: MutableList<GraphColor> = mutableListOf()
+    private val availableGraphColors: List<GraphColor> by lazy {
+        MainContext.INSTANCE.resources
+            .getStringArray(R.array.graph_colors)
+            .filterNotNull()
+            .chunked(2) { GraphColor(it[0].toColor(), it[1].toColor()) }
+            .reversed()
+    }
     private val currentGraphColors: ArrayDeque<GraphColor> = ArrayDeque()
-
-    private fun availableGraphColors(): List<GraphColor> {
-        if (availableGraphColors.isEmpty()) {
-            val colors =
-                MainContext.INSTANCE.resources
-                    .getStringArray(R.array.graph_colors)
-                    .filterNotNull()
-                    .withIndex()
-                    .groupBy { it.index / 2 }
-                    .map { GraphColor(it.value[0].value.toColor(), it.value[1].value.toColor()) }
-                    .reversed()
-            availableGraphColors.addAll(colors)
-        }
-        return availableGraphColors
+    val connectedColor: GraphColor by lazy {
+        val context = MainContext.INSTANCE.context
+        val primary = ContextCompat.getColor(context, R.color.selected)
+        val background = ContextCompat.getColor(context, R.color.selected_background)
+        GraphColor(primary, background)
     }
 
     fun graphColor(): GraphColor {
         if (currentGraphColors.isEmpty()) {
-            currentGraphColors.addAll(availableGraphColors())
+            currentGraphColors.addAll(availableGraphColors)
         }
         return currentGraphColors.removeFirst()
     }
 
-    fun addColor(primaryColor: Long) {
-        availableGraphColors().firstOrNull { primaryColor == it.primary }?.let {
+    fun addColor(
+        @ColorInt primaryColor: Int,
+    ) {
+        availableGraphColors.firstOrNull { primaryColor == it.primary }?.let {
             if (!currentGraphColors.contains(it)) {
                 currentGraphColors.addFirst(it)
             }

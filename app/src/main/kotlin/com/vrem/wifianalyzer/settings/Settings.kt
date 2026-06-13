@@ -32,7 +32,6 @@ import com.vrem.wifianalyzer.navigation.NavigationMenu
 import com.vrem.wifianalyzer.wifi.accesspoint.AccessPointViewType
 import com.vrem.wifianalyzer.wifi.accesspoint.ConnectionViewType
 import com.vrem.wifianalyzer.wifi.band.WiFiBand
-import com.vrem.wifianalyzer.wifi.graphutils.GraphLegend
 import com.vrem.wifianalyzer.wifi.model.GroupBy
 import com.vrem.wifianalyzer.wifi.model.Security
 import com.vrem.wifianalyzer.wifi.model.SortBy
@@ -44,7 +43,9 @@ import kotlin.enums.EnumEntries
 class Settings(
     private val repository: Repository,
 ) {
-    fun initializeDefaultValues(): Unit = repository.initializeDefaultValues()
+    fun initializeDefaultValues() {
+        repository.initializeDefaultValues()
+    }
 
     fun registerOnSharedPreferenceChangeListener(
         onSharedPreferenceChangeListener: OnSharedPreferenceChangeListener,
@@ -84,12 +85,6 @@ class Settings(
 
     fun connectionViewType(): ConnectionViewType =
         settingsFind(ConnectionViewType.entries, R.string.connection_view_key, ConnectionViewType.COMPACT)
-
-    fun channelGraphLegend(): GraphLegend =
-        settingsFind(GraphLegend.entries, R.string.channel_graph_legend_key, GraphLegend.HIDE)
-
-    fun timeGraphLegend(): GraphLegend =
-        settingsFind(GraphLegend.entries, R.string.time_graph_legend_key, GraphLegend.LEFT)
 
     fun wiFiBand(): WiFiBand = settingsFind(WiFiBand.entries, R.string.wifi_band_key, WiFiBand.GHZ2)
 

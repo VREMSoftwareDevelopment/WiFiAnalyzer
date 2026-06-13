@@ -30,24 +30,20 @@ import org.robolectric.annotation.Config
 @Config(sdk = [Build.VERSION_CODES.BAKLAVA])
 class TimeGraphAdapterTest {
     @Test
-    fun graphViewNotifiers() {
-        // setup
+    fun graphNotifiers() {
+        // Arrange
         RobolectricUtil.INSTANCE.activity
         val fixture = TimeGraphAdapter()
-        // execute
-        val graphViewNotifiers = fixture.graphViewNotifiers()
-        // validate
-        assertThat(graphViewNotifiers).hasSize(WiFiBand.entries.size)
+        // Act & Assert
+        assertThat(fixture.graphNotifiers).hasSize(WiFiBand.entries.size)
     }
 
     @Test
-    fun graphViews() {
-        // setup
+    fun graphs() {
+        // Arrange
         RobolectricUtil.INSTANCE.activity
         val fixture = TimeGraphAdapter()
-        // execute
-        val graphViews = fixture.graphViews()
-        // validate
-        assertThat(graphViews).hasSize(WiFiBand.entries.size)
+        // Act & Assert
+        assertThat(fixture.graphs()).hasSize(WiFiBand.entries.size)
     }
 }

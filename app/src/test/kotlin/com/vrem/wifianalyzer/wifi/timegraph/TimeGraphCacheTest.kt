@@ -75,6 +75,17 @@ class TimeGraphCacheTest {
     }
 
     @Test
+    fun resetAll() {
+        // setup
+        withWiFiDetails()
+        // execute
+        fixture.reset()
+        // validate
+        val actual = fixture.wiFiDetails
+        assertThat(actual).isEmpty()
+    }
+
+    @Test
     fun resetShouldNotAdd() {
         // setup
         val wiFiDetails = withWiFiDetails()

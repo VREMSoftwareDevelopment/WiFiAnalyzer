@@ -33,7 +33,6 @@ import org.assertj.core.api.Assertions.assertThat
 import org.junit.After
 import org.junit.Test
 import org.junit.runner.RunWith
-import org.mockito.kotlin.any
 import org.mockito.kotlin.doReturn
 import org.mockito.kotlin.doThrow
 import org.mockito.kotlin.mock
@@ -81,7 +80,7 @@ class ExportItemTest {
         val wiFiData: WiFiData = withWiFiData()
         doReturn(wiFiData).whenever(scanner).wiFiData()
         doReturn(intent).whenever(export).export(mainActivity, wiFiData.wiFiDetails)
-        doReturn(componentName).whenever(intent).resolveActivity(any())
+        doReturn(componentName).whenever(intent).resolveActivity(mainActivity.packageManager)
         // execute
         fixture.activate(mainActivity, NavigationMenu.EXPORT)
         // validate
@@ -108,7 +107,7 @@ class ExportItemTest {
         val wiFiData: WiFiData = withWiFiData()
         doReturn(wiFiData).whenever(scanner).wiFiData()
         doReturn(intent).whenever(export).export(mainActivity, wiFiData.wiFiDetails)
-        doReturn(null).whenever(intent).resolveActivity(any())
+        doReturn(null).whenever(intent).resolveActivity(mainActivity.packageManager)
         // execute
         fixture.activate(mainActivity, NavigationMenu.EXPORT)
         // validate
@@ -122,11 +121,12 @@ class ExportItemTest {
     fun activateThrowsException() {
         // setup
         val activity = spy(mainActivity)
+        val packageManager = activity.packageManager
         val wiFiData: WiFiData = withWiFiData()
         val expected = "error"
         doReturn(wiFiData).whenever(scanner).wiFiData()
         doReturn(intent).whenever(export).export(activity, wiFiData.wiFiDetails)
-        doReturn(componentName).whenever(intent).resolveActivity(any())
+        doReturn(componentName).whenever(intent).resolveActivity(packageManager)
         doThrow(RuntimeException(expected)).whenever(activity).startActivity(intent)
         // execute
         fixture.activate(activity, NavigationMenu.EXPORT)

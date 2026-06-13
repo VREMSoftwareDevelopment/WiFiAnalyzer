@@ -26,15 +26,16 @@ import com.vrem.wifianalyzer.MainActivity
 import com.vrem.wifianalyzer.MainContext
 import com.vrem.wifianalyzer.R
 import com.vrem.wifianalyzer.settings.Settings
+import com.vrem.wifianalyzer.wifi.detailview.WiFiDetailPopup
+import com.vrem.wifianalyzer.wifi.detailview.WiFiDetailView
 import com.vrem.wifianalyzer.wifi.model.WiFiConnection
 import com.vrem.wifianalyzer.wifi.model.WiFiData
-import com.vrem.wifianalyzer.wifi.model.WiFiDetail
 import com.vrem.wifianalyzer.wifi.scanner.UpdateNotifier
 
 class ConnectionView(
     private val mainActivity: MainActivity,
-    private val accessPointDetail: AccessPointDetail = AccessPointDetail(),
-    private val accessPointPopup: AccessPointPopup = AccessPointPopup(),
+    private val wiFiDetailView: WiFiDetailView = WiFiDetailView(),
+    private val wiFiDetailPopup: WiFiDetailPopup = WiFiDetailPopup(),
     private val warningView: WarningView = WarningView(mainActivity),
 ) : UpdateNotifier {
     override fun update(wiFiData: WiFiData) {
@@ -66,12 +67,12 @@ class ConnectionView(
             connectionView.visibility = View.VISIBLE
             val parent = connectionView.findViewById<ViewGroup>(R.id.connectionDetail)
             val view =
-                accessPointDetail.makeView(parent.getChildAt(0), parent, connection, layout = connectionViewType.layout)
+                wiFiDetailView.makeView(parent.getChildAt(0), parent, connection, layout = connectionViewType.layout)
             if (parent.isEmpty()) {
                 parent.addView(view)
             }
             setViewConnection(connectionView, wiFiConnection)
-            attachPopup(view, connection)
+            wiFiDetailPopup.attachToRow(view, connection)
         }
     }
 
@@ -88,16 +89,6 @@ class ConnectionView(
         } else {
             textLinkSpeed.visibility = View.VISIBLE
             textLinkSpeed.text = "$linkSpeed${WifiInfo.LINK_SPEED_UNITS}"
-        }
-    }
-
-    private fun attachPopup(
-        view: View,
-        wiFiDetail: WiFiDetail,
-    ) {
-        view.findViewById<View>(R.id.attachPopup)?.let {
-            accessPointPopup.attach(it, wiFiDetail)
-            accessPointPopup.attach(view.findViewById(R.id.ssid), wiFiDetail)
         }
     }
 }

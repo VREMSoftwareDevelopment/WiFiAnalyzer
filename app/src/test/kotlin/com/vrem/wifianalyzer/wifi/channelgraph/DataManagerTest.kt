@@ -20,8 +20,8 @@ package com.vrem.wifianalyzer.wifi.channelgraph
 import android.os.Build
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.vrem.wifianalyzer.RobolectricUtil
-import com.vrem.wifianalyzer.wifi.graphutils.GraphDataPoint
-import com.vrem.wifianalyzer.wifi.graphutils.GraphViewWrapper
+import com.vrem.wifianalyzer.wifi.graphutils.DataPoint
+import com.vrem.wifianalyzer.wifi.graphutils.GraphWrapper
 import com.vrem.wifianalyzer.wifi.graphutils.MAX_Y
 import com.vrem.wifianalyzer.wifi.model.WiFiAdditional
 import com.vrem.wifianalyzer.wifi.model.WiFiDetail
@@ -32,8 +32,7 @@ import com.vrem.wifianalyzer.wifi.model.WiFiWidth
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.Test
 import org.junit.runner.RunWith
-import org.mockito.kotlin.any
-import org.mockito.kotlin.eq
+import org.mockito.Mockito.doReturn
 import org.mockito.kotlin.mock
 import org.mockito.kotlin.verify
 import org.mockito.kotlin.whenever
@@ -48,72 +47,70 @@ class DataManagerTest {
 
     @Test
     fun newSeries() {
-        // setup
+        // Arrange
         val expected = makeWiFiDetails()
-        // execute
+        // Act
         val actual = fixture.newSeries(expected)
-        // validate
+        // Assert
         assertThat(actual).containsAll(expected)
     }
 
     @Test
     fun graphDataPoints() {
-        // setup
+        // Arrange
         val expected = makeWiFiDetail()
-        // execute
+        val expectedPoints =
+            listOf(DataPoint(2445, -100)) + (2447..2463).map { DataPoint(it, level) } + listOf(DataPoint(2465, -100))
+        // Act
         val actual = fixture.graphDataPoints(expected, MAX_Y)
-        // validate
-        assertThat(actual).hasSize(5)
-        assertThat(actual[0].toString()).isEqualTo(GraphDataPoint(2445, -100).toString())
-        assertThat(actual[1].toString()).isEqualTo(GraphDataPoint(2447, level).toString())
-        assertThat(actual[2].toString()).isEqualTo(GraphDataPoint(2455, level).toString())
-        assertThat(actual[3].toString()).isEqualTo(GraphDataPoint(2463, level).toString())
-        assertThat(actual[4].toString()).isEqualTo(GraphDataPoint(2465, -100).toString())
+        // Assert
+        assertThat(actual).containsExactlyElementsOf(expectedPoints)
     }
 
     @Test
     fun graphDataPointsExpectLevelToEqualToLevelMax() {
-        // setup
+        // Arrange
         val expectedLevel = level - 10
         val expected = makeWiFiDetail()
-        // execute
+        val expectedPoints =
+            listOf(DataPoint(2445, -100)) + (2447..2463).map { DataPoint(it, expectedLevel) } +
+                listOf(DataPoint(2465, -100))
+        // Act
         val actual = fixture.graphDataPoints(expected, expectedLevel)
-        // validate
-        assertThat(actual).hasSize(5)
-        assertThat(actual[0].toString()).isEqualTo(GraphDataPoint(2445, -100).toString())
-        assertThat(actual[1].toString()).isEqualTo(GraphDataPoint(2447, expectedLevel).toString())
-        assertThat(actual[2].toString()).isEqualTo(GraphDataPoint(2455, expectedLevel).toString())
-        assertThat(actual[3].toString()).isEqualTo(GraphDataPoint(2463, expectedLevel).toString())
-        assertThat(actual[4].toString()).isEqualTo(GraphDataPoint(2465, -100).toString())
+        // Assert
+        assertThat(actual).containsExactlyElementsOf(expectedPoints)
     }
 
     @Test
     fun addSeriesDataWithExistingWiFiDetails() {
-        // setup
-        val graphViewWrapper: GraphViewWrapper = mock()
+        // Arrange
+        val graphWrapper: GraphWrapper = mock()
         val wiFiDetail = makeWiFiDetail()
         val wiFiDetails = setOf(wiFiDetail)
-        val dataPoints = fixture.graphDataPoints(wiFiDetail, MAX_Y)
-        whenever(graphViewWrapper.newSeries(wiFiDetail)).thenReturn(false)
-        // execute
-        fixture.addSeriesData(graphViewWrapper, wiFiDetails, MAX_Y)
-        // validate
-        verify(graphViewWrapper).newSeries(wiFiDetail)
-        verify(graphViewWrapper).updateSeries(wiFiDetail, dataPoints, true)
+        val expectedDataPoints = fixture.graphDataPoints(wiFiDetail, MAX_Y)
+        doReturn(false).whenever(graphWrapper).newSeries(wiFiDetail)
+        // Act
+        fixture.addSeriesData(graphWrapper, wiFiDetails, MAX_Y)
+        // Assert
+        verify(graphWrapper).newSeries(wiFiDetail)
+        verify(graphWrapper).updateSeries(wiFiDetail, expectedDataPoints, true)
+        verify(graphWrapper).flushData()
     }
 
     @Test
     fun addSeriesDataNewWiFiDetails() {
-        // setup
-        val graphViewWrapper: GraphViewWrapper = mock()
+        // Arrange
+        val graphWrapper: GraphWrapper = mock()
         val wiFiDetail = makeWiFiDetail()
         val wiFiDetails = setOf(wiFiDetail)
-        whenever(graphViewWrapper.newSeries(wiFiDetail)).thenReturn(true)
-        // execute
-        fixture.addSeriesData(graphViewWrapper, wiFiDetails, MAX_Y)
-        // validate
-        verify(graphViewWrapper).newSeries(wiFiDetail)
-        verify(graphViewWrapper).addSeries(eq(wiFiDetail), any(), eq(true))
+        val expectedDataPoints = fixture.graphDataPoints(wiFiDetail, MAX_Y)
+        doReturn(true).whenever(graphWrapper).newSeries(wiFiDetail)
+        // Act
+        fixture.addSeriesData(graphWrapper, wiFiDetails, MAX_Y)
+        // Assert
+        verify(graphWrapper).newSeries(wiFiDetail)
+        verify(graphWrapper).addSeries(wiFiDetail, expectedDataPoints, true)
+        verify(graphWrapper).flushData()
     }
 
     private fun makeWiFiDetail(

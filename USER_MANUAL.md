@@ -69,7 +69,6 @@ WiFiAnalyzer offers several options to customize your experience. These are typi
 *   **Sort and Group Access Points:** Customize how the access point list is displayed. You can choose to sort the list by signal strength, SSID, or channel, and group related access points together.
 *   **Graph Settings:**
     *   **Maximum Y-axis Value:** Set the maximum value for the Y-axis on the graphs to get a better view of the signal strength range.
-    *   **Graph Legends:** Configure the legends for both the channel and time graphs to show or hide specific information.
 *   **Wi-Fi Control:**
     *   **Turn Off Wi-Fi on Exit:** If enabled, the app will automatically turn off your device's Wi-Fi when you exit the application.
     *   **Keep Screen On:** You can choose to keep your device's screen on while using the app.

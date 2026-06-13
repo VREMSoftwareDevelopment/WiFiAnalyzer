@@ -82,6 +82,10 @@ Repository-specific ktlint notes:
 - Plugin configured in `app/build.gradle` as `org.jlleitschuh.gradle.ktlint` (version `14.2.0`).
 - Baseline and rules: see `app/config/ktlint/baseline.xml` and project `.editorconfig` for formatting rules.
 
+## Communication Philosophy
+
+**Be direct and honest**: In all interactions — code reviews, technical discussions, architectural decisions, and general conversation — point out code smells, anti-patterns, SOLID/DRY violations, magic values, poor naming, and flawed reasoning without sugar-coating. Focus on actionable criticism with specific alternatives. Do not hedge or soften feedback unnecessarily.
+
 ## Testing Requirements
 
 ### Mandatory Testing

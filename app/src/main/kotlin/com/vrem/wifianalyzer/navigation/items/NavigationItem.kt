@@ -17,6 +17,7 @@
  */
 package com.vrem.wifianalyzer.navigation.items
 
+import android.view.View
 import com.vrem.wifianalyzer.MainActivity
 import com.vrem.wifianalyzer.navigation.NavigationMenu
 
@@ -27,5 +28,5 @@ interface NavigationItem {
     )
 
     val registered: Boolean get() = false
-    val visibility: Int get() = android.view.View.GONE
+    val visibility: Int get() = View.GONE
 }

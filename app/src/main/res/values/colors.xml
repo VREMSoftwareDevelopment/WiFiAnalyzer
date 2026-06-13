@@ -22,6 +22,7 @@
     <color name="regular">#9E9E9E</color>
     <!-- blue_500 -->
     <color name="selected">#2196F3</color>
+    <color name="selected_background">#332196F3</color>
     <!-- grey_500 -->
     <color name="channel">@color/regular</color>
     <!-- cyan_500 -->

@@ -28,7 +28,6 @@ import com.vrem.wifianalyzer.wifi.model.WiFiWidth
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.After
 import org.junit.Test
-import org.mockito.kotlin.any
 import org.mockito.kotlin.doReturn
 import org.mockito.kotlin.mock
 import org.mockito.kotlin.times
@@ -71,7 +70,9 @@ class AccessPointsAdapterGroupTest {
         verify(settings).groupBy()
         verify(expandableListView).expandableListAdapter
         verify(expandableListAdapter).groupCount
-        verify(expandableListView, times(3)).collapseGroup(any())
+        verify(expandableListView).collapseGroup(0)
+        verify(expandableListView).collapseGroup(1)
+        verify(expandableListView).collapseGroup(2)
     }
 
     @Test
@@ -239,7 +240,8 @@ class AccessPointsAdapterGroupTest {
         verify(expandableListView).expandableListAdapter
         verify(expandableListAdapter).groupCount
         verify(expandableListView).expandGroup(0)
-        verify(expandableListView, times(2)).collapseGroup(any())
+        verify(expandableListView).collapseGroup(1)
+        verify(expandableListView).collapseGroup(2)
     }
 
     @Test

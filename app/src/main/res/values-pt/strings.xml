@@ -41,7 +41,6 @@
     <string name="ap_view_compact">"Compacto"</string>
     <string name="ap_view_complete">"Completo"</string>
     <string name="ap_view_title">"Ecrã de redes"</string>
-    <string name="channel_graph_legend_title">"Legenda do gráfico"</string>
     <string name="channel_rating_best">"Canais melhores:"</string>
     <string name="channel_rating_best_alternative">"%1$s, tente a frequência de %2$s"</string>
     <string name="channel_rating_best_none">"Nenhum"</string>
@@ -66,9 +65,6 @@
     <string name="filter_wifi_band_title">"Frequência do Wi-Fi"</string>
     <string name="graph_axis_y">"Intensidade do sinal (dBm)"</string>
     <string name="graph_channel_axis_x">"Canais de Wi-Fi"</string>
-    <string name="graph_legend_hide">"Ocultar"</string>
-    <string name="graph_legend_left">"À esquerda"</string>
-    <string name="graph_legend_right">"À direita"</string>
     <string name="graph_maximum_y_title">"Intensidade de sinal máxima do gráfico"</string>
     <string name="graph_time_axis_x">"Número de procuras"</string>
     <string name="group_by_channel">"Canal"</string>
@@ -99,7 +95,6 @@
     <string name="theme_system">"O mesmo do sistema"</string>
     <string name="theme_title">"Tema"</string>
     <string name="throttling_msg">"O Android 9 introduziu uma limitação na procura de Wi-Fi. O Android 10 tem uma opção de programador nova para habilitar a limitação em (Definições - Opções de programador - Controlo da procura de Wi-Fi)."</string>
-    <string name="time_graph_legend_title">"Legenda do histórico"</string>
     <string name="wifi_off_on_exit_title">"Desligar o Wi-Fi ao sair"</string>
     <string name="wifi_throttling_off">"A limitação da procura de Wi-Fi está desativada"</string>
     <string name="wifi_throttling_on">"A limitação da procura de Wi-Fi está ativada"</string>

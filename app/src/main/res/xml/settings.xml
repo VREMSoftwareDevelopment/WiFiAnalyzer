@@ -89,27 +89,6 @@
             app:useSimpleSummaryProvider="true"
             app:title="@string/graph_maximum_y_title" />
 
-        <ListPreference
-            app:defaultValue="@string/channel_graph_legend_default"
-            app:entries="@array/graph_legend_array"
-            app:entryValues="@array/graph_legend_index_array"
-            app:icon="@drawable/ic_insert_chart"
-            app:key="@string/channel_graph_legend_key"
-            app:persistent="true"
-            app:summary="@string/channel_graph_legend_summary"
-            app:useSimpleSummaryProvider="true"
-            app:title="@string/channel_graph_legend_title" />
-
-        <ListPreference
-            app:defaultValue="@string/time_graph_legend_default"
-            app:entries="@array/graph_legend_array"
-            app:entryValues="@array/graph_legend_index_array"
-            app:icon="@drawable/ic_show_chart"
-            app:key="@string/time_graph_legend_key"
-            app:persistent="true"
-            app:summary="@string/time_graph_legend_summary"
-            app:useSimpleSummaryProvider="true"
-            app:title="@string/time_graph_legend_title" />
     </PreferenceCategory>
 
     <PreferenceCategory>

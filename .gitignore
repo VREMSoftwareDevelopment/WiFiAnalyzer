@@ -14,3 +14,4 @@ release
 *IntegrationTest.kt
 androidkeystore*
 plans
+settings.*.json

@@ -17,10 +17,9 @@
  */
 package com.vrem.wifianalyzer.wifi.channelgraph
 
-import com.jjoe64.graphview.series.TitleLineGraphSeries
 import com.vrem.annotation.OpenClass
-import com.vrem.wifianalyzer.wifi.graphutils.GraphDataPoint
-import com.vrem.wifianalyzer.wifi.graphutils.GraphViewWrapper
+import com.vrem.wifianalyzer.wifi.graphutils.DataPoint
+import com.vrem.wifianalyzer.wifi.graphutils.GraphWrapper
 import com.vrem.wifianalyzer.wifi.graphutils.MIN_Y
 import com.vrem.wifianalyzer.wifi.model.WiFiDetail
 
@@ -31,33 +30,30 @@ internal class DataManager {
     fun graphDataPoints(
         wiFiDetail: WiFiDetail,
         levelMax: Int,
-    ): Array<GraphDataPoint> {
+    ): List<DataPoint> {
         val wiFiSignal = wiFiDetail.wiFiSignal
         val guardBand = wiFiSignal.wiFiWidth.guardBand
         val frequencyStart = wiFiSignal.wiFiChannelStart.frequency
         val frequencyEnd = wiFiSignal.wiFiChannelEnd.frequency
         val level = wiFiSignal.level.coerceAtMost(levelMax)
-        return arrayOf(
-            GraphDataPoint(frequencyStart, MIN_Y),
-            GraphDataPoint(frequencyStart + guardBand, level),
-            GraphDataPoint(wiFiSignal.centerFrequency, level),
-            GraphDataPoint(frequencyEnd - guardBand, level),
-            GraphDataPoint(frequencyEnd, MIN_Y),
-        )
+        return listOf(DataPoint(frequencyStart, MIN_Y)) +
+            (frequencyStart + guardBand..frequencyEnd - guardBand).map { DataPoint(it, level) } +
+            DataPoint(frequencyEnd, MIN_Y)
     }
 
     fun addSeriesData(
-        graphViewWrapper: GraphViewWrapper,
+        graphWrapper: GraphWrapper,
         wiFiDetails: Set<WiFiDetail>,
         levelMax: Int,
     ) {
         wiFiDetails.forEach {
             val dataPoints = graphDataPoints(it, levelMax)
-            if (graphViewWrapper.newSeries(it)) {
-                graphViewWrapper.addSeries(it, TitleLineGraphSeries(dataPoints), true)
+            if (graphWrapper.newSeries(it)) {
+                graphWrapper.addSeries(it, dataPoints, true)
             } else {
-                graphViewWrapper.updateSeries(it, dataPoints, true)
+                graphWrapper.updateSeries(it, dataPoints, true)
             }
         }
+        graphWrapper.flushData()
     }
 }

@@ -32,7 +32,6 @@ import org.junit.After
 import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
-import org.mockito.ArgumentMatchers.anyInt
 import org.mockito.kotlin.any
 import org.mockito.kotlin.atLeastOnce
 import org.mockito.kotlin.doNothing
@@ -141,7 +140,7 @@ class VendorAdapterTest {
         // setup
         val viewGroup = mainActivity.findViewById<ViewGroup>(android.R.id.content)
         val spiedFixture = spy(fixture)
-        doReturn(null).whenever(spiedFixture).getItem(anyInt())
+        doReturn(null).whenever(spiedFixture).getItem(0)
         // execute
         val actual = spiedFixture.getView(0, null, viewGroup)
         // validate

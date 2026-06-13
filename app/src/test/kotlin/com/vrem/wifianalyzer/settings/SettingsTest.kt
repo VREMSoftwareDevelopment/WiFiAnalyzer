@@ -29,7 +29,6 @@ import com.vrem.wifianalyzer.navigation.NavigationMenu
 import com.vrem.wifianalyzer.wifi.accesspoint.AccessPointViewType
 import com.vrem.wifianalyzer.wifi.accesspoint.ConnectionViewType
 import com.vrem.wifianalyzer.wifi.band.WiFiBand
-import com.vrem.wifianalyzer.wifi.graphutils.GraphLegend
 import com.vrem.wifianalyzer.wifi.model.GroupBy
 import com.vrem.wifianalyzer.wifi.model.Security
 import com.vrem.wifianalyzer.wifi.model.SortBy
@@ -195,32 +194,6 @@ class SettingsTest {
         // validate
         assertThat(actual).isEqualTo(ThemeStyle.DARK)
         verify(repository).stringAsInteger(R.string.theme_key, ThemeStyle.DARK.ordinal)
-    }
-
-    @Test
-    fun channelGraphLegend() {
-        // setup
-        doReturn(GraphLegend.RIGHT.ordinal)
-            .whenever(repository)
-            .stringAsInteger(R.string.channel_graph_legend_key, GraphLegend.HIDE.ordinal)
-        // execute
-        val actual = fixture.channelGraphLegend()
-        // validate
-        assertThat(actual).isEqualTo(GraphLegend.RIGHT)
-        verify(repository).stringAsInteger(R.string.channel_graph_legend_key, GraphLegend.HIDE.ordinal)
-    }
-
-    @Test
-    fun timeGraphLegend() {
-        // setup
-        doReturn(GraphLegend.RIGHT.ordinal)
-            .whenever(repository)
-            .stringAsInteger(R.string.time_graph_legend_key, GraphLegend.LEFT.ordinal)
-        // execute
-        val actual = fixture.timeGraphLegend()
-        // validate
-        assertThat(actual).isEqualTo(GraphLegend.RIGHT)
-        verify(repository).stringAsInteger(R.string.time_graph_legend_key, GraphLegend.LEFT.ordinal)
     }
 
     @Test

@@ -34,8 +34,6 @@ internal class SettingsInstrumentedTest : Runnable {
             "Connection Display",
             "Access Point Display",
             "Graph Maximum Signal Strength",
-            "Channel Graph Legend Display",
-            "Time Graph Legend Display",
             "Theme",
             "Keep screen on",
             "Country",

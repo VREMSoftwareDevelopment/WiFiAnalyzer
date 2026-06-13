@@ -29,6 +29,8 @@ import com.vrem.wifianalyzer.MainContextHelper
 import com.vrem.wifianalyzer.R
 import com.vrem.wifianalyzer.RobolectricUtil
 import com.vrem.wifianalyzer.wifi.band.WiFiBand
+import com.vrem.wifianalyzer.wifi.detailview.WiFiDetailPopup
+import com.vrem.wifianalyzer.wifi.detailview.WiFiDetailView
 import com.vrem.wifianalyzer.wifi.model.WiFiAdditional
 import com.vrem.wifianalyzer.wifi.model.WiFiConnection
 import com.vrem.wifianalyzer.wifi.model.WiFiData
@@ -57,10 +59,10 @@ class ConnectionViewTest {
     private val settings = MainContextHelper.INSTANCE.settings
     private val wiFiManagerWrapper = MainContextHelper.INSTANCE.wiFiManagerWrapper
     private val wiFiData: WiFiData = mock()
-    private val accessPointDetail: AccessPointDetail = mock()
-    private val accessPointPopup: AccessPointPopup = mock()
+    private val wiFiDetailView: WiFiDetailView = mock()
+    private val wiFiDetailPopup: WiFiDetailPopup = mock()
     private val warningView: WarningView = mock()
-    private val fixture = ConnectionView(mainActivity, accessPointDetail, accessPointPopup, warningView)
+    private val fixture = ConnectionView(mainActivity, wiFiDetailView, wiFiDetailPopup, warningView)
 
     @After
     fun tearDown() {
@@ -170,8 +172,7 @@ class ConnectionViewTest {
         // execute
         fixture.update(wiFiData)
         // validate
-        verify(accessPointPopup).attach(view.findViewById(R.id.attachPopup), connection)
-        verify(accessPointPopup).attach(view.findViewById(R.id.ssid), connection)
+        verify(wiFiDetailPopup).attachToRow(view, connection)
         verify(warningView).update(wiFiData)
     }
 
@@ -225,8 +226,8 @@ class ConnectionViewTest {
     ): View {
         val parent = mainActivity.findViewById<View>(R.id.connection).findViewById<ViewGroup>(R.id.connectionDetail)
         val view = mainActivity.layoutInflater.inflate(layout, parent, false)
-        whenever(accessPointDetail.makeView(null, parent, connection, layout = layout)).thenReturn(view)
-        whenever(accessPointDetail.makeView(parent.getChildAt(0), parent, connection, layout = layout)).thenReturn(view)
+        whenever(wiFiDetailView.makeView(null, parent, connection, layout = layout)).thenReturn(view)
+        whenever(wiFiDetailView.makeView(parent.getChildAt(0), parent, connection, layout = layout)).thenReturn(view)
         return view
     }
 

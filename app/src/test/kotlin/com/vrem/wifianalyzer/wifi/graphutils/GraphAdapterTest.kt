@@ -17,7 +17,7 @@
  */
 package com.vrem.wifianalyzer.wifi.graphutils
 
-import com.jjoe64.graphview.GraphView
+import android.view.View
 import com.vrem.wifianalyzer.MainContextHelper
 import com.vrem.wifianalyzer.wifi.model.WiFiData
 import org.assertj.core.api.Assertions.assertThat
@@ -29,15 +29,15 @@ import org.mockito.kotlin.verifyNoMoreInteractions
 import org.mockito.kotlin.whenever
 
 class GraphAdapterTest {
-    private val graphViewNotifier: GraphViewNotifier = mock()
-    private val graphView: GraphView = mock()
+    private val graphNotifier: GraphNotifier = mock()
+    private val view: View = mock()
     private val wiFiData: WiFiData = mock()
-    private val fixture = GraphAdapter(listOf(graphViewNotifier))
+    private val fixture = GraphAdapter(listOf(graphNotifier))
 
     @After
     fun tearDown() {
-        verifyNoMoreInteractions(graphViewNotifier)
-        verifyNoMoreInteractions(graphView)
+        verifyNoMoreInteractions(graphNotifier)
+        verifyNoMoreInteractions(view)
         verifyNoMoreInteractions(wiFiData)
         MainContextHelper.INSTANCE.restore()
     }
@@ -47,18 +47,26 @@ class GraphAdapterTest {
         // execute
         fixture.update(wiFiData)
         // validate
-        verify(graphViewNotifier).update(wiFiData)
+        verify(graphNotifier).update(wiFiData)
     }
 
     @Test
-    fun graphViews() {
+    fun destroy() {
+        // Act
+        fixture.destroy()
+        // Assert
+        verify(graphNotifier).destroy()
+    }
+
+    @Test
+    fun graphs() {
         // setup
-        whenever(graphViewNotifier.graphView()).thenReturn(graphView)
+        whenever(graphNotifier.graph()).thenReturn(view)
         // execute
-        val actual = fixture.graphViews()
+        val actual = fixture.graphs()
         // validate
         assertThat(actual).hasSize(1)
-        assertThat(actual[0]).isEqualTo(graphView)
-        verify(graphViewNotifier).graphView()
+        assertThat(actual[0]).isEqualTo(view)
+        verify(graphNotifier).graph()
     }
 }

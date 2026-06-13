@@ -41,7 +41,6 @@
     <string name="ap_view_complete">"Completo"</string>
     <string name="ap_view_title">"Pantalla de punto de acceso"</string>
     <string name="app_copyright">"Derechos de autor \u00A9 2015 \u002D "</string>
-    <string name="channel_graph_legend_title">"Leyenda de Visualización de Gráfico de Canales"</string>
     <string name="channel_rating_best">"Mejores canales:"</string>
     <string name="channel_rating_best_alternative">"%1$s, tratar Banda Wi-Fi alternativa %2$s"</string>
     <string name="channel_rating_best_none">"Ninguno"</string>
@@ -66,9 +65,6 @@
     <string name="filter_wifi_band_title">"Banda de Wi-Fi"</string>
     <string name="graph_axis_y">"Intensidad de señal (dBm)"</string>
     <string name="graph_channel_axis_x">"Canales Wi-Fi"</string>
-    <string name="graph_legend_hide">"Esconder"</string>
-    <string name="graph_legend_left">"Izquierda"</string>
-    <string name="graph_legend_right">"Derecha"</string>
     <string name="graph_maximum_y_title">"Gráfico de intensidad máxima de la señal"</string>
     <string name="graph_time_axis_x">"Cantidad de Exploraciones"</string>
     <string name="group_by_channel">"Canal"</string>
@@ -99,7 +95,6 @@
     <string name="theme_system">"Sistema"</string>
     <string name="theme_title">"Tema"</string>
     <string name="throttling_msg">"Android 9 introdujo la limitación de escaneo de Wi-Fi. Android 10 tiene una nueva opción de desarrollador para desactivar la aceleración en (Configuración - Opciones de desarrollador - Redes - Aceleración de escaneo de Wi-Fi)."</string>
-    <string name="time_graph_legend_title">"Leyenda de Visualización de Gráfico de Tiempo"</string>
     <string name="wifi_off_on_exit_title">"Apagar Wi-Fi al salir"</string>
     <string name="wifi_throttling_off">"La aceleración del escaneo de Wi-Fi está deshabilitada"</string>
     <string name="wifi_throttling_on">"La aceleración del escaneo de Wi-Fi está habilitada"</string>

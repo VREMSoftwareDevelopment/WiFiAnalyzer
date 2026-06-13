@@ -111,7 +111,7 @@ class AboutFragment : Fragment() {
             AlertDialogClickListener(activity, R.string.about_contributor_title, R.raw.contributors, false)
         binding.contributors.setOnClickListener(contributors)
         val al = AlertDialogClickListener(activity, R.string.al, R.raw.al)
-        binding.graphViewLicense.setOnClickListener(al)
+        binding.graphLicense.setOnClickListener(al)
         binding.materialDesignIconsLicense.setOnClickListener(al)
         binding.writeReview.setOnClickListener(WriteReviewClickListener(activity))
     }

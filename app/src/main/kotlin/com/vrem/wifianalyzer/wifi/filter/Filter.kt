@@ -19,6 +19,7 @@ package com.vrem.wifianalyzer.wifi.filter
 
 import android.app.AlertDialog
 import android.content.DialogInterface
+import android.view.View
 import com.vrem.wifianalyzer.MainContext
 import com.vrem.wifianalyzer.R
 import com.vrem.wifianalyzer.navigation.NavigationMenu
@@ -51,6 +52,7 @@ class Filter(
         if (NavigationMenu.ACCESS_POINTS == MainContext.INSTANCE.mainActivity.currentNavigationMenu()) {
             WiFiBandFilter(MainContext.INSTANCE.filtersAdapter.wiFiBandAdapter(), alertDialog)
         } else {
+            alertDialog.findViewById<View>(R.id.filterWiFiBand)?.visibility = View.GONE
             null
         }
 

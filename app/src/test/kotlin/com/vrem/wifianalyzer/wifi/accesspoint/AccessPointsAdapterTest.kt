@@ -25,6 +25,8 @@ import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.vrem.wifianalyzer.MainContextHelper
 import com.vrem.wifianalyzer.R
 import com.vrem.wifianalyzer.RobolectricUtil
+import com.vrem.wifianalyzer.wifi.detailview.WiFiDetailPopup
+import com.vrem.wifianalyzer.wifi.detailview.WiFiDetailView
 import com.vrem.wifianalyzer.wifi.model.WiFiConnection
 import com.vrem.wifianalyzer.wifi.model.WiFiData
 import com.vrem.wifianalyzer.wifi.model.WiFiDetail
@@ -44,12 +46,12 @@ import org.robolectric.annotation.Config
 class AccessPointsAdapterTest {
     private val mainActivity = RobolectricUtil.INSTANCE.activity
     private val accessPointsAdapterData: AccessPointsAdapterData = mock()
-    private val accessPointDetail: AccessPointDetail = mock()
-    private val accessPointPopup: AccessPointPopup = mock()
+    private val wiFiDetailView: WiFiDetailView = mock()
+    private val wiFiDetailPopup: WiFiDetailPopup = mock()
     private val expandableListView: ExpandableListView = mock()
     private val viewGroup: ViewGroup = mock()
     private val settings = MainContextHelper.INSTANCE.settings
-    private val fixture = AccessPointsAdapter(accessPointsAdapterData, accessPointDetail, accessPointPopup)
+    private val fixture = AccessPointsAdapter(accessPointsAdapterData, wiFiDetailView, wiFiDetailPopup)
 
     @Before
     fun setUp() {
@@ -59,7 +61,7 @@ class AccessPointsAdapterTest {
     @After
     fun tearDown() {
         verifyNoMoreInteractions(accessPointsAdapterData)
-        verifyNoMoreInteractions(accessPointDetail)
+        verifyNoMoreInteractions(wiFiDetailView)
         verifyNoMoreInteractions(expandableListView)
         verifyNoMoreInteractions(viewGroup)
         MainContextHelper.INSTANCE.restore()
@@ -97,8 +99,7 @@ class AccessPointsAdapterTest {
         verify(accessPointsAdapterData).parent(1)
         verify(accessPointsAdapterData).childrenCount(1)
         verifyView(view, wiFiDetail)
-        verify(accessPointPopup).attach(view.findViewById(R.id.attachPopup), wiFiDetail)
-        verify(accessPointPopup).attach(view.findViewById(R.id.ssid), wiFiDetail)
+        verify(wiFiDetailPopup).attachToRow(view, wiFiDetail)
     }
 
     @Test
@@ -146,8 +147,7 @@ class AccessPointsAdapterTest {
         assertThat(actual.findViewById<View>(R.id.groupIndicator).visibility).isEqualTo(View.GONE)
         verify(accessPointsAdapterData).child(0, 0)
         verifyChildView(view, wiFiDetail)
-        verify(accessPointPopup).attach(view.findViewById(R.id.attachPopup), wiFiDetail)
-        verify(accessPointPopup).attach(view.findViewById(R.id.ssid), wiFiDetail)
+        verify(wiFiDetailPopup).attachToRow(view, wiFiDetail)
     }
 
     @Test
@@ -264,7 +264,7 @@ class AccessPointsAdapterTest {
     ): View {
         val view = mainActivity.layoutInflater.inflate(accessPointViewType.layout, null, false)
         whenever(settings.accessPointView()).thenReturn(accessPointViewType)
-        whenever(accessPointDetail.makeView(view, viewGroup, wiFiDetail)).thenReturn(view)
+        whenever(wiFiDetailView.makeView(view, viewGroup, wiFiDetail)).thenReturn(view)
         return view
     }
 
@@ -274,7 +274,7 @@ class AccessPointsAdapterTest {
     ): View {
         val view = mainActivity.layoutInflater.inflate(accessPointViewType.layout, null, true)
         whenever(settings.accessPointView()).thenReturn(accessPointViewType)
-        whenever(accessPointDetail.makeView(view, viewGroup, wiFiDetail, true)).thenReturn(view)
+        whenever(wiFiDetailView.makeView(view, viewGroup, wiFiDetail, true)).thenReturn(view)
         return view
     }
 
@@ -282,13 +282,13 @@ class AccessPointsAdapterTest {
         view: View,
         wiFiDetail: WiFiDetail,
     ) {
-        verify(accessPointDetail).makeView(view, viewGroup, wiFiDetail)
+        verify(wiFiDetailView).makeView(view, viewGroup, wiFiDetail)
     }
 
     private fun verifyChildView(
         view: View,
         wiFiDetail: WiFiDetail,
     ) {
-        verify(accessPointDetail).makeView(view, viewGroup, wiFiDetail, true)
+        verify(wiFiDetailView).makeView(view, viewGroup, wiFiDetail, true)
     }
 }

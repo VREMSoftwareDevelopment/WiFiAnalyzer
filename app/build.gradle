@@ -45,7 +45,7 @@ dependencies {
     implementation 'androidx.media:media:1.8.0'
     implementation 'androidx.preference:preference-ktx:1.2.1'
     implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
-    implementation 'com.jjoe64:graphview:4.2.2'
+    implementation 'com.patrykandpatrick.vico:views:3.2.2'
     // Unit Test Dependencies
     testImplementation 'androidx.test.ext:junit:1.3.0'
     testImplementation 'com.googlecode.junit-toolbox:junit-toolbox:2.4'
@@ -113,6 +113,8 @@ android {
 
     tasks.withType(Test).configureEach {
         jvmArgs("-XX:+EnableDynamicAgentLoading")
+        maxHeapSize = "2g"
+        forkEvery = 200
         testLogging {
             events = ["passed", "skipped", "failed", "standardOut", "standardError"]
             outputs.upToDateWhen { false }
