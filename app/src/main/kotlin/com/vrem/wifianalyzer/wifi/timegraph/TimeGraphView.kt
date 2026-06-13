@@ -70,6 +70,7 @@ internal class TimeGraphView(
                 graphViewWrapper,
                 wiFiDetails,
                 MainContext.INSTANCE.settings.graphMaximumY(),
+                predicate,
             )
         graphViewWrapper.removeSeries(newSeries)
         graphViewWrapper.updateLegend(MainContext.INSTANCE.settings.timeGraphLegend())

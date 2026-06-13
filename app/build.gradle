@@ -16,6 +16,8 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
+import org.jetbrains.kotlin.gradle.dsl.JvmTarget
+
 plugins {
     id "com.android.application"
     id "kotlin-android"
@@ -98,7 +100,6 @@ android {
             applicationIdSuffix = ".BETA"
             versionNameSuffix = "-BETA"
             minifyEnabled = false
-            shrinkResources = false
             debuggable = true
             enableUnitTestCoverage = true
         }
@@ -107,14 +108,15 @@ android {
     testOptions {
         unitTests {
             includeAndroidResources = true
-            all {
-                jvmArgs("-XX:+EnableDynamicAgentLoading")
-                testLogging {
-                    events = ["passed", "skipped", "failed", "standardOut", "standardError"]
-                    outputs.upToDateWhen { false }
-                    showStandardStreams = true
-                }
-            }
+        }
+    }
+
+    tasks.withType(Test).configureEach {
+        jvmArgs("-XX:+EnableDynamicAgentLoading")
+        testLogging {
+            events = ["passed", "skipped", "failed", "standardOut", "standardError"]
+            outputs.upToDateWhen { false }
+            showStandardStreams = true
         }
     }
 
@@ -122,8 +124,11 @@ android {
         sourceCompatibility = JavaVersion.VERSION_17
         targetCompatibility = JavaVersion.VERSION_17
     }
-    kotlinOptions {
-        jvmTarget = "17"
+
+    kotlin {
+        compilerOptions {
+            jvmTarget = JvmTarget.JVM_17
+        }
     }
 
     lint {
@@ -217,9 +222,9 @@ def isReleaseTask() {
 static Properties readProperties(propertiesFile) {
     if (propertiesFile.canRead()) {
         Properties properties = new Properties()
-        def inputStream = new FileInputStream(propertiesFile)
-        properties.load(inputStream)
-        inputStream.close()
+        propertiesFile.withInputStream { inputStream ->
+            properties.load(inputStream)
+        }
         return properties
     } else {
         def message = ">>> Could not read " + propertiesFile.name + " file!"
@@ -229,12 +234,12 @@ static Properties readProperties(propertiesFile) {
 }
 
 def static writeProperties(propertiesFile, properties) {
-    def writer = propertiesFile.newWriter()
-    properties.store(writer, "Build Properties")
-    writer.close()
+    propertiesFile.withWriter { writer ->
+        properties.store(writer, "Build Properties")
+    }
 }
 
-configurations.all {
+configurations.configureEach {
     exclude group: 'org.hamcrest', module: 'hamcrest-core'
     exclude group: 'org.hamcrest', module: 'hamcrest-library'
 }

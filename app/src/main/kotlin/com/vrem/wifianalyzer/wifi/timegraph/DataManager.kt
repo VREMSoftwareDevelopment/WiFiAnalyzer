@@ -25,6 +25,7 @@ import com.vrem.wifianalyzer.wifi.graphutils.MAX_SCAN_COUNT
 import com.vrem.wifianalyzer.wifi.graphutils.MIN_Y
 import com.vrem.wifianalyzer.wifi.graphutils.MIN_Y_OFFSET
 import com.vrem.wifianalyzer.wifi.model.WiFiDetail
+import com.vrem.wifianalyzer.wifi.predicate.Predicate
 
 @OpenClass
 internal class DataManager(
@@ -37,10 +38,11 @@ internal class DataManager(
         graphViewWrapper: GraphViewWrapper,
         wiFiDetails: List<WiFiDetail>,
         levelMax: Int,
+        predicate: Predicate,
     ): Set<WiFiDetail> {
         val inOrder: Set<WiFiDetail> = wiFiDetails.toSet()
         inOrder.forEach { addData(graphViewWrapper, it, levelMax) }
-        adjustData(graphViewWrapper, inOrder)
+        adjustData(graphViewWrapper, inOrder, predicate)
         xValue++
         if (scanCount < MAX_SCAN_COUNT) {
             scanCount++
@@ -48,23 +50,30 @@ internal class DataManager(
         if (scanCount == 2) {
             graphViewWrapper.setHorizontalLabelsVisible(true)
         }
-        return newSeries(inOrder)
+        return newSeries(inOrder, predicate)
     }
 
     fun adjustData(
         graphViewWrapper: GraphViewWrapper,
         wiFiDetails: Set<WiFiDetail>,
+        predicate: Predicate,
     ) {
-        graphViewWrapper.differenceSeries(wiFiDetails).forEach {
-            val dataPoint = GraphDataPoint(xValue, MIN_Y + MIN_Y_OFFSET)
-            val drawBackground = it.wiFiAdditional.wiFiConnection.connected
-            graphViewWrapper.appendToSeries(it, dataPoint, scanCount, drawBackground)
-            timeGraphCache.add(it)
-        }
+        graphViewWrapper
+            .differenceSeries(wiFiDetails)
+            .filter { predicate(it) }
+            .forEach {
+                val dataPoint = GraphDataPoint(xValue, MIN_Y + MIN_Y_OFFSET)
+                val drawBackground = it.wiFiAdditional.wiFiConnection.connected
+                graphViewWrapper.appendToSeries(it, dataPoint, scanCount, drawBackground)
+                timeGraphCache.add(it)
+            }
         timeGraphCache.clear()
     }
 
-    fun newSeries(wiFiDetails: Set<WiFiDetail>): Set<WiFiDetail> = wiFiDetails.plus(timeGraphCache.active())
+    fun newSeries(
+        wiFiDetails: Set<WiFiDetail>,
+        predicate: Predicate,
+    ): Set<WiFiDetail> = wiFiDetails.plus(timeGraphCache.active().filter { predicate(it) })
 
     fun addData(
         graphViewWrapper: GraphViewWrapper,
