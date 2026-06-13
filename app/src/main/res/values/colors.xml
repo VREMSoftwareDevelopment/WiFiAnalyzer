@@ -43,4 +43,6 @@
     <color name="background">#757575</color>
     <!-- black -->
     <color name="black">#000000</color>
+    <!-- grey_900 -->
+    <color name="nav_bottom_background">#212121</color>
 </resources>

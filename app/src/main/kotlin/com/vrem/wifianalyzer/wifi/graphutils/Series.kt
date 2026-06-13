@@ -56,28 +56,28 @@ class SeriesData(
     var connected: Boolean = false,
     var drawBackground: Boolean = false,
 ) {
-    private val _dataPoints: ArrayDeque<DataPoint> = ArrayDeque(dataPoints)
-    val dataPoints: List<DataPoint> get() = _dataPoints
+    val dataPoints: List<DataPoint>
+        field = ArrayDeque(dataPoints)
 
     fun replaceAll(points: List<DataPoint>) {
-        _dataPoints.clear()
-        _dataPoints.addAll(points)
+        dataPoints.clear()
+        dataPoints.addAll(points)
     }
 
     fun append(
         point: DataPoint,
         maxSize: Int,
     ) {
-        _dataPoints.addLast(point)
-        if (_dataPoints.size > maxSize) {
-            _dataPoints.removeFirst()
+        dataPoints.addLast(point)
+        if (dataPoints.size > maxSize) {
+            dataPoints.removeFirst()
         }
     }
 
     fun toCoordinates(): Coordinates {
-        val xValues = ArrayList<Double>(_dataPoints.size)
-        val yValues = ArrayList<Double>(_dataPoints.size)
-        _dataPoints.forEach { dataPoint ->
+        val xValues = ArrayList<Double>(dataPoints.size)
+        val yValues = ArrayList<Double>(dataPoints.size)
+        dataPoints.forEach { dataPoint ->
             xValues.add(dataPoint.x.toDouble())
             yValues.add(dataPoint.y.toDouble())
         }
