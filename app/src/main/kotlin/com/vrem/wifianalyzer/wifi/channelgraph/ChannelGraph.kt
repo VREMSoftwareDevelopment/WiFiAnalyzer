@@ -23,6 +23,7 @@ import com.patrykandpatrick.vico.views.cartesian.CartesianDrawingContext
 import com.patrykandpatrick.vico.views.cartesian.ScrollHandler
 import com.patrykandpatrick.vico.views.cartesian.Zoom
 import com.patrykandpatrick.vico.views.cartesian.data.CartesianLayerRangeProvider
+import com.patrykandpatrick.vico.views.common.data.ExtraStore
 import com.vrem.annotation.OpenClass
 import com.vrem.wifianalyzer.MainContext
 import com.vrem.wifianalyzer.R
@@ -36,7 +37,6 @@ import com.vrem.wifianalyzer.wifi.graphutils.GraphNotifier
 import com.vrem.wifianalyzer.wifi.graphutils.GraphViewport
 import com.vrem.wifianalyzer.wifi.graphutils.GraphWrapper
 import com.vrem.wifianalyzer.wifi.graphutils.LabelPosition
-import com.vrem.wifianalyzer.wifi.graphutils.MAX_Y_DEFAULT
 import com.vrem.wifianalyzer.wifi.graphutils.MIN_VISIBLE_FREQUENCY_RANGE
 import com.vrem.wifianalyzer.wifi.graphutils.MIN_Y
 import com.vrem.wifianalyzer.wifi.graphutils.SeriesData
@@ -45,6 +45,37 @@ import com.vrem.wifianalyzer.wifi.graphutils.canvasY
 import com.vrem.wifianalyzer.wifi.model.WiFiData
 import com.vrem.wifianalyzer.wifi.predicate.Predicate
 import com.vrem.wifianalyzer.wifi.predicate.makeOtherPredicate
+
+internal class ChannelLayerRangeProvider(
+    private val minXValue: Double,
+    private val maxXValue: Double,
+) : CartesianLayerRangeProvider {
+    override fun getMinX(
+        minX: Double,
+        maxX: Double,
+        extraStore: ExtraStore,
+    ) = minXValue
+
+    override fun getMaxX(
+        minX: Double,
+        maxX: Double,
+        extraStore: ExtraStore,
+    ) = maxXValue
+
+    override fun getMinY(
+        minY: Double,
+        maxY: Double,
+        extraStore: ExtraStore,
+    ) = MIN_Y.toDouble()
+
+    override fun getMaxY(
+        minY: Double,
+        maxY: Double,
+        extraStore: ExtraStore,
+    ) = MainContext.INSTANCE.settings
+        .graphMaximumY()
+        .toDouble()
+}
 
 internal fun calculateLabelPosition(
     context: CartesianDrawingContext,
@@ -92,13 +123,7 @@ internal fun makeGraphWrapper(wiFiBand: WiFiBand): GraphWrapper {
     val wiFiChannels = wiFiBand.wiFiChannels.wiFiChannels()
     val minX = wiFiChannels.first().frequency
     val maxX = wiFiChannels.last().frequency
-    val rangeProvider =
-        CartesianLayerRangeProvider.fixed(
-            minX = minX.toDouble(),
-            maxX = maxX.toDouble(),
-            minY = MIN_Y.toDouble(),
-            maxY = MAX_Y_DEFAULT.toDouble(),
-        )
+    val rangeProvider = ChannelLayerRangeProvider(minX.toDouble(), maxX.toDouble())
     val graphViewport =
         GraphViewport(
             rangeProvider = rangeProvider,

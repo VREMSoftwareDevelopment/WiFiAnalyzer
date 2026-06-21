@@ -22,7 +22,6 @@ import com.vrem.wifianalyzer.wifi.graphutils.DataPoint
 import com.vrem.wifianalyzer.wifi.graphutils.GraphWrapper
 import com.vrem.wifianalyzer.wifi.graphutils.MAX_SCAN_COUNT
 import com.vrem.wifianalyzer.wifi.model.WiFiDetail
-import com.vrem.wifianalyzer.wifi.predicate.Predicate
 
 @OpenClass
 internal class DataManager(
@@ -42,35 +41,29 @@ internal class DataManager(
         graphWrapper: GraphWrapper,
         wiFiDetails: List<WiFiDetail>,
         levelMax: Int,
-        predicate: Predicate,
     ): Set<WiFiDetail> {
         val inOrder: Set<WiFiDetail> = wiFiDetails.toSet()
         inOrder.forEach { addData(graphWrapper, it, levelMax) }
-        adjustData(graphWrapper, inOrder, predicate)
+        adjustData(graphWrapper, inOrder)
         graphWrapper.flushData()
         xValue++
         if (scanCount < MAX_SCAN_COUNT) {
             scanCount++
         }
-        return newSeries(inOrder, predicate)
+        return newSeries(inOrder)
     }
 
     fun adjustData(
         graphWrapper: GraphWrapper,
         wiFiDetails: Set<WiFiDetail>,
-        predicate: Predicate,
     ) {
         graphWrapper
             .differenceSeries(wiFiDetails)
-            .filter { predicate(it) }
             .forEach { timeGraphCache.add(it) }
         timeGraphCache.clear()
     }
 
-    fun newSeries(
-        wiFiDetails: Set<WiFiDetail>,
-        predicate: Predicate,
-    ): Set<WiFiDetail> = wiFiDetails.plus(timeGraphCache.active().filter { predicate(it) })
+    fun newSeries(wiFiDetails: Set<WiFiDetail>): Set<WiFiDetail> = wiFiDetails.plus(timeGraphCache.active())
 
     fun addData(
         graphWrapper: GraphWrapper,

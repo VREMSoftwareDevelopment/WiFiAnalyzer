@@ -63,7 +63,7 @@ class TimeGraphTest {
         val wiFiData = WiFiData(wiFiDetails, WiFiConnection.EMPTY)
         val predicate: Predicate = truePredicate
         doReturn(predicate).whenever(fixture).predicate(settings)
-        doReturn(newSeries).whenever(dataManager).addSeriesData(graphWrapper, wiFiDetails, MAX_Y, predicate)
+        doReturn(newSeries).whenever(dataManager).addSeriesData(graphWrapper, wiFiDetails, MAX_Y)
         doReturn(SortBy.SSID).whenever(settings).sortBy()
         doReturn(WiFiBand.GHZ2).whenever(settings).wiFiBand()
         doReturn(MAX_Y).whenever(settings).graphMaximumY()
@@ -73,7 +73,7 @@ class TimeGraphTest {
         // Assert
         verify(fixture).predicate(settings)
         verify(dataManager).reset(graphWrapper)
-        verify(dataManager).addSeriesData(graphWrapper, wiFiDetails, MAX_Y, predicate)
+        verify(dataManager).addSeriesData(graphWrapper, wiFiDetails, MAX_Y)
         verify(graphWrapper).removeSeries(newSeries)
         verify(graphWrapper).show()
         verify(settings).sortBy()
@@ -91,7 +91,7 @@ class TimeGraphTest {
         val wiFiData = WiFiData(wiFiDetails, WiFiConnection.EMPTY)
         val predicate: Predicate = truePredicate
         doReturn(predicate).whenever(fixture).predicate(settings)
-        doReturn(newSeries).whenever(dataManager).addSeriesData(graphWrapper, wiFiDetails, MAX_Y, predicate)
+        doReturn(newSeries).whenever(dataManager).addSeriesData(graphWrapper, wiFiDetails, MAX_Y)
         doReturn(SortBy.SSID).whenever(settings).sortBy()
         doReturn(WiFiBand.GHZ2).whenever(settings).wiFiBand()
         doReturn(MAX_Y).whenever(settings).graphMaximumY()
@@ -101,7 +101,7 @@ class TimeGraphTest {
         fixture.update(wiFiData)
         // Assert
         verify(dataManager).reset(graphWrapper)
-        verify(dataManager, times(2)).addSeriesData(graphWrapper, wiFiDetails, MAX_Y, predicate)
+        verify(dataManager, times(2)).addSeriesData(graphWrapper, wiFiDetails, MAX_Y)
         verify(graphWrapper, times(2)).removeSeries(newSeries)
         verify(graphWrapper, times(2)).show()
         verify(fixture, times(2)).predicate(settings)
@@ -119,7 +119,7 @@ class TimeGraphTest {
         val wiFiData = WiFiData(wiFiDetails, WiFiConnection.EMPTY)
         val predicate: Predicate = truePredicate
         doReturn(predicate).whenever(fixture).predicate(settings)
-        doReturn(newSeries).whenever(dataManager).addSeriesData(graphWrapper, wiFiDetails, MAX_Y, predicate)
+        doReturn(newSeries).whenever(dataManager).addSeriesData(graphWrapper, wiFiDetails, MAX_Y)
         doReturn(SortBy.SSID).whenever(settings).sortBy()
         doReturn(MAX_Y).whenever(settings).graphMaximumY()
         doReturn(ThemeStyle.DARK).whenever(settings).themeStyle()
@@ -134,7 +134,7 @@ class TimeGraphTest {
         fixture.update(wiFiData)
         // Assert
         verify(dataManager, times(2)).reset(graphWrapper)
-        verify(dataManager, times(2)).addSeriesData(graphWrapper, wiFiDetails, MAX_Y, predicate)
+        verify(dataManager, times(2)).addSeriesData(graphWrapper, wiFiDetails, MAX_Y)
         verify(graphWrapper, times(2)).removeSeries(newSeries)
         verify(graphWrapper, times(2)).show()
         verify(graphWrapper).gone()

@@ -39,7 +39,7 @@ dependencies {
     implementation 'androidx.collection:collection-ktx:1.6.0'
     implementation 'androidx.core:core-ktx:1.18.0'
     implementation 'androidx.core:core-splashscreen:1.2.0'
-    implementation 'androidx.lifecycle:lifecycle-viewmodel-ktx:2.10.0'
+    implementation 'androidx.lifecycle:lifecycle-viewmodel-ktx:2.11.0'
     implementation 'androidx.media:media:1.8.0'
     implementation 'androidx.preference:preference-ktx:1.2.1'
     implementation 'androidx.swiperefreshlayout:swiperefreshlayout:1.2.0'

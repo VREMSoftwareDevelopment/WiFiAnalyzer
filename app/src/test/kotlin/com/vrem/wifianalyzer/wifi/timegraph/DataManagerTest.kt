@@ -31,13 +31,10 @@ import com.vrem.wifianalyzer.wifi.model.WiFiIdentifier
 import com.vrem.wifianalyzer.wifi.model.WiFiSecurity
 import com.vrem.wifianalyzer.wifi.model.WiFiSignal
 import com.vrem.wifianalyzer.wifi.model.WiFiWidth
-import com.vrem.wifianalyzer.wifi.predicate.falsePredicate
-import com.vrem.wifianalyzer.wifi.predicate.truePredicate
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.mockito.kotlin.mock
-import org.mockito.kotlin.never
 import org.mockito.kotlin.verify
 import org.mockito.kotlin.whenever
 import org.robolectric.annotation.Config
@@ -71,7 +68,7 @@ class DataManagerTest {
         // setup
         assertThat(fixture.xValue).isEqualTo(0)
         // execute
-        fixture.addSeriesData(graphWrapper, listOf(), MAX_Y, truePredicate)
+        fixture.addSeriesData(graphWrapper, listOf(), MAX_Y)
         // validate
         assertThat(fixture.xValue).isEqualTo(1)
     }
@@ -81,7 +78,7 @@ class DataManagerTest {
         // setup
         assertThat(fixture.scanCount).isEqualTo(0)
         // execute
-        fixture.addSeriesData(graphWrapper, listOf(), MAX_Y, truePredicate)
+        fixture.addSeriesData(graphWrapper, listOf(), MAX_Y)
         // validate
         assertThat(fixture.scanCount).isEqualTo(1)
     }
@@ -92,7 +89,7 @@ class DataManagerTest {
         val wiFiDetails = makeWiFiDetails()
         val wiFiDetailsSet = wiFiDetails.toSet()
         // execute
-        fixture.addSeriesData(graphWrapper, wiFiDetails, MAX_Y, truePredicate)
+        fixture.addSeriesData(graphWrapper, wiFiDetails, MAX_Y)
         // validate
         wiFiDetailsSet.forEach {
             verify(graphWrapper).newSeries(it)
@@ -106,7 +103,7 @@ class DataManagerTest {
         // setup
         fixture.scanCount = MAX_SCAN_COUNT
         // execute
-        fixture.addSeriesData(graphWrapper, listOf(), MAX_Y, truePredicate)
+        fixture.addSeriesData(graphWrapper, listOf(), MAX_Y)
         // validate
         assertThat(fixture.scanCount).isEqualTo(MAX_SCAN_COUNT)
     }
@@ -118,25 +115,10 @@ class DataManagerTest {
         val difference = makeWiFiDetails()
         whenever(graphWrapper.differenceSeries(wiFiDetails)).thenReturn(difference)
         // execute
-        fixture.adjustData(graphWrapper, wiFiDetails, truePredicate)
+        fixture.adjustData(graphWrapper, wiFiDetails)
         // validate
         difference.forEach {
             verify(timeGraphCache).add(it)
-        }
-        verify(timeGraphCache).clear()
-    }
-
-    @Test
-    fun adjustDataDoesNotTrackDisappearedNetworksFilteredOutByPredicate() {
-        // setup
-        val wiFiDetails: Set<WiFiDetail> = setOf()
-        val difference = makeWiFiDetails()
-        whenever(graphWrapper.differenceSeries(wiFiDetails)).thenReturn(difference)
-        // execute
-        fixture.adjustData(graphWrapper, wiFiDetails, falsePredicate)
-        // validate
-        difference.forEach {
-            verify(timeGraphCache, never()).add(it)
         }
         verify(timeGraphCache).clear()
     }
@@ -148,24 +130,10 @@ class DataManagerTest {
         val moreWiFiDetails: Set<WiFiDetail> = makeMoreWiFiDetails().toSet()
         whenever(timeGraphCache.active()).thenReturn(moreWiFiDetails)
         // execute
-        val actual = fixture.newSeries(wiFiDetails, truePredicate)
+        val actual = fixture.newSeries(wiFiDetails)
         // validate
         assertThat(actual).containsAll(wiFiDetails)
         assertThat(actual).containsAll(moreWiFiDetails)
-        verify(timeGraphCache).active()
-    }
-
-    @Test
-    fun newSeriesExcludesActiveCacheEntriesFilteredOutByPredicate() {
-        // setup
-        val wiFiDetails: Set<WiFiDetail> = makeWiFiDetails().toSet()
-        val moreWiFiDetails: Set<WiFiDetail> = makeMoreWiFiDetails().toSet()
-        whenever(timeGraphCache.active()).thenReturn(moreWiFiDetails)
-        // execute
-        val actual = fixture.newSeries(wiFiDetails, falsePredicate)
-        // validate
-        assertThat(actual).containsAll(wiFiDetails)
-        assertThat(actual).doesNotContainAnyElementsOf(moreWiFiDetails)
         verify(timeGraphCache).active()
     }
 

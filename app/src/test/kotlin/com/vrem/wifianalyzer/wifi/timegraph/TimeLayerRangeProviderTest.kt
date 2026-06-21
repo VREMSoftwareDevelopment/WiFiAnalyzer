@@ -18,65 +18,90 @@
 package com.vrem.wifianalyzer.wifi.timegraph
 
 import com.patrykandpatrick.vico.views.common.data.ExtraStore
+import com.vrem.wifianalyzer.MainContextHelper
 import com.vrem.wifianalyzer.wifi.graphutils.MAX_SCAN_COUNT
-import com.vrem.wifianalyzer.wifi.graphutils.MAX_Y_DEFAULT
 import com.vrem.wifianalyzer.wifi.graphutils.MIN_Y
 import org.assertj.core.api.Assertions.assertThat
+import org.junit.After
 import org.junit.Test
+import org.mockito.kotlin.doReturn
 import org.mockito.kotlin.mock
+import org.mockito.kotlin.verify
+import org.mockito.kotlin.verifyNoMoreInteractions
+import org.mockito.kotlin.whenever
 
 private const val NUM_X_TIME = 21
 
 class TimeLayerRangeProviderTest {
+    private val mainActivity = MainContextHelper.INSTANCE.mainActivity
+    private val settings = MainContextHelper.INSTANCE.settings
     private val extraStore: ExtraStore = mock()
     private val fixture = TimeLayerRangeProvider()
 
+    @After
+    fun tearDown() {
+        MainContextHelper.INSTANCE.restore()
+        verifyNoMoreInteractions(mainActivity, settings, extraStore)
+    }
+
     @Test
     fun getMinXBelowThresholdWithEvenMinXIsUnchanged() {
+        // Arrange
+        val expected = 0.0
         // Act
-        val actual = fixture.getMinX(minX = 0.0, maxX = NUM_X_TIME.toDouble(), extraStore = extraStore)
+        val actual = fixture.getMinX(minX = expected, maxX = NUM_X_TIME.toDouble(), extraStore = extraStore)
         // Assert
-        assertThat(actual).isEqualTo(0.0)
+        assertThat(actual).isEqualTo(expected)
     }
 
     @Test
     fun getMinXBelowThresholdWithOddMinXSnapsDownToEven() {
+        // Arrange
+        val expected = 6.0
         // Act
         val actual = fixture.getMinX(minX = 7.0, maxX = NUM_X_TIME.toDouble(), extraStore = extraStore)
         // Assert
-        assertThat(actual).isEqualTo(6.0)
+        assertThat(actual).isEqualTo(expected)
     }
 
     @Test
     fun getMinXAboveThresholdClampsToMaxXMinusMaxScanCount() {
+        // Arrange
+        val expected = 50.0
         // Act
         val actual = fixture.getMinX(minX = 0.0, maxX = (MAX_SCAN_COUNT + 50).toDouble(), extraStore = extraStore)
         // Assert
-        assertThat(actual).isEqualTo(50.0)
+        assertThat(actual).isEqualTo(expected)
     }
 
     @Test
     fun getMinXAboveThresholdWithOddClampedValueSnapsDownToEven() {
+        // Arrange
+        val expected = 50.0
         // Act
         val actual = fixture.getMinX(minX = 0.0, maxX = (MAX_SCAN_COUNT + 51).toDouble(), extraStore = extraStore)
         // Assert
-        assertThat(actual).isEqualTo(50.0)
+        assertThat(actual).isEqualTo(expected)
     }
 
     @Test
     fun getMinXUsesClampedValueWhenMinXLessThanMaxXMinusMaxScanCount() {
+        // Arrange
+        val expected = 50.0
         // Act
         val actual = fixture.getMinX(minX = 10.0, maxX = (MAX_SCAN_COUNT + 50).toDouble(), extraStore = extraStore)
         // Assert
-        assertThat(actual).isEqualTo(50.0)
+        assertThat(actual).isEqualTo(expected)
     }
 
     @Test
     fun getMinXUsesMinXWhenGreaterThanMaxXMinusMaxScanCount() {
+        // Arrange
+        val expected = 60.0
         // Act
-        val actual = fixture.getMinX(minX = 60.0, maxX = (MAX_SCAN_COUNT + 50).toDouble(), extraStore = extraStore)
+        val actual = fixture.getMinX(minX = expected, maxX = (MAX_SCAN_COUNT + 50).toDouble(), extraStore = extraStore)
         // Assert
-        assertThat(actual).isEqualTo(60.0)
+        assertThat(actual).isEqualTo(expected)
     }
 
     @Test
@@ -112,10 +137,14 @@ class TimeLayerRangeProviderTest {
     }
 
     @Test
-    fun getMaxYReturnsMaxYDefaultIgnoringInputs() {
+    fun getMaxY() {
+        // Arrange
+        val expected = 50
+        doReturn(expected).whenever(settings).graphMaximumY()
         // Act
         val actual = fixture.getMaxY(minY = -123.0, maxY = 45.0, extraStore = extraStore)
         // Assert
-        assertThat(actual).isEqualTo(MAX_Y_DEFAULT.toDouble())
+        assertThat(actual).isEqualTo(expected.toDouble())
+        verify(settings).graphMaximumY()
     }
 }

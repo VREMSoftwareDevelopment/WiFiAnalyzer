@@ -41,7 +41,6 @@ import com.vrem.wifianalyzer.wifi.graphutils.GraphViewport
 import com.vrem.wifianalyzer.wifi.graphutils.GraphWrapper
 import com.vrem.wifianalyzer.wifi.graphutils.LabelPosition
 import com.vrem.wifianalyzer.wifi.graphutils.MAX_SCAN_COUNT
-import com.vrem.wifianalyzer.wifi.graphutils.MAX_Y_DEFAULT
 import com.vrem.wifianalyzer.wifi.graphutils.MIN_Y
 import com.vrem.wifianalyzer.wifi.graphutils.SeriesData
 import com.vrem.wifianalyzer.wifi.graphutils.SeriesLabel
@@ -78,7 +77,9 @@ internal class TimeLayerRangeProvider : CartesianLayerRangeProvider {
         minY: Double,
         maxY: Double,
         extraStore: ExtraStore,
-    ) = MAX_Y_DEFAULT.toDouble()
+    ) = MainContext.INSTANCE.settings
+        .graphMaximumY()
+        .toDouble()
 }
 
 internal fun calculateLabelPosition(
@@ -150,7 +151,7 @@ internal class TimeGraph(
         val levelMax = settings.graphMaximumY()
         val predicate = predicate(settings)
         val wiFiDetails = wiFiData.wiFiDetails(predicate, sortBy)
-        val newSeries = dataManager.addSeriesData(graphWrapper, wiFiDetails, levelMax, predicate)
+        val newSeries = dataManager.addSeriesData(graphWrapper, wiFiDetails, levelMax)
         graphWrapper.removeSeries(newSeries)
         graphWrapper.show()
     }
