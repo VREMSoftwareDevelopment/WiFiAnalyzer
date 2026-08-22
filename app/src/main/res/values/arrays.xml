@@ -35,13 +35,15 @@
     <string-array name="sort_by_index_array" translatable="false">
         <item>0</item>
         <item>1</item>
-        <item>2</item>
+	<item>2</item>
+	<item>3</item>
     </string-array>
 
     <string-array name="sort_by_array">
         <item>@string/sort_by_signal_strength</item>
         <item>@string/sort_by_ssid</item>
-        <item>@string/sort_by_channel</item>
+	<item>@string/sort_by_channel</item>
+	<item>@string/sort_by_standard</item>
     </string-array>
 
     <string-array name="connection_view_index_array" translatable="false">
