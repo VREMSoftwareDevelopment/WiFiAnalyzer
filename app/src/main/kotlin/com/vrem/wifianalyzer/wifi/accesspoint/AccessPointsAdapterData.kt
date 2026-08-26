@@ -25,10 +25,10 @@ import com.vrem.wifianalyzer.SIZE_MIN
 import com.vrem.wifianalyzer.wifi.graphutils.TYPE1
 import com.vrem.wifianalyzer.wifi.graphutils.TYPE2
 import com.vrem.wifianalyzer.wifi.graphutils.TYPE3
+import com.vrem.wifianalyzer.wifi.graphutils.applicationType
 import com.vrem.wifianalyzer.wifi.model.WiFiData
 import com.vrem.wifianalyzer.wifi.model.WiFiDetail
 import com.vrem.wifianalyzer.wifi.predicate.makeAccessPointsPredicate
-import java.security.MessageDigest
 
 @OpenClass
 class AccessPointsAdapterData(
@@ -62,17 +62,6 @@ class AccessPointsAdapterData(
 
     fun onGroupExpanded(groupPosition: Int) = accessPointsAdapterGroup.onGroupExpanded(wiFiDetails, groupPosition)
 
-    private fun calculateChildType(): Int =
-        runCatching {
-            with(MessageDigest.getInstance("MD5")) {
-                update(
-                    MainContext.INSTANCE.mainActivity.packageName
-                        .toByteArray(),
-                )
-                val digest: ByteArray = digest()
-                digest.contentHashCode()
-            }
-        }.getOrDefault(TYPE1)
-
+    private fun calculateChildType(): Int = applicationType(MainContext.INSTANCE.mainActivity.packageName)
     private fun type(value: Int): Int = if (value == TYPE1 || value == TYPE2 || value == TYPE3) SIZE_MAX else SIZE_MIN
 }

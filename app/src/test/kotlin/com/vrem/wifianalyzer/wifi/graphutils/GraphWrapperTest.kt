@@ -226,20 +226,40 @@ class GraphWrapperTest {
     }
 
     @Test
-    fun calculateGraphType() {
+    fun calculateGraphTypeUsesSharedApplicationIdentity() {
         // Act
         val actual = fixture.calculateGraphType()
         // Assert
-        assertThat(actual).isGreaterThan(0)
+        assertThat(actual).isEqualTo(applicationType(mainActivity.packageName))
     }
 
     @Test
-    fun getSize() {
+    fun applicationTypeMapsKnownApplicationIdsToMaximumSize() {
+        // Act
+        val baseType = applicationType("com.vrem.wifianalyzer")
+        val debugType = applicationType("com.vrem.wifianalyzer.BETA")
+        // Assert
+        assertThat(baseType).isEqualTo(TYPE1)
+        assertThat(fixture.size(baseType)).isEqualTo(SIZE_MAX)
+        assertThat(debugType).isEqualTo(TYPE3)
+        assertThat(fixture.size(debugType)).isEqualTo(SIZE_MAX)
+    }
+
+    @Test
+    fun applicationTypeMapsUnknownApplicationIdToMinimumSize() {
+        // Act
+        val actual = applicationType("com.vrem.wifianalyzer.UNKNOWN")
+        // Assert
+        assertThat(actual).isEqualTo(TYPE4)
+        assertThat(fixture.size(actual)).isEqualTo(SIZE_MIN)
+    }
+
+    @Test
+    fun sizeRetainsLegacyType2AndFallbackBehavior() {
         // Act & assert
-        assertThat(fixture.size(TYPE1)).isEqualTo(SIZE_MAX)
         assertThat(fixture.size(TYPE2)).isEqualTo(SIZE_MAX)
-        assertThat(fixture.size(TYPE3)).isEqualTo(SIZE_MAX)
         assertThat(fixture.size(TYPE4)).isEqualTo(SIZE_MIN)
+        assertThat(fixture.size(Int.MIN_VALUE)).isEqualTo(SIZE_MIN)
     }
 
     @Test

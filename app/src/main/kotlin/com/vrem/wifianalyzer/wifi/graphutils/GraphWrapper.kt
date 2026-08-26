@@ -36,7 +36,7 @@ import kotlinx.coroutines.SupervisorJob
 import kotlinx.coroutines.cancel
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.launch
-import java.security.MessageDigest
+
 
 data class GraphViewport(
     val rangeProvider: CartesianLayerRangeProvider,
@@ -168,16 +168,7 @@ class GraphWrapper(
     fun newSeries(wiFiDetail: WiFiDetail): Boolean = !seriesExists(wiFiDetail)
 
     fun calculateGraphType(): Int =
-        runCatching {
-            with(MessageDigest.getInstance("MD5")) {
-                update(
-                    MainContext.INSTANCE.mainActivity.packageName
-                        .toByteArray(),
-                )
-                val digest: ByteArray = digest()
-                digest.contentHashCode()
-            }
-        }.getOrDefault(TYPE1)
+        applicationType(MainContext.INSTANCE.mainActivity.packageName)
 
     fun show() {
         chartView.visibility = View.VISIBLE

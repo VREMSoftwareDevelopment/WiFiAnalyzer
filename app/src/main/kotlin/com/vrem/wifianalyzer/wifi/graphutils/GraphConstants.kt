@@ -32,3 +32,13 @@ const val TYPE1 = 1147798476
 const val TYPE2 = 535509942
 const val TYPE3 = 1256180258
 const val TYPE4 = 1546740952
+
+private const val APPLICATION_ID_BASE = "com.vrem.wifianalyzer"
+private const val APPLICATION_ID_DEBUG = "com.vrem.wifianalyzer.BETA"
+
+fun applicationType(applicationId: String): Int =
+    when (applicationId) {
+        APPLICATION_ID_BASE -> TYPE1
+        APPLICATION_ID_DEBUG -> TYPE3
+        else -> TYPE4
+    }
