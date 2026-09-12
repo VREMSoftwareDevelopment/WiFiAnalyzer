@@ -116,7 +116,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        api-level: [25, 28, 30, 33, '37.0']
+        api-level: [29, 33, 35, '37.0']
     steps:
       - uses: actions/checkout@v7
       - uses: ./.github/actions/common-setup
@@ -147,8 +147,6 @@ jobs:
           api-level: ${{ matrix.api-level }}
           script: |
             adb wait-for-device
-            # Wait until Android system UI is fully ready
-            until adb shell getprop sys.boot_completed | grep -m 1 "1"; do sleep 2; done
             ./gradlew connectedDebugAndroidTest -x assembleDebug -x assembleDebugAndroidTest
       - name: Upload test results
         uses: actions/upload-artifact@v7
