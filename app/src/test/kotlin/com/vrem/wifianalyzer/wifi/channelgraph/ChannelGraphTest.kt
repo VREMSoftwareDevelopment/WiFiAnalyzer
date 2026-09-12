@@ -44,7 +44,7 @@ class ChannelGraphTest {
     private val settings: Settings = mock()
     private val graphWrapper: GraphWrapper = mock()
     private val dataManager: DataManager = mock()
-    private val fixture: ChannelGraph = spy(ChannelGraph(WiFiBand.GHZ2, dataManager, graphWrapper, settings))
+    private val fixture = spy(ChannelGraph(WiFiBand.GHZ2, dataManager, graphWrapper, settings))
 
     @After
     fun tearDown() {

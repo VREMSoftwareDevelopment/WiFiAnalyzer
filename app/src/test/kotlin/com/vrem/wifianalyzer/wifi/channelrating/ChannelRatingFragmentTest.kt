@@ -20,12 +20,10 @@ package com.vrem.wifianalyzer.wifi.channelrating
 import android.os.Build
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import androidx.test.ext.junit.runners.AndroidJUnit4
-import com.vrem.wifianalyzer.MainActivity
 import com.vrem.wifianalyzer.MainContextHelper
 import com.vrem.wifianalyzer.R
 import com.vrem.wifianalyzer.RobolectricUtil
 import com.vrem.wifianalyzer.wifi.model.WiFiData
-import com.vrem.wifianalyzer.wifi.scanner.ScannerService
 import kotlinx.coroutines.flow.MutableStateFlow
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.After
@@ -39,11 +37,11 @@ import org.mockito.kotlin.whenever
 import org.robolectric.annotation.Config
 
 @RunWith(AndroidJUnit4::class)
-@Config(sdk = [Build.VERSION_CODES.BAKLAVA])
+@Config(sdk = [Build.VERSION_CODES.CINNAMON_BUN])
 class ChannelRatingFragmentTest {
-    private val mainActivity: MainActivity = RobolectricUtil.INSTANCE.activity
-    private val scanner: ScannerService = MainContextHelper.INSTANCE.scannerService
-    private val fixture: ChannelRatingFragment = ChannelRatingFragment()
+    private val mainActivity = RobolectricUtil.INSTANCE.mainActivity
+    private val scanner = MainContextHelper.INSTANCE.scannerService
+    private val fixture = ChannelRatingFragment()
     private val wiFiData = MutableStateFlow(WiFiData.EMPTY)
 
     @Before
@@ -67,11 +65,11 @@ class ChannelRatingFragmentTest {
 
     @Test
     fun refreshEnabled() {
-        // setup
+        // Arrange
         RobolectricUtil.INSTANCE.startFragment(fixture)
-        // execute
+        // Act
         val swipeRefreshLayout: SwipeRefreshLayout = fixture.view!!.findViewById(R.id.channelRatingRefresh)
-        // validate
+        // Assert
         assertThat(swipeRefreshLayout.isEnabled).isTrue
     }
 
@@ -99,11 +97,11 @@ class ChannelRatingFragmentTest {
     @Config(sdk = [Build.VERSION_CODES.P])
     @Test
     fun refreshDisabled() {
-        // setup
+        // Arrange
         RobolectricUtil.INSTANCE.startFragment(fixture)
-        // execute
+        // Act
         val swipeRefreshLayout: SwipeRefreshLayout = fixture.view!!.findViewById(R.id.channelRatingRefresh)
-        // validate
+        // Assert
         assertThat(swipeRefreshLayout.isRefreshing).isFalse
         assertThat(swipeRefreshLayout.isEnabled).isFalse
     }

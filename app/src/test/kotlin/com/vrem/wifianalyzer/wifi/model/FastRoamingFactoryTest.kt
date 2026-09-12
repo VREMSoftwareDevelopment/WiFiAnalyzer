@@ -32,11 +32,11 @@ import org.robolectric.annotation.Config
 class FastRoamingFactoryTest {
     @Test
     fun findLegacy() {
-        // setup
+        // Arrange
         val scanResult: ScanResult = mock()
-        // execute
+        // Act
         val actual = FastRoaming.find(scanResult)
-        // validate
+        // Assert
         assertThat(actual).isEmpty()
         verifyNoMoreInteractions(scanResult)
     }

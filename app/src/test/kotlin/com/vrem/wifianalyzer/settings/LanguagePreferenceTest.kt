@@ -32,18 +32,18 @@ import org.robolectric.annotation.Config
 import java.util.Locale
 
 @RunWith(AndroidJUnit4::class)
-@Config(sdk = [Build.VERSION_CODES.BAKLAVA])
+@Config(sdk = [Build.VERSION_CODES.CINNAMON_BUN])
 class LanguagePreferenceTest {
-    private val mainActivity = RobolectricUtil.INSTANCE.activity
+    private val mainActivity = RobolectricUtil.INSTANCE.mainActivity
     private val languages = supportedLanguages()
     private val attributeSet = Robolectric.getAttributeSetFromXml(R.xml.test_attrs)
     private val fixture = LanguagePreference(mainActivity, attributeSet)
 
     @Test
     fun entries() {
-        // execute
+        // Act
         val actual: Array<CharSequence> = fixture.entries
-        // validate
+        // Assert
         assertThat(actual).hasSize(languages.size)
         languages.forEach {
             assertThat(actual).contains(it.getDisplayName(it).toCapitalize(Locale.getDefault()))
@@ -52,9 +52,9 @@ class LanguagePreferenceTest {
 
     @Test
     fun entryValues() {
-        // execute
+        // Act
         val actual: Array<CharSequence> = fixture.entryValues
-        // validate
+        // Assert
         assertThat(actual).hasSize(languages.size)
         languages.forEach {
             assertThat(actual).contains(toLanguageTag(it))

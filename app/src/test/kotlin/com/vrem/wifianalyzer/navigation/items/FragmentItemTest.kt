@@ -38,7 +38,7 @@ import org.mockito.kotlin.whenever
 import org.robolectric.annotation.Config
 
 @RunWith(AndroidJUnit4::class)
-@Config(sdk = [Build.VERSION_CODES.BAKLAVA])
+@Config(sdk = [Build.VERSION_CODES.CINNAMON_BUN])
 class FragmentItemTest {
     private val title = "title"
     private val fragment: Fragment = mock()
@@ -56,14 +56,14 @@ class FragmentItemTest {
 
     @Test
     fun activateWithStateSaved() {
-        // setup
+        // Arrange
         val fixture = FragmentItem(fragment, true, View.VISIBLE)
         val navigationMenu = NavigationMenu.ACCESS_POINTS
         whenever(mainActivity.supportFragmentManager).thenReturn(fragmentManager)
         whenever(fragmentManager.isStateSaved).thenReturn(true)
-        // execute
+        // Act
         fixture.activate(mainActivity, navigationMenu)
-        // validate
+        // Assert
         verify(mainActivity, never()).getString(navigationMenu.title)
         verify(mainActivity).supportFragmentManager
         verify(fragmentManager).isStateSaved
@@ -73,16 +73,16 @@ class FragmentItemTest {
 
     @Test
     fun activateWithStateNotSaved() {
-        // setup
+        // Arrange
         val fixture = FragmentItem(fragment, true, View.VISIBLE)
         val navigationMenu = NavigationMenu.ACCESS_POINTS
         whenever(mainActivity.getString(navigationMenu.title)).thenReturn(title)
         whenever(mainActivity.supportFragmentManager).thenReturn(fragmentManager)
         whenever(fragmentManager.isStateSaved).thenReturn(false)
         withFragmentTransaction()
-        // execute
+        // Act
         fixture.activate(mainActivity, navigationMenu)
-        // validate
+        // Assert
         verify(mainActivity).getString(navigationMenu.title)
         verify(mainActivity).supportFragmentManager
         verify(fragmentManager).isStateSaved
@@ -92,25 +92,25 @@ class FragmentItemTest {
 
     @Test
     fun registeredFalse() {
-        // setup
+        // Arrange
         val fixture = FragmentItem(fragment, false, View.VISIBLE)
-        // execute & validate
+        // Act & Assert
         assertThat(fixture.registered).isFalse
     }
 
     @Test
     fun registeredTrue() {
-        // setup
+        // Arrange
         val fixture = FragmentItem(fragment, true, View.VISIBLE)
-        // execute & validate
+        // Act & Assert
         assertThat(fixture.registered).isTrue
     }
 
     @Test
     fun visibility() {
-        // setup
+        // Arrange
         val fixture = FragmentItem(fragment, false, View.INVISIBLE)
-        // execute & validate
+        // Act & Assert
         assertThat(fixture.visibility).isEqualTo(View.INVISIBLE)
     }
 

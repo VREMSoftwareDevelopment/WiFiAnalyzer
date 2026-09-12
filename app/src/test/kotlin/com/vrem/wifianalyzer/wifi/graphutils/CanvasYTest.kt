@@ -38,7 +38,7 @@ import org.mockito.kotlin.whenever
 import org.robolectric.annotation.Config
 
 @RunWith(AndroidJUnit4::class)
-@Config(sdk = [Build.VERSION_CODES.BAKLAVA])
+@Config(sdk = [Build.VERSION_CODES.CINNAMON_BUN])
 class CanvasYTest {
     private val context: CartesianDrawingContext = mock()
     private val ranges: CartesianChartRanges = mock()

@@ -52,17 +52,17 @@ import org.robolectric.annotation.Config
 import java.util.AbstractMap.SimpleEntry
 
 @RunWith(AndroidJUnit4::class)
-@Config(sdk = [Build.VERSION_CODES.BAKLAVA])
+@Config(sdk = [Build.VERSION_CODES.CINNAMON_BUN])
 class GraphWrapperTest {
-    private val mainActivity = RobolectricUtil.INSTANCE.activity
+    private val mainActivity = RobolectricUtil.INSTANCE.mainActivity
     private val chartView: CartesianChartView = mock()
     private val seriesCache: SeriesCache = mock()
     private val seriesLabel: SeriesLabel = mock()
     private val chartUpdater: ChartUpdater = mock()
     private val chart: CartesianChart = mock()
-    private val graphColors: GraphColors = GraphColors()
-    private val seriesData: SeriesData = SeriesData()
-    private val dataPoint: DataPoint = DataPoint(1, 2)
+    private val graphColors = GraphColors()
+    private val seriesData = SeriesData()
+    private val dataPoint = DataPoint(1, 2)
     private val wiFiDetail = WiFiDetail.EMPTY
     private val rangeProvider = CartesianLayerRangeProvider.fixed()
     private val graphViewport =
@@ -235,7 +235,7 @@ class GraphWrapperTest {
 
     @Test
     fun getSize() {
-        // Act & assert
+        // Act & Assert
         assertThat(fixture.size(TYPE1)).isEqualTo(SIZE_MAX)
         assertThat(fixture.size(TYPE2)).isEqualTo(SIZE_MAX)
         assertThat(fixture.size(TYPE3)).isEqualTo(SIZE_MAX)

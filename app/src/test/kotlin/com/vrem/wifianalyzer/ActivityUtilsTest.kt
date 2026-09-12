@@ -40,7 +40,7 @@ import org.mockito.kotlin.whenever
 import org.robolectric.annotation.Config
 
 @RunWith(AndroidJUnit4::class)
-@Config(sdk = [Build.VERSION_CODES.BAKLAVA])
+@Config(sdk = [Build.VERSION_CODES.CINNAMON_BUN])
 class ActivityUtilsTest {
     private val window: Window = mock()
     private val actionBar: ActionBar = mock()
@@ -62,12 +62,12 @@ class ActivityUtilsTest {
 
     @Test
     fun setupToolbar() {
-        // setup
+        // Arrange
         doReturn(toolbar).whenever(mainActivity).findViewById<View>(R.id.toolbar)
         doReturn(actionBar).whenever(mainActivity).supportActionBar
-        // execute
+        // Act
         val actual = mainActivity.setupToolbar()
-        // validate
+        // Assert
         assertThat(actual).isEqualTo(toolbar)
         verify(mainActivity).findViewById<View>(R.id.toolbar)
         verify(mainActivity).supportActionBar
@@ -78,12 +78,12 @@ class ActivityUtilsTest {
 
     @Test
     fun keepScreenOnSwitchOn() {
-        // setup
+        // Arrange
         doReturn(true).whenever(settings).keepScreenOn()
         doReturn(window).whenever(mainActivity).window
-        // execute
+        // Act
         mainActivity.keepScreenOn(settings)
-        // validate
+        // Assert
         verify(settings).keepScreenOn()
         verify(mainActivity).window
         verify(window).addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON)
@@ -91,12 +91,12 @@ class ActivityUtilsTest {
 
     @Test
     fun keepScreenOnSwitchOff() {
-        // setup
+        // Arrange
         doReturn(false).whenever(settings).keepScreenOn()
         doReturn(window).whenever(mainActivity).window
-        // execute
+        // Act
         mainActivity.keepScreenOn(settings)
-        // validate
+        // Assert
         verify(settings).keepScreenOn()
         verify(mainActivity).window
         verify(window).clearFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON)
@@ -104,9 +104,9 @@ class ActivityUtilsTest {
 
     @Test
     fun startLocationSettings() {
-        // execute
+        // Act
         mainActivity.startLocationSettings()
-        // validate
+        // Assert
         verify(mainActivity).startActivity(intentArgumentCaptor.capture())
         assertThat(intentArgumentCaptor.firstValue.action).isEqualTo(ACTION_LOCATION_SOURCE_SETTINGS)
     }

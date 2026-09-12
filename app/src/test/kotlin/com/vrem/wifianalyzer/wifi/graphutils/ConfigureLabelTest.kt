@@ -35,7 +35,7 @@ import org.mockito.kotlin.whenever
 import org.robolectric.annotation.Config
 
 @RunWith(AndroidJUnit4::class)
-@Config(sdk = [Build.VERSION_CODES.BAKLAVA])
+@Config(sdk = [Build.VERSION_CODES.CINNAMON_BUN])
 class ConfigureLabelTest {
     private val position = LabelPosition(10f, 20f, Paint.Align.LEFT)
     private val seriesData = SeriesData(listOf(DataPoint(1, -50)), GraphColor(0xFF0000, 0x00FF00), "SSID")

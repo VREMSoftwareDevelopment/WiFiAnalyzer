@@ -29,45 +29,45 @@ import org.junit.Test
 class SecurityPredicateTest {
     @Test
     fun securityPredicateWithFoundWPAValue() {
-        // setup
+        // Arrange
         val wiFiDetail = wiFiDetail()
         val fixture = Security.WPA.predicate()
-        // execute
+        // Act
         val actual = fixture(wiFiDetail)
-        // validate
+        // Assert
         assertThat(actual).isTrue
     }
 
     @Test
     fun securityPredicateWithFoundWEPValue() {
-        // setup
+        // Arrange
         val wiFiDetail = wiFiDetail()
         val fixture = Security.WEP.predicate()
-        // execute
+        // Act
         val actual = fixture(wiFiDetail)
-        // validate
+        // Assert
         assertThat(actual).isTrue
     }
 
     @Test
     fun securityPredicateWithFoundNoneValue() {
-        // setup
+        // Arrange
         val wiFiDetail = wiFiDetailWithNoSecurity()
         val fixture = Security.NONE.predicate()
-        // execute
+        // Act
         val actual = fixture(wiFiDetail)
-        // validate
+        // Assert
         assertThat(actual).isTrue
     }
 
     @Test
     fun securityPredicateWithNotFoundValue() {
-        // setup
+        // Arrange
         val wiFiDetail = wiFiDetail()
         val fixture = Security.WPA2.predicate()
-        // execute
+        // Act
         val actual = fixture(wiFiDetail)
-        // validate
+        // Assert
         assertThat(actual).isFalse
     }
 

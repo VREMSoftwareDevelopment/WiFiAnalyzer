@@ -51,11 +51,11 @@ class SecurityTest {
 
     @Test
     fun order() {
-        // setup
+        // Arrange
         val expected = listOf(Security.NONE, Security.WPS, Security.WEP, Security.WPA, Security.WPA2, Security.WPA3)
-        // execute
+        // Act
         val actual = Security.entries
-        // validate
+        // Assert
         assertThat(actual).isEqualTo(expected)
     }
 

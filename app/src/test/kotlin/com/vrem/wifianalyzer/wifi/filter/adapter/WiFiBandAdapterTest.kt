@@ -43,84 +43,84 @@ class WiFiBandAdapterTest {
 
     @Test
     fun isActiveWithChanges() {
-        // setup
+        // Arrange
         fixture.toggle(WiFiBand.GHZ2)
-        // execute & validate
+        // Act & Assert
         assertThat(fixture.isActive()).isTrue
     }
 
     @Test
     fun getValues() {
-        // setup
+        // Arrange
         val expected = WiFiBand.entries
-        // execute
+        // Act
         val actual = fixture.selections
-        // validate
+        // Assert
         assertThat(actual).containsAll(expected)
     }
 
     @Test
     fun getValuesDefault() {
-        // setup
+        // Arrange
         val expected = WiFiBand.entries
-        // execute
+        // Act
         val actual = fixture.defaults
-        // validate
+        // Assert
         assertThat(actual).isEqualTo(expected)
     }
 
     @Test
     fun toggleRemoves() {
-        // execute
+        // Act
         val actual = fixture.toggle(WiFiBand.GHZ2)
-        // validate
+        // Assert
         assertThat(actual).isTrue
         assertThat(fixture.contains(WiFiBand.GHZ2)).isFalse
     }
 
     @Test
     fun toggleAdds() {
-        // setup
+        // Arrange
         fixture.toggle(WiFiBand.GHZ5)
-        // execute
+        // Act
         val actual = fixture.toggle(WiFiBand.GHZ5)
-        // validate
+        // Assert
         assertThat(actual).isTrue
         assertThat(fixture.contains(WiFiBand.GHZ5)).isTrue
     }
 
     @Test
     fun removingAllWillNotRemoveLast() {
-        // setup
-        val values: Set<WiFiBand> = WiFiBand.entries.toSet()
-        // execute
+        // Arrange
+        val values = WiFiBand.entries.toSet()
+        // Act
         values.forEach { fixture.toggle(it) }
-        // validate
+        // Assert
         values.toList().subList(0, values.size - 1).forEach { assertThat(fixture.contains(it)).isFalse }
         assertThat(fixture.contains(values.last())).isTrue
     }
 
     @Test
     fun getColorWithExisting() {
-        // execute & validate
+        // Act & Assert
         assertThat(fixture.color(WiFiBand.GHZ2)).isEqualTo(R.color.selected)
     }
 
     @Test
     fun getColorWithNonExisting() {
-        // setup
+        // Arrange
         fixture.toggle(WiFiBand.GHZ2)
-        // execute & validate
+        // Act & Assert
         assertThat(fixture.color(WiFiBand.GHZ2)).isEqualTo(R.color.regular)
     }
 
     @Test
     fun save() {
-        // setup
+        // Arrange
         val expected = fixture.selections
-        // execute
+        // Act
         fixture.save(settings)
-        // execute
+        // Act
         verify(settings).saveWiFiBands(expected)
     }
 }

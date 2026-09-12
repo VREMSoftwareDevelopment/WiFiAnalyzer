@@ -143,7 +143,7 @@ internal class ChannelGraph(
     private var graphWrapper: GraphWrapper = makeGraphWrapper(wiFiBand),
     private val settings: Settings = MainContext.INSTANCE.settings,
 ) : GraphNotifier {
-    private var wasSelected: Boolean = false
+    private var wasSelected = false
 
     override fun update(wiFiData: WiFiData) {
         if (!selected()) {

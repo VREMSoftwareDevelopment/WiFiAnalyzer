@@ -33,9 +33,9 @@ import org.mockito.kotlin.whenever
 import org.robolectric.annotation.Config
 
 @RunWith(AndroidJUnit4::class)
-@Config(sdk = [Build.VERSION_CODES.BAKLAVA])
+@Config(sdk = [Build.VERSION_CODES.CINNAMON_BUN])
 class VendorFragmentTest {
-    private val mainActivity = RobolectricUtil.INSTANCE.activity
+    private val mainActivity = RobolectricUtil.INSTANCE.mainActivity
     private val vendorService = MainContextHelper.INSTANCE.vendorService
     private val fixture = VendorFragment()
 
@@ -53,38 +53,38 @@ class VendorFragmentTest {
 
     @Test
     fun listenerOnQueryTextChange() {
-        // setup
+        // Arrange
         val values = "     ABS       ADF      "
         val expected = "ABS ADF"
         val vendorAdapter: VendorAdapter = mock()
         val fixture = VendorFragment.Listener(vendorAdapter)
-        // execute
+        // Act
         val actual = fixture.onQueryTextChange(values)
-        // verify
+        // Assert
         assertThat(actual).isTrue
         verify(vendorAdapter).update(expected)
     }
 
     @Test
     fun listenerOnQueryTextChangeWithNull() {
-        // setup
+        // Arrange
         val vendorAdapter: VendorAdapter = mock()
         val fixture = VendorFragment.Listener(vendorAdapter)
-        // execute
+        // Act
         val actual = fixture.onQueryTextChange(String.EMPTY)
-        // verify
+        // Assert
         assertThat(actual).isTrue
         verify(vendorAdapter).update(String.EMPTY)
     }
 
     @Test
     fun listenerOnQueryTextSubmit() {
-        // setup
+        // Arrange
         val vendorAdapter: VendorAdapter = mock()
         val fixture = VendorFragment.Listener(vendorAdapter)
-        // execute
+        // Act
         val actual = fixture.onQueryTextSubmit(String.EMPTY)
-        // verify
+        // Assert
         assertThat(actual).isFalse
     }
 }

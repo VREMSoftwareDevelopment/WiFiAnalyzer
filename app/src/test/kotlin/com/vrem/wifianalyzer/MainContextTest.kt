@@ -29,9 +29,9 @@ import org.robolectric.annotation.Config
 import kotlin.coroutines.ContinuationInterceptor
 
 @RunWith(AndroidJUnit4::class)
-@Config(sdk = [Build.VERSION_CODES.BAKLAVA])
+@Config(sdk = [Build.VERSION_CODES.CINNAMON_BUN])
 class MainContextTest {
-    private val mainActivity = RobolectricUtil.INSTANCE.activity
+    private val mainActivity = RobolectricUtil.INSTANCE.mainActivity
     private val fixture = MainContext.INSTANCE
 
     @Test

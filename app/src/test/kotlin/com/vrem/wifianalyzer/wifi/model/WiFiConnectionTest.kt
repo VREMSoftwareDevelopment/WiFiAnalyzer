@@ -26,11 +26,11 @@ class WiFiConnectionTest {
     private val linkSpeed = 21
     private val wiFiIdentifier = WiFiIdentifier("SSID-123", "BSSID-123")
     private val other = WiFiConnection(WiFiIdentifier("SSID-123", "BSSID-123"))
-    private val fixture: WiFiConnection = WiFiConnection(wiFiIdentifier, ipAddress, linkSpeed)
+    private val fixture = WiFiConnection(wiFiIdentifier, ipAddress, linkSpeed)
 
     @Test
     fun wiFiConnectionEmpty() {
-        // validate
+        // Assert
         assertThat(WiFiConnection.EMPTY.wiFiIdentifier).isEqualTo(WiFiIdentifier.EMPTY)
         assertThat(WiFiConnection.EMPTY.ipAddress).isEqualTo(String.EMPTY)
         assertThat(WiFiConnection.EMPTY.linkSpeed).isEqualTo(WiFiConnection.LINK_SPEED_INVALID)
@@ -39,7 +39,7 @@ class WiFiConnectionTest {
 
     @Test
     fun wiFiConnection() {
-        // validate
+        // Assert
         assertThat(fixture.wiFiIdentifier).isEqualTo(wiFiIdentifier)
         assertThat(fixture.ipAddress).isEqualTo(ipAddress)
         assertThat(fixture.linkSpeed).isEqualTo(linkSpeed)
@@ -48,7 +48,7 @@ class WiFiConnectionTest {
 
     @Test
     fun equalsUsingIdentifier() {
-        // execute & validate
+        // Act & Assert
         assertThat(other).isEqualTo(fixture)
         assertThat(other).isNotSameAs(fixture)
     }
@@ -76,13 +76,13 @@ class WiFiConnectionTest {
 
     @Test
     fun hashCodeUsingIdentifier() {
-        // execute & validate
+        // Act & Assert
         assertThat(other.hashCode()).isEqualTo(fixture.hashCode())
     }
 
     @Test
     fun compareToUsingIdentifier() {
-        // execute & validate
+        // Act & Assert
         assertThat(fixture.compareTo(other)).isEqualTo(0)
     }
 }

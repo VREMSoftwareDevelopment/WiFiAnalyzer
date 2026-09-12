@@ -24,7 +24,7 @@ import org.junit.Test
 class WiFiVirtualTest {
     @Test
     fun wiFiVirtualWithVirtualBSSID() {
-        // setup
+        // Arrange
         val wiFiDetail =
             WiFiDetail(
                 WiFiIdentifier("SSID1", "20:cf:30:ce:1d:71"),
@@ -32,9 +32,9 @@ class WiFiVirtualTest {
                 WiFiSignal(2432, 2432, WiFiWidth.MHZ_20, -50),
                 WiFiAdditional.EMPTY,
             )
-        // execute
+        // Act
         val actual = wiFiDetail.wiFiVirtual
-        // validate
+        // Assert
         assertThat(actual.bssid).isEqualTo(":cf:30:ce:1d:7")
         assertThat(actual.frequency).isEqualTo(2432)
         assertThat(actual.key).isEqualTo(":cf:30:ce:1d:7-" + 2432)
@@ -42,7 +42,7 @@ class WiFiVirtualTest {
 
     @Test
     fun wiFiVirtualWithRegularBSSIDWhenBSSIDShort() {
-        // setup
+        // Arrange
         val wiFiDetail =
             WiFiDetail(
                 WiFiIdentifier("SSID1", "20:cf:30:ce:1d:7"),
@@ -50,9 +50,9 @@ class WiFiVirtualTest {
                 WiFiSignal(2432, 2432, WiFiWidth.MHZ_20, -50),
                 WiFiAdditional.EMPTY,
             )
-        // execute
+        // Act
         val actual = wiFiDetail.wiFiVirtual
-        // validate
+        // Assert
         assertThat(actual.bssid).isEqualTo("20:cf:30:ce:1d:7")
         assertThat(actual.frequency).isEqualTo(2432)
         assertThat(actual.key).isEqualTo("20:cf:30:ce:1d:7-" + 2432)
@@ -60,7 +60,7 @@ class WiFiVirtualTest {
 
     @Test
     fun wiFiVirtualWithRegularBSSIDWhenBSSIDLong() {
-        // setup
+        // Arrange
         val wiFiDetail =
             WiFiDetail(
                 WiFiIdentifier("SSID1", "20:cf:30:ce:1d:71:"),
@@ -68,9 +68,9 @@ class WiFiVirtualTest {
                 WiFiSignal(2432, 2432, WiFiWidth.MHZ_20, -50),
                 WiFiAdditional.EMPTY,
             )
-        // execute
+        // Act
         val actual = wiFiDetail.wiFiVirtual
-        // validate
+        // Assert
         assertThat(actual.bssid).isEqualTo("20:cf:30:ce:1d:71:")
         assertThat(actual.frequency).isEqualTo(2432)
         assertThat(actual.key).isEqualTo("20:cf:30:ce:1d:71:-" + 2432)

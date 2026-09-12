@@ -48,7 +48,7 @@ data class WiFiSignal(
     val level: Int = 0,
     val extra: WiFiSignalExtra = WiFiSignalExtra.EMPTY,
 ) {
-    val wiFiBand: WiFiBand = WiFiBand.find(primaryFrequency)
+    val wiFiBand = WiFiBand.find(primaryFrequency)
 
     val wiFiChannelStart: WiFiChannel get() =
         wiFiBand.wiFiChannels.wiFiChannelByFrequency(
@@ -74,9 +74,9 @@ data class WiFiSignal(
     fun inRange(frequency: Int): Boolean = frequency in wiFiChannelStart.frequency..wiFiChannelEnd.frequency
 
     fun channelDisplay(): String {
-        val primaryChannel: Int = primaryWiFiChannel.channel
-        val centerChannel: Int = centerWiFiChannel.channel
-        val channel: String = primaryChannel.toString()
+        val primaryChannel = primaryWiFiChannel.channel
+        val centerChannel = centerWiFiChannel.channel
+        val channel = primaryChannel.toString()
         return if (primaryChannel != centerChannel) "$channel($centerChannel)" else channel
     }
 

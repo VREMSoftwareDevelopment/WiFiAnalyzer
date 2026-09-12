@@ -37,26 +37,26 @@ class FileUtilsTest {
 
     @Test
     fun readFile() {
-        // setup
+        // Arrange
         val id = 11
         val input = "Line-1\r\nLine-2\r\n"
         val expected = "Line-1\nLine-2\n"
         whenever(resources.openRawResource(id)).thenReturn(input.byteInputStream())
-        // execute
+        // Act
         val actual = readFile(resources, id)
-        // validate
+        // Assert
         assertThat(actual).isEqualTo(expected)
         verify(resources).openRawResource(id)
     }
 
     @Test
     fun readFileHandleException() {
-        // setup
+        // Arrange
         val id = 11
         whenever(resources.openRawResource(id)).thenThrow(NotFoundException::class.java)
-        // execute
+        // Act
         val actual = readFile(resources, id)
-        // validate
+        // Assert
         assertThat(actual).isEmpty()
         verify(resources).openRawResource(id)
     }

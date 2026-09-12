@@ -50,7 +50,7 @@ import org.robolectric.annotation.Config
 import java.util.Locale
 
 @RunWith(AndroidJUnit4::class)
-@Config(sdk = [Build.VERSION_CODES.BAKLAVA])
+@Config(sdk = [Build.VERSION_CODES.CINNAMON_BUN])
 class CompatUtilsTest {
     private val context: Context = mock()
     private val contextWrapper: ContextWrapper = mock()
@@ -86,14 +86,14 @@ class CompatUtilsTest {
 
     @Test
     fun createContext() {
-        // setup
+        // Arrange
         whenever(context.resources).thenReturn(resources)
         whenever(resources.configuration).thenReturn(configuration)
         whenever(context.createConfigurationContext(configuration)).thenReturn(contextWrapper)
         whenever(contextWrapper.baseContext).thenReturn(context)
-        // execute
-        val actual: Context = context.createContext(newLocale)
-        // validate
+        // Act
+        val actual = context.createContext(newLocale)
+        // Assert
         assertThat(actual).isEqualTo(contextWrapper)
         assertThat((actual as ContextWrapper).baseContext).isEqualTo(context)
         verify(configuration).setLocale(newLocale)
@@ -105,14 +105,14 @@ class CompatUtilsTest {
 
     @Test
     fun contextPackageInfo() {
-        // setup
+        // Arrange
         val packageName = "Package Name"
         whenever(context.packageManager).thenReturn(packageManager)
         whenever(context.packageName).thenReturn(packageName)
         whenever(packageManager.getPackageInfo(eq(packageName), any<PackageInfoFlags>())).thenReturn(packageInfo)
-        // execute
+        // Act
         val actual = context.packageInfo()
-        // validate
+        // Assert
         assertThat(actual).isEqualTo(packageInfo)
         verify(packageManager).getPackageInfo(eq(packageName), any<PackageInfoFlags>())
         verify(context).packageName
@@ -122,14 +122,14 @@ class CompatUtilsTest {
     @Test
     @Config(sdk = [Build.VERSION_CODES.S_V2])
     fun contextPackageInfoLegacy() {
-        // setup
+        // Arrange
         val packageName = "Package Name"
         whenever(context.packageManager).thenReturn(packageManager)
         whenever(context.packageName).thenReturn(packageName)
         whenever(packageManager.getPackageInfo(packageName, 0)).thenReturn(packageInfo)
-        // execute
+        // Act
         val actual = context.packageInfo()
-        // validate
+        // Assert
         assertThat(actual).isEqualTo(packageInfo)
         verify(packageManager).getPackageInfo(packageName, 0)
         verify(context).packageName
@@ -249,37 +249,37 @@ class CompatUtilsTest {
 
     @Test
     fun scanResultSSID() {
-        // setup
+        // Arrange
         val expected = "SSID"
         val ssid = "\"$expected\""
         whenever(scanResult.wifiSsid).thenReturn(wifiSsid)
         whenever(wifiSsid.toString()).thenReturn(ssid)
-        // execute
+        // Act
         val actual = scanResult.ssid()
-        // validate
+        // Assert
         assertThat(actual).isEqualTo(expected)
         verify(scanResult).wifiSsid
     }
 
     @Test
     fun scanResultSSIDWhenWifiSsidNull() {
-        // setup
+        // Arrange
         whenever(scanResult.wifiSsid).thenReturn(null)
-        // execute
+        // Act
         val actual = scanResult.ssid()
-        // validate
+        // Assert
         assertThat(actual).isEqualTo(String.EMPTY)
         verify(scanResult).wifiSsid
     }
 
     @Test
     fun scanResultSSIDWhenNull() {
-        // setup
+        // Arrange
         whenever(scanResult.wifiSsid).thenReturn(wifiSsid)
         whenever(wifiSsid.toString()).thenReturn(null)
-        // execute
+        // Act
         val actual = scanResult.ssid()
-        // validate
+        // Assert
         assertThat(actual).isEqualTo(String.EMPTY)
         verify(scanResult).wifiSsid
     }
@@ -287,24 +287,24 @@ class CompatUtilsTest {
     @Test
     @Config(sdk = [Build.VERSION_CODES.S_V2])
     fun scanResultSSIDLegacy() {
-        // setup
+        // Arrange
         val expected = "SSID"
         val ssid = "\"$expected\""
         scanResult.SSID = ssid
-        // execute
+        // Act
         val actual = scanResult.ssid()
-        // validate
+        // Assert
         assertThat(actual).isEqualTo(expected)
     }
 
     @Test
     @Config(sdk = [Build.VERSION_CODES.S_V2])
     fun scanResultSSIDLegacyWhenNull() {
-        // setup
+        // Arrange
         scanResult.SSID = null
-        // execute
+        // Act
         val actual = scanResult.ssid()
-        // validate
+        // Assert
         assertThat(actual).isEqualTo(String.EMPTY)
     }
 

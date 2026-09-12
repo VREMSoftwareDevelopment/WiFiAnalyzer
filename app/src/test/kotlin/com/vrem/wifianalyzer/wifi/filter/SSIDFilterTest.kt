@@ -41,7 +41,7 @@ import org.mockito.kotlin.whenever
 import org.robolectric.annotation.Config
 
 @RunWith(AndroidJUnit4::class)
-@Config(sdk = [Build.VERSION_CODES.BAKLAVA])
+@Config(sdk = [Build.VERSION_CODES.CINNAMON_BUN])
 class SSIDFilterTest {
     private val alertDialog: AlertDialog = mock()
     private val editText: EditText = mock()
@@ -52,7 +52,7 @@ class SSIDFilterTest {
 
     @Before
     fun setUp() {
-        RobolectricUtil.INSTANCE.activity
+        RobolectricUtil.INSTANCE.mainActivity
     }
 
     @After
@@ -66,15 +66,15 @@ class SSIDFilterTest {
 
     @Test
     fun sSIDFilterWithValues() {
-        // setup
+        // Arrange
         val values: Set<String> = setOf("", " ", "ABC", " JDS ")
         whenever(ssidAdapter.selections).thenReturn(values)
         whenever(alertDialog.findViewById<EditText>(R.id.filterSSIDtext)).thenReturn(editText)
         whenever(alertDialog.findViewById<View>(R.id.filterSSID)).thenReturn(view)
         val expected = "ABC JDS"
-        // execute
+        // Act
         SSIDFilter(ssidAdapter, alertDialog)
-        // verify
+        // Assert
         verify(ssidAdapter).selections
         verify(editText).setText(expected)
         verify(alertDialog).findViewById<EditText>(R.id.filterSSIDtext)
@@ -86,14 +86,14 @@ class SSIDFilterTest {
 
     @Test
     fun onChangeAfterTextChangedWithValues() {
-        // setup
+        // Arrange
         val value = " ABS ADF "
         val onChange = OnChange(ssidAdapter)
         whenever(editable.toString()).thenReturn(value)
         val expected: Set<String> = setOf("ABS", "ADF")
-        // execute
+        // Act
         onChange.afterTextChanged(editable)
-        // verify
+        // Assert
         verify(ssidAdapter).selections = expected
     }
 }

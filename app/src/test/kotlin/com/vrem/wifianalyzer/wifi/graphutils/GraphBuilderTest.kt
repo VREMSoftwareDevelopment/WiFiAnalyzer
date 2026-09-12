@@ -30,17 +30,17 @@ import org.junit.runner.RunWith
 import org.robolectric.annotation.Config
 
 @RunWith(AndroidJUnit4::class)
-@Config(sdk = [Build.VERSION_CODES.BAKLAVA])
+@Config(sdk = [Build.VERSION_CODES.CINNAMON_BUN])
 class GraphBuilderTest {
-    private val mainActivity = RobolectricUtil.INSTANCE.activity
+    private val mainActivity = RobolectricUtil.INSTANCE.mainActivity
 
     @Test
     fun buildCreatesChartView() {
-        // setup
+        // Arrange
         val fixture = GraphBuilder(MAX_Y_DEFAULT, ThemeStyle.DARK)
-        // execute
+        // Act
         val actual = fixture.build(mainActivity, false)
-        // validate
+        // Assert
         assertThat(actual).isNotNull()
         assertThat(actual.visibility).isEqualTo(View.GONE)
         assertThat(actual.layoutParams.width).isEqualTo(ViewGroup.LayoutParams.MATCH_PARENT)
@@ -49,37 +49,37 @@ class GraphBuilderTest {
 
     @Test
     fun buildWithScalable() {
-        // setup
+        // Arrange
         val fixture = GraphBuilder(MAX_Y_DEFAULT, ThemeStyle.DARK)
-        // execute
+        // Act
         val actual = fixture.build(mainActivity, true)
-        // validate
+        // Assert
         assertThat(actual).isNotNull()
     }
 
     @Test
     fun buildWithCustomFormatters() {
-        // setup
+        // Arrange
         val xFormatter = CartesianValueFormatter { _, value, _ -> value.toInt().toString() }
         val fixture =
             GraphBuilder(MAX_Y_DEFAULT, ThemeStyle.DARK)
                 .setXAxisFormatter(xFormatter)
                 .setVerticalTitle("Y Title")
                 .setHorizontalTitle("X Title")
-        // execute
+        // Act
         val actual = fixture.build(mainActivity, false)
-        // validate
+        // Assert
         assertThat(actual).isNotNull()
     }
 
     @Test
     fun getNumVerticalLabels() {
-        // setup
+        // Arrange
         val expected = 9
         val fixture = GraphBuilder(MAX_Y_DEFAULT, ThemeStyle.DARK)
-        // execute
+        // Act
         val actual = fixture.numVerticalLabels
-        // validate
+        // Assert
         assertThat(actual).isEqualTo(expected)
     }
 
@@ -93,11 +93,11 @@ class GraphBuilderTest {
 
     @Test
     fun getLayoutParamsMatchesParent() {
-        // setup
+        // Arrange
         val fixture = GraphBuilder(MAX_Y_DEFAULT, ThemeStyle.DARK)
-        // execute
+        // Act
         val actual = fixture.layoutParams
-        // validate
+        // Assert
         assertThat(actual.width).isEqualTo(ViewGroup.LayoutParams.MATCH_PARENT)
         assertThat(actual.height).isEqualTo(ViewGroup.LayoutParams.MATCH_PARENT)
     }

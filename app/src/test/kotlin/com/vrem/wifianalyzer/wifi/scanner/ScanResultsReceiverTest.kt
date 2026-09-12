@@ -37,7 +37,7 @@ class ScanResultsReceiverTest {
     private val callback: Callback = mock()
     private val intentFilter: IntentFilter = mock()
     private val intent: Intent = mock()
-    private val fixture: ScanResultsReceiver = spy(ScanResultsReceiver(mainActivity, callback))
+    private val fixture = spy(ScanResultsReceiver(mainActivity, callback))
 
     @Before
     fun setUp() {
@@ -52,52 +52,52 @@ class ScanResultsReceiverTest {
 
     @Test
     fun registerOnce() {
-        // execute
+        // Act
         fixture.register()
-        // verify
+        // Assert
         verify(mainActivity).registerReceiver(fixture, intentFilter)
     }
 
     @Test
     fun registerMoreThanOnce() {
-        // execute
+        // Act
         fixture.register()
         fixture.register()
-        // verify
+        // Assert
         verify(mainActivity).registerReceiver(fixture, intentFilter)
     }
 
     @Test
     fun unregisterOnce() {
-        // setup
+        // Arrange
         fixture.register()
-        // execute
+        // Act
         fixture.unregister()
-        // verify
+        // Assert
         verify(mainActivity).registerReceiver(fixture, intentFilter)
         verify(mainActivity).unregisterReceiver(fixture)
     }
 
     @Test
     fun unregisterMoreThanOnce() {
-        // setup
+        // Arrange
         fixture.register()
-        // execute
+        // Act
         fixture.unregister()
         fixture.unregister()
-        // verify
+        // Assert
         verify(mainActivity).registerReceiver(fixture, intentFilter)
         verify(mainActivity).unregisterReceiver(fixture)
     }
 
     @Test
     fun onReceiveWithScanResultsAction() {
-        // setup
+        // Arrange
         whenever(intent.action).thenReturn(WifiManager.SCAN_RESULTS_AVAILABLE_ACTION)
         whenever(intent.getBooleanExtra(WifiManager.EXTRA_RESULTS_UPDATED, false)).thenReturn(true)
-        // execute
+        // Act
         fixture.onReceive(mainActivity, intent)
-        // verify
+        // Assert
         verify(intent).action
         verify(intent).getBooleanExtra(WifiManager.EXTRA_RESULTS_UPDATED, false)
         verify(callback).onSuccess()
@@ -105,11 +105,11 @@ class ScanResultsReceiverTest {
 
     @Test
     fun onReceiveWithSomeOtherAction() {
-        // setup
+        // Arrange
         whenever(intent.action).thenReturn(WifiManager.ACTION_PICK_WIFI_NETWORK)
-        // execute
+        // Act
         fixture.onReceive(mainActivity, intent)
-        // verify
+        // Assert
         verify(intent).action
         verify(intent, never()).getBooleanExtra(ArgumentMatchers.anyString(), ArgumentMatchers.anyBoolean())
         verify(callback, never()).onSuccess()
@@ -117,12 +117,12 @@ class ScanResultsReceiverTest {
 
     @Test
     fun onReceiveWithBooleanExtraFalse() {
-        // setup
+        // Arrange
         whenever(intent.action).thenReturn(WifiManager.SCAN_RESULTS_AVAILABLE_ACTION)
         whenever(intent.getBooleanExtra(WifiManager.EXTRA_RESULTS_UPDATED, false)).thenReturn(false)
-        // execute
+        // Act
         fixture.onReceive(mainActivity, intent)
-        // verify
+        // Assert
         verify(intent).action
         verify(intent).getBooleanExtra(WifiManager.EXTRA_RESULTS_UPDATED, false)
         verify(callback, never()).onSuccess()

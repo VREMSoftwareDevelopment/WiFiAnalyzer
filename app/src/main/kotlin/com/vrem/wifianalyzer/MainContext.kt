@@ -69,6 +69,7 @@ enum class MainContext {
             makeScannerService(
                 mainActivity,
                 wiFiManagerWrapper,
+                permissionService,
                 coroutineScope,
                 settings,
                 configuration,

@@ -25,7 +25,7 @@ class SortByStrengthTest {
 
     @Test
     fun sortByStrengthUsingSame() {
-        // setup
+        // Arrange
         val wiFiDetail1 =
             WiFiDetail(
                 WiFiIdentifier("SSID1", "BSSID1"),
@@ -40,15 +40,15 @@ class SortByStrengthTest {
                 WiFiSignal(2462, 2432, WiFiWidth.MHZ_40, -55),
                 WiFiAdditional.EMPTY,
             )
-        // execute
+        // Act
         val actual = fixture.compare(wiFiDetail1, wiFiDetail2)
-        // validate
+        // Assert
         assertThat(actual).isEqualTo(0)
     }
 
     @Test
     fun sortByStrengthWithDifferentSSID() {
-        // setup
+        // Arrange
         val wiFiDetail1 =
             WiFiDetail(
                 WiFiIdentifier("ssid1", "BSSID1"),
@@ -63,15 +63,15 @@ class SortByStrengthTest {
                 WiFiSignal(2462, 2462, WiFiWidth.MHZ_20, -55),
                 WiFiAdditional.EMPTY,
             )
-        // execute
+        // Act
         val actual = fixture.compare(wiFiDetail1, wiFiDetail2)
-        // validate
+        // Assert
         assertThat(actual).isEqualTo(32)
     }
 
     @Test
     fun sortByStrengthWithDifferentBSSID() {
-        // setup
+        // Arrange
         val wiFiDetail1 =
             WiFiDetail(
                 WiFiIdentifier("SSID1", "bssid1"),
@@ -86,15 +86,15 @@ class SortByStrengthTest {
                 WiFiSignal(2462, 2462, WiFiWidth.MHZ_20, -55),
                 WiFiAdditional.EMPTY,
             )
-        // execute
+        // Act
         val actual = fixture.compare(wiFiDetail1, wiFiDetail2)
-        // validate
+        // Assert
         assertThat(actual).isEqualTo(32)
     }
 
     @Test
     fun sortByStrengthWithDifferentStrength() {
-        // setup
+        // Arrange
         val wiFiDetail1 =
             WiFiDetail(
                 WiFiIdentifier("SSID1", "BSSID1"),
@@ -109,9 +109,9 @@ class SortByStrengthTest {
                 WiFiSignal(2462, 2462, WiFiWidth.MHZ_20, -35),
                 WiFiAdditional.EMPTY,
             )
-        // execute
+        // Act
         val actual = fixture.compare(wiFiDetail1, wiFiDetail2)
-        // validate
+        // Assert
         assertThat(actual).isEqualTo(1)
     }
 }

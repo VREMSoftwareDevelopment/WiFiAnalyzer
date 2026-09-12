@@ -40,7 +40,7 @@ internal class VendorAdapter(
         view: View?,
         parent: ViewGroup,
     ): View {
-        val binding: Binding = view?.let { Binding(it) } ?: Binding(create(parent))
+        val binding = view?.let { Binding(it) } ?: Binding(create(parent))
         getItem(position)?.let {
             binding.vendorName.text = it
             binding.vendorMacs.text = vendorService.findMacAddresses(it).joinToString(", ")

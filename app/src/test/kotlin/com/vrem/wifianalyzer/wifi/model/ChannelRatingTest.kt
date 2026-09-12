@@ -65,18 +65,18 @@ class ChannelRatingTest {
 
     @Test
     fun channelRating() {
-        // setup
-        val wiFiChannel: WiFiChannel = wiFiDetail1.wiFiSignal.centerWiFiChannel
-        // execute & validate
+        // Arrange
+        val wiFiChannel = wiFiDetail1.wiFiSignal.centerWiFiChannel
+        // Act & Assert
         assertThat(fixture.count(wiFiChannel)).isEqualTo(0)
         assertThat(fixture.strength(wiFiChannel)).isEqualTo(Strength.ZERO)
     }
 
     @Test
     fun count() {
-        // setup
+        // Arrange
         fixture.wiFiDetails(listOf(wiFiDetail1, wiFiDetail2, wiFiDetail3, wiFiDetail4))
-        // execute and validate
+        // Act & Assert
         validateCount(2, wiFiDetail1.wiFiSignal.centerWiFiChannel)
         validateCount(4, wiFiDetail2.wiFiSignal.centerWiFiChannel)
         validateCount(3, wiFiDetail3.wiFiSignal.centerWiFiChannel)
@@ -84,37 +84,37 @@ class ChannelRatingTest {
 
     @Test
     fun strengthShouldReturnMaximum() {
-        // setup
-        val other: WiFiDetail = makeCopy(wiFiDetail3)
+        // Arrange
+        val other = makeCopy(wiFiDetail3)
         fixture.wiFiDetails(listOf(other, wiFiDetail3))
-        val expected: Strength = wiFiDetail3.wiFiSignal.strength
-        // execute
-        val actual: Strength = fixture.strength(wiFiDetail3.wiFiSignal.centerWiFiChannel)
-        // execute and validate
+        val expected = wiFiDetail3.wiFiSignal.strength
+        // Act
+        val actual = fixture.strength(wiFiDetail3.wiFiSignal.centerWiFiChannel)
+        // Act & Assert
         assertThat(actual).isEqualTo(expected)
     }
 
     @Test
     fun strengthWithConnected() {
-        // setup
-        val other: WiFiDetail = makeCopy(wiFiDetail1)
+        // Arrange
+        val other = makeCopy(wiFiDetail1)
         fixture.wiFiDetails(listOf(other, wiFiDetail1))
-        val expected: Strength = other.wiFiSignal.strength
-        // execute
-        val actual: Strength = fixture.strength(wiFiDetail1.wiFiSignal.centerWiFiChannel)
-        // execute and validate
+        val expected = other.wiFiSignal.strength
+        // Act
+        val actual = fixture.strength(wiFiDetail1.wiFiSignal.centerWiFiChannel)
+        // Act & Assert
         assertThat(actual).isEqualTo(expected)
     }
 
     @Test
     fun bestChannelsSortedInOrderWithMinimumChannelsUS() {
-        // setup
+        // Arrange
         val wiFiBand = WiFiBand.GHZ2
         val channels: List<WiFiChannel> = wiFiBand.wiFiChannels.availableChannels(wiFiBand, Locale.US.country)
         fixture.wiFiDetails(listOf(wiFiDetail1, wiFiDetail2, wiFiDetail3, wiFiDetail4))
-        // execute
+        // Act
         val actual: List<ChannelAPCount> = fixture.bestChannels(wiFiBand, channels)
-        // validate
+        // Assert
         assertThat(actual).hasSize(4)
         validateChannelAPCount(1, 0, actual[0])
         validateChannelAPCount(2, 0, actual[1])
@@ -124,13 +124,13 @@ class ChannelRatingTest {
 
     @Test
     fun bestChannelsSortedInOrderWithMinimumChannelsJP() {
-        // setup
+        // Arrange
         val wiFiBand = WiFiBand.GHZ2
         val channels: List<WiFiChannel> = wiFiBand.wiFiChannels.availableChannels(wiFiBand, Locale.JAPAN.country)
         fixture.wiFiDetails(listOf(wiFiDetail1, wiFiDetail2, wiFiDetail3, wiFiDetail4))
-        // execute
+        // Act
         val actual: List<ChannelAPCount> = fixture.bestChannels(wiFiBand, channels)
-        // validate
+        // Assert
         assertThat(actual).hasSize(6)
         validateChannelAPCount(1, 0, actual[0])
         validateChannelAPCount(2, 0, actual[1])
@@ -142,7 +142,7 @@ class ChannelRatingTest {
 
     @Test
     fun setWiFiChannelsRemovesDuplicateAccessPoints() {
-        // setup
+        // Arrange
         val wiFiDetail =
             WiFiDetail(
                 WiFiIdentifier("SSID2", "22:cf:30:ce:1d:72"),
@@ -150,9 +150,9 @@ class ChannelRatingTest {
                 WiFiSignal(2432, 2432, wiFiWidth, wiFiDetail1.wiFiSignal.level - 5),
                 WiFiAdditional.EMPTY,
             )
-        // execute
+        // Act
         fixture.wiFiDetails(listOf(wiFiDetail1, wiFiDetail))
-        // validate
+        // Assert
         assertThat(fixture.wiFiDetails).hasSize(1).contains(wiFiDetail1)
     }
 
@@ -164,7 +164,7 @@ class ChannelRatingTest {
     }
 
     private fun makeCopy(wiFiDetail: WiFiDetail): WiFiDetail {
-        val wiFiSignal: WiFiSignal = wiFiDetail.wiFiSignal
+        val wiFiSignal = wiFiDetail.wiFiSignal
         return WiFiDetail(
             WiFiIdentifier("SSID2-OTHER", "BSSID-OTHER"),
             WiFiSecurity.EMPTY,

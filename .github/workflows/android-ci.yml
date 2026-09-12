@@ -24,7 +24,7 @@ jobs:
     runs-on: ubuntu-24.04
     steps:
       - name: Checkout
-        uses: actions/checkout@v6
+        uses: actions/checkout@v7
       - name: license header check
         run: ./scripts/check-license-headers.sh
 
@@ -32,7 +32,7 @@ jobs:
     runs-on: ubuntu-24.04
     steps:
       - name: Checkout
-        uses: actions/checkout@v6
+        uses: actions/checkout@v7
       - name: Common setup
         uses: ./.github/actions/common-setup
       - name: ktlint check
@@ -47,7 +47,7 @@ jobs:
     runs-on: ubuntu-24.04
     steps:
       - name: Checkout
-        uses: actions/checkout@v6
+        uses: actions/checkout@v7
       - name: Common setup
         uses: ./.github/actions/common-setup
       - name: lint
@@ -62,7 +62,7 @@ jobs:
     runs-on: ubuntu-24.04
     steps:
       - name: Checkout
-        uses: actions/checkout@v6
+        uses: actions/checkout@v7
       - name: Common setup
         uses: ./.github/actions/common-setup
       - name: unit tests
@@ -78,7 +78,7 @@ jobs:
     needs: test
     steps:
       - name: Checkout
-        uses: actions/checkout@v6
+        uses: actions/checkout@v7
       - name: Common setup
         uses: ./.github/actions/common-setup
       - name: coverage
@@ -89,7 +89,7 @@ jobs:
           name: jacoco-report
           path: app/build/reports/jacoco
       - name: upload coverage to Codecov
-        uses: codecov/codecov-action@v6
+        uses: codecov/codecov-action@v7
         with:
           token: ${{ secrets.CODECOV_TOKEN }}
           file: ./app/build/reports/jacoco/jacocoTestReport/jacocoTestReport.xml
@@ -99,7 +99,7 @@ jobs:
     needs: [ktlint, lint, test, coverage]
     steps:
       - name: Checkout
-        uses: actions/checkout@v6
+        uses: actions/checkout@v7
       - name: Common setup
         uses: ./.github/actions/common-setup
       - name: build apk
@@ -116,38 +116,28 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        api-level: [35, 36, 37]
+        api-level: [25, 28, 30, 33, '37.0']
     steps:
-      - uses: actions/checkout@v6
+      - uses: actions/checkout@v7
       - uses: ./.github/actions/common-setup
       - name: Enable KVM
         run: |
           echo 'KERNEL=="kvm", GROUP="kvm", MODE="0666", OPTIONS+="static_node=kvm"' | sudo tee /etc/udev/rules.d/99-kvm4all.rules
           sudo udevadm control --reload-rules
           sudo udevadm trigger --name-match=kvm
-      - name: Gradle cache
-        uses: gradle/actions/setup-gradle@v4
       - name: AVD cache
-        uses: actions/cache@v5
+        uses: actions/cache@v6
         id: avd-cache
         with:
           path: |
             ~/.android/avd/*
             ~/.android/adb*
-          key: avd-${{ matrix.api-level }}
+          key: avd-${{ matrix.api-level }}-google_apis-x86_64-medium_phone
       - name: Create AVD and generate snapshot for caching
         if: steps.avd-cache.outputs.cache-hit != 'true'
         uses: ./.github/actions/emulator-step
         with:
           api-level: ${{ matrix.api-level }}
-          emulator-options: >
-            -no-window
-            -no-boot-anim
-            -gpu swiftshader_indirect
-            -noaudio
-            -camera-back none
-            -camera-front none
-          disable-animations: true
           script: echo "Generated AVD snapshot for caching."
       - name: Build app and test APKs
         run: ./gradlew assembleDebug assembleDebugAndroidTest
@@ -155,21 +145,10 @@ jobs:
         uses: ./.github/actions/emulator-step
         with:
           api-level: ${{ matrix.api-level }}
-          emulator-options: >
-            -no-window
-            -no-boot-anim
-            -gpu swiftshader_indirect
-            -noaudio
-            -camera-back none
-            -camera-front none
-          disable-animations: true
           script: |
             adb wait-for-device
             # Wait until Android system UI is fully ready
             until adb shell getprop sys.boot_completed | grep -m 1 "1"; do sleep 2; done
-            adb shell settings put global window_animation_scale 0
-            adb shell settings put global transition_animation_scale 0
-            adb shell settings put global animator_duration_scale 0
             ./gradlew connectedDebugAndroidTest -x assembleDebug -x assembleDebugAndroidTest
       - name: Upload test results
         uses: actions/upload-artifact@v7

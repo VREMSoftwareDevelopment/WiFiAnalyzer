@@ -17,7 +17,7 @@
  */
 package com.vrem.wifianalyzer.permission
 
-import android.app.Activity
+import com.vrem.wifianalyzer.MainActivity
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.After
 import org.junit.Test
@@ -27,26 +27,26 @@ import org.mockito.kotlin.verifyNoMoreInteractions
 import org.mockito.kotlin.whenever
 
 class PermissionServiceTest {
-    private val activity: Activity = mock()
+    private val mainActivity: MainActivity = mock()
     private val locationPermission: LocationPermission = mock()
     private val applicationPermission: ApplicationPermission = mock()
-    private val fixture = PermissionService(activity, locationPermission, applicationPermission)
+    private val fixture = PermissionService(mainActivity, locationPermission, applicationPermission)
 
     @After
     fun tearDown() {
-        verifyNoMoreInteractions(activity)
+        verifyNoMoreInteractions(mainActivity)
         verifyNoMoreInteractions(applicationPermission)
         verifyNoMoreInteractions(locationPermission)
     }
 
     @Test
     fun enabled() {
-        // setup
+        // Arrange
         whenever(locationPermission.enabled()).thenReturn(true)
         whenever(applicationPermission.granted()).thenReturn(true)
-        // execute
+        // Act
         val actual = fixture.enabled()
-        // validate
+        // Assert
         assertThat(actual).isTrue
         verify(locationPermission).enabled()
         verify(applicationPermission).granted()
@@ -54,23 +54,23 @@ class PermissionServiceTest {
 
     @Test
     fun enabledWhenLocationPermissionIsNotEnabled() {
-        // setup
+        // Arrange
         whenever(locationPermission.enabled()).thenReturn(false)
-        // execute
+        // Act
         val actual = fixture.enabled()
-        // validate
+        // Assert
         assertThat(actual).isFalse
         verify(locationPermission).enabled()
     }
 
     @Test
     fun enabledWhenApplicationPermissionAreNotGranted() {
-        // setup
+        // Arrange
         whenever(locationPermission.enabled()).thenReturn(true)
         whenever(applicationPermission.granted()).thenReturn(false)
-        // execute
+        // Act
         val actual = fixture.enabled()
-        // validate
+        // Assert
         assertThat(actual).isFalse
         verify(locationPermission).enabled()
         verify(applicationPermission).granted()
@@ -78,44 +78,31 @@ class PermissionServiceTest {
 
     @Test
     fun systemEnabled() {
-        // setup
+        // Arrange
         whenever(locationPermission.enabled()).thenReturn(true)
-        // execute
+        // Act
         val actual = fixture.locationEnabled()
-        // validate
+        // Assert
         assertThat(actual).isTrue
         verify(locationPermission).enabled()
     }
 
     @Test
     fun permissionGranted() {
-        // setup
+        // Arrange
         whenever(applicationPermission.granted()).thenReturn(true)
-        // execute
+        // Act
         val actual = fixture.permissionGranted()
-        // validate
+        // Assert
         assertThat(actual).isTrue
         verify(applicationPermission).granted()
     }
 
     @Test
     fun permissionCheck() {
-        // execute
+        // Act
         fixture.check()
-        // validate
+        // Assert
         verify(applicationPermission).check()
-    }
-
-    @Test
-    fun granted() {
-        // setup
-        val requestCode = 111
-        val results = intArrayOf(1, 2, 3)
-        whenever(applicationPermission.granted(requestCode, results)).thenReturn(true)
-        // execute
-        val actual = fixture.granted(requestCode, results)
-        // validate
-        assertThat(actual).isTrue
-        verify(applicationPermission).granted(requestCode, results)
     }
 }

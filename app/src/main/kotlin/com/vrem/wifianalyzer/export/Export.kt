@@ -60,9 +60,9 @@ class Export(
         date: Date,
     ): Intent {
         val context: Context = mainActivity.applicationContext
-        val timestamp: String = timestamp(date)
-        val title: String = title(context, timestamp)
-        val data: String = data(context, wiFiDetails, timestamp)
+        val timestamp = timestamp(date)
+        val title = title(context, timestamp)
+        val data = data(context, wiFiDetails, timestamp)
         return exportIntent.intent(title, data)
     }
 

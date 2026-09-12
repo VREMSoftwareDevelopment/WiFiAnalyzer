@@ -119,30 +119,30 @@ class WiFiBandTest {
 
     @Test
     fun availableGHZ2() {
-        // execute
+        // Act
         val actual = WiFiBand.GHZ2.available()
-        // validate
+        // Assert
         assertThat(actual).isTrue
     }
 
     @Test
     fun bandSupportGHZ5() {
-        // setup
+        // Arrange
         whenever(wiFiManagerWrapper.is5GHzBandSupported()).thenReturn(true)
-        // execute
+        // Act
         val actual = bandSupportGHZ5 { wiFiManagerWrapper }()
-        // validate
+        // Assert
         assertThat(actual).isTrue
         verify(wiFiManagerWrapper).is5GHzBandSupported()
     }
 
     @Test
     fun bandSupportGHZ6() {
-        // setup
+        // Arrange
         whenever(wiFiManagerWrapper.is6GHzBandSupported()).thenReturn(true)
-        // execute
+        // Act
         val actual = bandSupportGHZ6 { wiFiManagerWrapper }()
-        // validate
+        // Assert
         assertThat(actual).isTrue
         verify(wiFiManagerWrapper).is6GHzBandSupported()
     }

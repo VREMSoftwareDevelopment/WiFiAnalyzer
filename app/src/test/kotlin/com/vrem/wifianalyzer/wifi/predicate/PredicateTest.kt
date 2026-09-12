@@ -47,89 +47,89 @@ class PredicateTest {
 
     @Test
     fun makeAccessPointsPredicate() {
-        // setup
+        // Arrange
         whenSettings()
-        // execute
+        // Act
         val fixture: Predicate = makeAccessPointsPredicate(settings)
-        // validate
+        // Assert
         assertThat(fixture).isNotNull()
         verifySettings()
     }
 
     @Test
     fun makeAccessPointsPredicateIsTrue() {
-        // setup
+        // Arrange
         whenSettings()
         val fixture: Predicate = makeAccessPointsPredicate(settings)
         val wiFiDetail = makeWiFiDetail(ssid, wpa2)
-        // execute
+        // Act
         val actual = fixture(wiFiDetail)
-        // validate
+        // Assert
         assertThat(actual).isTrue
         verifySettings()
     }
 
     @Test
     fun makeAccessPointsPredicateWithSecurityToFalse() {
-        // setup
+        // Arrange
         whenSettings()
         val fixture: Predicate = makeAccessPointsPredicate(settings)
         val wiFiDetail = makeWiFiDetail(ssid, "WPA")
-        // execute
+        // Act
         val actual = fixture(wiFiDetail)
-        // validate
+        // Assert
         assertThat(actual).isFalse
         verifySettings()
     }
 
     @Test
     fun makeAccessPointsPredicateWithSSIDToFalse() {
-        // setup
+        // Arrange
         whenSettings()
         val fixture: Predicate = makeAccessPointsPredicate(settings)
         val wiFiDetail = makeWiFiDetail("WIFI", wpa2)
-        // execute
+        // Act
         val actual = fixture(wiFiDetail)
-        // validate
+        // Assert
         assertThat(actual).isFalse
         verifySettings()
     }
 
     @Test
     fun makeAccessPointsPredicateIsAllPredicate() {
-        // setup
+        // Arrange
         val wiFiDetail = WiFiDetail.EMPTY
         whenSettingsWithFullSets()
-        // execute
+        // Act
         val fixture: Predicate = makeAccessPointsPredicate(settings)
-        // validate
+        // Assert
         assertThat(fixture(wiFiDetail)).isTrue
         verifySettings()
     }
 
     @Test
     fun makeAccessPointsPredicateIsTrueWhenFullSet() {
-        // setup
+        // Arrange
         whenSettingsWithFullSets()
         val wiFiDetail = makeWiFiDetail(ssid, wpa2)
         val fixture: Predicate = makeAccessPointsPredicate(settings)
-        // execute
+        // Act
         val actual = fixture(wiFiDetail)
-        // validate
+        // Assert
         assertThat(actual).isTrue
         verifySettings()
     }
 
     @Test
     fun makeOtherPredicate() {
-        // setup
+        // Arrange
         whenever(settings.wiFiBand()).thenReturn(WiFiBand.GHZ5)
         whenever(settings.findSSIDs()).thenReturn(setOf(ssid, ssid))
         whenever(settings.findStrengths()).thenReturn(setOf(Strength.TWO, Strength.FOUR))
         whenever(settings.findSecurities()).thenReturn(setOf(Security.WEP, Security.WPA2))
-        // execute
+        // Act
         val fixture: Predicate = makeOtherPredicate(settings)
-        // validate
+        // Assert
         assertThat(fixture).isNotNull()
         verify(settings).wiFiBand()
         verify(settings).findSSIDs()

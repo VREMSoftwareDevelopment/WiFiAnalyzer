@@ -24,23 +24,23 @@ import org.junit.Test
 class AnyPredicateTest {
     @Test
     fun anyPredicateIsTrue() {
-        // setup
+        // Arrange
         val wiFiDetail = WiFiDetail.EMPTY
         val fixture = listOf(falsePredicate, truePredicate, falsePredicate).anyPredicate()
-        // execute
+        // Act
         val actual = fixture(wiFiDetail)
-        // validate
+        // Assert
         assertThat(actual).isTrue
     }
 
     @Test
     fun anyPredicateIsFalse() {
-        // setup
+        // Arrange
         val wiFiDetail = WiFiDetail.EMPTY
         val fixture = listOf(falsePredicate, falsePredicate, falsePredicate).anyPredicate()
-        // execute
+        // Act
         val actual = fixture(wiFiDetail)
-        // validate
+        // Assert
         assertThat(actual).isFalse
     }
 }

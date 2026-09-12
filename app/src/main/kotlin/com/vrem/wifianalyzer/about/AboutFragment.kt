@@ -20,7 +20,6 @@ package com.vrem.wifianalyzer.about
 import android.app.Activity
 import android.app.AlertDialog
 import android.content.Intent
-import android.content.pm.PackageInfo
 import android.os.Build
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -49,8 +48,8 @@ class AboutFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?,
     ): View {
-        val binding: AboutContentBinding = AboutContentBinding.inflate(inflater, container, false)
-        val activity: FragmentActivity = requireActivity()
+        val binding = AboutContentBinding.inflate(inflater, container, false)
+        val activity = requireActivity()
         setTexts(binding, activity)
         setOnClicks(binding, activity)
         wiFiState(binding)
@@ -131,7 +130,7 @@ class AboutFragment : Fragment() {
 
     private fun applicationVersion(activity: FragmentActivity): String =
         runCatching {
-            val packageInfo: PackageInfo = activity.packageInfo()
+            val packageInfo = activity.packageInfo()
             packageInfo.versionName + " - " + PackageInfoCompat.getLongVersionCode(packageInfo)
         }.getOrDefault(String.EMPTY)
 

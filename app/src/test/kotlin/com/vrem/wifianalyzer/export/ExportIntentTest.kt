@@ -42,14 +42,14 @@ class ExportIntentTest {
 
     @Test
     fun intent() {
-        // setup
+        // Arrange
         val title = "title"
         val data = "data"
         doReturn(intentSend).whenever(fixture).intentSend()
         doReturn(intentChooser).whenever(fixture).intentChooser(intentSend, title)
-        // execute
+        // Act
         val actual = fixture.intent(title, data)
-        // validate
+        // Assert
         assertThat(actual).isEqualTo(intentChooser)
 
         verify(intentSend).flags = Intent.FLAG_ACTIVITY_NEW_TASK

@@ -33,7 +33,7 @@ class ScannerCallbackTest {
     private val scanner: Scanner = mock()
     private val wifiInfo: WifiInfo = mock()
     private val scanResults: List<ScanResult> = listOf()
-    private val fixture: ScannerCallback = ScannerCallback(wiFiManagerWrapper, cache)
+    private val fixture = ScannerCallback(wiFiManagerWrapper, cache)
 
     @After
     fun tearDown() {
@@ -44,12 +44,12 @@ class ScannerCallbackTest {
 
     @Test
     fun onSuccess() {
-        // setup
+        // Arrange
         whenever(wiFiManagerWrapper.scanResults()).thenReturn(scanResults)
         whenever(wiFiManagerWrapper.wiFiInfo()).thenReturn(wifiInfo)
-        // execute
+        // Act
         fixture.onSuccess()
-        // validate
+        // Assert
         verify(wiFiManagerWrapper).scanResults()
         verify(wiFiManagerWrapper).wiFiInfo()
         verify(cache).add(scanResults)

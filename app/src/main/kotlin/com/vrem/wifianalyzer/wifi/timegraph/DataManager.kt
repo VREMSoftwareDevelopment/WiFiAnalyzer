@@ -27,7 +27,7 @@ import com.vrem.wifianalyzer.wifi.model.WiFiDetail
 internal class DataManager(
     private val timeGraphCache: TimeGraphCache = TimeGraphCache(),
 ) {
-    var scanCount: Int = 0
+    var scanCount = 0
     var xValue = 0
 
     fun reset(graphWrapper: GraphWrapper) {
@@ -42,7 +42,7 @@ internal class DataManager(
         wiFiDetails: List<WiFiDetail>,
         levelMax: Int,
     ): Set<WiFiDetail> {
-        val inOrder: Set<WiFiDetail> = wiFiDetails.toSet()
+        val inOrder = wiFiDetails.toSet()
         inOrder.forEach { addData(graphWrapper, it, levelMax) }
         adjustData(graphWrapper, inOrder)
         graphWrapper.flushData()

@@ -24,34 +24,34 @@ import org.junit.Test
 internal class DataTest {
     @Test
     fun compareToWhenAreSame() {
-        // setup
+        // Arrange
         val data1 = Data("name", "code")
         val data2 = Data("name", "code")
-        // execute
+        // Act
         val actual = data1.compareTo(data2)
-        // validate
+        // Assert
         assertThat(actual).isEqualTo(0)
     }
 
     @Test
     fun compareToWhenCodesAreDifferent() {
-        // setup
+        // Arrange
         val data1 = Data("name", "code1")
         val data2 = Data("name", "code2")
-        // execute
+        // Act
         val actual = data1.compareTo(data2)
-        // validate
+        // Assert
         assertThat(actual).isEqualTo(-1)
     }
 
     @Test
     fun compareToWhenNamesAreDifferent() {
-        // setup
+        // Arrange
         val data1 = Data("name1", "code")
         val data2 = Data("name2", "code")
-        // execute
+        // Act
         val actual = data1.compareTo(data2)
-        // validate
+        // Assert
         assertThat(actual).isEqualTo(-1)
     }
 }

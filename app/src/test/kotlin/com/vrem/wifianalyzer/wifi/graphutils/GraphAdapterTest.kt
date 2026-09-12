@@ -44,9 +44,9 @@ class GraphAdapterTest {
 
     @Test
     fun update() {
-        // execute
+        // Act
         fixture.update(wiFiData)
-        // validate
+        // Assert
         verify(graphNotifier).update(wiFiData)
     }
 
@@ -60,11 +60,11 @@ class GraphAdapterTest {
 
     @Test
     fun graphs() {
-        // setup
+        // Arrange
         whenever(graphNotifier.graph()).thenReturn(view)
-        // execute
+        // Act
         val actual = fixture.graphs()
-        // validate
+        // Assert
         assertThat(actual).hasSize(1)
         assertThat(actual[0]).isEqualTo(view)
         verify(graphNotifier).graph()

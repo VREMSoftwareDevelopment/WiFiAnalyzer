@@ -47,11 +47,11 @@ class OptionMenuTest {
 
     @Test
     fun create() {
-        // setup
+        // Arrange
         whenever(activity.menuInflater).thenReturn(menuInflater)
-        // execute
+        // Act
         fixture.create(activity, menu)
-        // validate
+        // Assert
         assertThat(fixture.menu).isEqualTo(menu)
         verify(activity).menuInflater
         verify(menuInflater).inflate(R.menu.optionmenu, menu)
@@ -59,12 +59,12 @@ class OptionMenuTest {
 
     @Test
     fun actions() {
-        // setup
+        // Arrange
         val itemId = -1
         whenever(menuItem.itemId).thenReturn(itemId)
-        // execute
+        // Act
         fixture.select(menuItem)
-        // validate
+        // Assert
         verify(menuItem).itemId
     }
 }

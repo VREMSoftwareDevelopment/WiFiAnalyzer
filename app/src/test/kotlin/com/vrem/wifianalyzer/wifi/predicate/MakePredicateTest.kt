@@ -30,25 +30,25 @@ private enum class TestObject {
 class MakePredicateTest {
     @Test
     fun makePredicateExpectsTruePredicate() {
-        // setup
+        // Arrange
         val wiFiDetail = WiFiDetail.EMPTY
         val toPredicate: ToPredicate<TestObject> = { truePredicate }
-        val filters: Set<TestObject> = TestObject.entries.toSet()
-        // execute
+        val filters = TestObject.entries.toSet()
+        // Act
         val actual: Predicate = makePredicate(TestObject.entries, filters, toPredicate)
-        // validate
+        // Assert
         assertThat(actual(wiFiDetail)).isTrue
     }
 
     @Test
     fun makePredicateExpectsAnyPredicate() {
-        // setup
+        // Arrange
         val wiFiDetail = WiFiDetail.EMPTY
         val toPredicate: ToPredicate<TestObject> = { truePredicate }
         val filters: Set<TestObject> = setOf(TestObject.VALUE1, TestObject.VALUE3)
-        // execute
+        // Act
         val actual: Predicate = makePredicate(TestObject.entries, filters, toPredicate)
-        // validate
+        // Assert
         assertThat(actual(wiFiDetail)).isTrue
     }
 }

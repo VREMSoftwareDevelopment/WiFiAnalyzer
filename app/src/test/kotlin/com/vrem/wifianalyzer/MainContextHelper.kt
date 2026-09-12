@@ -30,7 +30,7 @@ enum class MainContextHelper {
     ;
 
     private val saved: MutableMap<Class<*>, Any> = mutableMapOf()
-    private val mainContext: MainContext = MainContext.INSTANCE
+    private val mainContext = MainContext.INSTANCE
 
     val settings: Settings
         get() {
@@ -93,6 +93,7 @@ enum class MainContextHelper {
             when (it.key) {
                 Settings::class.java -> mainContext.settings = it.value as Settings
                 VendorService::class.java -> mainContext.vendorService = it.value as VendorService
+                PermissionService::class.java -> mainContext.permissionService = it.value as PermissionService
                 ScannerService::class.java -> mainContext.scannerService = it.value as ScannerService
                 MainActivity::class.java -> mainContext.mainActivity = it.value as MainActivity
                 Configuration::class.java -> mainContext.configuration = it.value as Configuration

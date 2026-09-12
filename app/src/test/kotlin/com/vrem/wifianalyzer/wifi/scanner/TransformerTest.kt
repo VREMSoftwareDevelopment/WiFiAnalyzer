@@ -49,7 +49,7 @@ private const val ID_EXTENDED_CAPABILITIES = 127
 private const val ID_VENDOR_SPECIFIC = 221
 
 @RunWith(AndroidJUnit4::class)
-@Config(sdk = [Build.VERSION_CODES.BAKLAVA])
+@Config(sdk = [Build.VERSION_CODES.CINNAMON_BUN])
 class TransformerTest {
     private val informationElement1 =
         withInformationElement(ID_RM_ENABLED_CAPABILITIES, byteArrayOf(0x7F, 0x00, 0x00, 0x00, 0x00))
@@ -90,12 +90,12 @@ class TransformerTest {
 
     @Test
     fun transformWifiInfo() {
-        // setup
+        // Arrange
         val expected = WiFiConnection(WiFiIdentifier(SSID_1, BSSID_1), IP_ADDRESS, LINK_SPEED)
         doReturn(wifiInfo).whenever(cache).wifiInfo
-        // execute
+        // Act
         val actual = fixture.transformWifiInfo()
-        // validate
+        // Assert
         assertThat(actual).isEqualTo(expected)
         verify(cache).wifiInfo
         verifyWiFiInfo()
@@ -103,23 +103,23 @@ class TransformerTest {
 
     @Test
     fun transformWithNulls() {
-        // setup
+        // Arrange
         doReturn(null).whenever(cache).wifiInfo
-        // execute
+        // Act
         val actual = fixture.transformWifiInfo()
-        // validate
+        // Assert
         assertThat(actual).isEqualTo(WiFiConnection.EMPTY)
         verify(cache).wifiInfo
     }
 
     @Test
     fun transformWifiInfoNotConnected() {
-        // setup
+        // Arrange
         doReturn(wifiInfo).whenever(cache).wifiInfo
         doReturn(-1).whenever(wifiInfo).networkId
-        // execute
+        // Act
         val actual = fixture.transformWifiInfo()
-        // validate
+        // Assert
         assertThat(actual).isEqualTo(WiFiConnection.EMPTY)
         verify(wifiInfo).networkId
         verify(cache).wifiInfo
@@ -127,12 +127,12 @@ class TransformerTest {
 
     @Test
     fun transformScanResults() {
-        // setup
+        // Arrange
         val fastRoaming = FastRoaming.entries.toList()
         doReturn(cacheResults).whenever(cache).scanResults()
-        // execute
+        // Act
         val actual = fixture.transformCacheResults()
-        // validate
+        // Assert
         assertThat(actual).hasSize(cacheResults.size)
         validateWiFiDetail(SSID_1, BSSID_1, WiFiWidth.MHZ_160, WiFiStandard.AX, actual[0], WiFiSecurityTypeTest.All)
         validateWiFiDetail(
@@ -151,13 +151,13 @@ class TransformerTest {
 
     @Test
     fun wiFiData() {
-        // setup
+        // Arrange
         val expectedWiFiConnection = WiFiConnection(WiFiIdentifier(SSID_1, BSSID_1), IP_ADDRESS, LINK_SPEED)
         doReturn(wifiInfo).whenever(cache).wifiInfo
         doReturn(cacheResults).whenever(cache).scanResults()
-        // execute
+        // Act
         val actual = fixture.transformToWiFiData()
-        // validate
+        // Assert
         assertThat(actual.wiFiConnection).isEqualTo(expectedWiFiConnection)
         assertThat(actual.wiFiDetails).hasSize(cacheResults.size)
         verifyWiFiInfo()

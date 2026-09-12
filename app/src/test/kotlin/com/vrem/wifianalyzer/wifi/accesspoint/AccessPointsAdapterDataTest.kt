@@ -70,13 +70,13 @@ class AccessPointsAdapterDataTest {
 
     @Test
     fun afterUpdateWithGroupByChannel() {
-        // setup
+        // Arrange
         val wiFiDetails = withWiFiDetails()
         withSettings()
         doReturn(wiFiDetails).whenever(wiFiData).wiFiDetails(any<Predicate>(), eq(SortBy.SSID), eq(GroupBy.CHANNEL))
-        // execute
+        // Act
         fixture.update(wiFiData, expandableListView)
-        // validate
+        // Assert
         verify(wiFiData).wiFiDetails(any<Predicate>(), eq(SortBy.SSID), eq(GroupBy.CHANNEL))
         verify(accessPointsAdapterGroup).update(wiFiDetails, expandableListView)
         verifySettings()
@@ -92,23 +92,23 @@ class AccessPointsAdapterDataTest {
 
     @Test
     fun onGroupCollapsed() {
-        // setup
+        // Arrange
         val index = 11
         val wiFiDetails: List<WiFiDetail> = fixture.wiFiDetails
-        // execute
+        // Act
         fixture.onGroupCollapsed(index)
-        // validate
+        // Assert
         verify(accessPointsAdapterGroup).onGroupCollapsed(wiFiDetails, index)
     }
 
     @Test
     fun onGroupExpanded() {
-        // setup
+        // Arrange
         val index = 22
         val wiFiDetails: List<WiFiDetail> = fixture.wiFiDetails
-        // execute
+        // Act
         fixture.onGroupExpanded(index)
-        // validate
+        // Assert
         verify(accessPointsAdapterGroup).onGroupExpanded(wiFiDetails, index)
     }
 

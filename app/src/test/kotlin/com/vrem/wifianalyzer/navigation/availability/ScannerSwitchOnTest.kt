@@ -50,13 +50,13 @@ class ScannerSwitchOnTest {
 
     @Test
     fun navigationOptionScannerSwitchOn() {
-        // setup
+        // Arrange
         whenever(mainActivity.optionMenu).thenReturn(optionMenu)
         whenever(optionMenu.menu).thenReturn(menu)
         whenever(menu.findItem(R.id.action_scanner)).thenReturn(menuItem)
-        // execute
+        // Act
         fixture(mainActivity)
-        // validate
+        // Assert
         verify(mainActivity).optionMenu
         verify(optionMenu).menu
         verify(menu).findItem(R.id.action_scanner)
@@ -68,14 +68,14 @@ class ScannerSwitchOnTest {
 
     @Test
     fun navigationOptionScannerSwitchOnWithScannerRunningUpdateMenuItemIconAndTitle() {
-        // setup
+        // Arrange
         whenever(scanner.running()).thenReturn(true)
         whenever(mainActivity.optionMenu).thenReturn(optionMenu)
         whenever(optionMenu.menu).thenReturn(menu)
         whenever(menu.findItem(R.id.action_scanner)).thenReturn(menuItem)
-        // execute
+        // Act
         fixture(mainActivity)
-        // validate
+        // Assert
         verify(mainActivity).optionMenu
         verify(optionMenu).menu
         verify(menu).findItem(R.id.action_scanner)
@@ -87,14 +87,14 @@ class ScannerSwitchOnTest {
 
     @Test
     fun navigationOptionScannerSwitchOnWithScannerNotRunningUpdateMenuItemIconAndTitle() {
-        // setup
+        // Arrange
         whenever(scanner.running()).thenReturn(false)
         whenever(mainActivity.optionMenu).thenReturn(optionMenu)
         whenever(optionMenu.menu).thenReturn(menu)
         whenever(menu.findItem(R.id.action_scanner)).thenReturn(menuItem)
-        // execute
+        // Act
         fixture(mainActivity)
-        // validate
+        // Assert
         verify(mainActivity).optionMenu
         verify(optionMenu).menu
         verify(menu).findItem(R.id.action_scanner)
@@ -106,12 +106,12 @@ class ScannerSwitchOnTest {
 
     @Test
     fun navigationOptionScannerSwitchOnWithNoMenuDoesNotSetVisibleTrue() {
-        // setup
+        // Arrange
         whenever(mainActivity.optionMenu).thenReturn(optionMenu)
         whenever(optionMenu.menu).thenReturn(null)
-        // execute
+        // Act
         fixture(mainActivity)
-        // validate
+        // Assert
         verify(mainActivity).optionMenu
         verify(optionMenu).menu
         verify(menu, never()).findItem(R.id.action_scanner)

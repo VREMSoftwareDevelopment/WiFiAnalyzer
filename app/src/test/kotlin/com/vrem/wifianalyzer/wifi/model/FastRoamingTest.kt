@@ -36,7 +36,7 @@ import org.mockito.kotlin.whenever
 import org.robolectric.annotation.Config
 
 @RunWith(AndroidJUnit4::class)
-@Config(sdk = [Build.VERSION_CODES.BAKLAVA])
+@Config(sdk = [Build.VERSION_CODES.CINNAMON_BUN])
 class FastRoamingTest {
     private val scanResult: ScanResult = mock()
     private val informationElement: InformationElement = mock()
@@ -48,12 +48,12 @@ class FastRoamingTest {
 
     @Test
     fun findShouldReturnEmptyListWhenIdOfInformationElementThrowsException() {
-        // setup
+        // Arrange
         doThrow(RuntimeException("Test exception")).whenever(informationElement).id
         doReturn(listOf(informationElement)).whenever(scanResult).informationElements
-        // execute
+        // Act
         val result = FastRoaming.find(scanResult)
-        // validate
+        // Assert
         assertThat(result).isEmpty()
         verify(scanResult).informationElements
         verify(informationElement, times(FastRoaming.entries.size)).id
@@ -62,13 +62,13 @@ class FastRoamingTest {
 
     @Test
     fun findShouldReturnEmptyListWhenBytesInformationElementThrowsException() {
-        // setup
+        // Arrange
         doReturn(0).whenever(informationElement).id
         doThrow(RuntimeException("Test exception")).whenever(informationElement).bytes
         doReturn(listOf(informationElement)).whenever(scanResult).informationElements
-        // execute
+        // Act
         val result = FastRoaming.find(scanResult)
-        // validate
+        // Assert
         assertThat(result).isEmpty()
         verify(scanResult).informationElements
         verify(informationElement, times(FastRoaming.entries.size)).id

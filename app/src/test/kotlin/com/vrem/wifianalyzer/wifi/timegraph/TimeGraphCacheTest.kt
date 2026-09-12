@@ -31,32 +31,32 @@ class TimeGraphCacheTest {
 
     @Test
     fun all() {
-        // setup
+        // Arrange
         val expected = withWiFiDetails()
-        // execute
+        // Act
         val actual = fixture.wiFiDetails
-        // validate
+        // Assert
         assertThat(actual).hasSize(expected.size)
     }
 
     @Test
     fun active() {
-        // setup
+        // Arrange
         val expected = withWiFiDetails()
-        // execute
+        // Act
         val actual = fixture.active()
-        // validate
+        // Assert
         assertThat(actual).hasSize(expected.size - 1)
         assertThat(actual).doesNotContain(expected[0])
     }
 
     @Test
     fun clear() {
-        // setup
+        // Arrange
         val expected = withWiFiDetails()
-        // execute
+        // Act
         fixture.clear()
-        // validate
+        // Assert
         val actual = fixture.wiFiDetails
         assertThat(actual).hasSize(expected.size - 1)
         assertThat(actual).doesNotContain(expected[0])
@@ -64,11 +64,11 @@ class TimeGraphCacheTest {
 
     @Test
     fun reset() {
-        // setup
+        // Arrange
         val expected = withWiFiDetails()
-        // execute
+        // Act
         fixture.reset(expected[0])
-        // validate
+        // Assert
         val actual = fixture.wiFiDetails
         assertThat(actual).hasSize(expected.size)
         assertThat(actual).contains(expected[0])
@@ -76,23 +76,23 @@ class TimeGraphCacheTest {
 
     @Test
     fun resetAll() {
-        // setup
+        // Arrange
         withWiFiDetails()
-        // execute
+        // Act
         fixture.reset()
-        // validate
+        // Assert
         val actual = fixture.wiFiDetails
         assertThat(actual).isEmpty()
     }
 
     @Test
     fun resetShouldNotAdd() {
-        // setup
+        // Arrange
         val wiFiDetails = withWiFiDetails()
         val newWiFiDetail = withWiFiDetail("newSSID")
-        // execute
+        // Act
         fixture.reset(newWiFiDetail)
-        // validate
+        // Assert
         val actual = fixture.wiFiDetails
         assertThat(actual).hasSize(wiFiDetails.size)
         assertThat(actual).doesNotContain(newWiFiDetail)

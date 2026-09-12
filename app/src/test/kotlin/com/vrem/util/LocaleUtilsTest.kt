@@ -24,7 +24,7 @@ import org.junit.Test
 import java.util.Locale
 
 class LocaleUtilsTest {
-    private val currentLocale: Locale = Locale.getDefault()
+    private val currentLocale = Locale.getDefault()
 
     @Before
     fun setUp() {
@@ -38,20 +38,20 @@ class LocaleUtilsTest {
 
     @Test
     fun allSupportedCountries() {
-        // execute
+        // Act
         val actual = allCountries()
-        // validate
+        // Assert
         assertThat(actual.size).isGreaterThanOrEqualTo(2)
         assertThat(actual[0].country).isLessThan(actual[actual.size - 1].country)
     }
 
     @Test
     fun findByCountryCodeWithKnownCode() {
-        // setup
+        // Arrange
         val expected = allCountries()[0]
-        // execute
+        // Act
         val actual = findByCountryCode(expected.country)
-        // validate
+        // Assert
         assertThat(actual).isEqualTo(expected)
         assertThat(actual.country).isEqualTo(expected.country)
         assertThat(actual.displayCountry).isEqualTo(expected.displayCountry)
@@ -61,9 +61,9 @@ class LocaleUtilsTest {
 
     @Test
     fun findByCountryCodeWithUnknownCode() {
-        // execute
+        // Act
         val actual = findByCountryCode("WW")
-        // validate
+        // Assert
         assertThat(actual).isEqualTo(Locale.getDefault())
     }
 
@@ -90,7 +90,7 @@ class LocaleUtilsTest {
 
     @Test
     fun allSupportedLanguages() {
-        // setup
+        // Arrange
         val expected: Set<Locale> =
             setOf(
                 BULGARIAN,
@@ -113,9 +113,9 @@ class LocaleUtilsTest {
                 UKRAINIAN,
                 Locale.getDefault(),
             )
-        // execute
+        // Act
         val actual = supportedLanguages()
-        // validate
+        // Assert
         assertThat(actual).hasSize(expected.size)
         for (locale in expected) {
             assertThat(actual).contains(locale)

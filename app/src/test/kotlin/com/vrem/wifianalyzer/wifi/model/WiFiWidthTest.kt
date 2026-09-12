@@ -112,9 +112,9 @@ class WiFiWidthTest {
 
     @Test
     fun calculateCenterUsingPrimary() {
-        // setup
+        // Arrange
         val expected = 35
-        // execute & validate
+        // Act & Assert
         assertThat(calculateCenterUsingPrimary(expected, Int.MIN_VALUE, Int.MIN_VALUE)).isEqualTo(expected)
         assertThat(calculateCenterUsingPrimary(expected, 0, Int.MIN_VALUE)).isEqualTo(expected)
         assertThat(calculateCenterUsingPrimary(expected, Int.MAX_VALUE, Int.MIN_VALUE)).isEqualTo(expected)
@@ -122,30 +122,30 @@ class WiFiWidthTest {
 
     @Test
     fun calculateCenter40() {
-        // setup
+        // Arrange
         val primary = 10
         val center = primary + WiFiWidth.MHZ_40.frequencyWidthHalf - 1
-        // execute & validate
+        // Act & Assert
         assertThat(calculateCenter40(primary, center, Int.MIN_VALUE)).isEqualTo(center)
         assertThat(calculateCenter40(center, primary, Int.MIN_VALUE)).isEqualTo(primary)
     }
 
     @Test
     fun calculateCenter40WithCenter() {
-        // setup
+        // Arrange
         val primary = 10
         val center = primary + WiFiWidth.MHZ_40.frequencyWidthHalf
         val expected = (primary + center) / 2
-        // execute & validate
+        // Act & Assert
         assertThat(calculateCenter40(primary, center, Int.MIN_VALUE)).isEqualTo(expected)
         assertThat(calculateCenter40(center, primary, Int.MIN_VALUE)).isEqualTo(expected)
     }
 
     @Test
     fun calculateCenterUsingCenter0() {
-        // setup
+        // Arrange
         val expected = 35
-        // execute & validate
+        // Act & Assert
         assertThat(calculateCenterUsingCenter0(0, expected, 0)).isEqualTo(expected)
         assertThat(calculateCenterUsingCenter0(0, expected, Int.MIN_VALUE)).isEqualTo(expected)
         assertThat(calculateCenterUsingCenter0(0, expected, Int.MAX_VALUE)).isEqualTo(expected)
@@ -157,9 +157,9 @@ class WiFiWidthTest {
 
     @Test
     fun calculateCenterUsingCenter1() {
-        // setup
+        // Arrange
         val expected = 35
-        // execute & validate
+        // Act & Assert
         assertThat(calculateCenterUsingCenter1(0, 0, expected)).isEqualTo(expected)
         assertThat(calculateCenterUsingCenter1(0, Int.MIN_VALUE, expected)).isEqualTo(expected)
         assertThat(calculateCenterUsingCenter1(0, Int.MAX_VALUE, expected)).isEqualTo(expected)

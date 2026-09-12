@@ -26,21 +26,21 @@ class ConfigurationTest {
 
     @Test
     fun sizeAvailable() {
-        // execute & validate
+        // Act & Assert
         assertThat(fixture.sizeAvailable).isTrue
     }
 
     @Test
     fun sizeIsNotAvailable() {
-        // execute
+        // Act
         fixture.size = SIZE_MIN
-        // validate
+        // Assert
         assertThat(fixture.sizeAvailable).isFalse
     }
 
     @Test
     fun largeScreen() {
-        // execute & validate
+        // Act & Assert
         assertThat(fixture.largeScreen).isTrue
     }
 }

@@ -45,9 +45,9 @@ import org.robolectric.annotation.Config
 import org.robolectric.shadows.ShadowToast
 
 @RunWith(AndroidJUnit4::class)
-@Config(sdk = [Build.VERSION_CODES.BAKLAVA])
+@Config(sdk = [Build.VERSION_CODES.CINNAMON_BUN])
 class ExportItemTest {
-    private val mainActivity = RobolectricUtil.INSTANCE.activity
+    private val mainActivity = RobolectricUtil.INSTANCE.mainActivity
     private val export: Export = mock()
     private val intent: Intent = mock()
     private val componentName: ComponentName = mock()
@@ -64,20 +64,20 @@ class ExportItemTest {
 
     @Test
     fun registered() {
-        // execute & validate
+        // Act & Assert
         assertThat(fixture.registered).isFalse
     }
 
     @Test
     fun visibility() {
-        // execute & validate
+        // Act & Assert
         assertThat(fixture.visibility).isEqualTo(View.GONE)
     }
 
     @Test
     fun activate() {
         // Arrange
-        val wiFiData: WiFiData = withWiFiData()
+        val wiFiData = withWiFiData()
         doReturn(MutableStateFlow(wiFiData)).whenever(scanner).wiFiData()
         doReturn(intent).whenever(export).export(mainActivity, wiFiData.wiFiDetails)
         doReturn(componentName).whenever(intent).resolveActivity(mainActivity.packageManager)
@@ -104,7 +104,7 @@ class ExportItemTest {
     @Test
     fun activateWithNoExportAvailable() {
         // Arrange
-        val wiFiData: WiFiData = withWiFiData()
+        val wiFiData = withWiFiData()
         doReturn(MutableStateFlow(wiFiData)).whenever(scanner).wiFiData()
         doReturn(intent).whenever(export).export(mainActivity, wiFiData.wiFiDetails)
         doReturn(null).whenever(intent).resolveActivity(mainActivity.packageManager)
@@ -122,7 +122,7 @@ class ExportItemTest {
         // Arrange
         val activity = spy(mainActivity)
         val packageManager = activity.packageManager
-        val wiFiData: WiFiData = withWiFiData()
+        val wiFiData = withWiFiData()
         val expected = "error"
         doReturn(MutableStateFlow(wiFiData)).whenever(scanner).wiFiData()
         doReturn(intent).whenever(export).export(activity, wiFiData.wiFiDetails)

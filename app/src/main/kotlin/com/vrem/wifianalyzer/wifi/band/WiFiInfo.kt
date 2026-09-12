@@ -63,7 +63,7 @@ private val countriesNA =
 
 private val countriesGHZ6 = listOf("JP", "RU", "NZ", "AU", "GL", "AE", "GB", "SG", "HK", "MO", "PH")
 
-private val excludeGHZ2: List<Map<String, List<Int>>> = countriesNA.map { mapOf(it to listOf(12, 13)) }
+private val excludeGHZ2 = countriesNA.map { mapOf(it to listOf(12, 13)) }
 
 private val excludeGHZ5: List<Map<String, List<Int>>> =
     countriesETSI.map { mapOf(it to listOf(177)) } +

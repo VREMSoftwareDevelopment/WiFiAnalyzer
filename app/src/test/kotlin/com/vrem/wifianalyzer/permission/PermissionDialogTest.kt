@@ -21,6 +21,7 @@ import android.app.Activity
 import android.content.DialogInterface
 import android.os.Build
 import android.view.View
+import androidx.activity.result.ActivityResultLauncher
 import androidx.core.view.isGone
 import androidx.core.view.isVisible
 import androidx.test.ext.junit.runners.AndroidJUnit4
@@ -37,16 +38,16 @@ import org.mockito.kotlin.verifyNoMoreInteractions
 import org.robolectric.annotation.Config
 
 @RunWith(AndroidJUnit4::class)
-@Config(sdk = [Build.VERSION_CODES.BAKLAVA])
+@Config(sdk = [Build.VERSION_CODES.CINNAMON_BUN])
 class PermissionDialogTest {
-    private val activity = RobolectricUtil.INSTANCE.activity
+    private val activity = RobolectricUtil.INSTANCE.mainActivity
     private val fixture = PermissionDialog(activity)
 
     @Test
     fun show() {
-        // execute
+        // Act
         val actual = fixture.show()
-        //
+        // Assert
         assertThat(actual).isNotNull()
         assertThat(actual?.findViewById<View>(R.id.throttling)?.isVisible).isTrue
     }
@@ -54,39 +55,57 @@ class PermissionDialogTest {
     @Test
     @Config(sdk = [Build.VERSION_CODES.O_MR1])
     fun showAndroidO() {
-        // execute
+        // Act
         val actual = fixture.show()
-        //
+        // Assert
         assertThat(actual).isNotNull()
         assertThat(actual?.findViewById<View>(R.id.throttling)?.isGone).isTrue
     }
 
     @Test
+    fun showDisplaysAlertDialog() {
+        // Act
+        fixture.show()
+        // Assert
+        assertThat(fixture.alertDialog?.isShowing).isTrue
+    }
+
+    @Test
+    fun onStopDismissesAlertDialog() {
+        // Arrange
+        fixture.show()
+        val alertDialog = fixture.alertDialog!!
+        // Act
+        fixture.onStop(activity)
+        // Assert
+        assertThat(alertDialog.isShowing).isFalse
+        assertThat(fixture.alertDialog).isNull()
+    }
+
+    @Test
     fun okClick() {
-        // setup
-        val activity: Activity = mock()
+        // Arrange
+        val permissionLauncher: ActivityResultLauncher<String> = mock()
         val dialog: DialogInterface = mock()
-        val fixture = OkClick(activity)
-        // execute
+        val fixture = OkClick(permissionLauncher)
+        // Act
         fixture.onClick(dialog, 0)
-        // validate
-        verify(
-            activity,
-        ).requestPermissions(arrayOf(ApplicationPermission.PERMISSION), ApplicationPermission.REQUEST_CODE)
+        // Assert
+        verify(permissionLauncher).launch(ApplicationPermission.PERMISSION)
         verify(dialog).dismiss()
-        verifyNoMoreInteractions(activity)
+        verifyNoMoreInteractions(permissionLauncher)
         verifyNoMoreInteractions(dialog)
     }
 
     @Test
     fun cancelClick() {
-        // setup
+        // Arrange
         val activity: Activity = mock()
         val dialog: DialogInterface = mock()
         val fixture = CancelClick(activity)
-        // execute
+        // Act
         fixture.onClick(dialog, 0)
-        // validate
+        // Assert
         verify(activity).finish()
         verify(dialog).dismiss()
         verifyNoMoreInteractions(activity)

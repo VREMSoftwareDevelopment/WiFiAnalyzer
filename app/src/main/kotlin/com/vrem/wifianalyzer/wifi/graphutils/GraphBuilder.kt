@@ -41,11 +41,11 @@ class GraphBuilder(
     private val themeStyle: ThemeStyle,
     private val xStep: Double? = null,
 ) {
-    private var xAxisFormatter: CartesianValueFormatter = CartesianValueFormatter.decimal()
+    private var xAxisFormatter = CartesianValueFormatter.decimal()
     private var yAxisFormatter: CartesianValueFormatter = signalYAxisFormatter
-    private var verticalTitle: String = String.EMPTY
-    private var horizontalTitle: String = String.EMPTY
-    private var itemPlacer: HorizontalAxis.ItemPlacer = HorizontalAxis.ItemPlacer.aligned(shiftExtremeLines = false)
+    private var verticalTitle = String.EMPTY
+    private var horizontalTitle = String.EMPTY
+    private var itemPlacer = HorizontalAxis.ItemPlacer.aligned(shiftExtremeLines = false)
 
     fun setXAxisFormatter(formatter: CartesianValueFormatter): GraphBuilder {
         this.xAxisFormatter = formatter

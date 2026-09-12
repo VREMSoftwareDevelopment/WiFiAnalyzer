@@ -39,8 +39,8 @@ internal class Cache(
     private val settings: Settings,
     private val configuration: Configuration,
 ) {
-    private val scanResults: ArrayDeque<List<ScanResult>> = ArrayDeque(MAXIMUM)
-    private var count: Int = COUNT_MIN
+    private val scanResults = ArrayDeque<List<ScanResult>>(MAXIMUM)
+    private var count = COUNT_MIN
     var wifiInfo: WifiInfo? = null
 
     fun scanResults(): List<CacheResult> =
@@ -83,7 +83,7 @@ internal class Cache(
         element: ScanResult,
         accumulator: CacheResult?,
     ): Int {
-        val average: Int = if (first) element.level else (accumulator!!.average + element.level) / DENOMINATOR
+        val average = if (first) element.level else (accumulator!!.average + element.level) / DENOMINATOR
         return (if (sizeAvailable) average else average - SIZE * (count + count % FACTOR) / DENOMINATOR)
             .coerceIn(LEVEL_MINIMUM, LEVEL_MAXIMUM)
     }

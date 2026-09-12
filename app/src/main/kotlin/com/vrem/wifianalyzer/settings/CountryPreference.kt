@@ -22,10 +22,9 @@ import android.util.AttributeSet
 import com.vrem.util.defaultCountryCode
 import com.vrem.wifianalyzer.MainContext
 import com.vrem.wifianalyzer.wifi.band.WiFiChannelCountry
-import java.util.Locale
 
 internal fun countryData(settings: Settings = MainContext.INSTANCE.settings): List<Data> {
-    val currentLocale: Locale = settings.languageLocale()
+    val currentLocale = settings.languageLocale()
     return WiFiChannelCountry
         .findAll()
         .map { Data(it.countryCode, it.countryName(currentLocale)) }

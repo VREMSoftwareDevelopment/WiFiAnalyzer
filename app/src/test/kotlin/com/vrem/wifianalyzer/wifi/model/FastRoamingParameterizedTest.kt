@@ -39,14 +39,14 @@ private const val ID_EXTENDED_CAPABILITIES = 127
 private const val ID_VENDOR_SPECIFIC = 221
 
 @RunWith(ParameterizedRobolectricTestRunner::class)
-@Config(sdk = [Build.VERSION_CODES.BAKLAVA])
+@Config(sdk = [Build.VERSION_CODES.CINNAMON_BUN])
 class FastRoamingParameterizedTest(
     val expected: List<FastRoaming>,
     val elements: List<Element>,
 ) {
     @Test
     fun find() {
-        // setup
+        // Arrange
         val scanResult: ScanResult = mock()
         val informationElements =
             elements
@@ -58,9 +58,9 @@ class FastRoamingParameterizedTest(
                     informationElement
                 }.toList()
         doReturn(informationElements).whenever(scanResult).informationElements
-        // execute
+        // Act
         val actual = FastRoaming.find(scanResult)
-        // validate
+        // Assert
         assertThat(actual).isEqualTo(expected)
         informationElements.forEachIndexed { index, it ->
             verify(it, times(elements[index].countId)).id

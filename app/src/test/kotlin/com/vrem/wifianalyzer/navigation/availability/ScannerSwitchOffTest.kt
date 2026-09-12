@@ -47,13 +47,13 @@ class ScannerSwitchOffTest {
 
     @Test
     fun navigationOptionScannerSwitchOff() {
-        // setup
+        // Arrange
         whenever(mainActivity.optionMenu).thenReturn(optionMenu)
         whenever(optionMenu.menu).thenReturn(menu)
         whenever(menu.findItem(R.id.action_scanner)).thenReturn(menuItem)
-        // execute
+        // Act
         navigationOptionScannerSwitchOff(mainActivity)
-        // validate
+        // Assert
         verify(mainActivity).optionMenu
         verify(optionMenu).menu
         verify(menu).findItem(R.id.action_scanner)
@@ -62,12 +62,12 @@ class ScannerSwitchOffTest {
 
     @Test
     fun navigationOptionScannerSwitchOffWithNoMenuDoesNotSetVisibleFalse() {
-        // setup
+        // Arrange
         whenever(mainActivity.optionMenu).thenReturn(optionMenu)
         whenever(optionMenu.menu).thenReturn(null)
-        // execute
+        // Act
         navigationOptionScannerSwitchOff(mainActivity)
-        // validate
+        // Assert
         verify(mainActivity).optionMenu
         verify(optionMenu).menu
         verify(menu, never()).findItem(R.id.action_scanner)

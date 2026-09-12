@@ -43,7 +43,7 @@ class ChannelRatingFragment :
         container: ViewGroup?,
         savedInstanceState: Bundle?,
     ): View {
-        val binding: ChannelRatingContentBinding = ChannelRatingContentBinding.inflate(inflater, container, false)
+        val binding = ChannelRatingContentBinding.inflate(inflater, container, false)
         swipeRefreshLayout = binding.channelRatingRefresh
         swipeRefreshLayout.setOnRefreshListener(this)
         if (buildVersionP()) {

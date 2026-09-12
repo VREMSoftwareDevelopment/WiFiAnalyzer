@@ -22,7 +22,6 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.test.ext.junit.runners.AndroidJUnit4
-import com.vrem.wifianalyzer.MainActivity
 import com.vrem.wifianalyzer.R
 import com.vrem.wifianalyzer.RobolectricUtil
 import com.vrem.wifianalyzer.vendor.model.VendorService
@@ -44,7 +43,7 @@ import org.mockito.kotlin.whenever
 import org.robolectric.annotation.Config
 
 @RunWith(AndroidJUnit4::class)
-@Config(sdk = [Build.VERSION_CODES.BAKLAVA])
+@Config(sdk = [Build.VERSION_CODES.CINNAMON_BUN])
 class VendorAdapterTest {
     private val vendorName1 = "N1"
     private val vendorName2 = "N2"
@@ -52,13 +51,13 @@ class VendorAdapterTest {
 
     private lateinit var fixture: VendorAdapter
 
-    private val mainActivity: MainActivity = RobolectricUtil.INSTANCE.activity
+    private val mainActivity = RobolectricUtil.INSTANCE.mainActivity
     private val vendorService: VendorService = mock()
     private val rootView: View = mock()
     private val vendorNameView: TextView = mock()
     private val vendorMacsView: TextView = mock()
-    private val vendors: List<String> = listOf(vendorName1, vendorName2, vendorName3)
-    private val macs: List<String> = listOf("MAC1", "MAC2", "MAC3")
+    private val vendors = listOf(vendorName1, vendorName2, vendorName3)
+    private val macs = listOf("MAC1", "MAC2", "MAC3")
 
     @Before
     fun setUp() {
@@ -74,7 +73,7 @@ class VendorAdapterTest {
 
     @Test
     fun constructor() {
-        // validate
+        // Assert
         assertThat(fixture.count).isEqualTo(vendors.size)
         assertThat(fixture.getItem(0)).isEqualTo(vendors[0])
         assertThat(fixture.getItem(1)).isEqualTo(vendors[1])
@@ -84,13 +83,13 @@ class VendorAdapterTest {
 
     @Test
     fun getView() {
-        // setup
+        // Arrange
         val expected = macs.joinToString(separator = ", ")
         val viewGroup = mainActivity.findViewById<ViewGroup>(android.R.id.content)
         whenever(vendorService.findMacAddresses(vendorName2)).thenReturn(macs)
-        // execute
+        // Act
         val actual = fixture.getView(1, null, viewGroup)
-        // validate
+        // Assert
         assertThat(actual).isNotNull()
         assertThat(actual.findViewById<TextView>(R.id.vendor_name).text.toString()).isEqualTo(vendorName2)
         assertThat(actual.findViewById<TextView>(R.id.vendor_macs).text.toString()).isEqualTo(expected)
@@ -101,14 +100,14 @@ class VendorAdapterTest {
 
     @Test
     fun update() {
-        // setup
+        // Arrange
         fixture = spy(VendorAdapter(mainActivity, vendorService))
         whenever(vendorService.findVendors(vendorName2)).thenReturn(vendors)
         doNothing().whenever(fixture).clear()
         doNothing().whenever(fixture).addAll(vendors)
-        // execute
+        // Act
         fixture.update(vendorName2)
-        // validate
+        // Assert
         verify(vendorService).findVendors(vendorName2)
         verify(fixture).clear()
         verify(fixture).addAll(vendors)
@@ -116,15 +115,15 @@ class VendorAdapterTest {
 
     @Test
     fun getViewWhenRootViewNotNull() {
-        // setup
+        // Arrange
         val viewGroup = mainActivity.findViewById<ViewGroup>(android.R.id.content)
         val expected = macs.joinToString(separator = ", ")
         whenever(vendorService.findMacAddresses(vendorName2)).thenReturn(macs)
         whenever(rootView.findViewById<TextView>(R.id.vendor_name)).thenReturn(vendorNameView)
         whenever(rootView.findViewById<TextView>(R.id.vendor_macs)).thenReturn(vendorMacsView)
-        // execute
+        // Act
         val actual = fixture.getView(1, rootView, viewGroup)
-        // validate
+        // Assert
         assertThat(actual).isNotNull()
         verify(vendorNameView).text = vendorName2
         verify(vendorMacsView).text = expected
@@ -135,13 +134,13 @@ class VendorAdapterTest {
 
     @Test
     fun getViewShouldHandleNullItem() {
-        // setup
+        // Arrange
         val viewGroup = mainActivity.findViewById<ViewGroup>(android.R.id.content)
         val spiedFixture = spy(fixture)
         doReturn(null).whenever(spiedFixture).getItem(0)
-        // execute
+        // Act
         val actual = spiedFixture.getView(0, null, viewGroup)
-        // validate
+        // Assert
         assertThat(actual).isNotNull
         assertThat(actual.findViewById<TextView>(R.id.vendor_name).text).isEmpty()
         assertThat(actual.findViewById<TextView>(R.id.vendor_macs).text).isEmpty()

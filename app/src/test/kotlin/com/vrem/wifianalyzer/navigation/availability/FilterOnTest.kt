@@ -53,14 +53,14 @@ class FilterOnTest {
 
     @Test
     fun navigationOptionFilterOnWithFilterInactive() {
-        // setup
+        // Arrange
         val colorResult = 200
         whenever(filterAdapter.isActive()).thenReturn(false)
         whenever(ContextCompat.getColor(mainActivity, R.color.regular)).thenReturn(colorResult)
         withMenuItem()
-        // execute
+        // Act
         fixture(mainActivity)
-        // validate
+        // Assert
         verifyMenuItem()
         ContextCompat.getColor(verify(mainActivity), R.color.regular)
         verify(drawable).setTint(colorResult)
@@ -68,14 +68,14 @@ class FilterOnTest {
 
     @Test
     fun navigationOptionFilterOnWithFilterActive() {
-        // setup
+        // Arrange
         val colorResult = 100
         whenever(filterAdapter.isActive()).thenReturn(true)
         whenever(ContextCompat.getColor(mainActivity, R.color.selected)).thenReturn(colorResult)
         withMenuItem()
-        // execute
+        // Act
         fixture(mainActivity)
-        // validate
+        // Assert
         verifyMenuItem()
         ContextCompat.getColor(verify(mainActivity), R.color.selected)
         verify(drawable).setTint(colorResult)
@@ -83,27 +83,27 @@ class FilterOnTest {
 
     @Test
     fun navigationOptionFilterOnWithNoMenuDoesNotSetVisibleTrue() {
-        // setup
+        // Arrange
         whenever(mainActivity.optionMenu).thenReturn(optionMenu)
         whenever(optionMenu.menu).thenReturn(null)
-        // execute
+        // Act
         fixture(mainActivity)
-        // validate
+        // Assert
         verify(mainActivity).optionMenu
         verify(optionMenu).menu
     }
 
     @Test
     fun navigationOptionFilterOnWithNoIconDoesNotSetTint() {
-        // setup
+        // Arrange
         whenever(filterAdapter.isActive()).thenReturn(false)
         whenever(mainActivity.optionMenu).thenReturn(optionMenu)
         whenever(optionMenu.menu).thenReturn(menu)
         whenever(menu.findItem(R.id.action_filter)).thenReturn(menuItem)
         whenever(menuItem.icon).thenReturn(null)
-        // execute
+        // Act
         fixture(mainActivity)
-        // validate
+        // Assert
         verify(mainActivity).optionMenu
         verify(optionMenu).menu
         verify(menu).findItem(R.id.action_filter)

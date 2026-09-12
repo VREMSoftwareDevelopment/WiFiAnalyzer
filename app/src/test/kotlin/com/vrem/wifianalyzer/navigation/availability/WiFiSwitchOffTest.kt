@@ -48,13 +48,13 @@ class WiFiSwitchOffTest {
 
     @Test
     fun navigationOptionWiFiSwitchOffWithMenuWillSetVisibility() {
-        // setup
+        // Arrange
         whenever(mainActivity.optionMenu).thenReturn(optionMenu)
         whenever(optionMenu.menu).thenReturn(menu)
         whenever(menu.findItem(R.id.action_wifi_band)).thenReturn(menuItem)
-        // execute
+        // Act
         navigationOptionWiFiSwitchOff(mainActivity)
-        // validate
+        // Assert
         verify(mainActivity).optionMenu
         verify(optionMenu).menu
         verify(menu).findItem(R.id.action_wifi_band)
@@ -63,13 +63,13 @@ class WiFiSwitchOffTest {
 
     @Test
     fun navigationOptionWiFiSwitchOffWithNoMenuWillNotVisibility() {
-        // setup
+        // Arrange
         whenever(mainActivity.optionMenu).thenReturn(optionMenu)
         whenever(mainActivity.optionMenu).thenReturn(optionMenu)
         whenever(optionMenu.menu).thenReturn(null)
-        // execute
+        // Act
         navigationOptionWiFiSwitchOff(mainActivity)
-        // validate
+        // Assert
         verify(mainActivity).optionMenu
         verify(optionMenu).menu
         verify(menu, never()).findItem(R.id.action_wifi_band)

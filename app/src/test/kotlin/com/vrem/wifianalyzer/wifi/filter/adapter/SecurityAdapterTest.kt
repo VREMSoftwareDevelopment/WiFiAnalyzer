@@ -43,84 +43,84 @@ class SecurityAdapterTest {
 
     @Test
     fun isActiveWithChanges() {
-        // setup
+        // Arrange
         fixture.toggle(Security.WPA)
-        // execute & validate
+        // Act & Assert
         assertThat(fixture.isActive()).isTrue
     }
 
     @Test
     fun getValues() {
-        // setup
+        // Arrange
         val expected = Security.entries
-        // execute
+        // Act
         val actual = fixture.selections
-        // validate
+        // Assert
         assertThat(actual).containsAll(expected)
     }
 
     @Test
     fun getValuesDefault() {
-        // setup
+        // Arrange
         val expected = Security.entries
-        // execute
+        // Act
         val actual = fixture.defaults
-        // validate
+        // Assert
         assertThat(actual).isEqualTo(expected)
     }
 
     @Test
     fun toggleRemoves() {
-        // execute
+        // Act
         val actual = fixture.toggle(Security.WEP)
-        // validate
+        // Assert
         assertThat(actual).isTrue
         assertThat(fixture.contains(Security.WEP)).isFalse
     }
 
     @Test
     fun toggleAdds() {
-        // setup
+        // Arrange
         fixture.toggle(Security.WPA)
-        // execute
+        // Act
         val actual = fixture.toggle(Security.WPA)
-        // validate
+        // Assert
         assertThat(actual).isTrue
         assertThat(fixture.contains(Security.WPA)).isTrue
     }
 
     @Test
     fun removingAllWillNotRemoveLast() {
-        // setup
-        val values: Set<Security> = Security.entries.toSet()
-        // execute
+        // Arrange
+        val values = Security.entries.toSet()
+        // Act
         values.forEach { fixture.toggle(it) }
-        // validate
+        // Assert
         values.forEach { fixture.contains(it) }
         assertThat(fixture.contains(values.last())).isTrue
     }
 
     @Test
     fun getColorWithExisting() {
-        // execute & validate
+        // Act & Assert
         assertThat(fixture.color(Security.WPA)).isEqualTo(R.color.selected)
     }
 
     @Test
     fun getColorWithNonExisting() {
-        // setup
+        // Arrange
         fixture.toggle(Security.WPA)
-        // execute & validate
+        // Act & Assert
         assertThat(fixture.color(Security.WPA)).isEqualTo(R.color.regular)
     }
 
     @Test
     fun save() {
-        // setup
+        // Arrange
         val expected = fixture.selections
-        // execute
+        // Act
         fixture.save(settings)
-        // validate
+        // Assert
         verify(settings).saveSecurities(expected)
     }
 }

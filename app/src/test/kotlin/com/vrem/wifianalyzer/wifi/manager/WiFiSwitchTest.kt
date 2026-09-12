@@ -38,7 +38,7 @@ import org.mockito.kotlin.whenever
 import org.robolectric.annotation.Config
 
 @RunWith(AndroidJUnit4::class)
-@Config(sdk = [Build.VERSION_CODES.BAKLAVA])
+@Config(sdk = [Build.VERSION_CODES.CINNAMON_BUN])
 class WiFiSwitchTest {
     private val wifiManager: WifiManager = mock()
     private val activity: Activity = mock()
@@ -53,12 +53,12 @@ class WiFiSwitchTest {
 
     @Test
     fun on() {
-        // setup
+        // Arrange
         doReturn(false).whenever(fixture).minVersionQ()
         whenever(wifiManager.setWifiEnabled(true)).thenReturn(true)
-        // execute
+        // Act
         val actual = fixture.on()
-        // validate
+        // Assert
         assertThat(actual).isTrue
         verify(fixture).minVersionQ()
         verify(wifiManager).isWifiEnabled = true
@@ -66,12 +66,12 @@ class WiFiSwitchTest {
 
     @Test
     fun off() {
-        // setup
+        // Arrange
         doReturn(false).whenever(fixture).minVersionQ()
         whenever(wifiManager.setWifiEnabled(false)).thenReturn(true)
-        // execute
+        // Act
         val actual = fixture.off()
-        // validate
+        // Assert
         assertThat(actual).isTrue
         verify(fixture).minVersionQ()
         verify(wifiManager).isWifiEnabled = false
@@ -91,12 +91,12 @@ class WiFiSwitchTest {
 
     @Test
     fun onWithAndroidQ() {
-        // setup
+        // Arrange
         doReturn(true).whenever(fixture).minVersionQ()
         doNothing().whenever(fixture).startWiFiSettings()
-        // execute
+        // Act
         val actual = fixture.on()
-        // validate
+        // Assert
         assertThat(actual).isTrue
         verify(fixture).startWiFiSettings()
         verify(fixture).minVersionQ()

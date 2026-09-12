@@ -19,14 +19,11 @@ package com.vrem.wifianalyzer.navigation.options
 
 import android.os.Build
 import androidx.test.ext.junit.runners.AndroidJUnit4
-import com.vrem.wifianalyzer.MainActivity
 import com.vrem.wifianalyzer.MainContextHelper
 import com.vrem.wifianalyzer.R
 import com.vrem.wifianalyzer.RobolectricUtil
 import com.vrem.wifianalyzer.navigation.options.OptionAction.Companion.findOptionAction
-import com.vrem.wifianalyzer.settings.Settings
 import com.vrem.wifianalyzer.wifi.band.WiFiBand
-import com.vrem.wifianalyzer.wifi.scanner.ScannerService
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.After
 import org.junit.Test
@@ -36,11 +33,11 @@ import org.mockito.kotlin.verifyNoMoreInteractions
 import org.robolectric.annotation.Config
 
 @RunWith(AndroidJUnit4::class)
-@Config(sdk = [Build.VERSION_CODES.BAKLAVA])
+@Config(sdk = [Build.VERSION_CODES.CINNAMON_BUN])
 class OptionActionTest {
-    private val mainActivity: MainActivity = RobolectricUtil.INSTANCE.activity
-    private val scannerService: ScannerService = MainContextHelper.INSTANCE.scannerService
-    private val settings: Settings = MainContextHelper.INSTANCE.settings
+    private val mainActivity = RobolectricUtil.INSTANCE.mainActivity
+    private val scannerService = MainContextHelper.INSTANCE.scannerService
+    private val settings = MainContextHelper.INSTANCE.settings
 
     @After
     fun tearDown() {
@@ -51,17 +48,17 @@ class OptionActionTest {
 
     @Test
     fun scannerToggleActionShouldToggleScannerService() {
-        // execute
+        // Act
         scannerToggleAction { scannerService }()
-        // validate
+        // Assert
         verify(scannerService).toggle()
     }
 
     @Test
     fun wiFiBandActionShouldSwitchToGivenBand() {
-        // execute
+        // Act
         wiFiBandAction(WiFiBand.GHZ5) { settings }()
-        // validate
+        // Assert
         verify(settings).wiFiBand(WiFiBand.GHZ5)
     }
 

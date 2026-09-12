@@ -37,9 +37,9 @@ class SSIDAdapterTest {
 
     @Test
     fun getValues() {
-        // execute
+        // Act
         val actual = fixture.selections
-        // validate
+        // Assert
         assertThat(actual).containsAll(ssidValues)
     }
 
@@ -50,38 +50,38 @@ class SSIDAdapterTest {
 
     @Test
     fun isNotActiveWithEmptyValue() {
-        // execute
+        // Act
         fixture.selections = setOf()
-        // validate
+        // Assert
         assertThat(fixture.isActive()).isFalse
         assertThat(fixture.selections).isEmpty()
     }
 
     @Test
     fun isNotActiveWithReset() {
-        // execute
+        // Act
         fixture.reset()
-        // validate
+        // Assert
         assertThat(fixture.isActive()).isFalse
         assertThat(fixture.selections).isEmpty()
     }
 
     @Test
     fun save() {
-        // execute
+        // Act
         fixture.save(settings)
-        // execute
+        // Act
         verify(settings).saveSSIDs(ssidValues)
     }
 
     @Test
     fun setValues() {
-        // setup
+        // Arrange
         val expected: Set<String> = setOf("ABC", "EDF", "123")
         val values: Set<String> = setOf("", "ABC", "", "EDF", "  ", "123", "")
-        // execute
+        // Act
         fixture.selections = values
-        // execute
+        // Act
         assertThat(fixture.selections).isEqualTo(expected)
     }
 }

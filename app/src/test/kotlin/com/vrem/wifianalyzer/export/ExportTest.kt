@@ -62,7 +62,7 @@ class ExportTest {
 
     @Test
     fun export() {
-        // setup
+        // Arrange
         val wiFiDetails = withWiFiDetails()
         val count = wiFiDetails.size
         val timestamp = timestamp(date)
@@ -73,9 +73,9 @@ class ExportTest {
         doReturn("802.11AC").whenever(context).getString(WiFiStandard.AC.fullResource)
         doReturn("802.11R").whenever(context).getString(FastRoaming.FR_802_11R.textResource)
         whenever(exportIntent.intent(title, data)).thenReturn(intent)
-        // execute
+        // Act
         val actual = fixture.export(mainActivity, wiFiDetails, date)
-        // validate
+        // Assert
         assertThat(actual).isEqualTo(intent)
         verify(mainActivity).applicationContext
         verify(context).getString(R.string.action_access_points)
@@ -86,26 +86,26 @@ class ExportTest {
 
     @Test
     fun timestamp() {
-        // setup
+        // Arrange
         val expected = timestamp(date)
-        // execute
+        // Act
         val actual = fixture.timestamp(date)
-        // validate
+        // Assert
         assertThat(actual).isEqualTo(expected)
     }
 
     @Test
     fun data() {
-        // setup
+        // Arrange
         val wiFiDetails = withWiFiDetails()
         val count = wiFiDetails.size
         val timestamp = timestamp(date)
         val expected = data(timestamp)
         doReturn("802.11AC").whenever(context).getString(WiFiStandard.AC.fullResource)
         doReturn("802.11R").whenever(context).getString(FastRoaming.FR_802_11R.textResource)
-        // execute
+        // Act
         val actual = fixture.data(context, wiFiDetails, timestamp)
-        // validate
+        // Assert
         assertThat(actual).isEqualTo(expected)
         verify(context, times(count)).getString(WiFiStandard.AC.fullResource)
         verify(context, times(count)).getString(FastRoaming.FR_802_11R.textResource)
@@ -113,13 +113,13 @@ class ExportTest {
 
     @Test
     fun title() {
-        // setup
+        // Arrange
         val timestamp = timestamp(date)
         val expected = "$name-$timestamp"
         doReturn(name).whenever(context).getString(R.string.action_access_points)
-        // execute
+        // Act
         val actual = fixture.title(context, timestamp)
-        // validate
+        // Assert
         assertThat(actual).isEqualTo(expected)
         verify(context).getString(R.string.action_access_points)
     }

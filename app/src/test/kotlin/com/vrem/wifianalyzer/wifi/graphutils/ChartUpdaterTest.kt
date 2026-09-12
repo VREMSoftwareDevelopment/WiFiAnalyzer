@@ -41,9 +41,9 @@ import org.robolectric.annotation.Config
 import java.util.AbstractMap.SimpleEntry
 
 @RunWith(AndroidJUnit4::class)
-@Config(sdk = [Build.VERSION_CODES.BAKLAVA])
+@Config(sdk = [Build.VERSION_CODES.CINNAMON_BUN])
 class ChartUpdaterTest {
-    private val mainActivity = RobolectricUtil.INSTANCE.activity
+    private val mainActivity = RobolectricUtil.INSTANCE.mainActivity
     private val chartView = GraphBuilder(MAX_Y_DEFAULT, ThemeStyle.DARK).build(mainActivity, false)
     private val seriesLabel = SeriesLabel(calculateLabelPosition = { _, _ -> null })
     private val seriesCache = SeriesCache(emptyList())

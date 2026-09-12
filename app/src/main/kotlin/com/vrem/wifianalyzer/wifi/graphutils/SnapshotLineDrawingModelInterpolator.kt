@@ -28,7 +28,7 @@ import kotlinx.coroutines.ensureActive
 class SnapshotLineDrawingModelInterpolator :
     CartesianLayerDrawingModelInterpolator<LineCartesianLayerDrawingModel.Entry, LineCartesianLayerDrawingModel> {
     @Volatile
-    private var snapshot: Snapshot = Snapshot(null, null, emptyList())
+    private var snapshot = Snapshot(null, null, emptyList())
 
     override fun setModels(
         old: LineCartesianLayerDrawingModel?,

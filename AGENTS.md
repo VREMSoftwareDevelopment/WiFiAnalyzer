@@ -171,7 +171,7 @@ fun tearDown() {
 ```kotlin
 import com.vrem.wifianalyzer.RobolectricUtil
 
-private val mainActivity = RobolectricUtil.INSTANCE.activity
+private val mainActivity = RobolectricUtil.INSTANCE.mainActivity
 
 // For fragments:
 RobolectricUtil.INSTANCE.startFragment(fragment)
@@ -223,7 +223,7 @@ class MainActivityInstrumentedTest {
   - APK artifact: `app/build/outputs/apk/debug` (uploaded as `artifact-apk`).
   - Instrumentation / emulator test outputs: `app/build/reports/androidTests` and `app/build/outputs/androidTest-results/connected/**/*.xml` for JUnit XMLs.
 
-- Emulator job notes: the GitHub Action enables KVM, caches AVD (`~/.android/avd/*`) and runs `./gradlew connectedDebugAndroidTest`. Emulator caching and KVM are required for the `emulator-test` job in `android-ci.yml`, which currently runs API levels 35, 36, and 37.
+- Emulator job notes: the GitHub Action enables KVM, caches AVD (`~/.android/avd/*`) and runs `./gradlew connectedDebugAndroidTest`. Emulator caching and KVM are required for the `emulator-test` job in `android-ci.yml`, which currently runs API levels 25, 28, 30, 33, and 37.0.
 
 ## Privacy and Security Guidelines
 

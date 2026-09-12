@@ -21,39 +21,54 @@ import android.app.Activity
 import android.app.AlertDialog
 import android.content.DialogInterface
 import android.view.View
+import androidx.activity.result.ActivityResultLauncher
+import androidx.lifecycle.DefaultLifecycleObserver
+import androidx.lifecycle.LifecycleOwner
 import com.vrem.annotation.OpenClass
 import com.vrem.util.buildMinVersionP
+import com.vrem.wifianalyzer.MainActivity
 import com.vrem.wifianalyzer.R
 
 @OpenClass
 class PermissionDialog(
-    private val activity: Activity,
-) {
+    private val mainActivity: MainActivity,
+) : DefaultLifecycleObserver {
+    internal var alertDialog: AlertDialog? = null
+
     fun show(): View? {
-        val view = activity.layoutInflater.inflate(R.layout.info_permission, null)
+        val view = mainActivity.layoutInflater.inflate(R.layout.info_permission, null)
         val visibility = if (buildMinVersionP()) View.VISIBLE else View.GONE
         view.findViewById<View>(R.id.throttling)!!.visibility = visibility
-        AlertDialog
-            .Builder(activity)
-            .setView(view)
-            .setTitle(R.string.app_full_name)
-            .setIcon(R.drawable.ic_app)
-            .setPositiveButton(android.R.string.ok, OkClick(activity))
-            .setNegativeButton(android.R.string.cancel, CancelClick(activity))
-            .create()
-            .show()
+        alertDialog = buildAlertDialog(view)
+        mainActivity.lifecycle.addObserver(this)
+        alertDialog?.show()
         return view
     }
 
+    override fun onStop(owner: LifecycleOwner) {
+        alertDialog?.dismiss()
+        alertDialog = null
+    }
+
+    private fun buildAlertDialog(view: View): AlertDialog =
+        AlertDialog
+            .Builder(mainActivity)
+            .setView(view)
+            .setTitle(R.string.app_full_name)
+            .setIcon(R.drawable.ic_app)
+            .setPositiveButton(android.R.string.ok, OkClick(mainActivity.permissionLauncher))
+            .setNegativeButton(android.R.string.cancel, CancelClick(mainActivity))
+            .create()
+
     internal class OkClick(
-        private val activity: Activity,
+        private val permissionLauncher: ActivityResultLauncher<String>,
     ) : DialogInterface.OnClickListener {
         override fun onClick(
             alertDialog: DialogInterface,
             which: Int,
         ) {
             alertDialog.dismiss()
-            activity.requestPermissions(arrayOf(ApplicationPermission.PERMISSION), ApplicationPermission.REQUEST_CODE)
+            permissionLauncher.launch(ApplicationPermission.PERMISSION)
         }
     }
 

@@ -60,7 +60,7 @@ class GraphWrapper(
     private val graphColors: GraphColors = GraphColors(),
     private val chartUpdater: ChartUpdater = ChartUpdater(chartView, seriesLabel, seriesCache),
 ) {
-    internal val modelProducer: CartesianChartModelProducer = CartesianChartModelProducer()
+    internal val modelProducer = CartesianChartModelProducer()
     internal val coroutineScope = CoroutineScope(Dispatchers.Default + SupervisorJob())
     private val snapshotChannel = Channel<List<Coordinates>>(Channel.CONFLATED)
 

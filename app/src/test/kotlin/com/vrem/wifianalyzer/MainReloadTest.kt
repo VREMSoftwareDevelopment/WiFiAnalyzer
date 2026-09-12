@@ -52,63 +52,63 @@ class MainReloadTest {
 
     @Test
     fun shouldNotReloadWithNoThemeChanges() {
-        // execute
+        // Act
         val actual = fixture.shouldReload(settings)
-        // validate
+        // Assert
         assertThat(actual).isFalse
         assertThat(fixture.themeStyle).isEqualTo(ThemeStyle.DARK)
     }
 
     @Test
     fun shouldReloadWithThemeChange() {
-        // setup
+        // Arrange
         val expected = ThemeStyle.LIGHT
         whenever(settings.themeStyle()).thenReturn(expected)
-        // execute
+        // Act
         val actual = fixture.shouldReload(settings)
-        // validate
+        // Assert
         assertThat(actual).isTrue
         assertThat(fixture.themeStyle).isEqualTo(expected)
     }
 
     @Test
     fun shouldNotReloadWithNoConnectionViewTypeChanges() {
-        // execute
+        // Act
         val actual = fixture.shouldReload(settings)
-        // validate
+        // Assert
         assertThat(actual).isFalse
         assertThat(fixture.connectionViewType).isEqualTo(ConnectionViewType.COMPLETE)
     }
 
     @Test
     fun shouldReloadWithConnectionViewTypeChange() {
-        // setup
+        // Arrange
         val expected = ConnectionViewType.COMPACT
         whenever(settings.connectionViewType()).thenReturn(expected)
-        // execute
+        // Act
         val actual = fixture.shouldReload(settings)
-        // validate
+        // Assert
         assertThat(actual).isTrue
         assertThat(fixture.connectionViewType).isEqualTo(expected)
     }
 
     @Test
     fun shouldNotReloadWithNoLanguageLocaleChanges() {
-        // execute
+        // Act
         val actual = fixture.shouldReload(settings)
-        // validate
+        // Assert
         assertThat(actual).isFalse
         assertThat(fixture.languageLocale).isEqualTo(Locale.UK)
     }
 
     @Test
     fun shouldReloadWithLanguageLocaleChange() {
-        // setup
+        // Arrange
         val expected = Locale.US
         whenever(settings.languageLocale()).thenReturn(expected)
-        // execute
+        // Act
         val actual = fixture.shouldReload(settings)
-        // validate
+        // Assert
         assertThat(actual).isTrue
         assertThat(fixture.languageLocale).isEqualTo(expected)
     }

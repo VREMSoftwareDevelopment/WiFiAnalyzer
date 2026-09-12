@@ -30,7 +30,7 @@ import org.mockito.kotlin.verifyNoMoreInteractions
 import org.robolectric.annotation.Config
 
 @RunWith(AndroidJUnit4::class)
-@Config(sdk = [Build.VERSION_CODES.BAKLAVA])
+@Config(sdk = [Build.VERSION_CODES.CINNAMON_BUN])
 class WiFiStandardTest {
     @Test
     fun width() {
@@ -73,11 +73,11 @@ class WiFiStandardTest {
     @Config(sdk = [Build.VERSION_CODES.Q])
     @Test
     fun findOneLegacy() {
-        // setup
+        // Arrange
         val scanResult: ScanResult = mock()
-        // execute
+        // Act
         val actual = WiFiStandard.findOne(scanResult)
-        // validate
+        // Assert
         assertThat(actual).isEqualTo(WiFiStandard.UNKNOWN)
         verifyNoMoreInteractions(scanResult)
     }

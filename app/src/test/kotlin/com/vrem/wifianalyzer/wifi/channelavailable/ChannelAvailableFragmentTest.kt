@@ -37,9 +37,9 @@ import org.robolectric.annotation.Config
 import java.util.Locale
 
 @RunWith(AndroidJUnit4::class)
-@Config(sdk = [Build.VERSION_CODES.BAKLAVA])
+@Config(sdk = [Build.VERSION_CODES.CINNAMON_BUN])
 class ChannelAvailableFragmentTest {
-    private val mainActivity = RobolectricUtil.INSTANCE.activity
+    private val mainActivity = RobolectricUtil.INSTANCE.mainActivity
     private val locale = Locale.JAPAN
     private val settings = MainContextHelper.INSTANCE.settings
     private val fixture = ChannelAvailableFragment()
@@ -74,9 +74,9 @@ class ChannelAvailableFragmentTest {
 
     @Test
     fun onCreateView() {
-        // setup
+        // Arrange
         RobolectricUtil.INSTANCE.startFragment(fixture)
-        // validate
+        // Assert
         assertThat(fixture).isNotNull()
         val view = fixture.view!!
         assertThat(view.findViewById<TextView>(R.id.channels_available_country_code).text).isEqualTo(locale.country)

@@ -48,7 +48,7 @@ import org.robolectric.annotation.Config
 import java.util.Locale
 
 @RunWith(AndroidJUnit4::class)
-@Config(sdk = [Build.VERSION_CODES.BAKLAVA])
+@Config(sdk = [Build.VERSION_CODES.CINNAMON_BUN])
 class SettingsTest {
     private val scanSpeedDefault = 5
     private val graphYMultiplier = -10
@@ -56,7 +56,7 @@ class SettingsTest {
 
     private val repository: Repository = mock()
     private val onSharedPreferenceChangeListener: OnSharedPreferenceChangeListener = mock()
-    private val fixture: Settings = Settings(repository)
+    private val fixture = Settings(repository)
 
     @After
     fun tearDown() {
@@ -66,34 +66,34 @@ class SettingsTest {
 
     @Test
     fun initializeDefaultValues() {
-        // setup
+        // Arrange
         doNothing().whenever(repository).initializeDefaultValues()
-        // execute
+        // Act
         fixture.initializeDefaultValues()
-        // verify
+        // Assert
         verify(repository).initializeDefaultValues()
     }
 
     @Test
     fun registerOnSharedPreferenceChangeListener() {
-        // setup
+        // Arrange
         doNothing().whenever(repository).registerOnSharedPreferenceChangeListener(onSharedPreferenceChangeListener)
-        // execute
+        // Act
         fixture.registerOnSharedPreferenceChangeListener(onSharedPreferenceChangeListener)
-        // validate
+        // Assert
         verify(repository).registerOnSharedPreferenceChangeListener(onSharedPreferenceChangeListener)
     }
 
     @Test
     fun scanSpeed() {
-        // setup
+        // Arrange
         val defaultValue = scanSpeedDefault - 2
         val speedValue = scanSpeedDefault - 1
         doReturn(defaultValue).whenever(repository).stringAsInteger(R.string.scan_speed_default, scanSpeedDefault)
         doReturn(speedValue).whenever(repository).stringAsInteger(R.string.scan_speed_key, defaultValue)
-        // execute
+        // Act
         val actual = fixture.scanSpeed()
-        // validate
+        // Assert
         assertThat(actual).isEqualTo(speedValue)
         verify(repository).stringAsInteger(R.string.scan_speed_default, scanSpeedDefault)
         verify(repository).stringAsInteger(R.string.scan_speed_key, defaultValue)
@@ -101,15 +101,15 @@ class SettingsTest {
 
     @Test
     fun graphMaximumY() {
-        // setup
+        // Arrange
         val defaultValue = 1
         val value = 2
         val expected = value * graphYMultiplier
         doReturn(defaultValue).whenever(repository).stringAsInteger(R.string.graph_maximum_y_default, graphYDefault)
         doReturn(value).whenever(repository).stringAsInteger(R.string.graph_maximum_y_key, defaultValue)
-        // execute
+        // Act
         val actual = fixture.graphMaximumY()
-        // validate
+        // Assert
         assertThat(actual).isEqualTo(expected)
         verify(repository).stringAsInteger(R.string.graph_maximum_y_default, graphYDefault)
         verify(repository).stringAsInteger(R.string.graph_maximum_y_key, defaultValue)
@@ -117,52 +117,52 @@ class SettingsTest {
 
     @Test
     fun groupBy() {
-        // setup
+        // Arrange
         doReturn(GroupBy.CHANNEL.ordinal)
             .whenever(repository)
             .stringAsInteger(R.string.group_by_key, GroupBy.NONE.ordinal)
-        // execute
+        // Act
         val actual = fixture.groupBy()
-        // validate
+        // Assert
         assertThat(actual).isEqualTo(GroupBy.CHANNEL)
         verify(repository).stringAsInteger(R.string.group_by_key, GroupBy.NONE.ordinal)
     }
 
     @Test
     fun sortBy() {
-        // setup
+        // Arrange
         doReturn(SortBy.SSID.ordinal)
             .whenever(repository)
             .stringAsInteger(R.string.sort_by_key, SortBy.STRENGTH.ordinal)
-        // execute
+        // Act
         val actual = fixture.sortBy()
-        // validate
+        // Assert
         assertThat(actual).isEqualTo(SortBy.SSID)
         verify(repository).stringAsInteger(R.string.sort_by_key, SortBy.STRENGTH.ordinal)
     }
 
     @Test
     fun accessPointView() {
-        // setup
+        // Arrange
         doReturn(AccessPointViewType.COMPACT.ordinal)
             .whenever(repository)
             .stringAsInteger(R.string.ap_view_key, AccessPointViewType.COMPLETE.ordinal)
-        // execute
+        // Act
         val actual = fixture.accessPointView()
-        // validate
+        // Assert
         assertThat(actual).isEqualTo(AccessPointViewType.COMPACT)
         verify(repository).stringAsInteger(R.string.ap_view_key, AccessPointViewType.COMPLETE.ordinal)
     }
 
     @Test
     fun connectionViewType() {
-        // setup
+        // Arrange
         doReturn(ConnectionViewType.COMPLETE.ordinal)
             .whenever(repository)
             .stringAsInteger(R.string.connection_view_key, ConnectionViewType.COMPACT.ordinal)
-        // execute
+        // Act
         val actual = fixture.connectionViewType()
-        // validate
+        // Assert
         assertThat(actual).isEqualTo(ConnectionViewType.COMPLETE)
         verify(repository).stringAsInteger(R.string.connection_view_key, ConnectionViewType.COMPACT.ordinal)
     }
@@ -170,13 +170,13 @@ class SettingsTest {
     @Test
     fun themeStyle() {
         ThemeStyle.entries.forEach {
-            // setup
+            // Arrange
             doReturn(it.ordinal)
                 .whenever(repository)
                 .stringAsInteger(R.string.theme_key, ThemeStyle.DARK.ordinal)
-            // execute
+            // Act
             val actual = fixture.themeStyle()
-            // validate
+            // Assert
             assertThat(actual).describedAs("Theme: $it").isEqualTo(it)
         }
         verify(repository, times(ThemeStyle.entries.size))
@@ -185,73 +185,73 @@ class SettingsTest {
 
     @Test
     fun themeStyleInvalid() {
-        // setup
+        // Arrange
         doReturn(ThemeStyle.entries.size)
             .whenever(repository)
             .stringAsInteger(R.string.theme_key, ThemeStyle.DARK.ordinal)
-        // execute
+        // Act
         val actual = fixture.themeStyle()
-        // validate
+        // Assert
         assertThat(actual).isEqualTo(ThemeStyle.DARK)
         verify(repository).stringAsInteger(R.string.theme_key, ThemeStyle.DARK.ordinal)
     }
 
     @Test
     fun getWiFiBand() {
-        // setup
+        // Arrange
         doReturn(WiFiBand.GHZ5.ordinal)
             .whenever(repository)
             .stringAsInteger(R.string.wifi_band_key, WiFiBand.GHZ2.ordinal)
-        // execute
+        // Act
         val actual = fixture.wiFiBand()
-        // validate
+        // Assert
         assertThat(actual).isEqualTo(WiFiBand.GHZ5)
         verify(repository).stringAsInteger(R.string.wifi_band_key, WiFiBand.GHZ2.ordinal)
     }
 
     @Test
     fun setWiFiBand() {
-        // setup
+        // Arrange
         doNothing().whenever(repository).save(R.string.wifi_band_key, WiFiBand.GHZ5.ordinal)
-        // execute
+        // Act
         fixture.wiFiBand(WiFiBand.GHZ5)
-        // validate
+        // Assert
         verify(repository).save(R.string.wifi_band_key, WiFiBand.GHZ5.ordinal)
     }
 
     @Test
     fun settingsFindSSIDs() {
-        // setup
+        // Arrange
         val expected: Set<String> = setOf("value1", "value2", "value3")
         doReturn(expected).whenever(repository).stringSet(R.string.filter_ssid_key, setOf())
-        // execute
+        // Act
         val actual = fixture.findSSIDs()
-        // validate
+        // Assert
         assertThat(actual).isEqualTo(expected)
         verify(repository).stringSet(R.string.filter_ssid_key, setOf())
     }
 
     @Test
     fun saveSSIDs() {
-        // setup
+        // Arrange
         val values: Set<String> = setOf("value1", "value2", "value3")
         doNothing().whenever(repository).saveStringSet(R.string.filter_ssid_key, values)
-        // execute
+        // Act
         fixture.saveSSIDs(values)
-        // validate
+        // Assert
         verify(repository).saveStringSet(R.string.filter_ssid_key, values)
     }
 
     @Test
     fun settingsFindWiFiBands() {
-        // setup
+        // Arrange
         val expected = WiFiBand.GHZ5
         val values = setOf("" + expected.ordinal)
         val defaultValues = ordinals(WiFiBand.entries)
         doReturn(values).whenever(repository).stringSet(R.string.filter_wifi_band_key, defaultValues)
-        // execute
+        // Act
         val actual = fixture.findWiFiBands()
-        // validate
+        // Assert
         assertThat(actual).hasSize(1)
         assertThat(actual).contains(expected)
         verify(repository).stringSet(R.string.filter_wifi_band_key, defaultValues)
@@ -259,26 +259,26 @@ class SettingsTest {
 
     @Test
     fun saveWiFiBands() {
-        // setup
+        // Arrange
         val values = setOf(WiFiBand.GHZ5)
         val expected = setOf("" + WiFiBand.GHZ5.ordinal)
         doNothing().whenever(repository).saveStringSet(R.string.filter_wifi_band_key, expected)
-        // execute
+        // Act
         fixture.saveWiFiBands(values)
-        // validate
+        // Assert
         verify(repository).saveStringSet(R.string.filter_wifi_band_key, expected)
     }
 
     @Test
     fun settingsFindStrengths() {
-        // setup
+        // Arrange
         val expected = Strength.THREE
         val values = setOf("" + expected.ordinal)
         val defaultValues = ordinals(Strength.entries)
         doReturn(values).whenever(repository).stringSet(R.string.filter_strength_key, defaultValues)
-        // execute
+        // Act
         val actual = fixture.findStrengths()
-        // validate
+        // Assert
         assertThat(actual).hasSize(1)
         assertThat(actual).contains(expected)
         verify(repository).stringSet(R.string.filter_strength_key, defaultValues)
@@ -286,26 +286,26 @@ class SettingsTest {
 
     @Test
     fun saveStrengths() {
-        // setup
+        // Arrange
         val values = setOf(Strength.TWO)
         val expected = setOf("" + Strength.TWO.ordinal)
         doNothing().whenever(repository).saveStringSet(R.string.filter_strength_key, expected)
-        // execute
+        // Act
         fixture.saveStrengths(values)
-        // validate
+        // Assert
         verify(repository).saveStringSet(R.string.filter_strength_key, expected)
     }
 
     @Test
     fun settingsFindSecurities() {
-        // setup
+        // Arrange
         val expected = Security.WPA
         val values = setOf("" + expected.ordinal)
         val defaultValues = ordinals(Security.entries)
         doReturn(values).whenever(repository).stringSet(R.string.filter_security_key, defaultValues)
-        // execute
+        // Act
         val actual = fixture.findSecurities()
-        // validate
+        // Assert
         assertThat(actual).hasSize(1)
         assertThat(actual).contains(expected)
         verify(repository).stringSet(R.string.filter_security_key, defaultValues)
@@ -313,88 +313,88 @@ class SettingsTest {
 
     @Test
     fun saveSecurities() {
-        // setup
+        // Arrange
         val values = setOf(Security.WEP)
         val expected = setOf("" + Security.WEP.ordinal)
         doNothing().whenever(repository).saveStringSet(R.string.filter_security_key, expected)
-        // execute
+        // Act
         fixture.saveSecurities(values)
-        // validate
+        // Assert
         verify(repository).saveStringSet(R.string.filter_security_key, expected)
     }
 
     @Test
     fun countryCode() {
-        // setup
+        // Arrange
         val defaultValue = defaultCountryCode()
         val expected = "WW"
         doReturn(expected).whenever(repository).string(R.string.country_code_key, defaultValue)
-        // execute
+        // Act
         val actual = fixture.countryCode()
-        // validate
+        // Assert
         assertThat(actual).isEqualTo(expected)
         verify(repository).string(R.string.country_code_key, defaultValue)
     }
 
     @Test
     fun languageLocale() {
-        // setup
+        // Arrange
         val defaultValue = defaultLanguageTag()
         val expected = Locale.FRENCH
         doReturn(toLanguageTag(expected)).whenever(repository).string(R.string.language_key, defaultValue)
-        // execute
+        // Act
         val actual = fixture.languageLocale()
-        // validate
+        // Assert
         assertThat(actual).isEqualTo(expected)
         verify(repository).string(R.string.language_key, defaultValue)
     }
 
     @Test
     fun selectedMenu() {
-        // setup
+        // Arrange
         doReturn(NavigationMenu.CHANNEL_GRAPH.ordinal)
             .whenever(repository)
             .stringAsInteger(R.string.selected_menu_key, NavigationMenu.ACCESS_POINTS.ordinal)
-        // execute
+        // Act
         val actual = fixture.selectedMenu()
-        // validate
+        // Assert
         assertThat(actual).isEqualTo(NavigationMenu.CHANNEL_GRAPH)
         verify(repository).stringAsInteger(R.string.selected_menu_key, NavigationMenu.ACCESS_POINTS.ordinal)
     }
 
     @Test
     fun saveSelectedMenu() {
-        // setup
+        // Arrange
         doNothing().whenever(repository).save(R.string.selected_menu_key, NavigationMenu.CHANNEL_GRAPH.ordinal)
-        // execute
+        // Act
         fixture.saveSelectedMenu(NavigationMenu.CHANNEL_GRAPH)
-        // validate
+        // Assert
         verify(repository).save(R.string.selected_menu_key, NavigationMenu.CHANNEL_GRAPH.ordinal)
     }
 
     @Test
     fun saveSelectedMenuWithNotAllowedMenu() {
-        // execute
+        // Act
         fixture.saveSelectedMenu(NavigationMenu.ABOUT)
     }
 
     @Test
     fun wiFiOffOnExit() {
-        // execute
+        // Act
         val actual = fixture.wiFiOffOnExit()
-        // validate
+        // Assert
         assertThat(actual).isFalse
     }
 
     @Test
     @Config(sdk = [Build.VERSION_CODES.P])
     fun wiFiOffOnExitLegacy() {
-        // setup
+        // Arrange
         doReturn(true).whenever(repository).resourceBoolean(R.bool.wifi_off_on_exit_default)
         doReturn(true).whenever(repository).boolean(R.string.wifi_off_on_exit_key, true)
-        // execute
+        // Act
         val actual = fixture.wiFiOffOnExit()
-        // validate
+        // Assert
         assertThat(actual).isTrue
         verify(repository).boolean(R.string.wifi_off_on_exit_key, true)
         verify(repository).resourceBoolean(R.bool.wifi_off_on_exit_default)
@@ -402,12 +402,12 @@ class SettingsTest {
 
     @Test
     fun keepScreenOn() {
-        // setup
+        // Arrange
         doReturn(true).whenever(repository).resourceBoolean(R.bool.keep_screen_on_default)
         doReturn(true).whenever(repository).boolean(R.string.keep_screen_on_key, true)
-        // execute
+        // Act
         val actual = fixture.keepScreenOn()
-        // validate
+        // Assert
         assertThat(actual).isTrue
         verify(repository).boolean(R.string.keep_screen_on_key, true)
         verify(repository).resourceBoolean(R.bool.keep_screen_on_default)
@@ -415,12 +415,12 @@ class SettingsTest {
 
     @Test
     fun cacheOff() {
-        // setup
+        // Arrange
         doReturn(true).whenever(repository).resourceBoolean(R.bool.cache_off_default)
         doReturn(true).whenever(repository).boolean(R.string.cache_off_key, true)
-        // execute
+        // Act
         val actual = fixture.cacheOff()
-        // validate
+        // Assert
         assertThat(actual).isTrue
         verify(repository).boolean(R.string.cache_off_key, true)
         verify(repository).resourceBoolean(R.bool.cache_off_default)

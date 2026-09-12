@@ -33,7 +33,7 @@ class VendorFragment : ListFragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?,
     ): View {
-        val binding: VendorContentBinding = VendorContentBinding.inflate(inflater, container, false)
+        val binding = VendorContentBinding.inflate(inflater, container, false)
         val vendorAdapter = VendorAdapter(requireActivity(), MainContext.INSTANCE.vendorService)
         listAdapter = vendorAdapter
         binding.vendorSearchText.setOnQueryTextListener(Listener(vendorAdapter))

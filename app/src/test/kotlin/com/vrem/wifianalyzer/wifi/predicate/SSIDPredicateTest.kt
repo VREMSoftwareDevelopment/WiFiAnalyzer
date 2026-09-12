@@ -26,9 +26,9 @@ import org.junit.Test
 class SSIDPredicateTest {
     @Test
     fun sSIDPredicate() {
-        // setup
+        // Arrange
         val wiFiDetail = WiFiDetail(WiFiIdentifier("ssid", "bssid"), WiFiSecurity("wpa"))
-        // execute & validate
+        // Act & Assert
         assertThat("ssid".predicate()(wiFiDetail)).isTrue
         assertThat("id".predicate()(wiFiDetail)).isTrue
         assertThat("ss".predicate()(wiFiDetail)).isTrue

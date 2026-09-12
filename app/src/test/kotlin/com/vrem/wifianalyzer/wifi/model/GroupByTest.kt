@@ -86,45 +86,45 @@ class GroupByTest {
 
     @Test
     fun groupByKeyWithNone() {
-        // setup
+        // Arrange
         val expected = "SSID_TO_TEST"
         val wiFiDetail = WiFiDetail(WiFiIdentifier(expected))
-        // execute
-        val actual: String = GroupBy.NONE.group(wiFiDetail)
-        // validate
+        // Act
+        val actual = GroupBy.NONE.group(wiFiDetail)
+        // Assert
         assertThat(actual).isEqualTo(expected)
     }
 
     @Test
     fun groupByKeyWithSSID() {
-        // setup
+        // Arrange
         val expected = "SSID_TO_TEST"
         val wiFiDetail = WiFiDetail(WiFiIdentifier(expected))
-        // execute
-        val actual: String = GroupBy.SSID.group(wiFiDetail)
-        // validate
+        // Act
+        val actual = GroupBy.SSID.group(wiFiDetail)
+        // Assert
         assertThat(actual).isEqualTo(expected)
     }
 
     @Test
     fun groupByKeyWithChannel() {
-        // setup
+        // Arrange
         val wiFiDetail = withWiFiDetail()
         val expected = "2435"
-        // execute
-        val actual: String = GroupBy.CHANNEL.group(wiFiDetail)
-        // validate
+        // Act
+        val actual = GroupBy.CHANNEL.group(wiFiDetail)
+        // Assert
         assertThat(actual).isEqualTo(expected)
     }
 
     @Test
     fun groupByKeyWithVirtual() {
-        // setup
+        // Arrange
         val wiFiDetail = withWiFiDetail()
         val expected = ":cf:30:ce:1d:7-2435"
-        // execute
-        val actual: String = GroupBy.VIRTUAL.group(wiFiDetail)
-        // validate
+        // Act
+        val actual = GroupBy.VIRTUAL.group(wiFiDetail)
+        // Assert
         assertThat(actual).isEqualTo(expected)
     }
 

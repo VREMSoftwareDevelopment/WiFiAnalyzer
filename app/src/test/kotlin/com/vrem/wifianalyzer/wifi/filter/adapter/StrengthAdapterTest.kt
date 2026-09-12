@@ -43,84 +43,84 @@ class StrengthAdapterTest {
 
     @Test
     fun isActiveWithChanges() {
-        // setup
+        // Arrange
         fixture.toggle(Strength.TWO)
-        // execute & validate
+        // Act & Assert
         assertThat(fixture.isActive()).isTrue
     }
 
     @Test
     fun getValues() {
-        // setup
+        // Arrange
         val expected = Strength.entries
-        // execute
+        // Act
         val actual = fixture.selections
-        // validate
+        // Assert
         assertThat(actual).containsAll(expected.toList())
     }
 
     @Test
     fun getValuesDefault() {
-        // setup
+        // Arrange
         val expected = Strength.entries
-        // execute
+        // Act
         val actual = fixture.defaults
-        // validate
+        // Assert
         assertThat(actual).isEqualTo(expected)
     }
 
     @Test
     fun toggleRemoves() {
-        // execute
+        // Act
         val actual = fixture.toggle(Strength.TWO)
-        // validate
+        // Assert
         assertThat(actual).isTrue
         assertThat(fixture.contains(Strength.TWO)).isFalse
     }
 
     @Test
     fun toggleAdds() {
-        // setup
+        // Arrange
         fixture.toggle(Strength.THREE)
-        // execute
+        // Act
         val actual = fixture.toggle(Strength.THREE)
-        // validate
+        // Assert
         assertThat(actual).isTrue
         assertThat(fixture.contains(Strength.THREE)).isTrue
     }
 
     @Test
     fun removingAllWillNotRemoveLast() {
-        // setup
-        val values: Set<Strength> = Strength.entries.toSet()
-        // execute
+        // Arrange
+        val values = Strength.entries.toSet()
+        // Act
         values.forEach { fixture.toggle(it) }
-        // validate
+        // Assert
         values.toList().subList(0, values.size - 1).forEach { assertThat(fixture.contains(it)).isFalse }
         assertThat(fixture.contains(values.last())).isTrue
     }
 
     @Test
     fun getColorWithExisting() {
-        // execute & validate
+        // Act & Assert
         assertThat(fixture.color(Strength.TWO)).isEqualTo(Strength.TWO.colorResource)
     }
 
     @Test
     fun getColorWithNonExisting() {
-        // setup
+        // Arrange
         fixture.toggle(Strength.TWO)
-        // execute & validate
+        // Act & Assert
         assertThat(fixture.color(Strength.TWO)).isEqualTo(R.color.regular)
     }
 
     @Test
     fun save() {
-        // setup
+        // Arrange
         val expected = fixture.selections
-        // execute
+        // Act
         fixture.save(settings)
-        // execute
+        // Act
         verify(settings).saveStrengths(expected)
     }
 }

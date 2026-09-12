@@ -33,7 +33,7 @@ import org.mockito.kotlin.whenever
 import org.robolectric.annotation.Config
 
 @RunWith(AndroidJUnit4::class)
-@Config(sdk = [Build.VERSION_CODES.BAKLAVA])
+@Config(sdk = [Build.VERSION_CODES.CINNAMON_BUN])
 class MainActivityBackPressedTest {
     private val mainActivity: MainActivity = mock()
     private val menuItem: MenuItem = mock()
@@ -49,23 +49,23 @@ class MainActivityBackPressedTest {
 
     @Test
     fun handleOnBackPressedWhenCloseDrawerIsClosed() {
-        // setup
+        // Arrange
         whenever(mainActivity.closeDrawer()).thenReturn(true)
-        // execute
+        // Act
         fixture.handleOnBackPressed()
-        // validate
+        // Assert
         verify(mainActivity).closeDrawer()
     }
 
     @Test
     fun handleOnBackPressedWillFinishMainActivity() {
-        // setup
+        // Arrange
         whenever(mainActivity.closeDrawer()).thenReturn(false)
         whenever(settings.selectedMenu()).thenReturn(NavigationMenu.ACCESS_POINTS)
         whenever(mainActivity.currentNavigationMenu()).thenReturn(NavigationMenu.ACCESS_POINTS)
-        // execute
+        // Act
         fixture.handleOnBackPressed()
-        // validate
+        // Assert
         verify(mainActivity).closeDrawer()
         verify(settings).selectedMenu()
         verify(mainActivity).currentNavigationMenu()
@@ -74,14 +74,14 @@ class MainActivityBackPressedTest {
 
     @Test
     fun handleOnBackPressedWillSwitchToPreviousMenu() {
-        // setup
+        // Arrange
         whenever(mainActivity.closeDrawer()).thenReturn(false)
         whenever(settings.selectedMenu()).thenReturn(NavigationMenu.ACCESS_POINTS)
         whenever(mainActivity.currentNavigationMenu()).thenReturn(NavigationMenu.CHANNEL_GRAPH)
         whenever(mainActivity.currentMenuItem()).thenReturn(menuItem)
-        // execute
+        // Act
         fixture.handleOnBackPressed()
-        // validate
+        // Assert
         verify(mainActivity).closeDrawer()
         verify(settings).selectedMenu()
         verify(mainActivity).currentNavigationMenu()

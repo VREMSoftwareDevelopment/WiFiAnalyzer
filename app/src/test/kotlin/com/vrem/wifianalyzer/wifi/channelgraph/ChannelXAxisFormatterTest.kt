@@ -29,49 +29,49 @@ class ChannelXAxisFormatterTest {
 
     @Test
     fun formatLabelWithFirstFrequencyInRange() {
-        // setup
+        // Arrange
         val frequency = WiFiBand.GHZ2.wiFiChannels.channelRange.first.frequency
-        // execute
+        // Act
         val actual = fixture.format(context, frequency + 10.0, null)
-        // validate
+        // Assert
         assertThat(actual).isEqualTo("1")
     }
 
     @Test
     fun formatLabelWithLastFrequencyInRange() {
-        // setup
+        // Arrange
         val frequency = WiFiBand.GHZ2.wiFiChannels.channelRange.second.frequency
-        // execute
+        // Act
         val actual = fixture.format(context, frequency - 10.0, null)
-        // validate
+        // Assert
         assertThat(actual).isEqualTo("13")
     }
 
     @Test
     fun formatLabelWithFirstFrequencyNotInRange() {
-        // setup
+        // Arrange
         val frequency = WiFiBand.GHZ2.wiFiChannels.channelRange.first.frequency
-        // execute
+        // Act
         val actual = fixture.format(context, frequency.toDouble(), null)
-        // validate
+        // Assert
         assertThat(actual).isEqualTo("\u200B")
     }
 
     @Test
     fun formatLabelWithNegativeValue() {
-        // execute
+        // Act
         val actual = fixture.format(context, -1.0, null)
-        // validate
+        // Assert
         assertThat(actual).isEqualTo("\u200B")
     }
 
     @Test
     fun formatLabelWithLastFrequencyNotInRange() {
-        // setup
+        // Arrange
         val frequency = WiFiBand.GHZ2.wiFiChannels.channelRange.first.frequency
-        // execute
+        // Act
         val actual = fixture.format(context, frequency.toDouble(), null)
-        // validate
+        // Assert
         assertThat(actual).isEqualTo("\u200B")
     }
 }

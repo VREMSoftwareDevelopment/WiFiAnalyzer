@@ -37,7 +37,7 @@ import org.robolectric.annotation.Config
 private const val THRESHOLD_PX = 50f
 
 @RunWith(AndroidJUnit4::class)
-@Config(sdk = [Build.VERSION_CODES.BAKLAVA])
+@Config(sdk = [Build.VERSION_CODES.CINNAMON_BUN])
 class CreateMarkerTest {
     @Test
     fun createsDefaultCartesianMarker() {
@@ -55,7 +55,7 @@ class CreateMarkerTest {
 }
 
 @RunWith(AndroidJUnit4::class)
-@Config(sdk = [Build.VERSION_CODES.BAKLAVA])
+@Config(sdk = [Build.VERSION_CODES.CINNAMON_BUN])
 class MarkerVisibilityListenerWrapperTest {
     @Test
     fun onShownCallsCallback() {
@@ -72,7 +72,7 @@ class MarkerVisibilityListenerWrapperTest {
 }
 
 @RunWith(AndroidJUnit4::class)
-@Config(sdk = [Build.VERSION_CODES.BAKLAVA])
+@Config(sdk = [Build.VERSION_CODES.CINNAMON_BUN])
 class MarkerControllerWrapperTest {
     private var capturedPoint: Point? = null
     private val controller = MarkerControllerWrapper(THRESHOLD_PX) { point -> capturedPoint = point }

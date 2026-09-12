@@ -39,13 +39,13 @@ import org.robolectric.annotation.Config
 private const val Y_OFFSET = 8
 
 @RunWith(AndroidJUnit4::class)
-@Config(sdk = [Build.VERSION_CODES.BAKLAVA])
+@Config(sdk = [Build.VERSION_CODES.CINNAMON_BUN])
 class SeriesLabelTest {
     private val context: CartesianDrawingContext = mock()
     private val canvas: Canvas = mock()
     private val calculateLabelPosition: CalculateLabelPosition = mock()
     private val configureLabel: ConfigureLabel = mock()
-    private val layerBounds: RectF = RectF(0f, 0f, 200f, 200f)
+    private val layerBounds = RectF(0f, 0f, 200f, 200f)
 
     private val fixture = SeriesLabel(calculateLabelPosition, configureLabel)
 

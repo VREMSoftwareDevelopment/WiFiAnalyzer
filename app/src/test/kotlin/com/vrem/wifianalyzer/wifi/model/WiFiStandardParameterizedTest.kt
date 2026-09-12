@@ -33,19 +33,19 @@ import org.robolectric.ParameterizedRobolectricTestRunner.Parameters
 import org.robolectric.annotation.Config
 
 @RunWith(ParameterizedRobolectricTestRunner::class)
-@Config(sdk = [Build.VERSION_CODES.BAKLAVA])
+@Config(sdk = [Build.VERSION_CODES.CINNAMON_BUN])
 class WiFiStandardParameterizedTest(
     val expected: WiFiStandard,
     val input: Int,
 ) {
     @Test
     fun findOne() {
-        // setup
+        // Arrange
         val scanResult: ScanResult = mock()
         doReturn(input).whenever(scanResult).wifiStandard
-        // execute
+        // Act
         val actual = WiFiStandard.findOne(scanResult)
-        // validate
+        // Assert
         assertThat(actual).isEqualTo(expected)
         verify(scanResult).wifiStandard
         verifyNoMoreInteractions(scanResult)

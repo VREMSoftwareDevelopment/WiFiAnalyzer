@@ -25,26 +25,26 @@ class WiFiAdditionalTest {
 
     @Test
     fun wiFiAdditionalWithWiFiConnection() {
-        // setup
+        // Arrange
         val wiFiConnection = WiFiConnection(WiFiIdentifier("SSID", "BSSID"), "192.168.1.10", 22)
-        // execute
+        // Act
         val fixture = WiFiAdditional(vendorName, wiFiConnection)
-        // validate
+        // Assert
         assertThat(fixture.vendorName).isEqualTo(vendorName)
         assertThat(fixture.wiFiConnection).isEqualTo(wiFiConnection)
     }
 
     @Test
     fun wiFiAdditional() {
-        // execute
+        // Act
         val fixture = WiFiAdditional(vendorName, WiFiConnection.EMPTY)
-        // validate
+        // Assert
         assertThat(fixture.vendorName).isEqualTo(vendorName)
     }
 
     @Test
     fun wiFiAdditionalEmpty() {
-        // validate
+        // Assert
         assertThat(WiFiAdditional.EMPTY.vendorName).isEmpty()
     }
 }

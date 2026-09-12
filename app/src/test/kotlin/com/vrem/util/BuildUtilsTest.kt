@@ -27,7 +27,7 @@ import org.robolectric.annotation.Config
 @RunWith(AndroidJUnit4::class)
 class BuildUtilsTest {
     @Test
-    @Config(sdk = [Build.VERSION_CODES.BAKLAVA])
+    @Config(sdk = [Build.VERSION_CODES.CINNAMON_BUN])
     fun minVersionTrueOnCurrentSdk() {
         assertThat(buildMinVersionT()).isTrue()
         assertThat(buildMinVersionR()).isTrue()

@@ -37,9 +37,9 @@ import org.mockito.kotlin.whenever
 import org.robolectric.annotation.Config
 
 @RunWith(AndroidJUnit4::class)
-@Config(sdk = [Build.VERSION_CODES.BAKLAVA])
+@Config(sdk = [Build.VERSION_CODES.CINNAMON_BUN])
 class ChannelGraphFragmentTest {
-    private val mainActivity = RobolectricUtil.INSTANCE.activity
+    private val mainActivity = RobolectricUtil.INSTANCE.mainActivity
     private val scanner = MainContextHelper.INSTANCE.scannerService
     private val fixture = ChannelGraphFragment()
     private val wiFiData = MutableStateFlow(WiFiData.EMPTY)
@@ -66,9 +66,9 @@ class ChannelGraphFragmentTest {
 
     @Test
     fun refreshEnabled() {
-        // setup
+        // Arrange
         RobolectricUtil.INSTANCE.startFragment(fixture)
-        // validate
+        // Assert
         val swipeRefreshLayout: SwipeRefreshLayout = fixture.view!!.findViewById(R.id.graphRefresh)
         assertThat(swipeRefreshLayout.isEnabled).isTrue
     }
@@ -97,9 +97,9 @@ class ChannelGraphFragmentTest {
     @Config(sdk = [Build.VERSION_CODES.P])
     @Test
     fun refreshDisabled() {
-        // setup
+        // Arrange
         RobolectricUtil.INSTANCE.startFragment(fixture)
-        // validate
+        // Assert
         val swipeRefreshLayout: SwipeRefreshLayout = fixture.view!!.findViewById(R.id.graphRefresh)
         assertThat(swipeRefreshLayout.isRefreshing).isFalse
         assertThat(swipeRefreshLayout.isEnabled).isFalse

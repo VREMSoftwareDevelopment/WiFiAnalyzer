@@ -36,7 +36,7 @@ class WiFiSignalTest {
 
     @Test
     fun wiFiSignal() {
-        // validate
+        // Assert
         assertThat(fixture.primaryFrequency).isEqualTo(primaryFrequency)
         assertThat(fixture.centerFrequency).isEqualTo(centerFrequency)
         assertThat(fixture.level).isEqualTo(level)
@@ -47,9 +47,9 @@ class WiFiSignalTest {
 
     @Test
     fun wiFiSignalWithFrequencyAndWiFiWidth() {
-        // execute
+        // Act
         val fixture = WiFiSignal(primaryFrequency, centerFrequency, WiFiWidth.MHZ_80, level)
-        // validate
+        // Assert
         assertThat(fixture.primaryFrequency).isEqualTo(primaryFrequency)
         assertThat(fixture.primaryWiFiChannel.channel).isEqualTo(primaryChannel)
         assertThat(fixture.centerFrequency).isEqualTo(centerFrequency)
@@ -66,21 +66,21 @@ class WiFiSignalTest {
 
     @Test
     fun wiFiChannelStart() {
-        // setup
+        // Arrange
         val expected = WiFiChannel(channelStart, centerFrequency - WiFiWidth.MHZ_40.frequencyWidthHalf)
-        // execute
+        // Act
         val actual = fixture.wiFiChannelStart
-        // validate
+        // Assert
         assertThat(actual).isEqualTo(expected)
     }
 
     @Test
     fun wiFiChannelEnd() {
-        // setup
+        // Arrange
         val expected = WiFiChannel(channelEnd, centerFrequency + WiFiWidth.MHZ_40.frequencyWidthHalf)
-        // execute
+        // Act
         val actual = fixture.wiFiChannelEnd
-        // validate
+        // Assert
         assertThat(actual).isEqualTo(expected)
     }
 
@@ -120,17 +120,17 @@ class WiFiSignalTest {
 
     @Test
     fun distance() {
-        // setup
+        // Arrange
         val expected = String.format(Locale.ENGLISH, "~%.1fm", calculateDistance(primaryFrequency, level))
-        // execute
-        val actual: String = fixture.distance
-        // validate
+        // Act
+        val actual = fixture.distance
+        // Assert
         assertThat(actual).isEqualTo(expected)
     }
 
     @Test
     fun equalsUsingPrimaryFrequencyAndWidth() {
-        // execute & validate
+        // Act & Assert
         assertThat(other).isEqualTo(fixture)
         assertThat(other).isNotSameAs(fixture)
     }
@@ -164,23 +164,23 @@ class WiFiSignalTest {
 
     @Test
     fun hashCodeUsingPrimaryFrequencyAndWidth() {
-        // execute & validate
+        // Act & Assert
         assertThat(other.hashCode()).isEqualTo(fixture.hashCode())
     }
 
     @Test
     fun channelDisplayWhenPrimaryAndCenterSame() {
-        // setup
+        // Arrange
         val fixture = WiFiSignal(primaryFrequency, primaryFrequency, WiFiWidth.MHZ_40, level)
-        // execute & validate
+        // Act & Assert
         assertThat(fixture.channelDisplay()).isEqualTo("5")
     }
 
     @Test
     fun channelDisplayWhenPrimaryAndCenterDifferent() {
-        // setup
+        // Arrange
         val fixture = WiFiSignal(primaryFrequency, centerFrequency, WiFiWidth.MHZ_40, level)
-        // execute & validate
+        // Act & Assert
         assertThat(fixture.channelDisplay()).isEqualTo("5(6)")
     }
 }

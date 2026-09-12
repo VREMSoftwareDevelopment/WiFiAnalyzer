@@ -17,25 +17,20 @@
  */
 package com.vrem.wifianalyzer.permission
 
-import android.app.Activity
 import com.vrem.annotation.OpenClass
+import com.vrem.wifianalyzer.MainActivity
 
 @OpenClass
 class PermissionService(
-    private val activity: Activity,
-    private val locationPermission: LocationPermission = LocationPermission(activity),
-    private val applicationPermission: ApplicationPermission = ApplicationPermission(activity),
+    private val mainActivity: MainActivity,
+    private val locationPermission: LocationPermission = LocationPermission(mainActivity),
+    private val applicationPermission: ApplicationPermission = ApplicationPermission(mainActivity),
 ) {
     fun enabled(): Boolean = locationEnabled() && permissionGranted()
 
     fun locationEnabled(): Boolean = locationPermission.enabled()
 
     fun check(): Unit = applicationPermission.check()
-
-    fun granted(
-        requestCode: Int,
-        grantResults: IntArray,
-    ): Boolean = applicationPermission.granted(requestCode, grantResults)
 
     fun permissionGranted(): Boolean = applicationPermission.granted()
 }

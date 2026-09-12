@@ -29,9 +29,9 @@ import org.junit.Test
 class StrengthPredicateTest {
     @Test
     fun strengthPredicate() {
-        // setup
+        // Arrange
         val wiFiDetail = makeWiFiDetail()
-        // execute & validate
+        // Act & Assert
         assertThat(Strength.THREE.predicate()(wiFiDetail)).isTrue
         assertThat(Strength.FOUR.predicate()(wiFiDetail)).isFalse
     }

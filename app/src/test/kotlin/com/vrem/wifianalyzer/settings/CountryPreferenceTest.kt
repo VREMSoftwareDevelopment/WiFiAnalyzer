@@ -36,9 +36,9 @@ import org.robolectric.annotation.Config
 import java.util.Locale
 
 @RunWith(AndroidJUnit4::class)
-@Config(sdk = [Build.VERSION_CODES.BAKLAVA])
+@Config(sdk = [Build.VERSION_CODES.CINNAMON_BUN])
 class CountryPreferenceTest {
-    private val mainActivity = RobolectricUtil.INSTANCE.activity
+    private val mainActivity = RobolectricUtil.INSTANCE.mainActivity
     private val countries = findAll()
     private val attributeSet = Robolectric.getAttributeSetFromXml(R.xml.test_attrs)
     private val fixture = CountryPreference(mainActivity, attributeSet)
@@ -52,9 +52,9 @@ class CountryPreferenceTest {
 
     @Test
     fun entries() {
-        // execute
+        // Act
         val actual: Array<CharSequence> = fixture.entries
-        // validate
+        // Assert
         assertThat(actual).hasSize(countries.size)
         countries.forEach {
             assertThat(actual).contains(it.countryName(currentLocale))
@@ -63,9 +63,9 @@ class CountryPreferenceTest {
 
     @Test
     fun entryValues() {
-        // execute
+        // Act
         val actual: Array<CharSequence> = fixture.entryValues
-        // validate
+        // Assert
         assertThat(actual).hasSize(countries.size)
         countries.forEach {
             assertThat(actual).contains(it.countryCode)

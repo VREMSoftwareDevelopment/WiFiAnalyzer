@@ -62,23 +62,23 @@ class DrawerNavigationTest {
 
     @Test
     fun create() {
-        // validate
+        // Assert
         verify(actionBarDrawerToggle).syncState()
     }
 
     @Test
     fun syncState() {
-        // execute
+        // Act
         fixture.syncState()
-        // validate
+        // Assert
         verify(actionBarDrawerToggle, times(2)).syncState()
     }
 
     @Test
     fun onConfigurationChanged() {
-        // execute
+        // Act
         fixture.onConfigurationChanged(configuration)
-        // validate
+        // Assert
         verify(actionBarDrawerToggle).onConfigurationChanged(configuration)
         verify(actionBarDrawerToggle).syncState()
     }

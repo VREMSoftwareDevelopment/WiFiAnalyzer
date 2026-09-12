@@ -56,7 +56,7 @@ class ChannelRating(
         wiFiDetails.filter { it.wiFiSignal.inRange(wiFiChannel.frequency) }
 
     private fun bestChannel(wiFiChannel: WiFiChannel): Boolean {
-        val strength: Strength = strength(wiFiChannel)
+        val strength = strength(wiFiChannel)
         return Strength.ZERO == strength || Strength.ONE == strength
     }
 }

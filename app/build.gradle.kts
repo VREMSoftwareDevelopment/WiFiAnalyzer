@@ -106,7 +106,10 @@ android {
     }
 
     tasks.withType<Test>().configureEach {
-        jvmArgs("-XX:+EnableDynamicAgentLoading")
+        jvmArgs(
+            "-XX:+EnableDynamicAgentLoading",
+            "--add-exports=java.base/jdk.internal.access=ALL-UNNAMED",
+        )
         maxHeapSize = "2g"
         maxParallelForks = (Runtime.getRuntime().availableProcessors() / 2).coerceIn(1, 4)
         testLogging {
@@ -123,8 +126,8 @@ android {
     }
 
     compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_17
-        targetCompatibility = JavaVersion.VERSION_17
+        sourceCompatibility = JavaVersion.VERSION_21
+        targetCompatibility = JavaVersion.VERSION_21
     }
 
     lint {

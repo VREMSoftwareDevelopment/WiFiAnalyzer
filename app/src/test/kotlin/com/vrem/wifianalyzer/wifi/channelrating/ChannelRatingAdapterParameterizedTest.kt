@@ -44,16 +44,16 @@ import org.robolectric.ParameterizedRobolectricTestRunner.Parameters
 import org.robolectric.annotation.Config
 
 @RunWith(ParameterizedRobolectricTestRunner::class)
-@Config(sdk = [Build.VERSION_CODES.BAKLAVA])
+@Config(sdk = [Build.VERSION_CODES.CINNAMON_BUN])
 class ChannelRatingAdapterParameterizedTest(
     val wiFiWidth: WiFiWidth,
 ) {
-    private val mainActivity = RobolectricUtil.INSTANCE.activity
+    private val mainActivity = RobolectricUtil.INSTANCE.mainActivity
     private val settings: Settings = mock()
     private val channelRating: ChannelRating = mock()
-    private val inflater: LayoutInflater = LayoutInflater.from(mainActivity)
+    private val inflater = LayoutInflater.from(mainActivity)
     private val parent: ViewGroup = LinearLayout(mainActivity)
-    private val binding: ChannelRatingBestBinding = ChannelRatingBestBinding.inflate(inflater, parent, false)
+    private val binding = ChannelRatingBestBinding.inflate(inflater, parent, false)
     private val fixture = ChannelRatingAdapter(mainActivity, binding, channelRating, settings)
 
     private val bindingMap =
@@ -73,13 +73,13 @@ class ChannelRatingAdapterParameterizedTest(
 
     @Test
     fun bestChannelsRatingGHZ2NotVisible() {
-        // setup
+        // Arrange
         val wiFiChannels: List<WiFiChannel> = listOf()
         val channelAPCounts: List<ChannelAPCount> = listOf()
         doReturn(channelAPCounts).whenever(channelRating).bestChannels(WiFiBand.GHZ2, wiFiChannels)
-        // execute
+        // Act
         fixture.bestChannels(WiFiBand.GHZ2, wiFiChannels)
-        // validate
+        // Assert
         bindingMap[wiFiWidth]?.let { (channelRatingView, channelRatingTextView) ->
             assertThat(channelRatingView.visibility).describedAs("$wiFiWidth").isEqualTo(View.GONE)
             assertThat(channelRatingTextView.text).describedAs("$wiFiWidth").isEmpty()
@@ -89,13 +89,13 @@ class ChannelRatingAdapterParameterizedTest(
 
     @Test
     fun bestChannelsRatingGHZ5NotVisible() {
-        // setup
+        // Arrange
         val wiFiChannels: List<WiFiChannel> = listOf()
         val channelAPCounts: List<ChannelAPCount> = listOf()
         doReturn(channelAPCounts).whenever(channelRating).bestChannels(WiFiBand.GHZ5, wiFiChannels)
-        // execute
+        // Act
         fixture.bestChannels(WiFiBand.GHZ5, wiFiChannels)
-        // validate
+        // Assert
         bindingMap[wiFiWidth]?.let { (channelRatingView, channelRatingTextView) ->
             assertThat(channelRatingView.visibility).describedAs("$wiFiWidth").isEqualTo(View.GONE)
             assertThat(channelRatingTextView.text).describedAs("$wiFiWidth").isEmpty()
@@ -105,7 +105,7 @@ class ChannelRatingAdapterParameterizedTest(
 
     @Test
     fun bestChannelsRatingGHZ5Visible() {
-        // setup
+        // Arrange
         val wiFiChannels: List<WiFiChannel> = listOf()
         val channelAPCounts = withChannelAPCounts()
         val expected =
@@ -114,9 +114,9 @@ class ChannelRatingAdapterParameterizedTest(
                 .map { it.wiFiChannel.channel }
                 .joinToString(",")
         doReturn(channelAPCounts).whenever(channelRating).bestChannels(WiFiBand.GHZ5, wiFiChannels)
-        // execute
+        // Act
         fixture.bestChannels(WiFiBand.GHZ5, wiFiChannels)
-        // validate
+        // Assert
         bindingMap[wiFiWidth]?.let { (channelRatingView, channelRatingTextView) ->
             assertThat(channelRatingView.visibility).describedAs("$wiFiWidth").isEqualTo(View.VISIBLE)
             assertThat(channelRatingTextView.text).describedAs("$wiFiWidth").isEqualTo(expected)

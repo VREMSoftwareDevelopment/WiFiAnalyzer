@@ -47,13 +47,13 @@ class FilterOffTest {
 
     @Test
     fun navigationOptionFilterOff() {
-        // setup
+        // Arrange
         whenever(mainActivity.optionMenu).thenReturn(optionMenu)
         whenever(optionMenu.menu).thenReturn(menu)
         whenever(menu.findItem(R.id.action_filter)).thenReturn(menuItem)
-        // execute
+        // Act
         navigationOptionFilterOff(mainActivity)
-        // validate
+        // Assert
         verify(mainActivity).optionMenu
         verify(optionMenu).menu
         verify(menu).findItem(R.id.action_filter)
@@ -62,12 +62,12 @@ class FilterOffTest {
 
     @Test
     fun navigationOptionFilterOffWithNoMenuDoesNotSetVisibleFalse() {
-        // setup
+        // Arrange
         whenever(mainActivity.optionMenu).thenReturn(optionMenu)
         whenever(optionMenu.menu).thenReturn(null)
-        // execute
+        // Act
         navigationOptionFilterOff(mainActivity)
-        // validate
+        // Assert
         verify(mainActivity).optionMenu
         verify(optionMenu).menu
         verify(menu, never()).findItem(R.id.action_filter)

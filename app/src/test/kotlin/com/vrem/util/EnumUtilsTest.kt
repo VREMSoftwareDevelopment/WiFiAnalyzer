@@ -23,11 +23,11 @@ import org.junit.Test
 class EnumUtilsTest {
     @Test
     fun ordinals() {
-        // setup
+        // Arrange
         val expected = TestObject.entries
-        // execute
+        // Act
         val actual = ordinals(TestObject.entries)
-        // validate
+        // Assert
         assertThat(actual).hasSize(expected.size)
         expected.forEach {
             assertThat(actual).contains("" + it.ordinal)
@@ -36,7 +36,7 @@ class EnumUtilsTest {
 
     @Test
     fun findSetUsingOrdinals() {
-        // setup
+        // Arrange
         val expected = TestObject.entries.toSet()
         val ordinals: Set<String> =
             setOf(
@@ -44,30 +44,30 @@ class EnumUtilsTest {
                 "" + TestObject.VALUE2.ordinal,
                 "" + TestObject.VALUE3.ordinal,
             )
-        // execute
+        // Act
         val actual = findSet(TestObject.entries, ordinals, TestObject.VALUE2)
-        // validate
+        // Assert
         validate(expected, actual)
     }
 
     @Test
     fun findSetUsingOrdinalsWithEmptyInput() {
-        // setup
+        // Arrange
         val expected = TestObject.entries.toSet()
-        // execute
+        // Act
         val actual = findSet(TestObject.entries, setOf(), TestObject.VALUE2)
-        // validate
+        // Assert
         validate(expected, actual)
     }
 
     @Test
     fun findSetUsingOrdinalsWithInvalidInput() {
-        // setup
+        // Arrange
         val expected = TestObject.VALUE2
         val ordinals: Set<String> = setOf("-1")
-        // execute
+        // Act
         val actual = findSet(TestObject.entries, ordinals, expected)
-        // validate
+        // Assert
         assertThat(actual).hasSize(1)
         assertThat(actual).contains(expected)
     }
@@ -75,32 +75,32 @@ class EnumUtilsTest {
     @Test
     fun findOneUsingIndex() {
         TestObject.entries.forEach {
-            // execute
+            // Act
             val actual = findOne(TestObject.entries, it.ordinal, TestObject.VALUE2)
-            // validate
+            // Assert
             assertThat(actual).isEqualTo(it)
         }
     }
 
     @Test
     fun findOneUsingInvalidLowIndex() {
-        // setup
+        // Arrange
         val index = -1
         val expected = TestObject.VALUE3
-        // execute
+        // Act
         val actual = findOne(TestObject.entries, index, expected)
-        // validate
+        // Assert
         assertThat(actual).isEqualTo(expected)
     }
 
     @Test
     fun findOneUsingInvalidHighIndex() {
-        // setup
+        // Arrange
         val index = TestObject.entries.size
         val expected = TestObject.VALUE3
-        // execute
+        // Act
         val actual = findOne(TestObject.entries, index, expected)
-        // validate
+        // Assert
         assertThat(actual).isEqualTo(expected)
     }
 

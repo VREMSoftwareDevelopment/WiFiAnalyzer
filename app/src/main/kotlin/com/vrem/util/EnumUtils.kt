@@ -24,7 +24,7 @@ fun <T : Enum<T>> findSet(
     indexes: Set<String>,
     defaultValue: T,
 ): Set<T> {
-    val results: Set<T> = indexes.map { findOne(values, it.toInt(), defaultValue) }.toSet()
+    val results = indexes.map { findOne(values, it.toInt(), defaultValue) }.toSet()
     return results.ifEmpty { values.toSet() }
 }
 

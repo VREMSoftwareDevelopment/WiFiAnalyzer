@@ -48,10 +48,10 @@ private const val CANVAS_X = 100f
 private const val CANVAS_Y = 200f
 
 @RunWith(AndroidJUnit4::class)
-@Config(sdk = [Build.VERSION_CODES.BAKLAVA])
+@Config(sdk = [Build.VERSION_CODES.CINNAMON_BUN])
 class MarkerHandlerTest {
-    private val mainActivity = RobolectricUtil.INSTANCE.activity
-    private val chartView: CartesianChartView = CartesianChartView(mainActivity)
+    private val mainActivity = RobolectricUtil.INSTANCE.mainActivity
+    private val chartView = CartesianChartView(mainActivity)
     private val seriesCache: SeriesCache = mock()
     private val wiFiDetailView: WiFiDetailView = mock()
     private val wiFiDetailPopup: WiFiDetailPopup = mock()

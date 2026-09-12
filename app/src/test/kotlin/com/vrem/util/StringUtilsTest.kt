@@ -24,45 +24,45 @@ import java.util.Locale
 class StringUtilsTest {
     @Test
     fun specialTrim() {
-        // setup
+        // Arrange
         val expected = "ABS ADF"
         val value = "    ABS    ADF    "
-        // execute
-        val actual: String = value.specialTrim()
-        // verify
+        // Act
+        val actual = value.specialTrim()
+        // Assert
         assertThat(actual).isEqualTo(expected)
     }
 
     @Test
     fun toCapitalize() {
-        // setup
+        // Arrange
         val expected = "Value"
         val value = "value"
-        // execute
-        val actual: String = value.toCapitalize(Locale.US)
-        // verify
+        // Act
+        val actual = value.toCapitalize(Locale.US)
+        // Assert
         assertThat(actual).isEqualTo(expected)
     }
 
     @Test
     fun nullToEmptyWhenNull() {
-        // setup
+        // Arrange
         val expected = String.EMPTY
         val value = null
-        // execute
-        val actual: String = String.nullToEmpty(value)
-        // verify
+        // Act
+        val actual = String.nullToEmpty(value)
+        // Assert
         assertThat(actual).isEqualTo(expected)
     }
 
     @Test
     fun nullToEmpty() {
-        // setup
+        // Arrange
         val expected = "value"
         val value = "value"
-        // execute
-        val actual: String = String.nullToEmpty(value)
-        // verify
+        // Act
+        val actual = String.nullToEmpty(value)
+        // Assert
         assertThat(actual).isEqualTo(expected)
     }
 }

@@ -33,9 +33,9 @@ internal class Scanner(
     val permissionService: PermissionService,
     val transformer: Transformer,
 ) : ScannerService {
-    private val wiFiDataState: MutableStateFlow<WiFiData> = MutableStateFlow(WiFiData.EMPTY)
+    private val wiFiDataState = MutableStateFlow(WiFiData.EMPTY)
 
-    private var initialScan: Boolean = false
+    private var initialScan = false
 
     lateinit var periodicScan: PeriodicScan
     lateinit var scannerCallback: ScannerCallback

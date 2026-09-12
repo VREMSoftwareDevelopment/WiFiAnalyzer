@@ -36,25 +36,25 @@ class WiFiChannelTest {
 
     @Test
     fun compareToUsingSameChannelAndFrequency() {
-        // setup
+        // Arrange
         val other = WiFiChannel(channel, frequency)
-        // execute & validate
+        // Act & Assert
         assertThat(fixture.compareTo(other)).isEqualTo(0)
     }
 
     @Test
     fun compareToUsingDifferentChannel() {
-        // setup
+        // Arrange
         val other = WiFiChannel(channel + 1, frequency)
-        // execute & validate
+        // Act & Assert
         assertThat(fixture.compareTo(other)).isEqualTo(-1)
     }
 
     @Test
     fun compareToUsingDifferentFrequency() {
-        // setup
+        // Arrange
         val other = WiFiChannel(channel, frequency + 1)
-        // execute & validate
+        // Act & Assert
         assertThat(fixture.compareTo(other)).isEqualTo(-1)
     }
 }

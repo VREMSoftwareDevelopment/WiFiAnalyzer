@@ -42,7 +42,7 @@ class GraphColors(
             .chunked(2) { GraphColor(it[0].toColor(), it[1].toColor()) }
             .reversed()
     }
-    private val currentGraphColors: ArrayDeque<GraphColor> = ArrayDeque()
+    private val currentGraphColors = ArrayDeque<GraphColor>()
     val connectedColor: GraphColor by lazy {
         val primary = ContextCompat.getColor(context, R.color.selected)
         val background = ContextCompat.getColor(context, R.color.selected_background)

@@ -30,7 +30,7 @@ import org.mockito.kotlin.whenever
 class ChannelRatingAdapterBindingTest {
     @Test
     fun channelRatingAdapterBinding() {
-        // setup
+        // Arrange
         val view: View = mock()
         val channelRatingChannel: TextView = mock()
         val channelRatingAPCount: TextView = mock()
@@ -40,9 +40,9 @@ class ChannelRatingAdapterBindingTest {
         whenever(view.findViewById<TextView>(R.id.channelRatingWidth)).thenReturn(channelRatingWidth)
         whenever(view.findViewById<TextView>(R.id.channelRatingAPCount)).thenReturn(channelRatingAPCount)
         whenever(view.findViewById<RatingBar>(R.id.channelRating)).thenReturn(channelRating)
-        // execute
+        // Act
         val fixture = ChannelRatingAdapterBinding(view)
-        // validate
+        // Assert
         assertThat(fixture.root).isEqualTo(view)
         assertThat(fixture.channelRatingChannel).isEqualTo(channelRatingChannel)
         assertThat(fixture.channelRatingWidth).isEqualTo(channelRatingWidth)

@@ -57,7 +57,7 @@ enum class WiFiWidth(
     MHZ_320(R.string.wifi_width_320mhz, CHANNEL_WIDTH_320MHZ, 320, 3, calculateCenterUsingCenter1, 32),
     ;
 
-    val frequencyWidthHalf: Int = frequencyWidth / 2
+    val frequencyWidthHalf = frequencyWidth / 2
 
     companion object {
         fun findOne(channelWidth: Int): WiFiWidth =

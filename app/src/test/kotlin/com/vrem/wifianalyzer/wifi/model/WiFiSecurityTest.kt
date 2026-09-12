@@ -26,30 +26,30 @@ import org.junit.runner.RunWith
 import org.robolectric.annotation.Config
 
 @RunWith(AndroidJUnit4::class)
-@Config(sdk = [Build.VERSION_CODES.BAKLAVA])
+@Config(sdk = [Build.VERSION_CODES.CINNAMON_BUN])
 class WiFiSecurityTest {
-    private val mainActivity = RobolectricUtil.INSTANCE.activity
+    private val mainActivity = RobolectricUtil.INSTANCE.mainActivity
 
     @Test
     fun wiFiSecurityTypes() {
-        // setup
+        // Arrange
         val fixture = WiFiSecurity(securityTypes = WiFiSecurityTypeTest.All)
         val expected = WiFiSecurityType.entries.toSet()
-        // execute
+        // Act
         val actual: Set<WiFiSecurityType> = fixture.wiFiSecurityTypes
-        // validate
+        // Assert
         assertThat(actual).isEqualTo(expected)
     }
 
     @Test
     fun wiFiSecurityTypesDisplay() {
-        // expected
+        // Arrange
         val fixture = WiFiSecurity(securityTypes = WiFiSecurityTypeTest.All)
         val expected =
             "[DPP EAP OPEN OSEN PASSPOINT_R1_R2 PASSPOINT_R3 PSK WAPI_CERT WAPI_PSK WEP EAP_WPA3_ENTERPRISE EAP_WPA3_ENTERPRISE_192_BIT OWE SAE]"
-        // execute
+        // Act
         val actual = fixture.wiFiSecurityTypesDisplay(mainActivity.applicationContext)
-        // validate
+        // Assert
         assertThat(actual).isEqualTo(expected)
     }
 }

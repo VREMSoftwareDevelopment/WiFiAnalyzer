@@ -51,13 +51,13 @@ interface ScannerService {
 fun makeScannerService(
     mainActivity: MainActivity,
     wiFiManagerWrapper: WiFiManagerWrapper,
+    permissionService: PermissionService,
     coroutineScope: CoroutineScope,
     settings: Settings,
     configuration: Configuration,
 ): ScannerService {
     val cache = Cache(settings, configuration)
     val transformer = Transformer(cache)
-    val permissionService = PermissionService(mainActivity)
     val scanner = Scanner(wiFiManagerWrapper, settings, permissionService, transformer)
     scanner.periodicScan = PeriodicScan(scanner, coroutineScope, settings)
     scanner.scannerCallback = ScannerCallback(wiFiManagerWrapper, cache)

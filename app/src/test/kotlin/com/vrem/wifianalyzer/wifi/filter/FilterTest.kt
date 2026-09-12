@@ -48,10 +48,10 @@ import org.robolectric.Shadows
 import org.robolectric.annotation.Config
 
 @RunWith(AndroidJUnit4::class)
-@Config(sdk = [Build.VERSION_CODES.BAKLAVA])
+@Config(sdk = [Build.VERSION_CODES.CINNAMON_BUN])
 class FilterTest {
-    private val mainActivity: MainActivity = RobolectricUtil.INSTANCE.activity
-    private val fixture: Filter = build()
+    private val mainActivity = RobolectricUtil.INSTANCE.mainActivity
+    private val fixture = build()
 
     @Before
     fun setUp() {
@@ -66,42 +66,42 @@ class FilterTest {
 
     @Test
     fun alertDialog() {
-        // execute
+        // Act
         val actual = fixture.alertDialog!!
-        // validate
+        // Assert
         assertThat(actual.isShowing).isFalse
     }
 
     @Test
     fun show() {
-        // execute
+        // Act
         fixture.show()
-        // validate
+        // Assert
         assertThat(fixture.alertDialog!!.isShowing).isTrue
     }
 
     @Test
     fun title() {
-        // setup
+        // Arrange
         val expected = mainActivity.getString(R.string.filter_title)
         val shadowAlertDialog = Shadows.shadowOf(fixture.alertDialog!!)
-        // execute
+        // Act
         val actual = shadowAlertDialog.title
-        // validate
+        // Assert
         assertThat(actual.toString()).isEqualTo(expected)
     }
 
     @Test
     fun positiveButton() {
-        // setup
+        // Arrange
         val filtersAdapter = withFiltersAdapter()
         val mainActivity: MainActivity = mock()
         val fixture = build(filtersAdapter = filtersAdapter, mainActivity = mainActivity)
         fixture.show()
         val button = fixture.alertDialog!!.getButton(DialogInterface.BUTTON_POSITIVE)
-        // execute
+        // Act
         button.performClick()
-        // validate
+        // Assert
         RobolectricUtil.INSTANCE.clearLooper()
         assertThat(fixture.alertDialog.isShowing).isFalse
         verify(filtersAdapter).save()
@@ -110,15 +110,15 @@ class FilterTest {
 
     @Test
     fun negativeButton() {
-        // setup
+        // Arrange
         val filtersAdapter = withFiltersAdapter()
         val mainActivity: MainActivity = mock()
         val fixture = build(filtersAdapter = filtersAdapter, mainActivity = mainActivity)
         fixture.show()
         val button = fixture.alertDialog!!.getButton(DialogInterface.BUTTON_NEGATIVE)
-        // execute
+        // Act
         button.performClick()
-        // validate
+        // Assert
         RobolectricUtil.INSTANCE.clearLooper()
         assertThat(fixture.alertDialog.isShowing).isFalse
         verify(filtersAdapter).reset()
@@ -127,15 +127,15 @@ class FilterTest {
 
     @Test
     fun neutralButton() {
-        // setup
+        // Arrange
         val filtersAdapter = withFiltersAdapter()
         val mainActivity: MainActivity = mock()
         val fixture = build(filtersAdapter = filtersAdapter, mainActivity = mainActivity)
         fixture.show()
         val button = fixture.alertDialog!!.getButton(DialogInterface.BUTTON_NEUTRAL)
-        // execute
+        // Act
         button.performClick()
-        // validate
+        // Assert
         RobolectricUtil.INSTANCE.clearLooper()
         assertThat(fixture.alertDialog.isShowing).isFalse
         verify(filtersAdapter).reload()
@@ -144,87 +144,87 @@ class FilterTest {
 
     @Test
     fun sSIDFilterViewIsVisible() {
-        // setup
+        // Arrange
         fixture.show()
-        // execute
+        // Act
         val actual = fixture.alertDialog!!.findViewById<View>(R.id.filterSSID).visibility
-        // validate
+        // Assert
         assertThat(actual).isEqualTo(View.VISIBLE)
     }
 
     @Test
     fun wiFiBandFilterViewIsVisible() {
-        // setup
+        // Arrange
         fixture.show()
-        // execute
+        // Act
         val actual = fixture.alertDialog!!.findViewById<View>(R.id.filterWiFiBand).visibility
-        // validate
+        // Assert
         assertThat(actual).isEqualTo(View.VISIBLE)
     }
 
     @Test
     fun wiFiBandFilterMapping() {
-        // setup
-        val expected: Set<WiFiBand> = WiFiBand.entries.toSet()
+        // Arrange
+        val expected = WiFiBand.entries.toSet()
         fixture.show()
-        // execute
+        // Act
         val actual: Map<WiFiBand, Int> = fixture.wiFiBandFilter!!.ids
-        // validate
+        // Assert
         assertThat(actual).hasSize(expected.size)
         expected.forEach { assertThat(actual[it]).isNotNull() }
     }
 
     @Test
     fun securityFilterViewIsVisible() {
-        // setup
+        // Arrange
         fixture.show()
-        // execute
+        // Act
         val actual = fixture.alertDialog!!.findViewById<View>(R.id.filterSecurity).visibility
-        // validate
+        // Assert
         assertThat(actual).isEqualTo(View.VISIBLE)
     }
 
     @Test
     fun securityFilterMapping() {
-        // setup
-        val expected: Set<Security> = Security.entries.toSet()
+        // Arrange
+        val expected = Security.entries.toSet()
         fixture.show()
-        // execute
+        // Act
         val actual: Map<Security, Int> = fixture.securityFilter!!.ids
-        // validate
+        // Assert
         assertThat(actual).hasSize(expected.size)
         expected.forEach { assertThat(actual[it]).isNotNull() }
     }
 
     @Test
     fun strengthFilterViewIsVisible() {
-        // setup
+        // Arrange
         fixture.show()
-        // execute
+        // Act
         val actual = fixture.alertDialog!!.findViewById<View>(R.id.filterStrength).visibility
-        // validate
+        // Assert
         assertThat(actual).isEqualTo(View.VISIBLE)
     }
 
     @Test
     fun strengthFilterMapping() {
-        // setup
-        val expected: Set<Strength> = Strength.entries.toSet()
+        // Arrange
+        val expected = Strength.entries.toSet()
         fixture.show()
-        // execute
+        // Act
         val actual: Map<Strength, Int> = fixture.strengthFilter!!.ids
-        // validate
+        // Assert
         assertThat(actual).hasSize(expected.size)
         expected.forEach { assertThat(actual[it]).isNotNull() }
     }
 
     @Test
     fun showWhenDialogIsNull() {
-        // setup
+        // Arrange
         val fixture = Filter(null)
-        // execute
+        // Act
         fixture.show()
-        // validate
+        // Assert
         assertThat(fixture.wiFiBandFilter).isNull()
         assertThat(fixture.strengthFilter).isNull()
         assertThat(fixture.securityFilter).isNull()
@@ -232,33 +232,33 @@ class FilterTest {
 
     @Test
     fun wiFiBandFilterViewIsGone() {
-        // setup
+        // Arrange
         mainActivity.currentNavigationMenu(NavigationMenu.CHANNEL_RATING)
         fixture.show()
-        // execute
+        // Act
         val actual = fixture.alertDialog!!.findViewById<View>(R.id.filterWiFiBand).visibility
-        // validate
+        // Assert
         assertThat(actual).isEqualTo(View.GONE)
     }
 
     @Test
     fun showWhenAlreadyShowing() {
-        // setup
+        // Arrange
         fixture.show()
-        // execute
+        // Act
         fixture.show()
-        // validate
+        // Assert
         assertThat(fixture.alertDialog!!.isShowing).isTrue
     }
 
     @Test
     fun buildReturnsNullDialogWhenActivityIsFinishing() {
-        // setup
+        // Arrange
         val mainActivity = MainContextHelper.INSTANCE.mainActivity
         doReturn(true).whenever(mainActivity).isFinishing
-        // execute
+        // Act
         val actual = build()
-        // validate
+        // Assert
         assertThat(actual.alertDialog).isNull()
         verify(mainActivity).isFinishing
     }

@@ -45,7 +45,7 @@ class TimeGraphTest {
     private val settings: Settings = mock()
     private val dataManager: DataManager = mock()
     private val graphWrapper: GraphWrapper = mock()
-    private val fixture: TimeGraph = spy(TimeGraph(WiFiBand.GHZ2, dataManager, graphWrapper, settings))
+    private val fixture = spy(TimeGraph(WiFiBand.GHZ2, dataManager, graphWrapper, settings))
 
     @After
     fun tearDown() {

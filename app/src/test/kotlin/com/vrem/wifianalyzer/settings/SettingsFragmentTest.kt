@@ -29,46 +29,46 @@ import org.junit.runner.RunWith
 import org.robolectric.annotation.Config
 
 @RunWith(AndroidJUnit4::class)
-@Config(sdk = [Build.VERSION_CODES.BAKLAVA])
+@Config(sdk = [Build.VERSION_CODES.CINNAMON_BUN])
 class SettingsFragmentTest {
     val fixture = SettingsFragment()
     val fragment = RobolectricUtil.INSTANCE.startFragment(fixture)
 
     @Test
     fun onCreate() {
-        // validate
+        // Assert
         assertThat(fixture.view).isNotNull()
     }
 
     @Config(sdk = [Build.VERSION_CODES.P])
     @Test
     fun wiFiOnExitIsVisible() {
-        // setup
+        // Arrange
         val key = fixture.getString(R.string.wifi_off_on_exit_key)
-        // execute
+        // Act
         val actual = fixture.findPreference<Preference>(key)
-        // validate
+        // Assert
         assertThat(actual!!.isVisible).isTrue
     }
 
     @Test
     fun wiFiOnExitIsNotVisible() {
-        // setup
+        // Arrange
         val key = fixture.getString(R.string.wifi_off_on_exit_key)
-        // execute
+        // Act
         val actual = fixture.findPreference<Preference>(key)
-        // validate
+        // Assert
         assertThat(actual!!.isVisible).isFalse
     }
 
     @Test
     fun resetPreferenceShouldClearsPreferencesAndReloadsSettings() {
-        // setup
+        // Arrange
         val key = fixture.getString(R.string.reset_key)
         val preference = fixture.findPreference<Preference>(key)!!
-        // execute
+        // Act
         val actual = fixture.onPreferenceTreeClick(preference)
-        // validate
+        // Assert
         assertThat(actual).isTrue
         assertThat(fixture.preferenceScreen.preferenceCount).isGreaterThan(0)
         assertThat(fixture.findPreference<Preference>(fixture.getString(wifi_off_on_exit_key))!!.isVisible).isFalse
@@ -76,24 +76,24 @@ class SettingsFragmentTest {
 
     @Test
     fun onPreferenceTreeClickShouldReturnsFalseForUnknownPreference() {
-        // setup
+        // Arrange
         val preference = Preference(fixture.requireContext())
         preference.key = "unknown_key"
-        // execute
+        // Act
         val result = fixture.onPreferenceTreeClick(preference)
-        // validate
+        // Assert
         assertThat(result).isFalse
     }
 
     @Config(sdk = [Build.VERSION_CODES.P])
     @Test
     fun resetPreferenceShouldClearsPreferencesAndReloadsSettingsLegacy() {
-        // setup
+        // Arrange
         val key = fixture.getString(R.string.reset_key)
         val preference = fixture.findPreference<Preference>(key)!!
-        // execute
+        // Act
         val actual = fixture.onPreferenceTreeClick(preference)
-        // validate
+        // Assert
         assertThat(actual).isTrue
         assertThat(fixture.preferenceScreen.preferenceCount).isGreaterThan(0)
         assertThat(fixture.findPreference<Preference>(fixture.getString(wifi_off_on_exit_key))!!.isVisible).isTrue

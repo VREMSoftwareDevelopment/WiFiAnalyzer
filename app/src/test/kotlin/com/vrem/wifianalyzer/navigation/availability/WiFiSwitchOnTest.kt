@@ -23,7 +23,6 @@ import com.vrem.wifianalyzer.MainActivity
 import com.vrem.wifianalyzer.MainContextHelper
 import com.vrem.wifianalyzer.R
 import com.vrem.wifianalyzer.navigation.options.OptionMenu
-import com.vrem.wifianalyzer.settings.Settings
 import com.vrem.wifianalyzer.wifi.band.WiFiBand
 import org.junit.After
 import org.junit.Test
@@ -37,7 +36,7 @@ import org.mockito.kotlin.whenever
 
 class WiFiSwitchOnTest {
     private val mainActivity: MainActivity = mock()
-    private val settings: Settings = MainContextHelper.INSTANCE.settings
+    private val settings = MainContextHelper.INSTANCE.settings
     private val optionMenu: OptionMenu = mock()
     private val menu: Menu = mock()
     private val menuItem: MenuItem = mock()
@@ -55,16 +54,16 @@ class WiFiSwitchOnTest {
 
     @Test
     fun navigationOptionWiFiSwitchOnWithMenuWillSetTitleAndVisibility() {
-        // setup
+        // Arrange
         val expected = "XYZ\n123"
         whenever(mainActivity.optionMenu).thenReturn(optionMenu)
         whenever(optionMenu.menu).thenReturn(menu)
         whenever(menu.findItem(R.id.action_wifi_band)).thenReturn(menuItem)
         whenever(settings.wiFiBand()).thenReturn(WiFiBand.GHZ5)
         whenever(mainActivity.getString(WiFiBand.GHZ5.textResource)).thenReturn("XYZ 123")
-        // execute
+        // Act
         fixture(mainActivity)
-        // validate
+        // Assert
         verify(mainActivity).optionMenu
         verify(optionMenu).menu
         verify(menu).findItem(R.id.action_wifi_band)
@@ -76,12 +75,12 @@ class WiFiSwitchOnTest {
 
     @Test
     fun navigationOptionWiFiSwitchOnWithNoMenuWillNotSetTitleAndVisibility() {
-        // setup
+        // Arrange
         whenever(mainActivity.optionMenu).thenReturn(optionMenu)
         whenever(optionMenu.menu).thenReturn(null)
-        // execute
+        // Act
         fixture(mainActivity)
-        // validate
+        // Assert
         verify(mainActivity).optionMenu
         verify(optionMenu).menu
         verify(menu, never()).findItem(R.id.action_wifi_band)

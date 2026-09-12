@@ -29,10 +29,10 @@ class FiltersAdapter(
     private val settings: Settings,
     private val mainActivity: MainActivity = MainContext.INSTANCE.mainActivity,
 ) {
-    private var ssidAdapter: SSIDAdapter = SSIDAdapter(settings.findSSIDs())
-    private var wiFiBandAdapter: WiFiBandAdapter = WiFiBandAdapter(settings.findWiFiBands())
-    private var strengthAdapter: StrengthAdapter = StrengthAdapter(settings.findStrengths())
-    private var securityAdapter: SecurityAdapter = SecurityAdapter(settings.findSecurities())
+    private var ssidAdapter = SSIDAdapter(settings.findSSIDs())
+    private var wiFiBandAdapter = WiFiBandAdapter(settings.findWiFiBands())
+    private var strengthAdapter = StrengthAdapter(settings.findStrengths())
+    private var securityAdapter = SecurityAdapter(settings.findSecurities())
 
     fun reload() {
         ssidAdapter = SSIDAdapter(settings.findSSIDs())

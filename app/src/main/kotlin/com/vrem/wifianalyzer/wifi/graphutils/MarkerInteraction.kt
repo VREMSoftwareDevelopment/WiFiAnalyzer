@@ -20,14 +20,13 @@ package com.vrem.wifianalyzer.wifi.graphutils
 import com.patrykandpatrick.vico.views.cartesian.CartesianChart
 import com.patrykandpatrick.vico.views.cartesian.CartesianChartView
 import com.patrykandpatrick.vico.views.cartesian.marker.CartesianMarker
-import com.patrykandpatrick.vico.views.cartesian.marker.DefaultCartesianMarker
 import com.patrykandpatrick.vico.views.cartesian.marker.LineCartesianLayerMarkerTarget
 import com.patrykandpatrick.vico.views.common.Point
 import com.vrem.wifianalyzer.wifi.detailview.WiFiDetailPopup
 import com.vrem.wifianalyzer.wifi.detailview.WiFiDetailView
 import com.vrem.wifianalyzer.wifi.model.WiFiDetail
 
-internal val NO_TOUCH: Point = Point(Float.NaN, Float.NaN)
+internal val NO_TOUCH = Point(Float.NaN, Float.NaN)
 
 class MarkerHandler(
     private val chartView: CartesianChartView,
@@ -65,11 +64,11 @@ class MarkerInteraction(
     private val seriesCache: SeriesCache,
     private val markerHandler: MarkerHandler = MarkerHandler(chartView, seriesCache),
 ) {
-    private var lastTouch: Point = NO_TOUCH
+    private var lastTouch = NO_TOUCH
     private var dataPointToDetail: Map<Long, MutableList<WiFiDetail>> = emptyMap()
-    private val thresholdPx: Float = 20f * chartView.resources.displayMetrics.density
+    private val thresholdPx = 20f * chartView.resources.displayMetrics.density
 
-    internal val marker: DefaultCartesianMarker = createMarker()
+    internal val marker = createMarker()
 
     internal val markerVisibilityListener: MarkerVisibilityListenerWrapper =
         MarkerVisibilityListenerWrapper { targets ->

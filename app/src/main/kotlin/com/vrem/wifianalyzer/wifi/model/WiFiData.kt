@@ -40,7 +40,7 @@ class WiFiData(
         sortBy: SortBy,
         groupBy: GroupBy,
     ): List<WiFiDetail> {
-        val connection: WiFiDetail = connection()
+        val connection = connection()
         return wiFiDetails
             .filter { predicate(it) }
             .map { transform(it, connection) }
@@ -67,7 +67,7 @@ class WiFiData(
         groupBy: GroupBy,
     ): (List<WiFiDetail>) -> WiFiDetail =
         {
-            val sortedWith: List<WiFiDetail> = it.sortedWith(groupBy.sort)
+            val sortedWith = it.sortedWith(groupBy.sort)
             when (sortedWith.size) {
                 1 -> sortedWith.first()
                 else ->
@@ -85,7 +85,7 @@ class WiFiData(
         when (wiFiDetail) {
             connection -> connection
             else -> {
-                val vendorName: String = vendorService().findVendorName(wiFiDetail.wiFiIdentifier.bssid)
+                val vendorName = vendorService().findVendorName(wiFiDetail.wiFiIdentifier.bssid)
                 val wiFiAdditional = WiFiAdditional(vendorName, WiFiConnection.EMPTY)
                 WiFiDetail(wiFiDetail, wiFiAdditional)
             }
@@ -94,7 +94,7 @@ class WiFiData(
     private fun connected(it: WiFiDetail): Boolean = wiFiConnection.wiFiIdentifier.equals(it.wiFiIdentifier, true)
 
     private fun copy(wiFiDetail: WiFiDetail): WiFiDetail {
-        val vendorName: String = vendorService().findVendorName(wiFiDetail.wiFiIdentifier.bssid)
+        val vendorName = vendorService().findVendorName(wiFiDetail.wiFiIdentifier.bssid)
         val wiFiAdditional = WiFiAdditional(vendorName, wiFiConnection)
         return WiFiDetail(wiFiDetail, wiFiAdditional)
     }

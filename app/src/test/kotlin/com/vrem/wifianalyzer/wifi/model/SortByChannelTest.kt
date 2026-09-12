@@ -25,7 +25,7 @@ class SortByChannelTest {
 
     @Test
     fun sortByChannelUsingSame() {
-        // setup
+        // Arrange
         val wiFiDetail1 =
             WiFiDetail(
                 WiFiIdentifier("SSID1", "BSSID1"),
@@ -40,15 +40,15 @@ class SortByChannelTest {
                 WiFiSignal(2462, 2432, WiFiWidth.MHZ_40, -55),
                 WiFiAdditional.EMPTY,
             )
-        // execute
+        // Act
         val actual = fixture.compare(wiFiDetail1, wiFiDetail2)
-        // validate
+        // Assert
         assertThat(actual).isEqualTo(0)
     }
 
     @Test
     fun sortByChannelWithDifferentChannel() {
-        // setup
+        // Arrange
         val wiFiDetail1 =
             WiFiDetail(
                 WiFiIdentifier("SSID1", "BSSID1"),
@@ -63,15 +63,15 @@ class SortByChannelTest {
                 WiFiSignal(2432, 2462, WiFiWidth.MHZ_20, -55),
                 WiFiAdditional.EMPTY,
             )
-        // execute
+        // Act
         val actual = fixture.compare(wiFiDetail1, wiFiDetail2)
-        // validate
+        // Assert
         assertThat(actual).isEqualTo(1)
     }
 
     @Test
     fun sortByChannelWithDifferentSSID() {
-        // setup
+        // Arrange
         val wiFiDetail1 =
             WiFiDetail(
                 WiFiIdentifier("ssid1", "BSSID1"),
@@ -86,15 +86,15 @@ class SortByChannelTest {
                 WiFiSignal(2462, 2462, WiFiWidth.MHZ_20, -55),
                 WiFiAdditional.EMPTY,
             )
-        // execute
+        // Act
         val actual = fixture.compare(wiFiDetail1, wiFiDetail2)
-        // validate
+        // Assert
         assertThat(actual).isEqualTo(32)
     }
 
     @Test
     fun sortByChannelWithDifferentBSSID() {
-        // setup
+        // Arrange
         val wiFiDetail1 =
             WiFiDetail(
                 WiFiIdentifier("SSID1", "bssid1"),
@@ -109,15 +109,15 @@ class SortByChannelTest {
                 WiFiSignal(2462, 2462, WiFiWidth.MHZ_20, -55),
                 WiFiAdditional.EMPTY,
             )
-        // execute
+        // Act
         val actual = fixture.compare(wiFiDetail1, wiFiDetail2)
-        // validate
+        // Assert
         assertThat(actual).isEqualTo(32)
     }
 
     @Test
     fun sortByChannelWithDifferentStrength() {
-        // setup
+        // Arrange
         val wiFiDetail1 =
             WiFiDetail(
                 WiFiIdentifier("SSID1", "BSSID1"),
@@ -132,9 +132,9 @@ class SortByChannelTest {
                 WiFiSignal(2462, 2462, WiFiWidth.MHZ_20, -35),
                 WiFiAdditional.EMPTY,
             )
-        // execute
+        // Act
         val actual = fixture.compare(wiFiDetail1, wiFiDetail2)
-        // validate
+        // Assert
         assertThat(actual).isEqualTo(1)
     }
 }

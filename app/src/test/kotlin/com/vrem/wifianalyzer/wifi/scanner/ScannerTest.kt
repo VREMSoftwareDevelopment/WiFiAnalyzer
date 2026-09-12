@@ -89,28 +89,28 @@ class ScannerTest {
 
     @Test
     fun pause() {
-        // execute
+        // Act
         fixture.pause()
-        // validate
+        // Assert
         verify(periodicScan).stop()
         verify(scanResultsReceiver).unregister()
     }
 
     @Test
     fun resume() {
-        // execute
+        // Act
         fixture.resume()
-        // validate
+        // Assert
         verify(periodicScan).start()
     }
 
     @Test
     fun running() {
-        // setup
+        // Arrange
         whenever(periodicScan.running).thenReturn(true)
-        // execute
+        // Act
         val actual = fixture.running()
-        // validate
+        // Assert
         assertThat(actual).isTrue
         verify(periodicScan).running
     }
@@ -169,24 +169,24 @@ class ScannerTest {
 
     @Test
     fun toggleWhenRunning() {
-        // setup
+        // Arrange
         fixture.periodicScan = periodicScan
         whenever(periodicScan.running).thenReturn(true)
-        // execute
+        // Act
         fixture.toggle()
-        // validate
+        // Assert
         verify(periodicScan).running
         verify(periodicScan).stop()
     }
 
     @Test
     fun toggleWhenNotRunning() {
-        // setup
+        // Arrange
         fixture.periodicScan = periodicScan
         whenever(periodicScan.running).thenReturn(false)
-        // execute
+        // Act
         fixture.toggle()
-        // validate
+        // Assert
         verify(periodicScan).running
         verify(periodicScan).start()
     }

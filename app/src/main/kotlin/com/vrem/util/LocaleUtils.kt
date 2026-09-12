@@ -75,7 +75,7 @@ fun allCountries(): List<Locale> = SyncAvoid.countriesLocales.values.toList()
 
 fun findByLanguageTag(languageTag: String): Locale {
     val languageTagPredicate: (Locale) -> Boolean = {
-        val locale: Locale = fromLanguageTag(languageTag)
+        val locale = fromLanguageTag(languageTag)
         it.language == locale.language && it.country == locale.country
     }
     return SyncAvoid.supportedLocales.firstOrNull(languageTagPredicate) ?: SyncAvoid.defaultLocale
@@ -90,7 +90,7 @@ fun defaultLanguageTag(): String = toLanguageTag(SyncAvoid.defaultLocale)
 fun toLanguageTag(locale: Locale): String = locale.language + SEPARATOR + locale.country
 
 private fun fromLanguageTag(languageTag: String): Locale {
-    val codes: Array<String> = languageTag.split(SEPARATOR).toTypedArray()
+    val codes = languageTag.split(SEPARATOR).toTypedArray()
     return when (codes.size) {
         1 -> Locale.forLanguageTag(codes[0])
         2 -> Locale.forLanguageTag("${codes[0]}-${codes[1].toCapitalize(Locale.getDefault())}")

@@ -29,18 +29,18 @@ import org.junit.Test
 class WiFiBandPredicateTest {
     @Test
     fun wiFiBandPredicateWith2GHzFrequency() {
-        // setup
+        // Arrange
         val wiFiDetail = makeWiFiDetail(2455)
-        // execute & validate
+        // Act & Assert
         assertThat(WiFiBand.GHZ2.predicate()(wiFiDetail)).isTrue
         assertThat(WiFiBand.GHZ5.predicate()(wiFiDetail)).isFalse
     }
 
     @Test
     fun wiFiBandPredicateWith5GHzFrequency() {
-        // setup
+        // Arrange
         val wiFiDetail = makeWiFiDetail(5455)
-        // execute & validate
+        // Act & Assert
         assertThat(WiFiBand.GHZ2.predicate()(wiFiDetail)).isFalse
         assertThat(WiFiBand.GHZ5.predicate()(wiFiDetail)).isTrue
     }

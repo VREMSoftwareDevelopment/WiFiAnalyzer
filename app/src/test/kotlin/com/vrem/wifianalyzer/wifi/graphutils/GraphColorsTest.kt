@@ -50,9 +50,9 @@ class GraphColorsTest {
 
     @Test
     fun getColorStartsOverWhenEndIsReached() {
-        // setup
+        // Arrange
         val graphColors = withGraphColors()
-        // validate & execute
+        // Act & Assert
         assertThat(fixture.graphColor()).isEqualTo(graphColors[2])
         assertThat(fixture.graphColor()).isEqualTo(graphColors[1])
         assertThat(fixture.graphColor()).isEqualTo(graphColors[0])
@@ -61,10 +61,10 @@ class GraphColorsTest {
 
     @Test
     fun addColorAddsColorToAvailablePool() {
-        // setup
+        // Arrange
         val graphColors = withGraphColors()
         val expected = graphColors[2]
-        // validate & execute
+        // Act & Assert
         assertThat(fixture.graphColor()).isEqualTo(expected)
         fixture.addColor(expected.primary)
         assertThat(fixture.graphColor()).isEqualTo(expected)
@@ -72,10 +72,10 @@ class GraphColorsTest {
 
     @Test
     fun addColorDoesNotAddExistingColor() {
-        // setup
+        // Arrange
         val graphColors = withGraphColors()
         val expected = graphColors[2]
-        // validate & execute
+        // Act & Assert
         assertThat(fixture.graphColor()).isEqualTo(expected)
         fixture.addColor(expected.primary)
         fixture.addColor(expected.primary)
@@ -84,23 +84,23 @@ class GraphColorsTest {
 
     @Test
     fun addColorWithNonExistingColor() {
-        // setup
+        // Arrange
         val size = fixture.graphColor()
-        // execute
+        // Act
         fixture.addColor(123)
-        // validate
+        // Assert
         assertThat(fixture.graphColor()).isNotEqualTo(size)
     }
 
     @Test
     fun graphColorCyclesThroughColors() {
-        // setup
+        // Arrange
         val graphColors = withGraphColors()
         val expected = graphColors[1]
         val original = fixture.graphColor()
-        // execute
+        // Act
         val actual = fixture.graphColor()
-        // validate
+        // Assert
         assertThat(actual).isEqualTo(expected)
         assertThat(original).isEqualTo(graphColors[2])
     }

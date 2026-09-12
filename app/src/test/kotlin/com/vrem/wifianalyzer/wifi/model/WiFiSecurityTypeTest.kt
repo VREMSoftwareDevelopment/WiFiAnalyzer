@@ -33,7 +33,7 @@ import org.mockito.kotlin.whenever
 import org.robolectric.annotation.Config
 
 @RunWith(AndroidJUnit4::class)
-@Config(sdk = [Build.VERSION_CODES.BAKLAVA])
+@Config(sdk = [Build.VERSION_CODES.CINNAMON_BUN])
 class WiFiSecurityTypeTest {
     @Test
     fun size() {
@@ -144,36 +144,36 @@ class WiFiSecurityTypeTest {
 
     @Test
     fun findAll() {
-        // setup
+        // Arrange
         val securityTypes = All
         val expected = WiFiSecurityType.entries.toSet()
-        // execute
+        // Act
         val actual = WiFiSecurityType.findAll(securityTypes)
-        // validate
+        // Assert
         assertThat(actual).isEqualTo(expected)
     }
 
     @Config(sdk = [Build.VERSION_CODES.S_V2])
     @Test
     fun findLegacy() {
-        // setup
+        // Arrange
         val scanResult: ScanResult = mock()
-        // execute
+        // Act
         val actual = WiFiSecurityType.find(scanResult)
-        // validate
+        // Assert
         assertThat(actual).isEmpty()
         verifyNoMoreInteractions(scanResult)
     }
 
     @Test
     fun find() {
-        // setup
+        // Arrange
         val scanResult: ScanResult = mock()
         val expected: List<Int> = listOf(1, 2, 3, 4, 5, 6, 7, 8, 9)
         doReturn(expected.toIntArray()).whenever(scanResult).securityTypes
-        // execute
+        // Act
         val actual = WiFiSecurityType.find(scanResult)
-        // validate
+        // Assert
         assertThat(actual).isEqualTo(expected)
         verify(scanResult).securityTypes
         verifyNoMoreInteractions(scanResult)

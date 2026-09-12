@@ -28,7 +28,7 @@ import org.junit.runner.RunWith
 import org.robolectric.annotation.Config
 
 @RunWith(AndroidJUnit4::class)
-@Config(sdk = [Build.VERSION_CODES.BAKLAVA])
+@Config(sdk = [Build.VERSION_CODES.CINNAMON_BUN])
 class NavigationMenuControllerTest {
     val drawerMenuItems =
         listOf(
@@ -51,7 +51,7 @@ class NavigationMenuControllerTest {
             NavigationMenu.TIME_GRAPH,
         )
 
-    private val mainActivity = RobolectricUtil.INSTANCE.activity
+    private val mainActivity = RobolectricUtil.INSTANCE.mainActivity
     private val fixture = mainActivity.navigationMenuController
     private val drawerNavigationView = fixture.drawerNavigationView
     private val bottomNavigationView = fixture.bottomNavigationView
@@ -63,46 +63,46 @@ class NavigationMenuControllerTest {
 
     @Test
     fun drawerNavigationMenuView() {
-        // execute
+        // Act
         val menu: Menu = drawerNavigationView.menu
-        // validate
+        // Assert
         assertThat(menu.size()).isEqualTo(drawerMenuItems.size)
     }
 
     @Test
     fun bottomNavigationMenuView() {
-        // execute
+        // Act
         val menu: Menu = bottomNavigationView.menu
-        // validate
+        // Assert
         assertThat(menu.size()).isEqualTo(bottomMenuItems.size)
     }
 
     @Test
     fun getCurrentDrawerMenuItem() {
-        // setup
+        // Arrange
         val expected = drawerNavigationView.menu.findItem(NavigationMenu.ACCESS_POINTS.idDrawer)
-        // execute
+        // Act
         val actual = fixture.currentMenuItem()
-        // validate
+        // Assert
         assertThat(actual).isEqualTo(expected)
         assertThat(actual.isChecked).isTrue
     }
 
     @Test
     fun getCurrentNavigationMenu() {
-        // execute
+        // Act
         val actual = fixture.currentNavigationMenu()
-        // validate
+        // Assert
         assertThat(actual).isEqualTo(NavigationMenu.ACCESS_POINTS)
     }
 
     @Test
     fun setCurrentNavigationMenuWithDrawerNavigationView() {
-        // setup
+        // Arrange
         val expected = NavigationMenu.CHANNEL_GRAPH
-        // execute
+        // Act
         fixture.currentNavigationMenu(expected)
-        // validate
+        // Assert
         assertThat(fixture.currentNavigationMenu()).isEqualTo(expected)
         drawerMenuItems.forEach {
             val menuItem = drawerNavigationView.menu.findItem(it.idDrawer)
@@ -116,11 +116,11 @@ class NavigationMenuControllerTest {
 
     @Test
     fun setCurrentNavigationMenuWithBottomNavigationView() {
-        // setup
+        // Arrange
         val expected = NavigationMenu.CHANNEL_GRAPH
-        // execute
+        // Act
         fixture.currentNavigationMenu(expected)
-        // validate
+        // Assert
         assertThat(fixture.currentNavigationMenu()).isEqualTo(expected)
         bottomMenuItems.forEach {
             val menuItem = bottomNavigationView.menu.findItem(it.idBottom)

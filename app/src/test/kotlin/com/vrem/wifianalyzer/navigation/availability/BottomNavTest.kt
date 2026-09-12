@@ -40,22 +40,22 @@ class BottomNavTest {
 
     @Test
     fun navigationOptionBottomNavOff() {
-        // setup
+        // Arrange
         doReturn(view).whenever(mainActivity).findViewById<View>(R.id.nav_bottom)
-        // execute
+        // Act
         navigationOptionBottomNavOff(mainActivity)
-        // validate
+        // Assert
         verify(mainActivity).findViewById<View>(R.id.nav_bottom)
         verify(view).visibility = View.GONE
     }
 
     @Test
     fun navigationOptionBottomNavOn() {
-        // setup
+        // Arrange
         doReturn(view).whenever(mainActivity).findViewById<View>(R.id.nav_bottom)
-        // execute
+        // Act
         navigationOptionBottomNavOn(mainActivity)
-        // validate
+        // Assert
         verify(mainActivity).findViewById<View>(R.id.nav_bottom)
         verify(view).visibility = View.VISIBLE
     }

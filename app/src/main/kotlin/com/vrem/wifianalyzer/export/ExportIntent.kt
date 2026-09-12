@@ -27,7 +27,7 @@ class ExportIntent {
         title: String,
         data: String,
     ): Intent {
-        val intentSend: Intent = intentSend()
+        val intentSend = intentSend()
         intentSend.flags = Intent.FLAG_ACTIVITY_NEW_TASK
         intentSend.type = "text/plain"
         intentSend.putExtra(Intent.EXTRA_TITLE, title)
