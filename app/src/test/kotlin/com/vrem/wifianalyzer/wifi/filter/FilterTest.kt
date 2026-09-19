@@ -51,7 +51,7 @@ import org.robolectric.annotation.Config
 @Config(sdk = [Build.VERSION_CODES.CINNAMON_BUN])
 class FilterTest {
     private val mainActivity = RobolectricUtil.INSTANCE.mainActivity
-    private val fixture = build()
+    private val fixture = build(mainActivity = mainActivity)
 
     @Before
     fun setUp() {
