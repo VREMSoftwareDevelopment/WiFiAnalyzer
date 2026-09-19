@@ -72,6 +72,7 @@
     <string name="group_by_title">"Raggruppa Access Points per"</string>
     <string name="group_by_virtual">"Virtual"</string>
     <string name="keep_screen_on_title">"Mantieni schermo acceso"</string>
+    <string name="language_system_default">"Predefinita di sistema"</string>
     <string name="language_title">"Lingua"</string>
     <string name="location_msg">"Questa app può recuperare la tua posizione precisa dai Servizi di geolocalizzazione quando l\'app è in uso. L\'impostazione Servizi di geolocalizzazione deve essere attiva sul tuo dispositivo perché l\'app possa recuperare la tua posizione. Questa operazione potrebbe comportare un maggior consumo della batteria."</string>
     <string name="navigation_drawer_close">"Chiudi pannello laterale"</string>

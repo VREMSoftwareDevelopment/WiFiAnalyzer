@@ -72,6 +72,7 @@
     <string name="group_by_title">"Erişim Noktalarını Grupla"</string>
     <string name="group_by_virtual">"Sanal"</string>
     <string name="keep_screen_on_title">"Ekranı açık tut"</string>
+    <string name="language_system_default">"Sistem varsayılanı"</string>
     <string name="language_title">"Dil"</string>
     <string name="location_msg">"Bu uygulama, uygulama kullanılırken konum hizmetlerinden kesin konum bilginizi alabilir. Uygulamanın konum bilginizi alabilmesi için cihazınızda konum hizmetlerinin açık olması gerekir. Bu durum, pil kullanımını artırabilir."</string>
     <string name="navigation_drawer_close">"Gezinti çekmecesini kapat"</string>

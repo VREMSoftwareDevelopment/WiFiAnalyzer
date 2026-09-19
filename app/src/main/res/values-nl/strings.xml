@@ -71,6 +71,7 @@
     <string name="group_by_title">"Groepeer toegangspunten op"</string>
     <string name="group_by_virtual">"Virtual"</string>
     <string name="keep_screen_on_title">"Scherm aan houden"</string>
+    <string name="language_system_default">"Systeemstandaard"</string>
     <string name="language_title">"Taal"</string>
     <string name="location_msg">"Deze app kan je precieze locatie opvragen bij de locatieservices terwijl de app wordt gebruikt. De app kan de locatie alleen opvragen als de locatieservices voor je apparaat zijn ingeschakeld. Hierdoor kan het batterijgebruik toenemen."</string>
     <string name="navigation_drawer_close">"Sluit navigatiepaneel"</string>

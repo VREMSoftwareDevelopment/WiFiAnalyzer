@@ -20,10 +20,8 @@ package com.vrem.wifianalyzer.settings
 import android.content.SharedPreferences.OnSharedPreferenceChangeListener
 import android.os.Build
 import androidx.test.ext.junit.runners.AndroidJUnit4
-import com.vrem.util.defaultCountryCode
-import com.vrem.util.defaultLanguageTag
+import com.vrem.util.EMPTY
 import com.vrem.util.ordinals
-import com.vrem.util.toLanguageTag
 import com.vrem.wifianalyzer.R
 import com.vrem.wifianalyzer.navigation.NavigationMenu
 import com.vrem.wifianalyzer.wifi.accesspoint.AccessPointViewType
@@ -40,6 +38,7 @@ import org.junit.runner.RunWith
 import org.mockito.kotlin.doNothing
 import org.mockito.kotlin.doReturn
 import org.mockito.kotlin.mock
+import org.mockito.kotlin.never
 import org.mockito.kotlin.times
 import org.mockito.kotlin.verify
 import org.mockito.kotlin.verifyNoMoreInteractions
@@ -55,12 +54,14 @@ class SettingsTest {
     private val graphYDefault = 2
 
     private val repository: Repository = mock()
+    private val appLocales: AppLocales = mock()
     private val onSharedPreferenceChangeListener: OnSharedPreferenceChangeListener = mock()
-    private val fixture = Settings(repository)
+    private val fixture = Settings(repository, appLocales)
 
     @After
     fun tearDown() {
         verifyNoMoreInteractions(repository)
+        verifyNoMoreInteractions(appLocales)
         verifyNoMoreInteractions(onSharedPreferenceChangeListener)
     }
 
@@ -326,27 +327,190 @@ class SettingsTest {
     @Test
     fun countryCode() {
         // Arrange
-        val defaultValue = defaultCountryCode()
+        val defaultValue = "CA"
         val expected = "WW"
+        doReturn(Locale.CANADA).whenever(appLocales).systemLocale()
         doReturn(expected).whenever(repository).string(R.string.country_code_key, defaultValue)
         // Act
         val actual = fixture.countryCode()
         // Assert
         assertThat(actual).isEqualTo(expected)
+        verify(appLocales).systemLocale()
         verify(repository).string(R.string.country_code_key, defaultValue)
+    }
+
+    @Test
+    fun defaultCountryCode() {
+        // Arrange
+        val expected = "CA"
+        doReturn(Locale.CANADA).whenever(appLocales).systemLocale()
+        // Act
+        val actual = fixture.defaultCountryCode()
+        // Assert
+        assertThat(actual).isEqualTo(expected)
+        verify(appLocales).systemLocale()
+    }
+
+    @Test
+    fun defaultCountryCodeWithoutSystemLocale() {
+        // Arrange
+        doReturn(null).whenever(appLocales).systemLocale()
+        // Act
+        val actual = fixture.defaultCountryCode()
+        // Assert
+        assertThat(actual).isEmpty()
+        verify(appLocales).systemLocale()
     }
 
     @Test
     fun languageLocale() {
         // Arrange
-        val defaultValue = defaultLanguageTag()
-        val expected = Locale.FRENCH
-        doReturn(toLanguageTag(expected)).whenever(repository).string(R.string.language_key, defaultValue)
+        doReturn(Locale.FRENCH).whenever(appLocales).applicationLocale()
         // Act
         val actual = fixture.languageLocale()
         // Assert
-        assertThat(actual).isEqualTo(expected)
-        verify(repository).string(R.string.language_key, defaultValue)
+        assertThat(actual).isEqualTo(Locale.FRENCH)
+        verify(appLocales).applicationLocale()
+    }
+
+    @Test
+    fun languageLocaleWithSystemDefault() {
+        // Arrange
+        doReturn(null).whenever(appLocales).applicationLocale()
+        // Act
+        val actual = fixture.languageLocale()
+        // Assert
+        assertThat(actual).isEqualTo(Locale.getDefault())
+        verify(appLocales).applicationLocale()
+    }
+
+    @Test
+    fun languageTag() {
+        // Arrange
+        doReturn(Locale.forLanguageTag("pt-BR")).whenever(appLocales).applicationLocale()
+        // Act
+        val actual = fixture.languageTag()
+        // Assert
+        assertThat(actual).isEqualTo("pt-BR")
+        verify(appLocales).applicationLocale()
+    }
+
+    @Test
+    fun languageTagWithRegionalLanguage() {
+        // Arrange
+        doReturn(Locale.forLanguageTag("zh-Hant-HK")).whenever(appLocales).applicationLocale()
+        // Act
+        val actual = fixture.languageTag()
+        // Assert
+        assertThat(actual).isEqualTo("zh-TW")
+        verify(appLocales).applicationLocale()
+    }
+
+    @Test
+    fun languageTagWithUnsupportedLanguage() {
+        // Arrange
+        doReturn(Locale.forLanguageTag("ko-KR")).whenever(appLocales).applicationLocale()
+        // Act
+        val actual = fixture.languageTag()
+        // Assert
+        assertThat(actual).isEmpty()
+        verify(appLocales).applicationLocale()
+    }
+
+    @Test
+    fun languageTagWithSystemDefault() {
+        // Arrange
+        doReturn(null).whenever(appLocales).applicationLocale()
+        // Act
+        val actual = fixture.languageTag()
+        // Assert
+        assertThat(actual).isEmpty()
+        verify(appLocales).applicationLocale()
+    }
+
+    @Test
+    fun saveLanguageTag() {
+        // Arrange
+        doNothing().whenever(appLocales).save("de")
+        // Act
+        fixture.saveLanguageTag("de")
+        // Assert
+        verify(appLocales).save("de")
+    }
+
+    @Test
+    fun migrateLanguageWithoutLegacyLanguage() {
+        // Arrange
+        doReturn(String.EMPTY).whenever(repository).string(R.string.language_key, String.EMPTY)
+        // Act
+        fixture.migrateLanguage()
+        // Assert
+        verify(repository).string(R.string.language_key, String.EMPTY)
+    }
+
+    @Test
+    fun migrateLanguageWithSupportedLegacyLanguage() {
+        // Arrange
+        doReturn("pt_BR").whenever(repository).string(R.string.language_key, String.EMPTY)
+        doReturn(null).whenever(appLocales).applicationLocale()
+        doReturn(Locale.US).whenever(appLocales).systemLocale()
+        doNothing().whenever(appLocales).save("pt-BR")
+        doNothing().whenever(repository).remove(R.string.language_key)
+        // Act
+        fixture.migrateLanguage()
+        // Assert
+        verify(repository).string(R.string.language_key, String.EMPTY)
+        verify(appLocales).applicationLocale()
+        verify(appLocales).systemLocale()
+        verify(appLocales).save("pt-BR")
+        verify(repository).remove(R.string.language_key)
+    }
+
+    @Test
+    fun migrateLanguageWithUnsupportedLegacyLanguage() {
+        // Arrange
+        doReturn("en_US").whenever(repository).string(R.string.language_key, String.EMPTY)
+        doReturn(null).whenever(appLocales).applicationLocale()
+        doReturn(Locale.CANADA_FRENCH).whenever(appLocales).systemLocale()
+        doNothing().whenever(repository).remove(R.string.language_key)
+        // Act
+        fixture.migrateLanguage()
+        // Assert
+        verify(repository).string(R.string.language_key, String.EMPTY)
+        verify(appLocales).applicationLocale()
+        verify(appLocales).systemLocale()
+        verify(repository).remove(R.string.language_key)
+    }
+
+    @Test
+    fun migrateLanguageWithApplicationLanguageKeepsApplicationLanguage() {
+        // Arrange
+        doReturn("de_").whenever(repository).string(R.string.language_key, String.EMPTY)
+        doReturn(Locale.FRENCH).whenever(appLocales).applicationLocale()
+        doNothing().whenever(repository).remove(R.string.language_key)
+        // Act
+        fixture.migrateLanguage()
+        // Assert
+        verify(repository).string(R.string.language_key, String.EMPTY)
+        verify(appLocales).applicationLocale()
+        verify(repository).remove(R.string.language_key)
+    }
+
+    @Test
+    fun migrateLanguageWithLegacyDefaultKeepsSystemDefault() {
+        // Arrange
+        doReturn("pt_BR").whenever(repository).string(R.string.language_key, String.EMPTY)
+        doReturn(null).whenever(appLocales).applicationLocale()
+        doReturn(Locale.forLanguageTag("pt-BR")).whenever(appLocales).systemLocale()
+        doNothing().whenever(repository).remove(R.string.language_key)
+        // Act
+        fixture.migrateLanguage()
+        // Assert
+        verify(repository).string(R.string.language_key, String.EMPTY)
+        verify(appLocales).applicationLocale()
+        verify(appLocales).systemLocale()
+        verify(appLocales, never()).save("pt-BR")
+        verify(repository).remove(R.string.language_key)
     }
 
     @Test

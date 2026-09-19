@@ -18,6 +18,7 @@
 package com.vrem.wifianalyzer.settings
 
 import android.os.Build
+import androidx.preference.PreferenceManager
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.vrem.wifianalyzer.R
 import com.vrem.wifianalyzer.RobolectricUtil
@@ -85,5 +86,21 @@ class CountryPreferenceTest {
             assertThat(actual).contains(Data(it.countryCode, it.countryName(locale)))
         }
         verify(settings).languageLocale()
+    }
+
+    @Test
+    fun valueIsDefaultCountryCodeFromSettings() {
+        // Arrange
+        val countryCode = "CA"
+        doReturn(Locale.GERMAN).whenever(settings).languageLocale()
+        doReturn(countryCode).whenever(settings).defaultCountryCode()
+        val preferenceScreen = PreferenceManager(mainActivity).createPreferenceScreen(mainActivity)
+        val countryPreference = CountryPreference(mainActivity, attributeSet, settings)
+        // Act
+        preferenceScreen.addPreference(countryPreference)
+        // Assert
+        assertThat(countryPreference.value).isEqualTo(countryCode)
+        verify(settings).languageLocale()
+        verify(settings).defaultCountryCode()
     }
 }

@@ -64,28 +64,74 @@ class LocaleUtilsTest {
         // Act
         val actual = findByCountryCode("WW")
         // Assert
-        assertThat(actual).isEqualTo(Locale.getDefault())
+        assertThat(actual).isEqualTo(Locale.ROOT)
     }
 
     @Test
-    fun toLanguageTagWithKnownCode() {
-        assertThat(toLanguageTag(Locale.US)).isEqualTo(Locale.US.language + "_" + Locale.US.country)
-        assertThat(toLanguageTag(Locale.ENGLISH)).isEqualTo(Locale.ENGLISH.language + "_")
+    fun toLegacyLanguageTagWithSupportedLanguages() {
+        // Arrange
+        val locales = listOf(Locale.SIMPLIFIED_CHINESE, Locale.ENGLISH, PORTUGUESE_BRAZIL)
+        // Act
+        val actual = locales.map { toLegacyLanguageTag(it) }
+        // Assert
+        assertThat(actual).containsExactly("zh_CN", "en_", "pt_BR")
     }
 
     @Test
-    fun findByLanguageTagWithUnknownTag() {
-        val defaultLocal = Locale.getDefault()
-        assertThat(findByLanguageTag(String.EMPTY)).isEqualTo(defaultLocal)
-        assertThat(findByLanguageTag("WW")).isEqualTo(defaultLocal)
-        assertThat(findByLanguageTag("WW_HH_TT")).isEqualTo(defaultLocal)
+    fun findByLegacyLanguageTagWithSupportedTag() {
+        // Arrange
+        val legacyLanguageTags = listOf("zh_CN", "zh_TW", "en_", "pt_BR", "pt_PT")
+        // Act
+        val actual = legacyLanguageTags.map { findByLegacyLanguageTag(it) }
+        // Assert
+        assertThat(actual).containsExactly(
+            Locale.SIMPLIFIED_CHINESE,
+            Locale.TRADITIONAL_CHINESE,
+            Locale.ENGLISH,
+            PORTUGUESE_BRAZIL,
+            PORTUGUESE_PORTUGAL,
+        )
     }
 
     @Test
-    fun findByLanguageTagWithKnownTag() {
-        assertThat(findByLanguageTag(toLanguageTag(Locale.SIMPLIFIED_CHINESE))).isEqualTo(Locale.SIMPLIFIED_CHINESE)
-        assertThat(findByLanguageTag(toLanguageTag(Locale.TRADITIONAL_CHINESE))).isEqualTo(Locale.TRADITIONAL_CHINESE)
-        assertThat(findByLanguageTag(toLanguageTag(Locale.ENGLISH))).isEqualTo(Locale.ENGLISH)
+    fun findByLegacyLanguageTagWithUnsupportedTag() {
+        // Arrange
+        val legacyLanguageTags = listOf(String.EMPTY, "en_US", "de_DE", "en", "WW_HH_TT")
+        // Act
+        val actual = legacyLanguageTags.map { findByLegacyLanguageTag(it) }
+        // Assert
+        assertThat(actual).containsOnlyNulls()
+    }
+
+    @Test
+    fun findSupportedLanguageWithSupportedLanguage() {
+        // Arrange
+        val languageTags =
+            listOf("fr-FR", "en-GB", "ja-JP", "de", "pt-PT", "pt-BR", "zh-Hans-CN", "zh-Hans-SG", "zh-Hant-HK")
+        // Act
+        val actual = languageTags.map { findSupportedLanguage(Locale.forLanguageTag(it)) }
+        // Assert
+        assertThat(actual).containsExactly(
+            Locale.FRENCH,
+            Locale.ENGLISH,
+            Locale.JAPANESE,
+            Locale.GERMAN,
+            PORTUGUESE_PORTUGAL,
+            PORTUGUESE_BRAZIL,
+            Locale.SIMPLIFIED_CHINESE,
+            Locale.SIMPLIFIED_CHINESE,
+            Locale.TRADITIONAL_CHINESE,
+        )
+    }
+
+    @Test
+    fun findSupportedLanguageWithUnsupportedLanguage() {
+        // Arrange
+        val languageTags = listOf(String.EMPTY, "ko-KR", "pt-AO", "zh-HK")
+        // Act
+        val actual = languageTags.map { findSupportedLanguage(Locale.forLanguageTag(it)) }
+        // Assert
+        assertThat(actual).containsOnlyNulls()
     }
 
     @Test
@@ -111,7 +157,6 @@ class LocaleUtilsTest {
                 RUSSIAN,
                 TURKISH,
                 UKRAINIAN,
-                Locale.getDefault(),
             )
         // Act
         val actual = supportedLanguages()
@@ -120,15 +165,5 @@ class LocaleUtilsTest {
         for (locale in expected) {
             assertThat(actual).contains(locale)
         }
-    }
-
-    @Test
-    fun currentDefaultCountryCode() {
-        assertThat(defaultCountryCode()).isEqualTo(Locale.getDefault().country)
-    }
-
-    @Test
-    fun currentDefaultLanguageTag() {
-        assertThat(defaultLanguageTag()).isEqualTo(toLanguageTag(Locale.getDefault()))
     }
 }

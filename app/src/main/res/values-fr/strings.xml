@@ -71,6 +71,7 @@
     <string name="group_by_title">"Grouper les points d'accès par:"</string>
     <string name="group_by_virtual">"Virtual"</string>
     <string name="keep_screen_on_title">"Conserver l'écran allumé"</string>
+    <string name="language_system_default">"Paramètre système par défaut"</string>
     <string name="language_title">"Langue"</string>
     <string name="location_msg">"Cette application peut accéder à votre position précise via les services de localisation lorsque vous l'utilisez. Pour cela, vous devez activer les services de localisation sur votre appareil au préalable. Cela risque de solliciter davantage la batterie."</string>
     <string name="navigation_drawer_close">"Masquer le volet de navigation"</string>

@@ -19,11 +19,14 @@ package com.vrem.wifianalyzer.vendor.model
 
 import android.os.Build
 import androidx.test.ext.junit.runners.AndroidJUnit4
+import com.vrem.util.TURKISH
 import com.vrem.wifianalyzer.RobolectricUtil
 import org.assertj.core.api.Assertions.assertThat
+import org.junit.After
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.robolectric.annotation.Config
+import java.util.Locale
 
 @RunWith(AndroidJUnit4::class)
 @Config(sdk = [Build.VERSION_CODES.CINNAMON_BUN])
@@ -44,8 +47,14 @@ class VendorServiceTest {
     private val expectedMac2 = "FC:FB:FB"
     private val expectedMac3 = "2C:86:D2"
 
+    private val currentLocale = Locale.getDefault()
     private val mainActivity = RobolectricUtil.INSTANCE.mainActivity
     private val fixture = VendorService(mainActivity.resources)
+
+    @After
+    fun tearDown() {
+        Locale.setDefault(currentLocale)
+    }
 
     @Test
     fun findVendorNameUsingLowerCase() {
@@ -96,6 +105,26 @@ class VendorServiceTest {
     }
 
     @Test
+    fun findMacAddressesUsingLowerCaseWithTurkishLocale() {
+        // Arrange
+        Locale.setDefault(TURKISH)
+        // Act
+        val actual = fixture.findMacAddresses(vendorName.lowercase())
+        // Assert
+        assertThat(actual).hasSize(macsCiscoSize)
+    }
+
+    @Test
+    fun findMacAddressesUsingLowerCaseWithChineseLocale() {
+        // Arrange
+        Locale.setDefault(Locale.SIMPLIFIED_CHINESE)
+        // Act
+        val actual = fixture.findMacAddresses(vendorName.lowercase())
+        // Assert
+        assertThat(actual).hasSize(macsCiscoSize)
+    }
+
+    @Test
     fun findMacAddressesWithInvalidName() {
         // Act
         val actual = fixture.findMacAddresses(vendorNameInvalid)
@@ -138,6 +167,26 @@ class VendorServiceTest {
         assertThat(actual).hasSize(2)
         assertThat(actual[0]).isEqualTo(expectedVendorName3)
         assertThat(actual[1]).isEqualTo(expectedVendorName1)
+    }
+
+    @Test
+    fun findVendorsUsingLowerCaseWithTurkishLocale() {
+        // Arrange
+        Locale.setDefault(TURKISH)
+        // Act
+        val actual = fixture.findVendors(vendorName.lowercase())
+        // Assert
+        assertThat(actual).contains(vendorName)
+    }
+
+    @Test
+    fun findVendorsUsingLowerCaseWithChineseLocale() {
+        // Arrange
+        Locale.setDefault(Locale.SIMPLIFIED_CHINESE)
+        // Act
+        val actual = fixture.findVendors(vendorName.lowercase())
+        // Assert
+        assertThat(actual).contains(vendorName)
     }
 
     @Test

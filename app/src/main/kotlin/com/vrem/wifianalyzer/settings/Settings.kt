@@ -19,13 +19,14 @@ package com.vrem.wifianalyzer.settings
 
 import android.content.SharedPreferences.OnSharedPreferenceChangeListener
 import com.vrem.annotation.OpenClass
+import com.vrem.util.EMPTY
 import com.vrem.util.buildMinVersionQ
-import com.vrem.util.defaultCountryCode
-import com.vrem.util.defaultLanguageTag
-import com.vrem.util.findByLanguageTag
+import com.vrem.util.findByLegacyLanguageTag
 import com.vrem.util.findOne
 import com.vrem.util.findSet
+import com.vrem.util.findSupportedLanguage
 import com.vrem.util.ordinals
+import com.vrem.util.toLegacyLanguageTag
 import com.vrem.wifianalyzer.R
 import com.vrem.wifianalyzer.navigation.MAIN_NAVIGATION
 import com.vrem.wifianalyzer.navigation.NavigationMenu
@@ -42,6 +43,7 @@ import kotlin.enums.EnumEntries
 @OpenClass
 class Settings(
     private val repository: Repository,
+    private val appLocales: AppLocales,
 ) {
     fun initializeDefaultValues() {
         repository.initializeDefaultValues()
@@ -70,11 +72,27 @@ class Settings(
 
     fun countryCode(): String = repository.string(R.string.country_code_key, defaultCountryCode())
 
-    fun languageLocale(): Locale {
-        val defaultLanguageTag = defaultLanguageTag()
-        val languageTag = repository.string(R.string.language_key, defaultLanguageTag)
-        return findByLanguageTag(languageTag)
+    fun defaultCountryCode(): String = appLocales.systemLocale()?.country.orEmpty()
+
+    fun languageLocale(): Locale = appLocales.applicationLocale() ?: Locale.getDefault()
+
+    fun languageTag(): String =
+        appLocales.applicationLocale()?.let { findSupportedLanguage(it)?.toLanguageTag() }.orEmpty()
+
+    fun saveLanguageTag(languageTag: String): Unit = appLocales.save(languageTag)
+
+    fun migrateLanguage() {
+        val legacyLanguageTag = repository.string(R.string.language_key, String.EMPTY)
+        if (legacyLanguageTag.isEmpty()) {
+            return
+        }
+        if (appLocales.applicationLocale() == null && legacyLanguageTag != systemLegacyLanguageTag()) {
+            findByLegacyLanguageTag(legacyLanguageTag)?.let { saveLanguageTag(it.toLanguageTag()) }
+        }
+        repository.remove(R.string.language_key)
     }
+
+    private fun systemLegacyLanguageTag(): String = appLocales.systemLocale()?.let { toLegacyLanguageTag(it) }.orEmpty()
 
     fun sortBy(): SortBy = settingsFind(SortBy.entries, R.string.sort_by_key, SortBy.STRENGTH)
 

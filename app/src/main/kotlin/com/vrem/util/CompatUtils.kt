@@ -20,24 +20,14 @@ package com.vrem.util
 import android.content.Context
 import android.content.pm.PackageInfo
 import android.content.pm.PackageManager.PackageInfoFlags
-import android.content.res.Configuration
-import android.content.res.Resources
 import android.net.wifi.ScanResult
 import android.os.Build
 import androidx.annotation.RequiresApi
 import androidx.core.content.pm.PackageInfoCompat
 import java.security.MessageDigest
-import java.util.Locale
 
 private const val SIGNATURE_ALGORITHM = "SHA-256"
 private const val SIGNATURE_BYTES = 3
-
-fun Context.createContext(newLocale: Locale): Context {
-    val resources: Resources = resources
-    val configuration: Configuration = resources.configuration
-    configuration.setLocale(newLocale)
-    return createConfigurationContext(configuration)
-}
 
 fun Context.packageInfo(): PackageInfo =
     if (buildMinVersionT()) {

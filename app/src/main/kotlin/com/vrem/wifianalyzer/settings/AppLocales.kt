@@ -15,19 +15,23 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
-package com.vrem.wifianalyzer.vendor.model
+package com.vrem.wifianalyzer.settings
 
-import com.vrem.util.EMPTY
+import android.content.Context
+import androidx.appcompat.app.AppCompatDelegate
+import androidx.core.app.LocaleManagerCompat
+import androidx.core.os.LocaleListCompat
 import java.util.Locale
 
-internal const val MAX_SIZE = 6
-private const val SEPARATOR = ":"
+class AppLocales(
+    private val context: Context,
+) {
+    private val systemLocale: Locale? by lazy { LocaleManagerCompat.getSystemLocales(context)[0] }
 
-internal fun String.clean(): String = orEmpty().replace(SEPARATOR, String.EMPTY).take(MAX_SIZE).uppercase(Locale.ROOT)
+    fun systemLocale(): Locale? = systemLocale
 
-internal fun String.toMacAddress(): String =
-    when {
-        isEmpty() -> String.EMPTY
-        length < MAX_SIZE -> "*$this*"
-        else -> substring(0, 2) + SEPARATOR + substring(2, 4) + SEPARATOR + substring(4, 6)
-    }
+    fun applicationLocale(): Locale? = AppCompatDelegate.getApplicationLocales()[0]
+
+    fun save(languageTags: String): Unit =
+        AppCompatDelegate.setApplicationLocales(LocaleListCompat.forLanguageTags(languageTags))
+}

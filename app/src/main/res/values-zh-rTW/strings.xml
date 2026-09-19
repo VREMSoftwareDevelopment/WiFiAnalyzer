@@ -72,6 +72,7 @@
     <string name="group_by_title">"存取點分組依據"</string>
     <string name="group_by_virtual">"虛擬"</string>
     <string name="keep_screen_on_title">"保持螢幕開啟"</string>
+    <string name="language_system_default">"系統預設"</string>
     <string name="language_title">"語言"</string>
     <string name="location_msg">"只有在你使用時，這個應用程式才能透過定位服務取得你的精確位置。你必須在裝置上開啟定位服務，這個應用程式才能取得位置資訊。這麼做可能會增加電池用量。"</string>
     <string name="navigation_drawer_close">"關閉導覽欄"</string>

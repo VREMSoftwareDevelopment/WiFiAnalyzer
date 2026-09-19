@@ -21,7 +21,6 @@ import java.util.Locale
 import java.util.SortedMap
 
 private object SyncAvoid {
-    val defaultLocale: Locale = Locale.getDefault()
     val countryCodes: Set<String> = Locale.getISOCountries().toSet()
     val availableLocales: List<Locale> = Locale.getAvailableLocales().filter { countryCodes.contains(it.country) }
 
@@ -49,7 +48,6 @@ private object SyncAvoid {
             RUSSIAN,
             TURKISH,
             UKRAINIAN,
-            defaultLocale,
         ).toList()
 }
 
@@ -67,33 +65,25 @@ val UKRAINIAN: Locale = Locale.forLanguageTag("uk")
 
 private const val SEPARATOR: String = "_"
 
+private val CHINESE_SCRIPT_COUNTRIES: Map<String, String> =
+    mapOf("Hans" to Locale.SIMPLIFIED_CHINESE.country, "Hant" to Locale.TRADITIONAL_CHINESE.country)
+
 fun findByCountryCode(countryCode: String): Locale =
     SyncAvoid.availableLocales.firstOrNull { countryCode.toCapitalize(Locale.getDefault()) == it.country }
-        ?: SyncAvoid.defaultLocale
+        ?: Locale.ROOT
 
 fun allCountries(): List<Locale> = SyncAvoid.countriesLocales.values.toList()
 
-fun findByLanguageTag(languageTag: String): Locale {
-    val languageTagPredicate: (Locale) -> Boolean = {
-        val locale = fromLanguageTag(languageTag)
-        it.language == locale.language && it.country == locale.country
-    }
-    return SyncAvoid.supportedLocales.firstOrNull(languageTagPredicate) ?: SyncAvoid.defaultLocale
+fun toLegacyLanguageTag(locale: Locale): String = locale.language + SEPARATOR + locale.country
+
+fun findByLegacyLanguageTag(legacyLanguageTag: String): Locale? =
+    SyncAvoid.supportedLocales.firstOrNull { toLegacyLanguageTag(it) == legacyLanguageTag }
+
+fun findSupportedLanguage(locale: Locale): Locale? {
+    val candidates = SyncAvoid.supportedLocales.filter { it.language == locale.language }
+    return CHINESE_SCRIPT_COUNTRIES[locale.script]?.let { country -> candidates.firstOrNull { it.country == country } }
+        ?: candidates.firstOrNull { it.country == locale.country }
+        ?: candidates.singleOrNull()
 }
 
 fun supportedLanguages(): List<Locale> = SyncAvoid.supportedLocales
-
-fun defaultCountryCode(): String = SyncAvoid.defaultLocale.country
-
-fun defaultLanguageTag(): String = toLanguageTag(SyncAvoid.defaultLocale)
-
-fun toLanguageTag(locale: Locale): String = locale.language + SEPARATOR + locale.country
-
-private fun fromLanguageTag(languageTag: String): Locale {
-    val codes = languageTag.split(SEPARATOR).toTypedArray()
-    return when (codes.size) {
-        1 -> Locale.forLanguageTag(codes[0])
-        2 -> Locale.forLanguageTag("${codes[0]}-${codes[1].toCapitalize(Locale.getDefault())}")
-        else -> SyncAvoid.defaultLocale
-    }
-}

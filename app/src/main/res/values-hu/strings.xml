@@ -71,6 +71,7 @@
     <string name="group_by_title">"Hozzáférési pontok csoportosítása"</string>
     <string name="group_by_virtual">"Virtuális"</string>
     <string name="keep_screen_on_title">"Képernyő bekapcsolva tartása"</string>
+    <string name="language_system_default">"Rendszerbeállítás"</string>
     <string name="language_title">"Nyelv"</string>
     <string name="location_msg">"Ez az alkalmazás a pontos helyzetét kaphatja meg a helymeghatározó szolgáltatásoktól, miközben használja az alkalmazást. A készülék helymeghatározó szolgáltatásait be kell kapcsolni az alkalmazás használatához. Ez megnövelheti az akkumulátorhasználatot."</string>
     <string name="navigation_drawer_close">"Navigációs menü bezárása"</string>

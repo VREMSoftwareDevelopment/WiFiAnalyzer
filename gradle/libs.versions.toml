@@ -1,5 +1,5 @@
 [versions]
-agp = "9.4.0"
+agp = "9.4.1"
 androidx-annotation = "1.10.0"
 androidx-appcompat = "1.8.0"
 androidx-collection = "1.6.0"

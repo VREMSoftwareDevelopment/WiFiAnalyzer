@@ -19,20 +19,33 @@ package com.vrem.wifianalyzer.settings
 
 import android.content.Context
 import android.util.AttributeSet
-import com.vrem.util.defaultLanguageTag
+import com.vrem.util.EMPTY
 import com.vrem.util.supportedLanguages
 import com.vrem.util.toCapitalize
-import com.vrem.util.toLanguageTag
+import com.vrem.wifianalyzer.MainContext
+import com.vrem.wifianalyzer.R
 import java.util.Locale
 
-private fun data(): List<Data> =
-    supportedLanguages()
-        .map { map(it) }
-        .sorted()
+private fun data(context: Context): List<Data> =
+    listOf(Data(String.EMPTY, context.getString(R.string.language_system_default))) +
+        supportedLanguages()
+            .map { map(it) }
+            .sorted()
 
-private fun map(it: Locale): Data = Data(toLanguageTag(it), it.getDisplayName(it).toCapitalize(Locale.getDefault()))
+private fun map(it: Locale): Data = Data(it.toLanguageTag(), it.getDisplayName(it).toCapitalize(it))
 
-class LanguagePreference(
-    context: Context,
-    attrs: AttributeSet,
-) : CustomPreference(context, attrs, data(), defaultLanguageTag())
+class LanguagePreference
+    @JvmOverloads
+    constructor(
+        context: Context,
+        attrs: AttributeSet,
+        settings: Settings = MainContext.INSTANCE.settings,
+    ) : CustomPreference(context, attrs, data(context), settings.languageTag()) {
+        init {
+            isPersistent = false
+            setOnPreferenceChangeListener { _, newValue ->
+                settings.saveLanguageTag(newValue as String)
+                true
+            }
+        }
+    }

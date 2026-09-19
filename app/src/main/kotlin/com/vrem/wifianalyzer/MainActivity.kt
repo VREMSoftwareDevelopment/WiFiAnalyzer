@@ -17,7 +17,6 @@
  */
 package com.vrem.wifianalyzer
 
-import android.content.Context
 import android.content.SharedPreferences
 import android.content.SharedPreferences.OnSharedPreferenceChangeListener
 import android.content.res.Configuration
@@ -33,13 +32,10 @@ import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
 import com.google.android.material.navigation.NavigationView
 import com.vrem.annotation.OpenClass
-import com.vrem.util.createContext
 import com.vrem.wifianalyzer.navigation.NavigationMenu
 import com.vrem.wifianalyzer.navigation.NavigationMenuControl
 import com.vrem.wifianalyzer.navigation.NavigationMenuController
 import com.vrem.wifianalyzer.navigation.options.OptionMenu
-import com.vrem.wifianalyzer.settings.Repository
-import com.vrem.wifianalyzer.settings.Settings
 import com.vrem.wifianalyzer.wifi.accesspoint.ConnectionView
 import com.vrem.wifianalyzer.wifi.scanner.collectWiFiData
 
@@ -57,9 +53,6 @@ class MainActivity :
     internal val permissionLauncher: ActivityResultLauncher<String> =
         registerForActivityResult(ActivityResultContracts.RequestPermission(), ::onPermissionResult)
 
-    override fun attachBaseContext(newBase: Context) =
-        super.attachBaseContext(newBase.createContext(Settings(Repository(newBase)).languageLocale()))
-
     override fun onCreate(savedInstanceState: Bundle?) {
         val mainContext = MainContext.INSTANCE
         mainContext.initialize(this, largeScreen)
@@ -71,6 +64,7 @@ class MainActivity :
         mainReload = MainReload(settings)
 
         super.onCreate(savedInstanceState)
+        settings.migrateLanguage()
         installSplashScreen()
         setContentView(R.layout.main_activity)
 

@@ -19,11 +19,10 @@ package com.vrem.wifianalyzer.settings
 
 import android.content.Context
 import android.util.AttributeSet
-import com.vrem.util.defaultCountryCode
 import com.vrem.wifianalyzer.MainContext
 import com.vrem.wifianalyzer.wifi.band.WiFiChannelCountry
 
-internal fun countryData(settings: Settings = MainContext.INSTANCE.settings): List<Data> {
+internal fun countryData(settings: Settings): List<Data> {
     val currentLocale = settings.languageLocale()
     return WiFiChannelCountry
         .findAll()
@@ -31,7 +30,10 @@ internal fun countryData(settings: Settings = MainContext.INSTANCE.settings): Li
         .sorted()
 }
 
-class CountryPreference(
-    context: Context,
-    attrs: AttributeSet,
-) : CustomPreference(context, attrs, countryData(), defaultCountryCode())
+class CountryPreference
+    @JvmOverloads
+    constructor(
+        context: Context,
+        attrs: AttributeSet,
+        settings: Settings = MainContext.INSTANCE.settings,
+    ) : CustomPreference(context, attrs, countryData(settings), settings.defaultCountryCode())

@@ -129,7 +129,6 @@
         <com.vrem.wifianalyzer.settings.LanguagePreference
             app:icon="@drawable/ic_language"
             app:key="@string/language_key"
-            app:persistent="true"
             app:summary="@string/language_summary"
             app:useSimpleSummaryProvider="true"
             app:title="@string/language_title" />

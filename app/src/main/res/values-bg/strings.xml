@@ -72,6 +72,7 @@
     <string name="group_by_title">"Групиране точките за достъп по"</string>
     <string name="group_by_virtual">"Virtual"</string>
     <string name="keep_screen_on_title">"Дръж екрана включен"</string>
+    <string name="language_system_default">"Стандартно за системата"</string>
     <string name="language_title">"Език"</string>
     <string name="location_msg">"Това приложение може да получава данни за точното ви местоположение от съответните услуги, докато се използва. За целта услугите за местоположение трябва да са включени за устройството ви. Това може да увеличи използването на батерията."</string>
     <string name="navigation_drawer_close">"Затвори панела за навигация"</string>

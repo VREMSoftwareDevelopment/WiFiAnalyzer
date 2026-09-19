@@ -72,6 +72,7 @@
     <string name="group_by_title">"アクセスポイントのグループ手段"</string>
     <string name="group_by_virtual">"バーチャル"</string>
     <string name="keep_screen_on_title">"画面をオフにしない"</string>
+    <string name="language_system_default">"システムのデフォルト"</string>
     <string name="language_title">"言語"</string>
     <string name="location_msg">"このアプリは、使用中に、位置情報サービスからデバイスの正確な位置情報を取得できます。アプリが位置情報を取得するには、デバイスで位置情報サービスがオンになっている必要があります。この場合、電池使用量が増えることがあります。"</string>
     <string name="navigation_drawer_close">"ナビゲーションドロワーを閉じる"</string>

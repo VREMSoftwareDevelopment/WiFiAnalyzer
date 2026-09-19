@@ -72,6 +72,7 @@
     <string name="group_by_title">"接入点分组依据"</string>
     <string name="group_by_virtual">"虚拟"</string>
     <string name="keep_screen_on_title">"保持屏幕常亮"</string>
+    <string name="language_system_default">"系统默认设置"</string>
     <string name="language_title">"语言"</string>
     <string name="location_msg">"当您使用此应用时，此应用可以通过位置信息服务获取您的确切位置信息。您必须开启设备的位置信息服务，此应用才能获取位置信息。这可能会增加耗电量。"</string>
     <string name="navigation_drawer_close">"关闭导航抽屉"</string>

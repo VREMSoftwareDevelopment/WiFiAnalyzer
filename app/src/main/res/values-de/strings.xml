@@ -72,6 +72,7 @@
     <string name="group_by_title">"Gruppiere Access Points nach"</string>
     <string name="group_by_virtual">"Virtual"</string>
     <string name="keep_screen_on_title">"Bildschirm angeschaltet lassen"</string>
+    <string name="language_system_default">"Standardeinstellung des Systems"</string>
     <string name="language_title">"Sprache"</string>
     <string name="location_msg">"Wenn diese App verwendet wird, kann sie über die Standortdienste deinen genauen Standort ermitteln. Damit das funktioniert, müssen die Standortdienste auf deinem Gerät aktiviert sein. Das kann den Akkuverbrauch erhöhen."</string>
     <string name="navigation_drawer_close">"Navigationsleiste schließen"</string>

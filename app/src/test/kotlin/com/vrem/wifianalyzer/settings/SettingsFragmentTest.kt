@@ -18,12 +18,15 @@
 package com.vrem.wifianalyzer.settings
 
 import android.os.Build
+import androidx.appcompat.app.AppCompatDelegate
+import androidx.core.os.LocaleListCompat
 import androidx.preference.Preference
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.vrem.wifianalyzer.R
 import com.vrem.wifianalyzer.R.string.wifi_off_on_exit_key
 import com.vrem.wifianalyzer.RobolectricUtil
 import org.assertj.core.api.Assertions.assertThat
+import org.junit.After
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.robolectric.annotation.Config
@@ -33,6 +36,11 @@ import org.robolectric.annotation.Config
 class SettingsFragmentTest {
     val fixture = SettingsFragment()
     val fragment = RobolectricUtil.INSTANCE.startFragment(fixture)
+
+    @After
+    fun tearDown() {
+        AppCompatDelegate.setApplicationLocales(LocaleListCompat.getEmptyLocaleList())
+    }
 
     @Test
     fun onCreate() {
@@ -72,6 +80,18 @@ class SettingsFragmentTest {
         assertThat(actual).isTrue
         assertThat(fixture.preferenceScreen.preferenceCount).isGreaterThan(0)
         assertThat(fixture.findPreference<Preference>(fixture.getString(wifi_off_on_exit_key))!!.isVisible).isFalse
+    }
+
+    @Test
+    fun resetPreferenceShouldResetLanguageToSystemDefault() {
+        // Arrange
+        AppCompatDelegate.setApplicationLocales(LocaleListCompat.forLanguageTags("de"))
+        val key = fixture.getString(R.string.reset_key)
+        val preference = fixture.findPreference<Preference>(key)!!
+        // Act
+        fixture.onPreferenceTreeClick(preference)
+        // Assert
+        assertThat(AppCompatDelegate.getApplicationLocales().isEmpty).isTrue
     }
 
     @Test

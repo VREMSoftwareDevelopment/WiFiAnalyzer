@@ -43,6 +43,8 @@ class Repository(
         value: String,
     ): Unit = sharedPreferences().edit { putString(context.getString(key), value) }
 
+    fun remove(key: Int): Unit = sharedPreferences().edit { remove(context.getString(key)) }
+
     fun stringAsInteger(
         key: Int,
         defaultValue: Int,

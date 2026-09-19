@@ -23,6 +23,7 @@ import android.os.Handler
 import android.os.Looper
 import android.view.LayoutInflater
 import com.vrem.wifianalyzer.permission.PermissionService
+import com.vrem.wifianalyzer.settings.AppLocales
 import com.vrem.wifianalyzer.settings.Repository
 import com.vrem.wifianalyzer.settings.Settings
 import com.vrem.wifianalyzer.vendor.model.VendorService
@@ -60,7 +61,7 @@ enum class MainContext {
     ) {
         mainActivity = activity
         configuration = Configuration(largeScreen)
-        settings = Settings(Repository(context))
+        settings = Settings(Repository(context), AppLocales(context))
         vendorService = VendorService(activity.resources)
         wiFiManagerWrapper = WiFiManagerWrapper(wiFiManager)
         permissionService = PermissionService(activity)

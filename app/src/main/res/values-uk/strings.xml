@@ -71,6 +71,7 @@
     <string name="group_by_title">"Групування"</string>
     <string name="group_by_virtual">"Virtual"</string>
     <string name="keep_screen_on_title">"Екран завжди увімкнено"</string>
+    <string name="language_system_default">"Налаштування системи за умовчанням"</string>
     <string name="language_title">"Мова"</string>
     <string name="location_msg">"Цей додаток може отримувати дані про ваше точне місцезнаходження лише в активному режимі. Щоб додаток користувався службами локації, вони мають бути наявні й увімкнені на вашому телефоні. Через це може швидше розряджатись акумулятор."</string>
     <string name="navigation_drawer_close">"Закрити панель навігації"</string>

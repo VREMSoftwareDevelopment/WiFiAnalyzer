@@ -72,6 +72,7 @@
     <string name="group_by_title">"Группировка"</string>
     <string name="group_by_virtual">"Виртуально"</string>
     <string name="keep_screen_on_title">"Экран всегда включен"</string>
+    <string name="language_system_default">"Системные настройки по умолчанию"</string>
     <string name="language_title">"Язык"</string>
     <string name="location_msg">"Приложение сможет получать сведения о вашем точном местоположении, только когда используется. Для этого на устройстве должна быть включена геолокация. Учтите, что при этом заряд батареи может расходоваться быстрее."</string>
     <string name="navigation_drawer_close">"Закрыть панель навигации"</string>

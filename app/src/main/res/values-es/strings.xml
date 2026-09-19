@@ -72,6 +72,7 @@
     <string name="group_by_title">"Agrupar Puntos de Acceso por:"</string>
     <string name="group_by_virtual">"Virtual"</string>
     <string name="keep_screen_on_title">"Mantener pantalla encendida"</string>
+    <string name="language_system_default">"Predeterminado del sistema"</string>
     <string name="language_title">"Lenguaje"</string>
     <string name="location_msg">"Mientras la utilizas, esta aplicación puede obtener tu ubicación exacta mediante servicios de ubicación, siempre que el dispositivo los tenga activados. Es posible que esto aumente el consumo de batería."</string>
     <string name="navigation_drawer_close">"Cerrar el panel de navegación"</string>

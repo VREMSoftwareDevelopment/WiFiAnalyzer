@@ -22,11 +22,14 @@ import android.content.SharedPreferences
 import android.content.SharedPreferences.Editor
 import android.content.SharedPreferences.OnSharedPreferenceChangeListener
 import android.content.res.Resources
+import android.os.Build
+import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.vrem.wifianalyzer.R
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.After
 import org.junit.Before
 import org.junit.Test
+import org.junit.runner.RunWith
 import org.mockito.kotlin.atLeastOnce
 import org.mockito.kotlin.doNothing
 import org.mockito.kotlin.doReturn
@@ -36,7 +39,10 @@ import org.mockito.kotlin.spy
 import org.mockito.kotlin.verify
 import org.mockito.kotlin.verifyNoMoreInteractions
 import org.mockito.kotlin.whenever
+import org.robolectric.annotation.Config
 
+@RunWith(AndroidJUnit4::class)
+@Config(sdk = [Build.VERSION_CODES.CINNAMON_BUN])
 class RepositoryTest {
     private val keyIndex = R.string.app_full_name
     private val keyValue = "xyz"
@@ -92,6 +98,23 @@ class RepositoryTest {
         fixture.save(keyIndex, value)
         // Assert
         verifySave(value.toString())
+        verifyPreferenceManager()
+    }
+
+    @Test
+    fun remove() {
+        // Arrange
+        doReturn(keyValue).whenever(context).getString(keyIndex)
+        doReturn(editor).whenever(sharedPreferences).edit()
+        doReturn(editor).whenever(editor).remove(keyValue)
+        doNothing().whenever(editor).apply()
+        // Act
+        fixture.remove(keyIndex)
+        // Assert
+        verify(context).getString(keyIndex)
+        verify(sharedPreferences).edit()
+        verify(editor).remove(keyValue)
+        verify(editor).apply()
         verifyPreferenceManager()
     }
 

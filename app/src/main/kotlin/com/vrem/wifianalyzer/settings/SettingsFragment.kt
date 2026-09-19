@@ -21,7 +21,9 @@ import android.os.Bundle
 import androidx.core.content.edit
 import androidx.preference.Preference
 import androidx.preference.PreferenceFragmentCompat
+import com.vrem.util.EMPTY
 import com.vrem.util.buildMinVersionQ
+import com.vrem.wifianalyzer.MainContext
 import com.vrem.wifianalyzer.R
 
 open class SettingsFragment : PreferenceFragmentCompat() {
@@ -35,6 +37,7 @@ open class SettingsFragment : PreferenceFragmentCompat() {
     override fun onPreferenceTreeClick(preference: Preference): Boolean {
         if (preference.key == getString(R.string.reset_key)) {
             preferenceManager.sharedPreferences!!.edit { clear() }
+            MainContext.INSTANCE.settings.saveLanguageTag(String.EMPTY)
             preferenceScreen.removeAll()
             setupPreferences()
             return true

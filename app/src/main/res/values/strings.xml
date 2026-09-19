@@ -123,6 +123,7 @@
     <string name="keep_screen_on_title">"Keep screen on"</string>
     <string name="language_key" translatable="false">"language"</string>
     <string name="language_summary" translatable="false">"%s"</string>
+    <string name="language_system_default">"System default"</string>
     <string name="language_title">"Language"</string>
     <string name="location_msg">"This app can get your precise location from location services while the app is in use. Location services for your device must be turned on for the app to get location. This may increase battery usage."</string>
     <string name="mc_flag" translatable="false">"802.11mc"</string>
