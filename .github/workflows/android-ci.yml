@@ -133,9 +133,7 @@ jobs:
           api-level: ${{ matrix.api-level }}
           script: |
             adb wait-for-device
-            until adb shell service check package; do
-              sleep 2
-            done
+            until adb shell service check package; do sleep 2; done
             sleep 5
             ./gradlew connectedDebugAndroidTest -x assembleDebug -x assembleDebugAndroidTest
       - name: Upload test results
