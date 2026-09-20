@@ -32,6 +32,8 @@ private const val THEME = "Theme"
 
 internal class ThemeInstrumentedTest : Runnable {
     override fun run() {
+        resetSettings()
+        returnToHome()
         listOf(
             "Light" to AppCompatDelegate.MODE_NIGHT_NO,
             "System" to AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM,

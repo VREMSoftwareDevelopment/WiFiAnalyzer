@@ -12,7 +12,10 @@ androidx-swiperefreshlayout = "1.2.0"
 androidx-test-espresso = "3.7.0"
 androidx-test-ext-junit = "1.3.0"
 androidx-test-ext-junit-ktx = "1.3.0"
+androidx-test-orchestrator = "1.6.1"
 androidx-test-rules = "1.7.0"
+androidx-test-runner = "1.7.0"
+androidx-test-uiautomator = "2.4.0"
 assertj = "3.27.7"
 google-material = "1.14.0"
 hamcrest = "3.0"
@@ -49,7 +52,10 @@ androidx-test-espresso-contrib = { group = "androidx.test.espresso", name = "esp
 androidx-test-espresso-core = { group = "androidx.test.espresso", name = "espresso-core", version.ref = "androidx-test-espresso" }
 androidx-test-ext-junit = { group = "androidx.test.ext", name = "junit", version.ref = "androidx-test-ext-junit" }
 androidx-test-ext-junit-ktx = { group = "androidx.test.ext", name = "junit-ktx", version.ref = "androidx-test-ext-junit-ktx" }
+androidx-test-orchestrator = { group = "androidx.test", name = "orchestrator", version.ref = "androidx-test-orchestrator" }
 androidx-test-rules = { group = "androidx.test", name = "rules", version.ref = "androidx-test-rules" }
+androidx-test-runner = { group = "androidx.test", name = "runner", version.ref = "androidx-test-runner" }
+androidx-test-uiautomator = { group = "androidx.test.uiautomator", name = "uiautomator", version.ref = "androidx-test-uiautomator" }
 assertj-core = { group = "org.assertj", name = "assertj-core", version.ref = "assertj" }
 hamcrest = { group = "org.hamcrest", name = "hamcrest", version.ref = "hamcrest" }
 junit = { group = "junit", name = "junit", version.ref = "junit" }

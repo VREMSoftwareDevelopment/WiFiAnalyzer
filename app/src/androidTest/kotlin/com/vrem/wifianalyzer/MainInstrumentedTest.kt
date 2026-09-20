@@ -27,15 +27,14 @@ import org.junit.After
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
+import org.junit.rules.RuleChain
 import org.junit.runner.RunWith
 
 @LargeTest
 @RunWith(AndroidJUnit4::class)
 class MainInstrumentedTest {
-    @get:Rule
     val activityTestRule: ActivityScenarioRule<MainActivity> = activityScenarioRule()
 
-    @get:Rule
     val grantPermissionRule: GrantPermissionRule =
         GrantPermissionRule.grant(
             android.Manifest.permission.ACCESS_COARSE_LOCATION,
@@ -44,12 +43,11 @@ class MainInstrumentedTest {
             android.Manifest.permission.CHANGE_WIFI_STATE,
         )
 
+    @get:Rule
+    val rules: RuleChain = RuleChain.outerRule(grantPermissionRule).around(activityTestRule)
+
     @Before
     fun setUp() {
-        returnToHome()
-        resetFilters()
-        resetScannerState()
-        resetSettings()
         returnToHome()
     }
 

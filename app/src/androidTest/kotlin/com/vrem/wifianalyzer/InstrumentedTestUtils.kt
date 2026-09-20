@@ -180,23 +180,6 @@ internal fun scrollToAndVerify(
 }
 
 /**
- * Resets the WiFiAnalyzer filters to default.
- */
-internal fun resetFilters() {
-    onView(allOf(withId(R.id.action_filter), isDisplayed())).perform(click())
-    onView(allOf(withId(android.R.id.button2), isDisplayed())).perform(click())
-}
-
-/**
- * Ensures the scanner is running (pause and resume to reset state).
- */
-internal fun resetScannerState() {
-    onView(withId(R.id.action_scanner)).check(matches(isDisplayed()))
-    onView(withId(R.id.action_scanner)).perform(click()) // Pause if running
-    onView(withId(R.id.action_scanner)).perform(click()) // Resume
-}
-
-/**
  * Resets the app settings to default using the Settings screen.
  */
 internal fun resetSettings() {

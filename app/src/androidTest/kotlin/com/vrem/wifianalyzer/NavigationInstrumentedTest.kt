@@ -30,6 +30,7 @@ internal class NavigationInstrumentedTest : Runnable {
             R.id.nav_drawer_vendors to "Vendors",
         ).forEach { (menuItemId, title) ->
             selectMenuItem(menuItemId, title)
+            pauseShort()
         }
         listOf(
             R.id.nav_drawer_settings to "Settings",
@@ -37,6 +38,7 @@ internal class NavigationInstrumentedTest : Runnable {
         ).forEach { (menuItemId, title) ->
             selectMenuItem(menuItemId, title)
             pressBack()
+            pauseShort()
         }
     }
 }
