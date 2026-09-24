@@ -19,7 +19,11 @@ This is the official repository of WiFiAnalyzer.
 - [License](#license)
 - [Privacy policy](#privacy-policy)
 - [WiFiAnalyzer Build](#wifianalyzer-build)
+- [Verification](#verification)
 - [Contribute](#contribute)
+- [Build project](#build-project)
+- [Running various Gradle commands](#running-various-gradle-commands)
+- [Continuous Integration](#continuous-integration)
 - [Translation](#translation)
 
 ## Features
@@ -110,6 +114,10 @@ WiFiAnalyzer is licensed under the GNU General Public License v3.0 (GPLv3).
 [![Issues](https://img.shields.io/github/issues/VREMSoftwareDevelopment/WiFiAnalyzer.svg)](https://github.com/VREMSoftwareDevelopment/WiFiAnalyzer/issues)
 [![Star](https://img.shields.io/github/stars/VREMSoftwareDevelopment/WiFiAnalyzer.svg)](https://github.com/VREMSoftwareDevelopment/WiFiAnalyzer/stargazers)
 [![Fork](https://img.shields.io/github/forks/VREMSoftwareDevelopment/WiFiAnalyzer.svg)](https://github.com/VREMSoftwareDevelopment/WiFiAnalyzer/network)
+
+## Verification
+- Verify APK signatures using the SHA‑256 fingerprint in [SECURITY.md](SECURITY.md).
+- Validate all downloads against the assets on the official [Releases Page](https://github.com/VREMSoftwareDevelopment/WiFiAnalyzer/releases).
 
 ## Contribute
 
