@@ -36,7 +36,7 @@ internal class ChannelGraphInstrumentedTest : Runnable {
     }
 
     private fun verifyGraphPopup() {
-        onView(withId(R.id.graphFlipper)).perform(clickAtPosition(0.6f, 0.38f))
+        onView(withId(R.id.graphFlipper)).perform(clickAtPosition(0.49f, 0.36f))
         pauseShort()
         dismissPopup()
     }

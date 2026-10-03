@@ -41,7 +41,7 @@ internal class TimeGraphInstrumentedTest : Runnable {
     }
 
     private fun verifyGraphPopup() {
-        onView(withId(R.id.graphFlipper)).perform(clickAtPosition(0.15f, 0.38f))
+        onView(withId(R.id.graphFlipper)).perform(clickAtPosition(0.15f, 0.36f))
         pauseShort()
         dismissPopup()
     }
