@@ -19,22 +19,16 @@
 
 <resources xmlns:tools="http://schemas.android.com/tools">
     <dimen name="no_margin">0dp</dimen>
-
     <dimen name="activity_horizontal_margin">16dp</dimen>
     <dimen name="activity_vertical_margin">16dp</dimen>
-
     <dimen name="activity_vertical_half_margin">8dp</dimen>
-
     <dimen name="list_view_item_horizontal_spacer">4dp</dimen>
     <dimen name="list_view_item_horizontal_tab">24dp</dimen>
-
+    <dimen name="dialog_list_item_horizontal_spacer">20dp</dimen>
     <dimen name="nav_header_height">110dp</dimen>
-
     <dimen name="icon_small">12dp</dimen>
     <dimen name="icon_large">36dp</dimen>
-
     <dimen name="font_small">10sp</dimen>
-
     <dimen name="design_bottom_navigation_text_size" tools:override="true">12sp</dimen>
     <dimen name="design_bottom_navigation_active_text_size" tools:override="true">12sp</dimen>
 </resources>

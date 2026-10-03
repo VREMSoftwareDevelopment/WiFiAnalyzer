@@ -17,11 +17,11 @@
  */
 package com.vrem.wifianalyzer.wifi.filter
 
-import android.app.AlertDialog
 import android.text.Editable
 import android.text.TextWatcher
 import android.view.View
 import android.widget.EditText
+import androidx.appcompat.app.AlertDialog
 import com.vrem.util.SPACE_SEPARATOR
 import com.vrem.util.specialTrim
 import com.vrem.wifianalyzer.R
@@ -64,9 +64,9 @@ internal class SSIDFilter(
                 .joinToString(
                     separator = String.SPACE_SEPARATOR,
                 ).specialTrim()
-        val editText: EditText = alertDialog.findViewById(R.id.filterSSIDtext)
+        val editText: EditText = alertDialog.findViewById(R.id.filterSSIDtext)!!
         editText.setText(value)
         editText.addTextChangedListener(OnChange(ssidAdapter))
-        alertDialog.findViewById<View>(R.id.filterSSID).visibility = View.VISIBLE
+        alertDialog.findViewById<View>(R.id.filterSSID)!!.visibility = View.VISIBLE
     }
 }

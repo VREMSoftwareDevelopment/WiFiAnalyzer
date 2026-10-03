@@ -16,126 +16,131 @@
   ~ along with this program.  If not, see <http://www.gnu.org/licenses/>
   -->
 
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="vertical"
     android:padding="@dimen/activity_horizontal_margin">
 
-    <include layout="@layout/access_point_view_complete" />
-
-    <TextView
-        android:id="@+id/wiFiBand"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textColor="@color/frequency"
-        android:textStyle="bold"
-        tools:text="2.4 GHz" />
-
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal">
+        android:orientation="vertical">
+
+        <include layout="@layout/access_point_view_complete" />
 
         <TextView
+            android:id="@+id/wiFiBand"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="@dimen/list_view_item_horizontal_spacer"
-            android:text="@string/channel_short_name"
-            android:textColor="@color/channel"
-            android:textStyle="bold" />
-
-        <TextView
-            android:id="@+id/channel_start"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="@dimen/list_view_item_horizontal_spacer"
-            android:textColor="@color/channel_number"
-            android:textStyle="bold"
-            tools:text="132" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="@dimen/list_view_item_horizontal_spacer"
-            android:text="@string/channel_from_to"
-            android:textColor="@color/channel_number" />
-
-        <TextView
-            android:id="@+id/channel_end"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="@dimen/list_view_item_horizontal_spacer"
-            android:textColor="@color/channel_number"
-            android:textStyle="bold"
-            tools:text="232" />
-
-        <TextView
-            android:id="@+id/channel_width"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="@dimen/list_view_item_horizontal_spacer"
             android:textColor="@color/frequency"
-            tools:text="(160 MHz)" />
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
-
-        <TextView
-            android:id="@+id/wiFiStandardFull"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="@dimen/list_view_item_horizontal_spacer"
             android:textStyle="bold"
-            android:textColor="@color/frequency"
-            tools:text="802.11a/b/g" />
+            tools:text="2.4 GHz" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="@dimen/list_view_item_horizontal_spacer"
+                android:text="@string/channel_short_name"
+                android:textColor="@color/channel"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/channel_start"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="@dimen/list_view_item_horizontal_spacer"
+                android:textColor="@color/channel_number"
+                android:textStyle="bold"
+                tools:text="132" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="@dimen/list_view_item_horizontal_spacer"
+                android:text="@string/channel_from_to"
+                android:textColor="@color/channel_number" />
+
+            <TextView
+                android:id="@+id/channel_end"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="@dimen/list_view_item_horizontal_spacer"
+                android:textColor="@color/channel_number"
+                android:textStyle="bold"
+                tools:text="232" />
+
+            <TextView
+                android:id="@+id/channel_width"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="@dimen/list_view_item_horizontal_spacer"
+                android:textColor="@color/frequency"
+                tools:text="(160 MHz)" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/wiFiStandardFull"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="@dimen/list_view_item_horizontal_spacer"
+                android:textStyle="bold"
+                android:textColor="@color/frequency"
+                tools:text="802.11a/b/g" />
+
+            <TextView
+                android:id="@+id/flag80211mc"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="@dimen/list_view_item_horizontal_spacer"
+                android:textColor="@color/frequency"
+                android:text="@string/mc_flag"
+                android:visibility="gone"
+                tools:visibility="visible" />
+
+            <TextView
+                android:id="@+id/fastRoaming"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/frequency"
+                tools:text="802.11k 802.11v 802.11r" />
+        </LinearLayout>
 
         <TextView
-            android:id="@+id/flag80211mc"
+            android:id="@+id/capabilitiesLong"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="@dimen/list_view_item_horizontal_spacer"
-            android:textColor="@color/frequency"
-            android:text="@string/mc_flag"
+            android:textColor="@color/security"
+            android:textStyle="italic"
+            tools:text="[WPA-PSK-CCMP+TKIP][WPA2-PSK-CCMP+TKIP][RSN-PSK+FT/PSK+FT/SAE-CCMP][WPS][ESS]" />
+
+        <TextView
+            android:id="@+id/securityTypes"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/security"
+            android:textStyle="italic"
+            tools:text="[WPA][WPA2][WPS][WPA3]" />
+
+        <TextView
+            android:id="@+id/vendorLong"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:visibility="gone"
+            android:ellipsize="end"
+            android:singleLine="true"
+            android:maxLines="1"
+            tools:text="Very Long Vendor Name 1-0123456789 2-1234567890 3-0123456789"
             tools:visibility="visible" />
-
-        <TextView
-            android:id="@+id/fastRoaming"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textColor="@color/frequency"
-            tools:text="802.11k 802.11v 802.11r" />
     </LinearLayout>
-
-    <TextView
-        android:id="@+id/capabilitiesLong"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textColor="@color/security"
-        android:textStyle="italic"
-        tools:text="[WPA-PSK-CCMP+TKIP][WPA2-PSK-CCMP+TKIP][RSN-PSK+FT/PSK+FT/SAE-CCMP][WPS][ESS]" />
-
-    <TextView
-        android:id="@+id/securityTypes"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textColor="@color/security"
-        android:textStyle="italic"
-        tools:text="[WPA][WPA2][WPS][WPA3]" />
-
-    <TextView
-        android:id="@+id/vendorLong"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:visibility="gone"
-        android:ellipsize="end"
-        android:singleLine="true"
-        android:maxLines="1"
-        tools:text="Very Long Vendor Name 1-0123456789 2-1234567890 3-0123456789"
-        tools:visibility="visible" />
-</LinearLayout>
+</ScrollView>

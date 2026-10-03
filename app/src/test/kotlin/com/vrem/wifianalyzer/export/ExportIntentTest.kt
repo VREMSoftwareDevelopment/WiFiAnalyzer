@@ -18,16 +18,23 @@
 package com.vrem.wifianalyzer.export
 
 import android.content.Intent
+import android.os.Build
+import androidx.core.content.IntentCompat
+import androidx.test.ext.junit.runners.AndroidJUnit4
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.After
 import org.junit.Test
+import org.junit.runner.RunWith
 import org.mockito.kotlin.doReturn
 import org.mockito.kotlin.mock
 import org.mockito.kotlin.spy
 import org.mockito.kotlin.verify
 import org.mockito.kotlin.verifyNoMoreInteractions
 import org.mockito.kotlin.whenever
+import org.robolectric.annotation.Config
 
+@RunWith(AndroidJUnit4::class)
+@Config(sdk = [Build.VERSION_CODES.CINNAMON_BUN])
 class ExportIntentTest {
     private val intentSend: Intent = mock()
     private val intentChooser: Intent = mock()
@@ -60,5 +67,26 @@ class ExportIntentTest {
 
         verify(fixture).intentSend()
         verify(fixture).intentChooser(intentSend, title)
+    }
+
+    @Test
+    fun intentSend() {
+        // Act
+        val actual = fixture.intentSend()
+        // Assert
+        assertThat(actual.action).isEqualTo(Intent.ACTION_SEND)
+    }
+
+    @Test
+    fun intentChooser() {
+        // Arrange
+        val title = "title"
+        val intent = Intent(Intent.ACTION_SEND)
+        // Act
+        val actual = fixture.intentChooser(intent, title)
+        // Assert
+        assertThat(actual.action).isEqualTo(Intent.ACTION_CHOOSER)
+        assertThat(IntentCompat.getParcelableExtra(actual, Intent.EXTRA_INTENT, Intent::class.java)).isSameAs(intent)
+        assertThat(actual.getCharSequenceExtra(Intent.EXTRA_TITLE)).isEqualTo(title)
     }
 }

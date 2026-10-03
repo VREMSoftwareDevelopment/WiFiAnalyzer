@@ -17,6 +17,7 @@
  */
 package com.vrem.wifianalyzer
 
+import android.os.SystemClock
 import androidx.lifecycle.Lifecycle
 import androidx.test.core.app.ActivityScenario
 import androidx.test.espresso.Espresso.onView
@@ -36,6 +37,8 @@ private const val DENY_BUTTON = "com.android.permissioncontroller:id/permission_
 
 private const val TIMEOUT = 5000L
 
+private const val POLL_INTERVAL = 100L
+
 @LargeTest
 @RunWith(AndroidJUnit4::class)
 class PermissionDeniedInstrumentedTest {
@@ -53,6 +56,14 @@ class PermissionDeniedInstrumentedTest {
         device.wait(Until.gone(By.res(DENY_BUTTON)), TIMEOUT)
 
         // Assert
-        assertThat(scenario.state).isEqualTo(Lifecycle.State.DESTROYED)
+        assertThat(scenario.awaitState(Lifecycle.State.DESTROYED)).isEqualTo(Lifecycle.State.DESTROYED)
+    }
+
+    private fun ActivityScenario<MainActivity>.awaitState(expected: Lifecycle.State): Lifecycle.State {
+        val deadline = SystemClock.uptimeMillis() + TIMEOUT
+        while (state != expected && SystemClock.uptimeMillis() < deadline) {
+            SystemClock.sleep(POLL_INTERVAL)
+        }
+        return state
     }
 }

@@ -17,7 +17,7 @@
  */
 package com.vrem.wifianalyzer.wifi.filter
 
-import android.app.AlertDialog
+import androidx.appcompat.app.AlertDialog
 import com.vrem.wifianalyzer.R
 import com.vrem.wifianalyzer.wifi.band.WiFiBand
 import com.vrem.wifianalyzer.wifi.filter.adapter.WiFiBandAdapter

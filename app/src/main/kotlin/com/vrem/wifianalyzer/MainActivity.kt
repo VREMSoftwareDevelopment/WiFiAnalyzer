@@ -211,7 +211,8 @@ class MainActivity :
 
     override fun navigationView(): NavigationView = navigationMenuController.drawerNavigationView
 
-    fun mainConnectionVisibility(visibility: Int) {
+    fun wiFiStatusVisibility(visibility: Int) {
         findViewById<View>(R.id.main_connection).visibility = visibility
+        findViewById<View>(R.id.main_warning_container).visibility = visibility
     }
 }

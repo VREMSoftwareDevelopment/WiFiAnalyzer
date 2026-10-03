@@ -18,10 +18,10 @@
 package com.vrem.wifianalyzer.permission
 
 import android.app.Activity
-import android.app.AlertDialog
 import android.content.DialogInterface
 import android.view.View
 import androidx.activity.result.ActivityResultLauncher
+import androidx.appcompat.app.AlertDialog
 import androidx.lifecycle.DefaultLifecycleObserver
 import androidx.lifecycle.LifecycleOwner
 import com.vrem.annotation.OpenClass

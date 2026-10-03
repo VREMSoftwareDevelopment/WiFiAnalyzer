@@ -18,7 +18,6 @@
 package com.vrem.wifianalyzer.about
 
 import android.app.Activity
-import android.app.AlertDialog
 import android.content.Intent
 import android.os.Build
 import android.os.Bundle
@@ -27,6 +26,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
 import androidx.core.content.pm.PackageInfoCompat
 import androidx.core.net.toUri
 import androidx.fragment.app.Fragment
@@ -166,7 +166,7 @@ class AboutFragment : Fragment() {
                         .create()
                 alertDialog.show()
                 if (isSmallFont) {
-                    alertDialog.findViewById<TextView>(android.R.id.message).textSize = 8f
+                    alertDialog.findViewById<TextView>(android.R.id.message)!!.textSize = 8f
                 }
             }
         }

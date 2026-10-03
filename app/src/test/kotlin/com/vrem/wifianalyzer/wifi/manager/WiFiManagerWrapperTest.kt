@@ -20,6 +20,8 @@ package com.vrem.wifianalyzer.wifi.manager
 import android.net.wifi.ScanResult
 import android.net.wifi.WifiInfo
 import android.net.wifi.WifiManager
+import com.vrem.util.buildMinVersionR
+import com.vrem.util.buildVersionP
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.After
 import org.junit.Test
@@ -286,12 +288,14 @@ class WiFiManagerWrapperTest {
     fun isScanThrottleEnabledSupported() {
         // Arrange
         doReturn(false).whenever(fixture).minVersionR()
+        doReturn(false).whenever(fixture).versionP()
         // Act
         val actual = fixture.isScanThrottleEnabled()
         // Assert
         assertThat(actual).isFalse
         verify(wifiManager, never()).isScanThrottleEnabled
         verify(fixture).minVersionR()
+        verify(fixture).versionP()
     }
 
     @Test
@@ -305,5 +309,36 @@ class WiFiManagerWrapperTest {
         assertThat(actual).isTrue
         verify(wifiManager).isScanThrottleEnabled
         verify(fixture).minVersionR()
+        verify(fixture, never()).versionP()
+    }
+
+    @Test
+    fun isScanThrottleEnabledSupportedWithAndroidP() {
+        // Arrange
+        doReturn(false).whenever(fixture).minVersionR()
+        doReturn(true).whenever(fixture).versionP()
+        // Act
+        val actual = fixture.isScanThrottleEnabled()
+        // Assert
+        assertThat(actual).isTrue
+        verify(wifiManager, never()).isScanThrottleEnabled
+        verify(fixture).minVersionR()
+        verify(fixture).versionP()
+    }
+
+    @Test
+    fun versionP() {
+        // Act
+        val actual = fixture.versionP()
+        // Assert
+        assertThat(actual).isEqualTo(buildVersionP())
+    }
+
+    @Test
+    fun minVersionR() {
+        // Act
+        val actual = fixture.minVersionR()
+        // Assert
+        assertThat(actual).isEqualTo(buildMinVersionR())
     }
 }

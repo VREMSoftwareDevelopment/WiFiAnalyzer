@@ -22,16 +22,16 @@ import com.vrem.util.findByCountryCode
 import com.vrem.util.toCapitalize
 import java.util.Locale
 
+private const val UNKNOWN_SUFFIX = "-Unknown"
+
 class WiFiChannelCountry(
     val locale: Locale,
 ) {
-    private val unknown = "-Unknown"
-
     val countryCode: String get() = locale.country.toCapitalize(locale)
 
     fun countryName(currentLocale: Locale): String {
         val countryName: String = locale.getDisplayCountry(currentLocale)
-        return if (locale.country == countryName) countryName + unknown else countryName
+        return if (locale.country == countryName) countryName + UNKNOWN_SUFFIX else countryName
     }
 
     fun channels(wiFiBand: WiFiBand): List<Int> = wiFiBand.wiFiChannels.ratingChannels(wiFiBand, countryCode)

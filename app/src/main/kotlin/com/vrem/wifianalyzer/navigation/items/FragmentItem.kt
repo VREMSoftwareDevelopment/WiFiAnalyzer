@@ -53,6 +53,6 @@ internal class FragmentItem(
         mainActivity.currentNavigationMenu(navigationMenu)
         mainActivity.title = mainActivity.getString(navigationMenu.title)
         mainActivity.updateActionBar()
-        mainActivity.mainConnectionVisibility(visibility)
+        mainActivity.wiFiStatusVisibility(visibility)
     }
 }

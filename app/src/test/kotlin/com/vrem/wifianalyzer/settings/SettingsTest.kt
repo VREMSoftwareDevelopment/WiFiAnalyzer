@@ -46,13 +46,13 @@ import org.mockito.kotlin.whenever
 import org.robolectric.annotation.Config
 import java.util.Locale
 
+private const val SCAN_SPEED_DEFAULT = 5
+private const val GRAPH_Y_MULTIPLIER = -10
+private const val GRAPH_Y_DEFAULT = 2
+
 @RunWith(AndroidJUnit4::class)
 @Config(sdk = [Build.VERSION_CODES.CINNAMON_BUN])
 class SettingsTest {
-    private val scanSpeedDefault = 5
-    private val graphYMultiplier = -10
-    private val graphYDefault = 2
-
     private val repository: Repository = mock()
     private val appLocales: AppLocales = mock()
     private val onSharedPreferenceChangeListener: OnSharedPreferenceChangeListener = mock()
@@ -66,7 +66,7 @@ class SettingsTest {
     }
 
     @Test
-    fun initializeDefaultValues() {
+    fun initializeDefaultValuesDelegatesToRepository() {
         // Arrange
         doNothing().whenever(repository).initializeDefaultValues()
         // Act
@@ -76,7 +76,7 @@ class SettingsTest {
     }
 
     @Test
-    fun registerOnSharedPreferenceChangeListener() {
+    fun registerOnSharedPreferenceChangeListenerDelegatesToRepository() {
         // Arrange
         doNothing().whenever(repository).registerOnSharedPreferenceChangeListener(onSharedPreferenceChangeListener)
         // Act
@@ -86,38 +86,38 @@ class SettingsTest {
     }
 
     @Test
-    fun scanSpeed() {
+    fun scanSpeedUsesSavedValueAndConfiguredDefault() {
         // Arrange
-        val defaultValue = scanSpeedDefault - 2
-        val speedValue = scanSpeedDefault - 1
-        doReturn(defaultValue).whenever(repository).stringAsInteger(R.string.scan_speed_default, scanSpeedDefault)
+        val defaultValue = SCAN_SPEED_DEFAULT - 2
+        val speedValue = SCAN_SPEED_DEFAULT - 1
+        doReturn(defaultValue).whenever(repository).stringAsInteger(R.string.scan_speed_default, SCAN_SPEED_DEFAULT)
         doReturn(speedValue).whenever(repository).stringAsInteger(R.string.scan_speed_key, defaultValue)
         // Act
         val actual = fixture.scanSpeed()
         // Assert
         assertThat(actual).isEqualTo(speedValue)
-        verify(repository).stringAsInteger(R.string.scan_speed_default, scanSpeedDefault)
+        verify(repository).stringAsInteger(R.string.scan_speed_default, SCAN_SPEED_DEFAULT)
         verify(repository).stringAsInteger(R.string.scan_speed_key, defaultValue)
     }
 
     @Test
-    fun graphMaximumY() {
+    fun graphMaximumYScalesSavedValueUsingConfiguredDefault() {
         // Arrange
         val defaultValue = 1
         val value = 2
-        val expected = value * graphYMultiplier
-        doReturn(defaultValue).whenever(repository).stringAsInteger(R.string.graph_maximum_y_default, graphYDefault)
+        val expected = value * GRAPH_Y_MULTIPLIER
+        doReturn(defaultValue).whenever(repository).stringAsInteger(R.string.graph_maximum_y_default, GRAPH_Y_DEFAULT)
         doReturn(value).whenever(repository).stringAsInteger(R.string.graph_maximum_y_key, defaultValue)
         // Act
         val actual = fixture.graphMaximumY()
         // Assert
         assertThat(actual).isEqualTo(expected)
-        verify(repository).stringAsInteger(R.string.graph_maximum_y_default, graphYDefault)
+        verify(repository).stringAsInteger(R.string.graph_maximum_y_default, GRAPH_Y_DEFAULT)
         verify(repository).stringAsInteger(R.string.graph_maximum_y_key, defaultValue)
     }
 
     @Test
-    fun groupBy() {
+    fun groupByUsesSavedOrdinal() {
         // Arrange
         doReturn(GroupBy.CHANNEL.ordinal)
             .whenever(repository)
@@ -130,7 +130,7 @@ class SettingsTest {
     }
 
     @Test
-    fun sortBy() {
+    fun sortByUsesSavedOrdinal() {
         // Arrange
         doReturn(SortBy.SSID.ordinal)
             .whenever(repository)
@@ -143,7 +143,7 @@ class SettingsTest {
     }
 
     @Test
-    fun accessPointView() {
+    fun accessPointViewUsesSavedOrdinal() {
         // Arrange
         doReturn(AccessPointViewType.COMPACT.ordinal)
             .whenever(repository)
@@ -156,7 +156,7 @@ class SettingsTest {
     }
 
     @Test
-    fun connectionViewType() {
+    fun connectionViewTypeUsesSavedOrdinal() {
         // Arrange
         doReturn(ConnectionViewType.COMPLETE.ordinal)
             .whenever(repository)
@@ -169,7 +169,7 @@ class SettingsTest {
     }
 
     @Test
-    fun themeStyle() {
+    fun themeStyleReturnsEachSavedValue() {
         ThemeStyle.entries.forEach {
             // Arrange
             doReturn(it.ordinal)
@@ -185,7 +185,7 @@ class SettingsTest {
     }
 
     @Test
-    fun themeStyleInvalid() {
+    fun themeStyleFallsBackToDefaultForUnknownOrdinal() {
         // Arrange
         doReturn(ThemeStyle.entries.size)
             .whenever(repository)
@@ -198,7 +198,7 @@ class SettingsTest {
     }
 
     @Test
-    fun getWiFiBand() {
+    fun wiFiBandReturnsSavedValue() {
         // Arrange
         doReturn(WiFiBand.GHZ5.ordinal)
             .whenever(repository)
@@ -211,7 +211,7 @@ class SettingsTest {
     }
 
     @Test
-    fun setWiFiBand() {
+    fun wiFiBandSetterSavesSelectedValue() {
         // Arrange
         doNothing().whenever(repository).save(R.string.wifi_band_key, WiFiBand.GHZ5.ordinal)
         // Act
@@ -221,7 +221,7 @@ class SettingsTest {
     }
 
     @Test
-    fun settingsFindSSIDs() {
+    fun findSSIDsReturnsSavedValues() {
         // Arrange
         val expected: Set<String> = setOf("value1", "value2", "value3")
         doReturn(expected).whenever(repository).stringSet(R.string.filter_ssid_key, setOf())
@@ -233,7 +233,7 @@ class SettingsTest {
     }
 
     @Test
-    fun saveSSIDs() {
+    fun saveSSIDsPersistsValues() {
         // Arrange
         val values: Set<String> = setOf("value1", "value2", "value3")
         doNothing().whenever(repository).saveStringSet(R.string.filter_ssid_key, values)
@@ -244,10 +244,10 @@ class SettingsTest {
     }
 
     @Test
-    fun settingsFindWiFiBands() {
+    fun findWiFiBandsReturnsSavedValues() {
         // Arrange
         val expected = WiFiBand.GHZ5
-        val values = setOf("" + expected.ordinal)
+        val values = setOf(expected.ordinal.toString())
         val defaultValues = ordinals(WiFiBand.entries)
         doReturn(values).whenever(repository).stringSet(R.string.filter_wifi_band_key, defaultValues)
         // Act
@@ -259,10 +259,10 @@ class SettingsTest {
     }
 
     @Test
-    fun saveWiFiBands() {
+    fun saveWiFiBandsPersistsValues() {
         // Arrange
         val values = setOf(WiFiBand.GHZ5)
-        val expected = setOf("" + WiFiBand.GHZ5.ordinal)
+        val expected = setOf(WiFiBand.GHZ5.ordinal.toString())
         doNothing().whenever(repository).saveStringSet(R.string.filter_wifi_band_key, expected)
         // Act
         fixture.saveWiFiBands(values)
@@ -271,10 +271,10 @@ class SettingsTest {
     }
 
     @Test
-    fun settingsFindStrengths() {
+    fun findStrengthsReturnsSavedValues() {
         // Arrange
         val expected = Strength.THREE
-        val values = setOf("" + expected.ordinal)
+        val values = setOf(expected.ordinal.toString())
         val defaultValues = ordinals(Strength.entries)
         doReturn(values).whenever(repository).stringSet(R.string.filter_strength_key, defaultValues)
         // Act
@@ -286,10 +286,10 @@ class SettingsTest {
     }
 
     @Test
-    fun saveStrengths() {
+    fun saveStrengthsPersistsValues() {
         // Arrange
         val values = setOf(Strength.TWO)
-        val expected = setOf("" + Strength.TWO.ordinal)
+        val expected = setOf(Strength.TWO.ordinal.toString())
         doNothing().whenever(repository).saveStringSet(R.string.filter_strength_key, expected)
         // Act
         fixture.saveStrengths(values)
@@ -298,10 +298,10 @@ class SettingsTest {
     }
 
     @Test
-    fun settingsFindSecurities() {
+    fun findSecuritiesReturnsSavedValues() {
         // Arrange
         val expected = Security.WPA
-        val values = setOf("" + expected.ordinal)
+        val values = setOf(expected.ordinal.toString())
         val defaultValues = ordinals(Security.entries)
         doReturn(values).whenever(repository).stringSet(R.string.filter_security_key, defaultValues)
         // Act
@@ -313,10 +313,10 @@ class SettingsTest {
     }
 
     @Test
-    fun saveSecurities() {
+    fun saveSecuritiesPersistsValues() {
         // Arrange
         val values = setOf(Security.WEP)
-        val expected = setOf("" + Security.WEP.ordinal)
+        val expected = setOf(Security.WEP.ordinal.toString())
         doNothing().whenever(repository).saveStringSet(R.string.filter_security_key, expected)
         // Act
         fixture.saveSecurities(values)
@@ -325,7 +325,7 @@ class SettingsTest {
     }
 
     @Test
-    fun countryCode() {
+    fun countryCodeUsesSavedValueAndSystemLocaleDefault() {
         // Arrange
         val defaultValue = "CA"
         val expected = "WW"
@@ -340,7 +340,7 @@ class SettingsTest {
     }
 
     @Test
-    fun defaultCountryCode() {
+    fun defaultCountryCodeUsesSystemLocale() {
         // Arrange
         val expected = "CA"
         doReturn(Locale.CANADA).whenever(appLocales).systemLocale()
@@ -352,7 +352,7 @@ class SettingsTest {
     }
 
     @Test
-    fun defaultCountryCodeWithoutSystemLocale() {
+    fun defaultCountryCodeIsEmptyWithoutSystemLocale() {
         // Arrange
         doReturn(null).whenever(appLocales).systemLocale()
         // Act
@@ -363,7 +363,7 @@ class SettingsTest {
     }
 
     @Test
-    fun languageLocale() {
+    fun languageLocaleUsesApplicationLocale() {
         // Arrange
         doReturn(Locale.FRENCH).whenever(appLocales).applicationLocale()
         // Act
@@ -374,7 +374,7 @@ class SettingsTest {
     }
 
     @Test
-    fun languageLocaleWithSystemDefault() {
+    fun languageLocaleFallsBackToSystemDefault() {
         // Arrange
         doReturn(null).whenever(appLocales).applicationLocale()
         // Act
@@ -385,7 +385,7 @@ class SettingsTest {
     }
 
     @Test
-    fun languageTag() {
+    fun languageTagUsesSupportedApplicationLocale() {
         // Arrange
         doReturn(Locale.forLanguageTag("pt-BR")).whenever(appLocales).applicationLocale()
         // Act
@@ -396,7 +396,7 @@ class SettingsTest {
     }
 
     @Test
-    fun languageTagWithRegionalLanguage() {
+    fun languageTagUsesSupportedRegionalLanguage() {
         // Arrange
         doReturn(Locale.forLanguageTag("zh-Hant-HK")).whenever(appLocales).applicationLocale()
         // Act
@@ -407,7 +407,7 @@ class SettingsTest {
     }
 
     @Test
-    fun languageTagWithUnsupportedLanguage() {
+    fun languageTagIsEmptyForUnsupportedLanguage() {
         // Arrange
         doReturn(Locale.forLanguageTag("ko-KR")).whenever(appLocales).applicationLocale()
         // Act
@@ -418,7 +418,7 @@ class SettingsTest {
     }
 
     @Test
-    fun languageTagWithSystemDefault() {
+    fun languageTagIsEmptyWithoutApplicationLocale() {
         // Arrange
         doReturn(null).whenever(appLocales).applicationLocale()
         // Act
@@ -429,7 +429,7 @@ class SettingsTest {
     }
 
     @Test
-    fun saveLanguageTag() {
+    fun saveLanguageTagDelegatesToAppLocales() {
         // Arrange
         doNothing().whenever(appLocales).save("de")
         // Act
@@ -439,7 +439,7 @@ class SettingsTest {
     }
 
     @Test
-    fun migrateLanguageWithoutLegacyLanguage() {
+    fun migrateLanguageDoesNothingWhenLegacyTagIsEmpty() {
         // Arrange
         doReturn(String.EMPTY).whenever(repository).string(R.string.language_key, String.EMPTY)
         // Act
@@ -449,7 +449,7 @@ class SettingsTest {
     }
 
     @Test
-    fun migrateLanguageWithSupportedLegacyLanguage() {
+    fun migrateLanguageConvertsSupportedLegacyTag() {
         // Arrange
         doReturn("pt_BR").whenever(repository).string(R.string.language_key, String.EMPTY)
         doReturn(null).whenever(appLocales).applicationLocale()
@@ -467,7 +467,7 @@ class SettingsTest {
     }
 
     @Test
-    fun migrateLanguageWithUnsupportedLegacyLanguage() {
+    fun migrateLanguageRemovesUnsupportedLegacyTagWithoutSavingLocale() {
         // Arrange
         doReturn("en_US").whenever(repository).string(R.string.language_key, String.EMPTY)
         doReturn(null).whenever(appLocales).applicationLocale()
@@ -483,7 +483,7 @@ class SettingsTest {
     }
 
     @Test
-    fun migrateLanguageWithApplicationLanguageKeepsApplicationLanguage() {
+    fun migrateLanguagePreservesExistingApplicationLocale() {
         // Arrange
         doReturn("de_").whenever(repository).string(R.string.language_key, String.EMPTY)
         doReturn(Locale.FRENCH).whenever(appLocales).applicationLocale()
@@ -497,7 +497,7 @@ class SettingsTest {
     }
 
     @Test
-    fun migrateLanguageWithLegacyDefaultKeepsSystemDefault() {
+    fun migrateLanguageKeepsSystemDefaultWhenLegacyTagMatches() {
         // Arrange
         doReturn("pt_BR").whenever(repository).string(R.string.language_key, String.EMPTY)
         doReturn(null).whenever(appLocales).applicationLocale()
@@ -514,7 +514,25 @@ class SettingsTest {
     }
 
     @Test
-    fun selectedMenu() {
+    fun migrateLanguageConvertsSupportedLegacyTagWithoutSystemLocale() {
+        // Arrange
+        doReturn("pt_BR").whenever(repository).string(R.string.language_key, String.EMPTY)
+        doReturn(null).whenever(appLocales).applicationLocale()
+        doReturn(null).whenever(appLocales).systemLocale()
+        doNothing().whenever(appLocales).save("pt-BR")
+        doNothing().whenever(repository).remove(R.string.language_key)
+        // Act
+        fixture.migrateLanguage()
+        // Assert
+        verify(repository).string(R.string.language_key, String.EMPTY)
+        verify(appLocales).applicationLocale()
+        verify(appLocales).systemLocale()
+        verify(appLocales).save("pt-BR")
+        verify(repository).remove(R.string.language_key)
+    }
+
+    @Test
+    fun selectedMenuUsesSavedOrdinal() {
         // Arrange
         doReturn(NavigationMenu.CHANNEL_GRAPH.ordinal)
             .whenever(repository)
@@ -527,7 +545,7 @@ class SettingsTest {
     }
 
     @Test
-    fun saveSelectedMenu() {
+    fun saveSelectedMenuPersistsAllowedMenu() {
         // Arrange
         doNothing().whenever(repository).save(R.string.selected_menu_key, NavigationMenu.CHANNEL_GRAPH.ordinal)
         // Act
@@ -537,13 +555,13 @@ class SettingsTest {
     }
 
     @Test
-    fun saveSelectedMenuWithNotAllowedMenu() {
+    fun saveSelectedMenuDoesNotPersistMenuOutsideMainNavigation() {
         // Act
         fixture.saveSelectedMenu(NavigationMenu.ABOUT)
     }
 
     @Test
-    fun wiFiOffOnExit() {
+    fun wiFiOffOnExitIsFalseOnModernAndroid() {
         // Act
         val actual = fixture.wiFiOffOnExit()
         // Assert
@@ -552,7 +570,7 @@ class SettingsTest {
 
     @Test
     @Config(sdk = [Build.VERSION_CODES.P])
-    fun wiFiOffOnExitLegacy() {
+    fun wiFiOffOnExitUsesSavedValueOnLegacyAndroid() {
         // Arrange
         doReturn(true).whenever(repository).resourceBoolean(R.bool.wifi_off_on_exit_default)
         doReturn(true).whenever(repository).boolean(R.string.wifi_off_on_exit_key, true)
@@ -565,7 +583,7 @@ class SettingsTest {
     }
 
     @Test
-    fun keepScreenOn() {
+    fun keepScreenOnUsesSavedValueAndConfiguredDefault() {
         // Arrange
         doReturn(true).whenever(repository).resourceBoolean(R.bool.keep_screen_on_default)
         doReturn(true).whenever(repository).boolean(R.string.keep_screen_on_key, true)
@@ -578,7 +596,7 @@ class SettingsTest {
     }
 
     @Test
-    fun cacheOff() {
+    fun cacheOffUsesSavedValueAndConfiguredDefault() {
         // Arrange
         doReturn(true).whenever(repository).resourceBoolean(R.bool.cache_off_default)
         doReturn(true).whenever(repository).boolean(R.string.cache_off_key, true)

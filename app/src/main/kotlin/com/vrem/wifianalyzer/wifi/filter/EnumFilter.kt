@@ -17,10 +17,10 @@
  */
 package com.vrem.wifianalyzer.wifi.filter
 
-import android.app.AlertDialog
 import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.appcompat.app.AlertDialog
 import androidx.core.content.ContextCompat
 import com.vrem.wifianalyzer.wifi.filter.adapter.EnumFilterAdapter
 
@@ -45,7 +45,7 @@ internal abstract class EnumFilter<T : Enum<T>, U : EnumFilterAdapter<T>>(
 
     init {
         ids.keys.forEach { value -> ids[value]?.let { process(alertDialog, it, value) } }
-        alertDialog.findViewById<View>(id).visibility = View.VISIBLE
+        alertDialog.findViewById<View>(id)!!.visibility = View.VISIBLE
     }
 
     private fun process(
@@ -53,7 +53,7 @@ internal abstract class EnumFilter<T : Enum<T>, U : EnumFilterAdapter<T>>(
         id: Int,
         value: T,
     ) {
-        val view = alertDialog.findViewById<View>(id)
+        val view = alertDialog.findViewById<View>(id)!!
         view.setOnClickListener { onClickListener(value, it) }
         setColor(view, value)
     }

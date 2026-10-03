@@ -17,9 +17,9 @@
  */
 package com.vrem.wifianalyzer.wifi.filter
 
-import android.app.AlertDialog
 import android.os.Build
 import android.view.View
+import androidx.appcompat.app.AlertDialog
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.vrem.wifianalyzer.R
 import com.vrem.wifianalyzer.RobolectricUtil
@@ -62,7 +62,7 @@ class WiFiBandFilterTest {
         // Act
         WiFiBandFilter(adapter, alertDialog)
         // Assert
-        assertThat(alertDialog.findViewById<View>(R.id.filterWiFiBand).visibility).isEqualTo(View.VISIBLE)
+        assertThat(alertDialog.findViewById<View>(R.id.filterWiFiBand)!!.visibility).isEqualTo(View.VISIBLE)
     }
 
     @Test
@@ -70,7 +70,7 @@ class WiFiBandFilterTest {
         // Arrange
         WiFiBandFilter(adapter, alertDialog)
         // Act
-        alertDialog.findViewById<View>(R.id.filterWifiBand5).performClick()
+        alertDialog.findViewById<View>(R.id.filterWifiBand5)!!.performClick()
         // Assert
         assertThat(adapter.color(WiFiBand.GHZ5)).isEqualTo(R.color.selected)
     }

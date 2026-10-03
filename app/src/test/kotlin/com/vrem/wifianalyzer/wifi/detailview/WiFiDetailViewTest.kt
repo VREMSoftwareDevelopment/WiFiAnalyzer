@@ -22,6 +22,7 @@ import android.os.Build
 import android.view.LayoutInflater
 import android.view.View
 import android.widget.ImageView
+import android.widget.ScrollView
 import android.widget.TextView
 import androidx.annotation.DrawableRes
 import androidx.core.content.ContextCompat
@@ -300,6 +301,16 @@ class WiFiDetailViewTest {
         val actual = fixture.makeViewDetailed(wiFiDetail)
         // Assert
         validateTextViewValuesPopupView(actual, wiFiDetail)
+    }
+
+    @Test
+    fun makeViewDetailedIsScrollable() {
+        // Arrange
+        val wiFiDetail = withWiFiDetail()
+        // Act
+        val actual = fixture.makeViewDetailed(wiFiDetail)
+        // Assert
+        assertThat(actual).isInstanceOf(ScrollView::class.java)
     }
 
     @Test

@@ -24,7 +24,7 @@ import androidx.preference.ListPreference
 abstract class CustomPreference(
     context: Context,
     attrs: AttributeSet,
-    values: List<Data>,
+    val values: List<Data>,
     defaultValue: String,
 ) : ListPreference(context, attrs) {
     init {

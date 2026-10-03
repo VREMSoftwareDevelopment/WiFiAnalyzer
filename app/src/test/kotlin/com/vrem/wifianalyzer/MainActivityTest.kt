@@ -22,6 +22,7 @@ import android.os.Build
 import android.os.Looper
 import android.view.Menu
 import android.view.MenuItem
+import android.view.View
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.google.android.material.navigation.NavigationView
 import com.vrem.util.EMPTY
@@ -59,6 +60,15 @@ class MainActivityTest {
     @Test
     fun mainActivity() {
         assertThat(MainContext.INSTANCE.scannerService.running()).isFalse
+    }
+
+    @Test
+    fun wiFiStatusVisibilityAppliesToConnectionAndWarningContainer() {
+        // Act
+        fixture.wiFiStatusVisibility(View.GONE)
+        // Assert
+        assertThat(fixture.findViewById<View>(R.id.main_connection).visibility).isEqualTo(View.GONE)
+        assertThat(fixture.findViewById<View>(R.id.main_warning_container).visibility).isEqualTo(View.GONE)
     }
 
     @Test

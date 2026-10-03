@@ -20,6 +20,7 @@ package com.vrem.wifianalyzer.wifi.detailview
 import android.content.DialogInterface
 import android.os.Build
 import android.view.View
+import androidx.appcompat.app.AlertDialog
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.vrem.wifianalyzer.R
 import com.vrem.wifianalyzer.RobolectricUtil
@@ -32,7 +33,7 @@ import org.assertj.core.api.Assertions.assertThat
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.robolectric.annotation.Config
-import org.robolectric.shadows.ShadowAlertDialog
+import org.robolectric.shadows.ShadowDialog
 
 @RunWith(AndroidJUnit4::class)
 @Config(sdk = [Build.VERSION_CODES.CINNAMON_BUN])
@@ -145,7 +146,7 @@ class WiFiDetailPopupTest {
         firstDialog.getButton(DialogInterface.BUTTON_POSITIVE).performClick()
         RobolectricUtil.INSTANCE.clearLooper()
         // Act
-        val actual = ShadowAlertDialog.getLatestAlertDialog()
+        val actual = ShadowDialog.getLatestDialog() as AlertDialog?
         // Assert
         assertThat(actual).isNotNull()
         assertThat(actual!!.isShowing).isTrue

@@ -26,6 +26,8 @@ import com.vrem.util.buildMinVersionQ
 import com.vrem.wifianalyzer.MainContext
 import com.vrem.wifianalyzer.R
 
+internal const val DIALOG_FRAGMENT_TAG = "androidx.preference.PreferenceFragment.DIALOG"
+
 open class SettingsFragment : PreferenceFragmentCompat() {
     override fun onCreatePreferences(
         bundle: Bundle?,
@@ -34,20 +36,36 @@ open class SettingsFragment : PreferenceFragmentCompat() {
         setupPreferences()
     }
 
-    override fun onPreferenceTreeClick(preference: Preference): Boolean {
-        if (preference.key == getString(R.string.reset_key)) {
-            preferenceManager.sharedPreferences!!.edit { clear() }
-            MainContext.INSTANCE.settings.saveLanguageTag(String.EMPTY)
-            preferenceScreen.removeAll()
-            setupPreferences()
-            return true
+    override fun onDisplayPreferenceDialog(preference: Preference) {
+        when (preference) {
+            is CustomPreference -> showCustomPreferenceDialog(preference)
+            else -> super.onDisplayPreferenceDialog(preference)
         }
-        return super.onPreferenceTreeClick(preference)
+    }
+
+    override fun onPreferenceTreeClick(preference: Preference): Boolean {
+        if (preference.key != getString(R.string.reset_key)) return super.onPreferenceTreeClick(preference)
+        resetPreferences()
+        return true
+    }
+
+    private fun showCustomPreferenceDialog(preference: CustomPreference) {
+        if (parentFragmentManager.findFragmentByTag(DIALOG_FRAGMENT_TAG) != null) return
+        val dialogFragment = CustomPreferenceDialogFragment.newInstance(preference.key)
+        @Suppress("DEPRECATION")
+        dialogFragment.setTargetFragment(this, 0)
+        dialogFragment.show(parentFragmentManager, DIALOG_FRAGMENT_TAG)
+    }
+
+    private fun resetPreferences() {
+        preferenceManager.sharedPreferences!!.edit { clear() }
+        MainContext.INSTANCE.settings.saveLanguageTag(String.EMPTY)
+        preferenceScreen.removeAll()
+        setupPreferences()
     }
 
     private fun setupPreferences() {
         addPreferencesFromResource(R.xml.settings)
-        findPreference<Preference>(getString(R.string.wifi_off_on_exit_key))!!
-            .isVisible = !buildMinVersionQ()
+        findPreference<Preference>(getString(R.string.wifi_off_on_exit_key))!!.isVisible = !buildMinVersionQ()
     }
 }

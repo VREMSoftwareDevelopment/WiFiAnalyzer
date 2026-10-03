@@ -17,8 +17,8 @@
  */
 package com.vrem.wifianalyzer.wifi.detailview
 
-import android.app.AlertDialog
 import android.view.View
+import androidx.appcompat.app.AlertDialog
 import com.vrem.annotation.OpenClass
 import com.vrem.wifianalyzer.R
 import com.vrem.wifianalyzer.wifi.model.WiFiDetail

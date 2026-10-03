@@ -20,13 +20,17 @@ package com.vrem.wifianalyzer.settings
 import android.os.Build
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.core.os.LocaleListCompat
+import androidx.fragment.app.DialogFragment
+import androidx.preference.ListPreference
+import androidx.preference.ListPreferenceDialogFragmentCompat
 import androidx.preference.Preference
+import androidx.preference.SwitchPreferenceCompat
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.vrem.wifianalyzer.R
-import com.vrem.wifianalyzer.R.string.wifi_off_on_exit_key
 import com.vrem.wifianalyzer.RobolectricUtil
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.After
+import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.robolectric.annotation.Config
@@ -34,88 +38,158 @@ import org.robolectric.annotation.Config
 @RunWith(AndroidJUnit4::class)
 @Config(sdk = [Build.VERSION_CODES.CINNAMON_BUN])
 class SettingsFragmentTest {
-    val fixture = SettingsFragment()
-    val fragment = RobolectricUtil.INSTANCE.startFragment(fixture)
+    private val fixture = SettingsFragment()
+
+    @Before
+    fun setUp() {
+        RobolectricUtil.INSTANCE.startFragment(fixture)
+    }
 
     @After
     fun tearDown() {
+        (fixture.parentFragmentManager.findFragmentByTag(DIALOG_FRAGMENT_TAG) as? DialogFragment)
+            ?.dismissAllowingStateLoss()
+        RobolectricUtil.INSTANCE.clearLooper()
         AppCompatDelegate.setApplicationLocales(LocaleListCompat.getEmptyLocaleList())
     }
 
     @Test
-    fun onCreate() {
+    fun onCreatePreferencesCreatesView() {
         // Assert
         assertThat(fixture.view).isNotNull()
     }
 
     @Config(sdk = [Build.VERSION_CODES.P])
     @Test
-    fun wiFiOnExitIsVisible() {
+    fun wifiOffOnExitPreferenceIsVisibleOnLegacyAndroid() {
         // Arrange
-        val key = fixture.getString(R.string.wifi_off_on_exit_key)
+        val wifiOffOnExitKey = fixture.getString(R.string.wifi_off_on_exit_key)
         // Act
-        val actual = fixture.findPreference<Preference>(key)
+        val actual = fixture.findPreference<Preference>(wifiOffOnExitKey)
         // Assert
         assertThat(actual!!.isVisible).isTrue
     }
 
     @Test
-    fun wiFiOnExitIsNotVisible() {
+    fun wifiOffOnExitPreferenceIsHiddenOnAndroidQOrLater() {
         // Arrange
-        val key = fixture.getString(R.string.wifi_off_on_exit_key)
+        val wifiOffOnExitKey = fixture.getString(R.string.wifi_off_on_exit_key)
         // Act
-        val actual = fixture.findPreference<Preference>(key)
+        val actual = fixture.findPreference<Preference>(wifiOffOnExitKey)
         // Assert
         assertThat(actual!!.isVisible).isFalse
     }
 
     @Test
-    fun resetPreferenceShouldClearsPreferencesAndReloadsSettings() {
+    fun resetPreferenceClearsPreferencesAndReloadsSettings() {
         // Arrange
-        val key = fixture.getString(R.string.reset_key)
-        val preference = fixture.findPreference<Preference>(key)!!
+        val wifiOffOnExitKey = fixture.getString(R.string.wifi_off_on_exit_key)
+        val wifiPreference = fixture.findPreference<SwitchPreferenceCompat>(wifiOffOnExitKey)!!
+        wifiPreference.isChecked = true
+        val resetKey = fixture.getString(R.string.reset_key)
+        val resetPreference = fixture.findPreference<Preference>(resetKey)!!
         // Act
-        val actual = fixture.onPreferenceTreeClick(preference)
+        val actual = fixture.onPreferenceTreeClick(resetPreference)
         // Assert
         assertThat(actual).isTrue
         assertThat(fixture.preferenceScreen.preferenceCount).isGreaterThan(0)
-        assertThat(fixture.findPreference<Preference>(fixture.getString(wifi_off_on_exit_key))!!.isVisible).isFalse
+        assertThat(fixture.findPreference<SwitchPreferenceCompat>(wifiOffOnExitKey)!!.isChecked).isFalse
+        assertThat(fixture.findPreference<Preference>(wifiOffOnExitKey)!!.isVisible).isFalse
     }
 
     @Test
-    fun resetPreferenceShouldResetLanguageToSystemDefault() {
+    fun resetPreferenceRestoresSystemLanguage() {
         // Arrange
         AppCompatDelegate.setApplicationLocales(LocaleListCompat.forLanguageTags("de"))
-        val key = fixture.getString(R.string.reset_key)
-        val preference = fixture.findPreference<Preference>(key)!!
+        val resetKey = fixture.getString(R.string.reset_key)
+        val resetPreference = fixture.findPreference<Preference>(resetKey)!!
         // Act
-        fixture.onPreferenceTreeClick(preference)
+        val actual = fixture.onPreferenceTreeClick(resetPreference)
         // Assert
+        assertThat(actual).isTrue
         assertThat(AppCompatDelegate.getApplicationLocales().isEmpty).isTrue
     }
 
     @Test
-    fun onPreferenceTreeClickShouldReturnsFalseForUnknownPreference() {
+    fun unknownPreferenceClickReturnsFalse() {
         // Arrange
         val preference = Preference(fixture.requireContext())
         preference.key = "unknown_key"
         // Act
-        val result = fixture.onPreferenceTreeClick(preference)
+        val actual = fixture.onPreferenceTreeClick(preference)
         // Assert
-        assertThat(result).isFalse
+        assertThat(actual).isFalse
     }
 
     @Config(sdk = [Build.VERSION_CODES.P])
     @Test
-    fun resetPreferenceShouldClearsPreferencesAndReloadsSettingsLegacy() {
+    fun resetPreferenceRestoresSettingsOnLegacyAndroid() {
         // Arrange
-        val key = fixture.getString(R.string.reset_key)
-        val preference = fixture.findPreference<Preference>(key)!!
+        val wifiOffOnExitKey = fixture.getString(R.string.wifi_off_on_exit_key)
+        val resetKey = fixture.getString(R.string.reset_key)
+        val resetPreference = fixture.findPreference<Preference>(resetKey)!!
         // Act
-        val actual = fixture.onPreferenceTreeClick(preference)
+        val actual = fixture.onPreferenceTreeClick(resetPreference)
         // Assert
         assertThat(actual).isTrue
         assertThat(fixture.preferenceScreen.preferenceCount).isGreaterThan(0)
-        assertThat(fixture.findPreference<Preference>(fixture.getString(wifi_off_on_exit_key))!!.isVisible).isTrue
+        assertThat(fixture.findPreference<Preference>(wifiOffOnExitKey)!!.isVisible).isTrue
     }
+
+    @Test
+    fun customPreferenceOpensCustomDialog() {
+        // Arrange
+        val preference = withCountryPreference()
+        // Act
+        fixture.onDisplayPreferenceDialog(preference)
+        RobolectricUtil.INSTANCE.clearLooper()
+        // Assert
+        val actual = fixture.parentFragmentManager.findFragmentByTag(DIALOG_FRAGMENT_TAG)
+        assertThat(actual).isInstanceOf(CustomPreferenceDialogFragment::class.java)
+    }
+
+    @Test
+    fun nonCustomPreferenceUsesDefaultDialog() {
+        // Arrange
+        val scanSpeedKey = fixture.getString(R.string.scan_speed_key)
+        val preference = fixture.findPreference<ListPreference>(scanSpeedKey)!!
+        // Act
+        fixture.onDisplayPreferenceDialog(preference)
+        RobolectricUtil.INSTANCE.clearLooper()
+        // Assert
+        val actual = fixture.parentFragmentManager.findFragmentByTag(DIALOG_FRAGMENT_TAG)
+        assertThat(actual).isInstanceOf(ListPreferenceDialogFragmentCompat::class.java)
+    }
+
+    @Test
+    fun customPreferenceDialogIsNotShownWhenDefaultDialogIsShowing() {
+        // Arrange
+        val scanSpeed = fixture.findPreference<ListPreference>(fixture.getString(R.string.scan_speed_key))!!
+        fixture.onDisplayPreferenceDialog(scanSpeed)
+        RobolectricUtil.INSTANCE.clearLooper()
+        // Act
+        fixture.onDisplayPreferenceDialog(withCountryPreference())
+        RobolectricUtil.INSTANCE.clearLooper()
+        // Assert
+        val actual = fixture.parentFragmentManager.findFragmentByTag(DIALOG_FRAGMENT_TAG)
+        assertThat(actual).isInstanceOf(ListPreferenceDialogFragmentCompat::class.java)
+    }
+
+    @Test
+    fun customPreferenceDialogIsNotReplacedWhenOneIsAlreadyShowing() {
+        // Arrange
+        val preference = withCountryPreference()
+        fixture.onDisplayPreferenceDialog(preference)
+        RobolectricUtil.INSTANCE.clearLooper()
+        val existingDialog = fixture.parentFragmentManager.findFragmentByTag(DIALOG_FRAGMENT_TAG)
+        // Act
+        fixture.onDisplayPreferenceDialog(preference)
+        RobolectricUtil.INSTANCE.clearLooper()
+        // Assert
+        val actual = fixture.parentFragmentManager.findFragmentByTag(DIALOG_FRAGMENT_TAG)
+        assertThat(actual).isSameAs(existingDialog)
+    }
+
+    private fun withCountryPreference(): CustomPreference =
+        fixture.findPreference(fixture.getString(R.string.country_code_key))!!
 }

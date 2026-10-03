@@ -129,7 +129,7 @@ class FragmentItemTest {
         verify(mainActivity).currentNavigationMenu(navigationMenu)
         verify(mainActivity).title = title
         verify(mainActivity).updateActionBar()
-        verify(mainActivity).mainConnectionVisibility(View.VISIBLE)
+        verify(mainActivity).wiFiStatusVisibility(View.VISIBLE)
     }
 
     private fun verifyFragmentManagerIsNotCalled() {

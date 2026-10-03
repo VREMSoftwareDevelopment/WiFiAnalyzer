@@ -17,9 +17,9 @@
  */
 package com.vrem.wifianalyzer.wifi.filter
 
-import android.app.AlertDialog
 import android.os.Build
 import android.view.View
+import androidx.appcompat.app.AlertDialog
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.vrem.wifianalyzer.R
 import com.vrem.wifianalyzer.RobolectricUtil
@@ -65,7 +65,7 @@ class SecurityFilterTest {
         // Act
         SecurityFilter(adapter, alertDialog)
         // Assert
-        assertThat(alertDialog.findViewById<View>(R.id.filterSecurity).visibility).isEqualTo(View.VISIBLE)
+        assertThat(alertDialog.findViewById<View>(R.id.filterSecurity)!!.visibility).isEqualTo(View.VISIBLE)
     }
 
     @Test
@@ -73,7 +73,7 @@ class SecurityFilterTest {
         // Arrange
         SecurityFilter(adapter, alertDialog)
         // Act
-        alertDialog.findViewById<View>(R.id.filterSecurityWPA2).performClick()
+        alertDialog.findViewById<View>(R.id.filterSecurityWPA2)!!.performClick()
         // Assert
         assertThat(adapter.color(Security.WPA2)).isEqualTo(R.color.selected)
     }

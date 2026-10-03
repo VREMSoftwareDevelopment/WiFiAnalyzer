@@ -26,6 +26,8 @@ import kotlinx.coroutines.launch
 import kotlin.time.Duration.Companion.milliseconds
 import kotlin.time.Duration.Companion.seconds
 
+private val DELAY_INITIAL = 1.milliseconds
+
 @OpenClass
 internal class PeriodicScan(
     private val scanner: ScannerService,
@@ -54,8 +56,4 @@ internal class PeriodicScan(
                 delay(settings.scanSpeed().seconds)
             }
         }
-
-    companion object {
-        private val DELAY_INITIAL = 1.milliseconds
-    }
 }

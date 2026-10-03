@@ -20,6 +20,7 @@ package com.vrem.wifianalyzer.wifi.filter
 import android.content.DialogInterface
 import android.os.Build
 import android.view.View
+import android.widget.TextView
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.vrem.wifianalyzer.MainActivity
 import com.vrem.wifianalyzer.MainContext
@@ -44,7 +45,6 @@ import org.mockito.kotlin.never
 import org.mockito.kotlin.spy
 import org.mockito.kotlin.verify
 import org.mockito.kotlin.whenever
-import org.robolectric.Shadows
 import org.robolectric.annotation.Config
 
 @RunWith(AndroidJUnit4::class)
@@ -84,9 +84,9 @@ class FilterTest {
     fun title() {
         // Arrange
         val expected = mainActivity.getString(R.string.filter_title)
-        val shadowAlertDialog = Shadows.shadowOf(fixture.alertDialog!!)
+        fixture.show()
         // Act
-        val actual = shadowAlertDialog.title
+        val actual = fixture.alertDialog!!.findViewById<TextView>(androidx.appcompat.R.id.alertTitle)!!.text
         // Assert
         assertThat(actual.toString()).isEqualTo(expected)
     }
@@ -147,7 +147,7 @@ class FilterTest {
         // Arrange
         fixture.show()
         // Act
-        val actual = fixture.alertDialog!!.findViewById<View>(R.id.filterSSID).visibility
+        val actual = fixture.alertDialog!!.findViewById<View>(R.id.filterSSID)!!.visibility
         // Assert
         assertThat(actual).isEqualTo(View.VISIBLE)
     }
@@ -157,7 +157,7 @@ class FilterTest {
         // Arrange
         fixture.show()
         // Act
-        val actual = fixture.alertDialog!!.findViewById<View>(R.id.filterWiFiBand).visibility
+        val actual = fixture.alertDialog!!.findViewById<View>(R.id.filterWiFiBand)!!.visibility
         // Assert
         assertThat(actual).isEqualTo(View.VISIBLE)
     }
@@ -179,7 +179,7 @@ class FilterTest {
         // Arrange
         fixture.show()
         // Act
-        val actual = fixture.alertDialog!!.findViewById<View>(R.id.filterSecurity).visibility
+        val actual = fixture.alertDialog!!.findViewById<View>(R.id.filterSecurity)!!.visibility
         // Assert
         assertThat(actual).isEqualTo(View.VISIBLE)
     }
@@ -201,7 +201,7 @@ class FilterTest {
         // Arrange
         fixture.show()
         // Act
-        val actual = fixture.alertDialog!!.findViewById<View>(R.id.filterStrength).visibility
+        val actual = fixture.alertDialog!!.findViewById<View>(R.id.filterStrength)!!.visibility
         // Assert
         assertThat(actual).isEqualTo(View.VISIBLE)
     }
@@ -236,7 +236,7 @@ class FilterTest {
         mainActivity.currentNavigationMenu(NavigationMenu.CHANNEL_RATING)
         fixture.show()
         // Act
-        val actual = fixture.alertDialog!!.findViewById<View>(R.id.filterWiFiBand).visibility
+        val actual = fixture.alertDialog!!.findViewById<View>(R.id.filterWiFiBand)!!.visibility
         // Assert
         assertThat(actual).isEqualTo(View.GONE)
     }

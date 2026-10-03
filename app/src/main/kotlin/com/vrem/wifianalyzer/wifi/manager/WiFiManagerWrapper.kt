@@ -25,6 +25,7 @@ import android.os.Build
 import androidx.annotation.RequiresApi
 import com.vrem.annotation.OpenClass
 import com.vrem.util.buildMinVersionR
+import com.vrem.util.buildVersionP
 
 @OpenClass
 class WiFiManagerWrapper(
@@ -57,11 +58,13 @@ class WiFiManagerWrapper(
         if (minVersionR()) {
             isScanThrottleEnabledR()
         } else {
-            false
+            versionP()
         }
 
     @RequiresApi(Build.VERSION_CODES.R)
     private fun isScanThrottleEnabledR(): Boolean = wifiManager.isScanThrottleEnabled
 
     fun minVersionR(): Boolean = buildMinVersionR()
+
+    fun versionP(): Boolean = buildVersionP()
 }

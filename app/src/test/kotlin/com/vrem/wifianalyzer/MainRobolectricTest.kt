@@ -18,11 +18,12 @@
 package com.vrem.wifianalyzer
 
 import android.Manifest
-import android.app.AlertDialog
 import android.app.Application
+import android.content.DialogInterface
 import android.os.Build
 import android.os.Looper
 import android.view.View
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.widget.Toolbar
 import androidx.test.core.app.ApplicationProvider
 import androidx.test.ext.junit.runners.AndroidJUnit4
@@ -37,7 +38,7 @@ import org.robolectric.Robolectric
 import org.robolectric.Shadows
 import org.robolectric.android.controller.ActivityController
 import org.robolectric.annotation.Config
-import org.robolectric.shadows.ShadowAlertDialog
+import org.robolectric.shadows.ShadowDialog
 
 @RunWith(AndroidJUnit4::class)
 @Config(sdk = [Build.VERSION_CODES.CINNAMON_BUN])
@@ -138,11 +139,10 @@ class MainRobolectricTest {
         activity.onOptionsItemSelected(filterMenuItem)
         Shadows.shadowOf(Looper.getMainLooper()).idle()
 
-        val dialog = ShadowAlertDialog.getLatestAlertDialog()
-        assertThat(dialog).isNotNull
+        val dialog = ShadowDialog.getLatestDialog() as AlertDialog
         assertThat(dialog.isShowing).isTrue
 
-        dialog.getButton(AlertDialog.BUTTON_NEUTRAL).performClick()
+        dialog.getButton(DialogInterface.BUTTON_NEUTRAL).performClick()
         Shadows.shadowOf(Looper.getMainLooper()).idle()
 
         assertThat(dialog.isShowing).isFalse

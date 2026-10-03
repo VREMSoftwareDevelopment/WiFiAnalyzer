@@ -20,6 +20,7 @@ package com.vrem.wifianalyzer.about
 import android.os.Build
 import android.view.View
 import android.widget.TextView
+import androidx.appcompat.app.AlertDialog
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.vrem.util.packageInfo
 import com.vrem.util.readFile
@@ -35,9 +36,8 @@ import org.mockito.kotlin.atLeastOnce
 import org.mockito.kotlin.doReturn
 import org.mockito.kotlin.verify
 import org.mockito.kotlin.whenever
-import org.robolectric.Shadows.shadowOf
 import org.robolectric.annotation.Config
-import org.robolectric.shadows.ShadowAlertDialog
+import org.robolectric.shadows.ShadowDialog
 import java.text.SimpleDateFormat
 import java.util.Date
 
@@ -191,9 +191,10 @@ class AboutFragmentTest {
         // Act
         view.performClick()
         // Assert
-        val alertDialog = ShadowAlertDialog.getLatestAlertDialog()
-        val shadowAlertDialog = shadowOf(alertDialog)
-        assertThat(shadowAlertDialog.title.toString()).isEqualTo(expectedTitle)
-        assertThat(shadowAlertDialog.message.toString()).isEqualTo(expectedMessage)
+        val alertDialog = ShadowDialog.getLatestDialog() as AlertDialog
+        val actualTitle = alertDialog.findViewById<TextView>(androidx.appcompat.R.id.alertTitle)!!.text
+        val actualMessage = alertDialog.findViewById<TextView>(android.R.id.message)!!.text
+        assertThat(actualTitle.toString()).isEqualTo(expectedTitle)
+        assertThat(actualMessage.toString()).isEqualTo(expectedMessage)
     }
 }

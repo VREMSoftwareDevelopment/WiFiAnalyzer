@@ -101,4 +101,12 @@ class WiFiSwitchTest {
         verify(fixture).startWiFiSettings()
         verify(fixture).minVersionQ()
     }
+
+    @Test
+    fun minVersionQ() {
+        // Act
+        val actual = fixture.minVersionQ()
+        // Assert
+        assertThat(actual).isTrue
+    }
 }
