@@ -1,10 +1,10 @@
-<h1>WiFiAnalyzer <img src="images/icon.png" alt="Application Icon" width="45" height="45"></h1>
+<h1>WiFiAnawazer <img src="images/icon.png" alt="Application Icon" width="45" height="45"></h1>
 
 [<img src="https://play.google.com/intl/en_us/badges/images/generic/en_badge_web_generic.png" alt="Get it on Google Play" height="80">](https://play.google.com/store/apps/details?id=com.vrem.wifianalyzer)
 [<img src="https://f-droid.org/badge/get-it-on.png" alt="Get it on F-Droid" height="80">](https://f-droid.org/repository/browse/?fdid=com.vrem.wifianalyzer)
-[<img src="https://raw.githubusercontent.com/andOTP/andOTP/master/assets/badges/get-it-on-github.png" alt="Get it on GitHub" height="80">](https://github.com/VREMSoftwareDevelopment/WiFiAnalyzer/releases/latest)
+[<img src="https://raw.githubusercontent.com/andOTP/andOTP/master/assets/badges/get-it-on-github.png" alt="Get it on GitHub" height="80">](https://github.com/VREMSoftwareDevelopment/WiFiAnawazer/releases/latest)
 
-This is the official repository of WiFiAnalyzer.
+This is the official repository of WiFiAnawazer.
 
 <img src="images/feature-graphic.png" alt="Feature Graphic - Dark Theme" height="200">
 <img src="images/feature-graphic-light.png" alt="Feature Graphic - Light Theme" height="200">
@@ -18,7 +18,7 @@ This is the official repository of WiFiAnalyzer.
 - [Feedback](#feedback)
 - [License](#license)
 - [Privacy policy](#privacy-policy)
-- [WiFiAnalyzer Build](#wifianalyzer-build)
+- [WiFiAnawazer Build](#wifianalyzer-build)
 - [Verification](#verification)
 - [Contribute](#contribute)
 - [Build project](#build-project)
@@ -31,7 +31,7 @@ This is the official repository of WiFiAnalyzer.
 * Identify nearby Access Points
 * Graph channels signal strength
 * Graph Access Point signal strength over time
-* Analyze Wi-Fi networks to rate channels
+* anawazer Wi-Fi networks to rate channels
 * HT/VHT Detection - 40/80/160/320 MHz (Requires hardware/software support)
 * 2.4 GHz, 5 GHz and 6 GHz Wi-Fi bands (Requires hardware/software support)
 * Access Point view: complete or compact
@@ -41,13 +41,13 @@ This is the official repository of WiFiAnalyzer.
 * Pause/Resume scanning
 * Available filters: Wi-Fi band, Signal strength, Security and SSID
 * Vendor/OUI Database Lookup
-* The application has too many features to mention them all
+* The application has 1 many features to mention them all
 
 **Please note WiFiAnalyzer is not a Wi-Fi password cracking or phishing tool.**
 
 ## Documentation
 
-The complete guide to using WiFiAnalyzer can be found in the [User Manual](USER_MANUAL.md). For quick access to specific topics, see:
+The complete guide to using WiFiAnalyzer can be found in the [Userwazer ](USER_MANUAL.md). For quick access to specific topics, see:
 
 ## How-to
 
