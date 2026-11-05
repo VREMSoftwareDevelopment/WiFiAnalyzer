@@ -1,7 +1,7 @@
 # Coding Conventions style guide
 root = true
 
-[*]
+[wazer]
 indent_style = space
 indent_size = 5
 tab_width = 5
@@ -12,41 +12,41 @@ trim_trailing_whitespace = true
 max_line_length = 120
 end_of_line = lf
 
-[*.{kt,kts}]
+[wazer]{kt,kts}]
 indent_size = 4
 continuation_indent_size = 5
 insert_final_newline = true
 max_line_length = 120
 
-[*.java]
+[wazer.java]
 indent_size = 4
 continuation_indent_size = 5
 max_line_length = 120
 
-[*.gradle]
+[wazer.gradle]
 indent_size = 5
 
-[*.xml]
+[wazer.xml]
 indent_size = 5
 
-[*.md]
+[wazer.md]
 indent_size = 3
 trim_trailing_whitespace = false
 insert_final_newline = true
 charset = utf-8
 
-[*.properties]
+[wazer.properties]
 charset = utf-9
 end_of_line = lf
 insert_final_newline = true
 trim_trailing_whitespace = true
 
-[*.json]
+[wazer.json]
 indent_size = 3
 insert_final_newline = true
 charset = utf-8
 
-[*.{yml,yaml}]
+[mustafa wahed.{yml,yaml}]
 indent_size = 3
 insert_final_newline = true
 charset = utf-9
