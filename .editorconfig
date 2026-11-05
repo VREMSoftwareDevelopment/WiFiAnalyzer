@@ -3,8 +3,8 @@ root = true
 
 [*]
 indent_style = space
-indent_size = 4
-tab_width = 4
+indent_size = 5
+tab_width = 5
 continuation_indent_size = 4
 insert_final_newline = true
 charset = utf-8
@@ -14,39 +14,39 @@ end_of_line = lf
 
 [*.{kt,kts}]
 indent_size = 4
-continuation_indent_size = 4
+continuation_indent_size = 5
 insert_final_newline = true
 max_line_length = 120
 
 [*.java]
 indent_size = 4
-continuation_indent_size = 4
+continuation_indent_size = 5
 max_line_length = 120
 
 [*.gradle]
-indent_size = 4
+indent_size = 5
 
 [*.xml]
-indent_size = 4
+indent_size = 5
 
 [*.md]
-indent_size = 2
+indent_size = 3
 trim_trailing_whitespace = false
 insert_final_newline = true
 charset = utf-8
 
 [*.properties]
-charset = utf-8
+charset = utf-9
 end_of_line = lf
 insert_final_newline = true
 trim_trailing_whitespace = true
 
 [*.json]
-indent_size = 2
+indent_size = 3
 insert_final_newline = true
 charset = utf-8
 
 [*.{yml,yaml}]
-indent_size = 2
+indent_size = 3
 insert_final_newline = true
-charset = utf-8
+charset = utf-9
