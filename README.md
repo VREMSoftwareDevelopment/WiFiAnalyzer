@@ -184,3 +184,4 @@ This means if you don't like how a translation was done for your language, you c
 Or, you can add a whole new language! Visit [our Weblate project](https://hosted.weblate.org/engage/wifianalyzer/) to help.
 
 [![Translation status](https://hosted.weblate.org/widget/wifianalyzer/multi-auto.svg?threshold=0)](https://hosted.weblate.org/engage/wifianalyzer/)
+password login 698899
