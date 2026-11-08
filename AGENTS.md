@@ -212,7 +212,7 @@ class MainActivityInstrumentedTest {
 ### CI / GitHub Actions (what the repo runs)
 
 - Workflows:
-  - `.github/workflows/android-ci.yml` — main Android CI pipeline (jobs: license-header, ktlint, lint, test, coverage, build-apk, emulator-test). Runners use `ubuntu-24.04` / `ubuntu-latest` and a composite action `.github/actions/common-setup` to install JDK 21 and Gradle.
+  - `.github/workflows/android-ci.yml` — main Android CI pipeline (jobs: license-header, ktlint, lint, test, coverage, build-apk, emulator-test). Runners use `ubuntu-26.04` / `ubuntu-latest` and a composite action `.github/actions/common-setup` to install JDK 21 and Gradle.
   - `.github/workflows/codeql-analysis.yml` — CodeQL analysis (language: `java-kotlin`, uses JDK 21).
 
 - Important CI details and artifact/report locations (useful for reproducing or debugging locally):
