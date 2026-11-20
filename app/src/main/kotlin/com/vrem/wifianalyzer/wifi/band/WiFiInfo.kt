@@ -125,10 +125,10 @@ internal val wiFiChannelsGHZ5 =
         WiFiChannelPair(WiFiChannel(30, 5150), WiFiChannel(184, 5920)),
         2,
         mapOf(
-            WiFiWidth.MHZ_20 to ((32..144 step WiFiWidth.MHZ_20.step) + (149..177 step WiFiWidth.MHZ_20.step)),
-            WiFiWidth.MHZ_40 to ((38..142 step WiFiWidth.MHZ_40.step) + (151..175 step WiFiWidth.MHZ_40.step)),
-            WiFiWidth.MHZ_80 to ((42..138 step WiFiWidth.MHZ_80.step) + (155..171 step WiFiWidth.MHZ_80.step)),
-            WiFiWidth.MHZ_160 to ((50..114 step WiFiWidth.MHZ_160.step) + 163),
+            WiFiWidth.MHZ_20 to ((32..68 step WiFiWidth.MHZ_20.step) + (96..144 step WiFiWidth.MHZ_20.step) + (149..177 step WiFiWidth.MHZ_20.step)),
+            WiFiWidth.MHZ_40 to ((38..62 step WiFiWidth.MHZ_40.step) + (102..142 step WiFiWidth.MHZ_40.step) + (151..175 step WiFiWidth.MHZ_40.step)),
+            WiFiWidth.MHZ_80 to ((42..58 step WiFiWidth.MHZ_80.step) + (106..138 step WiFiWidth.MHZ_80.step) + (155..171 step WiFiWidth.MHZ_80.step)),
+            WiFiWidth.MHZ_160 to listOf(50, 144, 163),
         ),
         listOf(34, 50, 66, 82, 98, 113, 129, 147, 163, 178).associateWith {
             when (it) {
@@ -139,10 +139,10 @@ internal val wiFiChannelsGHZ5 =
             }
         },
         (
-            (32..144 step WiFiWidth.MHZ_20.step) + (149..177 step WiFiWidth.MHZ_20.step) +
-                (38..142 step WiFiWidth.MHZ_40.step) + (151..175 step WiFiWidth.MHZ_40.step) +
-                (42..138 step WiFiWidth.MHZ_80.step) + (155..171 step WiFiWidth.MHZ_80.step) +
-                (50..114 step WiFiWidth.MHZ_160.step) + 163
+            (32..68 step WiFiWidth.MHZ_20.step) + (96..144 step WiFiWidth.MHZ_20.step) + (149..177 step WiFiWidth.MHZ_20.step) +
+                (38..62 step WiFiWidth.MHZ_40.step) + (102..142 step WiFiWidth.MHZ_40.step) + (151..175 step WiFiWidth.MHZ_40.step) +
+                (42..58 step WiFiWidth.MHZ_80.step) + (106..138 step WiFiWidth.MHZ_80.step) + (155..171 step WiFiWidth.MHZ_80.step) +
+                listOf(50, 144, 163)
         ).toSortedSet()
             .toList(),
         ratingChannelsGHZ5,
