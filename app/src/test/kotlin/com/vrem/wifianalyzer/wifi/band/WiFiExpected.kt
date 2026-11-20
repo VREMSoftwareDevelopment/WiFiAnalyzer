@@ -62,7 +62,7 @@ private val expectedChannelExcludeGHZ2: List<Map<String, List<Int>>> =
     expectedNACountries.map { mapOf(it to listOf(12, 13)) }
 
 private val expectedChannelExcludeGHZ5: List<Map<String, List<Int>>> =
-    expectedETSICountries.map { mapOf(it to listOf(177)) } +
+    expectedETSICountries.map { mapOf(it to (72..92).toList() + listOf(177)) } +
         listOf(
             "AU" to (120..128).toList() + listOf(177),
             "CA" to (169..177).toList(),
