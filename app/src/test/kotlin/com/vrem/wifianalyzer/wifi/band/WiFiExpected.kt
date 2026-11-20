@@ -62,7 +62,7 @@ private val expectedChannelExcludeGHZ2: List<Map<String, List<Int>>> =
     expectedNACountries.map { mapOf(it to listOf(12, 13)) }
 
 private val expectedChannelExcludeGHZ5: List<Map<String, List<Int>>> =
-    expectedETSICountries.map { mapOf(it to (72..92).toList() + listOf(177)) } +
+    expectedETSICountries.map { mapOf(it to listOf(177)) } +
         listOf(
             "AU" to (120..128).toList() + listOf(177),
             "CA" to (169..177).toList(),
@@ -138,10 +138,10 @@ val expectedWiFiInfoGHZ5 =
         (30..184).map { WiFiChannel(it, 5150 + (it - 30) * FREQUENCY_SPREAD) },
         77,
         mapOf(
-            (WiFiWidth.MHZ_20 to ((32..144 step WiFiWidth.MHZ_20.step) + (149..177 step WiFiWidth.MHZ_20.step))),
-            (WiFiWidth.MHZ_40 to ((38..142 step WiFiWidth.MHZ_40.step) + (151..175 step WiFiWidth.MHZ_40.step))),
-            (WiFiWidth.MHZ_80 to ((42..138 step WiFiWidth.MHZ_80.step) + (155..171 step WiFiWidth.MHZ_80.step))),
-            (WiFiWidth.MHZ_160 to ((50..114 step WiFiWidth.MHZ_160.step) + 163)),
+            (WiFiWidth.MHZ_20 to ((32..68 step WiFiWidth.MHZ_20.step) + (96..144 step WiFiWidth.MHZ_20.step) + (149..177 step WiFiWidth.MHZ_20.step))),
+            (WiFiWidth.MHZ_40 to ((38..62 step WiFiWidth.MHZ_40.step) + (102..142 step WiFiWidth.MHZ_40.step) + (151..175 step WiFiWidth.MHZ_40.step))),
+            (WiFiWidth.MHZ_80 to ((42..58 step WiFiWidth.MHZ_80.step) + (106..138 step WiFiWidth.MHZ_80.step) + (155..171 step WiFiWidth.MHZ_80.step))),
+            (WiFiWidth.MHZ_160 to (listOf(50, 144, 163))),
         ),
         listOf(34, 50, 66, 82, 98, 113, 129, 147, 163, 178).associateWith {
             when (it) {
@@ -152,10 +152,10 @@ val expectedWiFiInfoGHZ5 =
             }
         },
         (
-            (32..144 step WiFiWidth.MHZ_20.step) + (149..177 step WiFiWidth.MHZ_20.step) +
-                (38..142 step WiFiWidth.MHZ_40.step) + (151..175 step WiFiWidth.MHZ_40.step) +
-                (42..138 step WiFiWidth.MHZ_80.step) + (155..171 step WiFiWidth.MHZ_80.step) +
-                (50..114 step WiFiWidth.MHZ_160.step) + 163
+            (32..68 step WiFiWidth.MHZ_20.step) + (96..144 step WiFiWidth.MHZ_20.step) + (149..177 step WiFiWidth.MHZ_20.step) +
+                (38..62 step WiFiWidth.MHZ_40.step) + (102..142 step WiFiWidth.MHZ_40.step) + (151..175 step WiFiWidth.MHZ_40.step) +
+                (42..58 step WiFiWidth.MHZ_80.step) + (106..138 step WiFiWidth.MHZ_80.step) + (155..171 step WiFiWidth.MHZ_80.step) +
+                listOf(50, 144, 163)
         ).toSortedSet()
             .toList(),
         expectedRatingChannelsGHZ5,
